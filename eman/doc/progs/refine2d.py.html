@@ -1,0 +1,27 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/refine2d.py.html</TITLE></HEAD><BODY background=../paper01.jpg>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>refine2d.py</h1>
+<p><h3>This is a program for iterative MSA-based particle classification and averaging</h3>
+refine2d.py  [--iter=&lt;i>] [--ninitcls=&lt;n>] [--finalsep=&lt;n2>] [--nbasis=&lt;b>] [--proc=&lt;p>] [--ctfcw=&lt;sffile>] [--minptcl=&lt;m>] [--aliref=&lt;ref img>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>[--iter=&lt;i>]</td><td>Number of iterations. 10 is almost always sufficient. For less noisy data 3-4 may be enough.</td></tr>
+<tr><td>[--ninitcls=&lt;n>]</td><td>Number of classes to generate (though some may be discarded). Typically &lt; #ptcl/10</td></tr>
+<tr><td>[--finalsep=&lt;n2>]</td><td>In the final iteration, each class will be subdivided into n2 subclasses, producing n*n2 classes</td></tr>
+<tr><td>[--nbasis=&lt;b>]</td><td>Number of basis vectors to use in SVD. Default is usually fine.</td></tr>
+<tr><td>[--proc=&lt;p>]</td><td>Number of processors to use (EMAN standard classification routine)</td></tr>
+<tr><td>[--ctfcw=&lt;sffile>]</td><td>Perform full CTF amplitude correction when making final class-averages. Only used in the final iteration.</td></tr>
+<tr><td>[--minptcl=&lt;m>]</td><td>Minimum number of particles in a class to keep.</td></tr>
+<tr><td>[--aliref=&lt;ref img>]</td><td>If specified, the first image will be used as an alignment reference for the first class-average to help 'anchor' the set</td></tr>
+</table><br><h3>Usage:</h3>
+<p>refine2d.py --iter=8 --ninitcls=50 --proc=4 particles.hed
+<h3>Description</h3>
+<P>This program will generate very high quality 2-D class averages based on a SVD/MSA iterative
+classification scheme. It is not typically involved in the 3-D reconstruction process other
+than perhaps to generate an initial model, due to resolution and noise bias issues, but for
+2-D analysis, it performs extrememly well.
+<P>This program produces a large number of intermediate/output files. It is suggested that you run
+it in an empty directory. The main output files are : iter.final.*
+<P>Many 'tricky' things can be done with the results of refine2d.py. Check the FAQ on the EMAN wiki
+for tips on how to use this for dynamics analysis, particle separation, etc.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

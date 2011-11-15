@@ -1,0 +1,45 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/cenalignint.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>cenalignint</h1>
+<p><h3>This iteratively centers a set of particles, using only integer shifts to avoid interpolation artifacts.</h3>
+cenalignint  &lt;input file> [frac=&lt;0 to d-1>/&lt;d>] [mask=&lt;rad>] [maxshift=&lt;pixels>] [usefilt]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>File containing images to center</td></tr>
+<tr><td>[frac=&lt;0 to d-1>/&lt;d>]</td><td>Processes a fraction of the input file.</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>Applies a mask to the centered images</td></tr>
+<tr><td>[maxshift=&lt;pixels>]</td><td>Maximum shift in pixels</td></tr>
+<tr><td>[usefilt]</td><td>Use .filt file (filtered particles) for centering, but write original images in output</td></tr>
+</table><br><h3>Usage:</h3>
+<p>cenalignint init.img frac=0,4
+<p>cenalignint init.img frac=1,4
+<p>cenalignint init.img frac=2,4
+<p>cenalignint init.img frac=3,4
+<h3>Description</h3>
+<P>Cenalignint is used to take a set of boxed particles and move each
+particle to the center of its box (+- 1 pixel). This is accomplished by
+iteratively aligning each particle to a rotationally averaged image which
+is the average of all of the particles. This process may not work well for
+all particles. It typically works very well on objects with high symmetry
+(icosahedral viruses), and seems to work well on many objects with lower
+symmetry. Note that this program does only integer pixel translations,
+so no interpolation is done.
+<P>This program is not used by the standard refinement proceedure, but can
+be used manually before the refinement loop for several purposes: 1)
+After centering the particles it may be possible to reduce the size (in
+pixels) of the entire particle set. This will reduce the processing time
+in the refinement process.  2) Some unusable particles can be eliminated
+so processor time isn't wasted on them later.  3) The refinement loop
+may work a little better/converge faster if the particles start out near
+the center of their boxes.
+<P>If, during the iterative loop, a particle does not seem to align
+to a consistent center, that particle is discarded and written to
+'bad.hed'. All sucessfully aligned images are written to 'ali.hed'. The
+reference image used for alignment after each iteration is stored in
+'avg.hed'. This file can be examined to see if convergence really has
+been reached.
+<P>This process generally works better if the references, and eventually
+the particles, can be masked during each step. The mask radius should
+be specified so the mask is just larger than the largest axis of your
+particle.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

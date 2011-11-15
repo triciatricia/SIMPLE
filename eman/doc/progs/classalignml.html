@@ -1,0 +1,27 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/classalignml.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>classalignml</h1>
+<p><h3>Aligns a set of images using maximum likelihood</h3>
+classalignml  &lt;input file> &lt;iterations> [ref1] [finalref] [savesteps] [saverefs] [mask=&lt;rad>] [locfromfile] [ctfc=&lt;res>] [ctfcw=&lt;SF file>] [even|odd] [maxtran=&lt;dist>] [verbose]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>Input file, usually a cls*img file</td></tr>
+<tr><td>&lt;iterations></td><td>Number of iterative loops</td></tr>
+<tr><td>[ref1]</td><td>Indicates that the first image in the file is a reference</td></tr>
+<tr><td>[finalref]</td><td>Once the average has been generated, a final alignment to the reference is performed</td></tr>
+<tr><td>[savesteps]</td><td>Save the class average after each iterative step to monitor convergence</td></tr>
+<tr><td>[saverefs]</td><td>Write the reference image as well as the class average to the output file</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>Circular mask radius for the class average</td></tr>
+<tr><td>[locfromfile]</td><td>Determine the output file image position from the input filename.</td></tr>
+<tr><td>[ctfc=&lt;res>]</td><td>Enables CTF correction, thru resolution &lt;res> in angstroms.</td></tr>
+<tr><td>[ctfcw=&lt;SF file>]</td><td>Enables CTF correction, with Wiener filtration, requires s vs inten struct. factor file.</td></tr>
+<tr><td>[even|odd]</td><td>Only use the even or odd images in the input file</td></tr>
+<tr><td>[maxtran=&lt;dist>]</td><td>Maximum translational shift</td></tr>
+<tr><td>[verbose]</td><td>Display details during optimization</td></tr>
+</table><br><h3>Usage:</h3>
+<p>classalignml cls000.hed 8 ref1 finalref saverefs mask=32 keep=.8 locfromfile ctfc=15
+<h3>Description</h3>
+<P>Generates a class-average from a set of particle images using a maximum liklihood technique.
+This program is still highly experimental and should not be used unless you feel like playing
+with the code.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

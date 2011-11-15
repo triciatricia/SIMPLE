@@ -1,0 +1,3 @@
+This program will align a set of images to a reference
+Usage:
+align2d  <fixed input> <input> <output> [fixn=<n>] [noflip] [precen] [seqali] [eulali] [pgm] [log] [edgenorm] [keepeulers]

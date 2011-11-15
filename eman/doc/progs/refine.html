@@ -1,0 +1,84 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/refine.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>refine</h1>
+<p><h3>This is the main refinement loop in EMAN. It has a tremendous number of options.</h3>
+refine  &lt;total iter> mask=&lt;rad> [proc=&lt;maxproc>] [hard=&lt;maxpr>] [simple] [ctfc=&lt;res in A>] [ctfcw=&lt;SF file>] [phaseopt] [setsf=&lt;lowpass res>[,&lt;highpass res>[,&lt;SF file>]] [median] [nweight] [sym=&lt;c2,c4,etc>] [ang=&lt;dang>] [anglist=&lt;file>] [maxshift=&lt;rad>] [pad=&lt;size>] [classkeep=&lt;sigma coef>] [classiter=&lt;iter>] [refmaskali] [filt3d=&lt;lp rad>] [sep=&lt;n>] [xfiles=&lt;a/pix>,&lt;mass in kd>,&lt;ali to>] [3dit=&lt;n it>] [3dit2=&lt;n it>] [speed=&lt;1-5>] [sigfilt] [euler2=&lt;oversmp>] [tree=&lt;2,3>] [imask=&lt;rad>] [amask=&lt;r>,&lt;thr>,&lt;n iter>] [planarmask=&lt;thickness>] [goodbad] [slow] [refine] [shrink=&lt;n>] [projbatches=&lt;n>] [ca3] [classfp=&lt;msa#>] [perturb] [usefilt] [rfp] [precen] [phasecls] [fscls] [axialfilt=&lt;res>] [msa=&lt;proj>] [mra2] [3dr[=&lt;range>]] [d3s=&lt;sigmult>] [collapse=&lt;ang>] [dfilt] [frm2d[=&lt;rad>,&lt;samp>]] [classalign2log] [continue] [norm3d]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;total iter></td><td>Total number of iterations to be run in the current directory</td></tr>
+<tr><td>mask=&lt;rad></td><td>Applies an outside mask at several stages of refinement</td></tr>
+<tr><td>[proc=&lt;maxproc>]</td><td>Number of proceesors to use for parallel processing</td></tr>
+<tr><td>[hard=&lt;maxpr>]</td><td>Hard limit for &lt;a href=make3d.html>make3d&lt;/a></td></tr>
+<tr><td>[simple]</td><td>Use 'make3dsimple inorm'</td></tr>
+<tr><td>[ctfc=&lt;res in A>]</td><td>Performs CTF correction filtered to the specified resolution (see &lt;a href=classalignall.html>classalignall&lt;/a>)</td></tr>
+<tr><td>[ctfcw=&lt;SF file>]</td><td>Performs CTF correction with Wiener filtration using a structure factor specified in a file</td></tr>
+<tr><td>[phaseopt]</td><td>Experimental modification to class-averaging</td></tr>
+<tr><td>[setsf=&lt;lowpass res>[,&lt;highpass res>[,&lt;SF file>]]</td><td>Applies a final filter to set the radial structure factor to match the ctfcw structure factor multiplied by a gaussian filter. Filter is specified in A.</td></tr>
+<tr><td>[median]</td><td>Specify this when CTF correction is NOT being performed</td></tr>
+<tr><td>[nweight]</td><td>Used when start.hed contains averages, to properly weight during further averaging. This will not work in conjunction with median or ctfc/w.</td></tr>
+<tr><td>[sym=&lt;c2,c4,etc>]</td><td>Imposes symmetry on the model, omit this option for no/unknown symmetry</td></tr>
+<tr><td>[ang=&lt;dang>]</td><td>Angular step for projections (in degrees, see 'prop' in &lt;a href=project3d.html>project3d&lt;/a>)</td></tr>
+<tr><td>[anglist=&lt;file>]</td><td>Use Euler angles included in this file for projection</td></tr>
+<tr><td>[maxshift=&lt;rad>]</td><td>Maximum translation during image alignment</td></tr>
+<tr><td>[pad=&lt;size>]</td><td>Pads the model during Fourier reconstruction (see &lt;a href=make3d.html>make3d&lt;/a>)</td></tr>
+<tr><td>[classkeep=&lt;sigma coef>]</td><td>Classkeep value for &lt;a href=classalignall.html>classalignall&lt;/a></td></tr>
+<tr><td>[classiter=&lt;iter>]</td><td>Iterations for &lt;a href=classalignall.html>classalignall&lt;/a></td></tr>
+<tr><td>[refmaskali]</td><td>This passes the refmaskali option to classalignall if the amask option is being used, otherwise refmask is used when amask is specified.</td></tr>
+<tr><td>[filt3d=&lt;lp rad>]</td><td>Apply a lowpass filter to the model after each iteration, this occurs before 3dit</td></tr>
+<tr><td>[sep=&lt;n>]</td><td>This option is passed to &lt;a href=classesbymra.html>classesbymra&lt;/a></td></tr>
+<tr><td>[xfiles=&lt;a/pix>,&lt;mass in kd>,&lt;ali to>]</td><td>Used to generate 3d models that are easy to evaluate</td></tr>
+<tr><td>[3dit=&lt;n it>]</td><td>After constructing a model with Fourier reconstruction, this runs n iterations of real-space model 'cleansing' This option isdeprecated, suggest not using it</td></tr>
+<tr><td>[3dit2=&lt;n it>]</td><td>This is real-space refinement with a special noise elimination feature enabled. This option is deprecated, suggest not using it</td></tr>
+<tr><td>[speed=&lt;1-5>]</td><td>Speed parameter in clean3d (3dit,3dit2). Convergence rate, 1 dfl</td></tr>
+<tr><td>[sigfilt]</td><td>Applies a 1-sigma real-space filter to images at various points</td></tr>
+<tr><td>[euler2=&lt;oversmp>]</td><td>Reassigns Euler angles to class averages with an optionally reduced angular increment. ie - 2 will use ang/2 (see &lt;a href=classesrefs.html>classesrefs&lt;/a></td></tr>
+<tr><td>[tree=&lt;2,3>]</td><td>Faster classifications for large numbers of projections (see &lt;a href=classesbymra.html>classesbymra&lt;/a>. Limited parallel support, see text.</td></tr>
+<tr><td>[imask=&lt;rad>]</td><td>Applies an inside mask in several stages of refinement</td></tr>
+<tr><td>[amask=&lt;r>,&lt;thr>,&lt;n iter>]</td><td>This applies an automask between steps in a reconstruction. see automask2 in &lt;a href=proc3d.html>proc3d&lt;/a>. REQUIRES xfiles to be used.</td></tr>
+<tr><td>[planarmask=&lt;thickness>]</td><td>Masks the object along the z-axis with a total thickness specified in pixels.</td></tr>
+<tr><td>[goodbad]</td><td>Saves good and bad class averages from 3D reconstruction. Overwrites each new iteration.</td></tr>
+<tr><td>[slow]</td><td>This will use a very slow, exhaustive search, algorithm for 2D alignments. VERY SLOW</td></tr>
+<tr><td>[refine]</td><td>This will do subpixel alignment of the particle translations for classification and averaging. May have a significant impact at higher resolutions.</td></tr>
+<tr><td>[shrink=&lt;n>]</td><td>Experimental, shrinks images at several points for faster runs</td></tr>
+<tr><td>[projbatches=&lt;n>]</td><td>Experimental, split the projection into n batches to minimize total memory requirement</td></tr>
+<tr><td>[ca3]</td><td>Experimental. Uses classalign3 instead of classalign2</td></tr>
+<tr><td>[classfp=&lt;msa#>]</td><td>Experimental, classification using rotational/translational invariants</td></tr>
+<tr><td>[perturb]</td><td>Experimental option to produce a more uniform distribution of points in 3D Fourier space.</td></tr>
+<tr><td>[usefilt]</td><td>Experimental</td></tr>
+<tr><td>[rfp]</td><td>Experimental, classification using rotational footprints</td></tr>
+<tr><td>[precen]</td><td>Indicates that raw particles have been accurately precentered (experimental)</td></tr>
+<tr><td>[phasecls]</td><td>Uses weighted mean phase error for classification (experimental)</td></tr>
+<tr><td>[fscls]</td><td>Uses FSC for classification (experimental)</td></tr>
+<tr><td>[axialfilt=&lt;res>]</td><td>See proc3d, 0 provides maximal effect.</td></tr>
+<tr><td>[msa=&lt;proj>]</td><td>Experimental</td></tr>
+<tr><td>[mra2]</td><td>Experimental</td></tr>
+<tr><td>[3dr[=&lt;range>]]</td><td>Experimental</td></tr>
+<tr><td>[d3s=&lt;sigmult>]</td><td>Experimental</td></tr>
+<tr><td>[collapse=&lt;ang>]</td><td>Experimental</td></tr>
+<tr><td>[dfilt]</td><td>Experimental</td></tr>
+<tr><td>[frm2d[=&lt;rad>,&lt;samp>]]</td><td>This will classify using Fast Rotational Matching 2D. rad is the maximum radius of particles; samp is the number of angular sampling points at each radius circle</td></tr>
+<tr><td>[classalign2log]</td><td>Experimental. Calls classalign2 with classalign2log option to print out particle that were used in the class average.</td></tr>
+<tr><td>[continue]</td><td>If a job is killed in the middle of an iteration, this will allow it to pick up where it left off. Otherwise the last iteration will start from the beginning.</td></tr>
+<tr><td>[norm3d]</td><td>Pass the 'norm' option in to the &lt;a href=make3d.html>'make3d'&lt;/a> command.</td></tr>
+</table><br><h3>Usage:</h3>
+<p>refine 5 ang=3 mask=28 pad=96 hard=25 classkeep=.3 classiter=8 proc=12 sym=d7 ctfc=12 sep=2 xfiles=4.2,1000,40 
+<h3>Description</h3>
+<P>Note: Despite the experimental tags, the 'phasecls' and 'fscls' almost always produce better results
+than the default linear variance classifier. Note that these options are mutually exclusive.
+<P>This is the main refinement command in EMAN. You should have your starting
+images in 'start.img' and your initial 3D model in threed.0a.mrc. The
+'refine' command will then refine this model iteratively. Note that the
+'total number of iterations' specifies the
+number of iterations the program will finish with. If 5 iterations have
+been run, then 'refine 8 ...' is run, the program will pick up after 5
+iterations and run only 3 more cycles. If you want to start over again
+from the first iteration, you must remove all of the 'threed.?.mrc'
+files (except for 0a) and all of the 'classes.?.mrc' files.
+<P>Most of the options are simply passed through to other programs. Typical options
+for this program can be determined by running <a href=eman.html>eman</a> and following the reconstruction
+procedure it provides.
+<P>The tree option may not work in certian parallel configurations, such as grid configurations
+where the filesystem isn't cross-mounted.
+<P>'frm2d' better used in combination with maxshift, which indicates the 
+center of mass uncertainty. 
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

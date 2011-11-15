@@ -1,0 +1,18 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/classesbymradfilt.py.html</TITLE></HEAD><BODY background=../paper01.jpg>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>classesbymradfilt.py</h1>
+<p><h3>This program is a new version of classesbymra using the dfilt option</h3>
+classesbymradfilt.py  &lt;particles> &lt;refrences> [frac=&lt;num>/&lt;denom>] [mask=&lt;rad>] [refmask] [maxshift=&lt;rad>] [ctfc] [logit=&lt;label>] [refine] [usefilt]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;particles></td><td>Raw particle filespec	</td></tr>
+<tr><td>&lt;refrences></td><td>Reference image filespec</td></tr>
+<tr><td>[frac=&lt;num>/&lt;denom>]</td><td>Operate only on a fraction of the raw images</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>Mask the classified particles, also reduces noise for better classification</td></tr>
+<tr><td>[refmask]</td><td>This will use a mask generated from the reference image. Assumes the 3D model has been sensibly masked.</td></tr>
+<tr><td>[maxshift=&lt;rad>]</td><td>Maximum translation during image alignment</td></tr>
+<tr><td>[ctfc]</td><td>Projections are CTF corrected before comparison</td></tr>
+<tr><td>[logit=&lt;label>]</td><td>This specifies a label to use in the particle.log file. This records particle number classification throughout a refinement.</td></tr>
+<tr><td>[refine]</td><td>Refines 2D alignment done with fast algorithm. Slower, but not 'slow'.</td></tr>
+<tr><td>[usefilt]</td><td>Use the 'filt' version of the input file for classification.</td></tr>
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

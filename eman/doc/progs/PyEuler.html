@@ -1,0 +1,54 @@
+<html>
+<head><title>EMAN Reference: Euler Class</title></head>
+<body bgcolor="#f0f0f0">
+<h1> <center>EMAN Reference: Euler Class</center> </h1>
+<br>
+<table border=1 cellpadding=3 cellspacing=3>
+  <tr><td><font color=blue>alpha</font></td><td>float alpha()</td></tr>
+  <tr><td><font color=blue>alt</font></td><td>float alt()</td></tr>
+  <tr><td><font color=blue>az</font></td><td>float az()</td></tr>
+  <tr><td><font color=blue>beta</font></td><td>float beta()</td></tr>
+  <tr><td><font color=blue>diff</font></td><td>float diff(Euler angle, bool nophi=true) <br>  find angle between two direction vectors</td></tr>
+  <tr><td><font color=blue>e0</font></td><td>float e0()</td></tr>
+  <tr><td><font color=blue>e1</font></td><td>float e1()</td></tr>
+  <tr><td><font color=blue>e2</font></td><td>float e2()</td></tr>
+  <tr><td><font color=blue>e3</font></td><td>float e3()</td></tr>
+  <tr><td><font color=blue>Euler</font></td><td>Euler();<br>Euler(float a1, float a2, float a3); <br>Euler(float a1, float a2, float a3, EulerType type); <br>Euler(float e1, float e2, float e3, float e0, EulerType type);</td></tr>
+  <tr><td><font color=blue>EulerMult</font></td><td>Euler EulerMult(Euler bc) <br>  returns the value of the given rotation</td></tr>
+  <tr><td><font color=blue>FirstSym</font></td><td>Euler FirstSym() <br>  initializes</td></tr>
+  <tr><td><font color=blue>fromLeft</font></td><td>fromLeft(Euler leftEuler) <br>  rotates a given rotation  on the left <br><br> fromLeft(alt, az, phi) <br>  rotates a given rotation  on the left</td></tr>
+  <tr><td><font color=blue>fromMRC</font></td><td>fromMRC(theta, phi, omega) <br>  set from MRC angles </td></tr>
+  <tr><td><font color=blue>gamma</font></td><td>float gamma()</td></tr>
+  <tr><td><font color=blue>gammaSpider</font></td><td>float gammaSpider()</td></tr>
+  <tr><td><font color=blue>getByType</font></td><td>tuple getByType(EulerType type) <br>  Return Euler values in a tuple given a type.</td></tr>
+  <tr><td><font color=blue>getMaxSymEl</font></td><td>int getMaxSymEl() <br>  gets the order of the group</td></tr>
+  <tr><td><font color=blue>increment</font></td><td>increment(float delta_alt, float delta_az, float del_phi) <br>  increment an Euler in place</td></tr>
+  <tr><td><font color=blue>init</font></td><td>init() <br>  initialize an Euler instance.</td></tr>
+  <tr><td><font color=blue>inverse</font></td><td>Euler inverse() <br>  takes the inverse of an Euler instance</td></tr>
+  <tr><td><font color=blue>n1</font></td><td>float n1()</td></tr>
+  <tr><td><font color=blue>n1sgi</font></td><td>float n1sgi()</td></tr>
+  <tr><td><font color=blue>n2</font></td><td>float n2()</td></tr>
+  <tr><td><font color=blue>n2sgi</font></td><td>float n2sgi()</td></tr>
+  <tr><td><font color=blue>n3</font></td><td>float n3()</td></tr>
+  <tr><td><font color=blue>n3sgi</font></td><td>float n3sgi()</td></tr>
+  <tr><td><font color=blue>NextSym</font></td><td>Euler NextSym()</td></tr>
+  <tr><td><font color=blue>omegaMRC</font></td><td>float omegaMRC()</td></tr>
+  <tr><td><font color=blue>phi</font></td><td>float phi()</td></tr>
+  <tr><td><font color=blue>phiMRC</font></td><td>float phiMRC()</td></tr>
+  <tr><td><font color=blue>phiSpider</font></td><td>float phiSpider()</td></tr>
+  <tr><td><font color=blue>Print</font></td><td>print(string id=None, FILE out=stdout)</td></tr>
+  <tr><td><font color=blue>printMatrix</font></td><td>printMatrix(string id=None, FILE out=stdout)</td></tr>
+  <tr><td><font color=blue>Q</font></td><td>float Q()</td></tr>
+  <tr><td><font color=blue>Qsgi</font></td><td>float Qsgi()</td></tr>
+  <tr><td><font color=blue>rectify</font></td><td>rectify() <br>  rectify an Euler instance.</td></tr>
+  <tr><td><font color=blue>resetSym</font></td><td>resetSym() <br>  initializes symcounter_ without ing 1st element</td></tr>
+  <tr><td><font color=blue>setAngle</font></td><td>setAngle(float a1, float a2, float a3, EulerType type = Euler.EMAN) <br>setAngle(float e1, float e2, float e3, float e0, EulerType type)</td></tr>
+  <tr><td><font color=blue>setByType</font></td><td>setByType(tuple value, EulerType type) <br>  Set Euler values given a tuple and the type.</td></tr>
+  <tr><td><font color=blue>setSym</font></td><td>setSym(string symmetry) <br>  initialize symcounter to zero</td></tr>
+  <tr><td><font color=blue>SymN</font></td><td>Euler SymN(n) <br>  returns the n'th symmetric element</td></tr>
+  <tr><td><font color=blue>thetaMRC</font></td><td>float thetaMRC()</td></tr>
+  <tr><td><font color=blue>thetaSpider</font></td><td>float thetaSpider()</td></tr>
+  <tr><td><font color=blue>valid</font></td><td>int valid()</td></tr>
+</table>
+</body>
+</html>

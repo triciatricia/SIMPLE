@@ -1,0 +1,25 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/make3dreal.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>make3dreal</h1>
+<p><h3>This program builds a 3d model from a set of projections (class averages) using unfiltered back-projection</h3>
+make3dreal  &lt;input file> [out=&lt;outfile>] [noweight] [sym=&lt;c4,icos,etc>] [mask=&lt;rad>] [fftmerge=&lt;fftmodel>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>File containing class averages</td></tr>
+<tr><td>[out=&lt;outfile>]</td><td>Output 3D MRC file</td></tr>
+<tr><td>[noweight]</td><td>Normally the class averages are weighted by the number of raw particles used, this disables that</td></tr>
+<tr><td>[sym=&lt;c4,icos,etc>]</td><td>The symmetry to apply to the model </td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>real-space mask radius</td></tr>
+<tr><td>[fftmerge=&lt;fftmodel>]</td><td>Fourier model to merge with real model</td></tr>
+</table><br><h3>Usage:</h3>
+<p>make3dreal classes.1.img out=threed.1.mrc sym=c4 mask=42
+<h3>Description</h3>
+<P>This program is used to build a 3d model from a set of projections/class
+averages. The individual projections must already have assigned euler
+angles in their headers. This program builds a model using unfiltered
+back-projection. It is intended to be combined with a Fourier model,
+or some other filtering technique.
+<P>'sym=<symmetry>' specifies the symmetry of the 3d model. If nothing is
+specified, the model is assumed to have no symmetry. Currently, only
+Cn, Dn, oct and icos symmetries are supported.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

@@ -1,0 +1,3 @@
+This performs multivariate statistical analysis on 2 sets of invariants
+Usage:
+msa2  <input fp 1> <input fp 2> <out foot file 1> <out foot file 2> <final n2 value>

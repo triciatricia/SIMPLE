@@ -1,0 +1,102 @@
+
+T1###EMAN will generate a customized set of instructions which will
+take you through the single particle reconstruction process step by step.
+Before using this form, insure that you ran 'eman' from the directory
+where you plan to run your reconstruction. Then fill out the information
+below. This will generate the first set of instructions.# #
+
+Luser#Beginner,Expert#
+#User Level
+#If you are a beginner, this will provide a more
+detailed set of instructions. Experts receive only
+a basic checklist.#
+
+Fvoltage#20,1200
+##Microscope voltage (kV)
+#The microscope voltage used when your recoreded your data.
+You can leave this blank if not performing CTF correction.#
+
+Fcsubs#.1,20
+##spherical aberration (mm)
+#This is a basic microscope parameter. If you're not performing CTF
+correction, you can leave this blank. If you don't know this
+number, ask someone who does.#
+
+Fmag#1,100000
+##Magnification in thousands
+#Microscope magnification in 1,000x.#
+
+Fscandpi#1,100000
+##Scan step (dpi)
+#This is the resolution used when scanning the micrographs.#
+
+Fscan#1,100000
+##Scan step (microns)
+#This is the step size used when scanning the micrographs, or
+alternatively the pixel size of your CCD camera if using
+CCD frames.#
+
+Fapix#.1,50,3
+##Angstroms per pixel
+#This is the effective per pixel sampling in the images
+to be processed.#
+
+Ipsize#0,100000
+##Particle Size (angstroms)
+#The approximate longest linear dimension of your particle.
+If you have to guess, too high is better than too low.#
+
+Ibsize#0,5000
+##Box Size (pixels)
+#The box size in pixels you plan to use for selecting particles.
+This should be somewhat larger than the box, and it's a good
+idea if it's a multiple of 8, or at least 4.#
+
+Lctf#Full,1st Zero#
+#CTF Correction
+#The contrast transfer function of the microscope (CTF) can
+be corrected fully using several micrographs taken at a range
+of defocuses, or a rough structure can be generated without
+CTF correction from micrographs at approximately the same
+defocus. The second method will limit the resolution of
+the reconstruction to the 1st zero of the CTF. Usually it's
+a good idea to start with a 1st zero reconstruction, then
+use this as a starting point for a fully corrected model.#
+
+Fres#1,100
+##Desired resolution in A (start low)
+#This is the reconstruction resolution you will try to
+achieve. If you have not done any analysis yet, make an
+educated guess based on your microscope. Be somewhat
+conservative. It is often best to start with a low
+resolution reconstruction, then improve it.#
+
+Iimage#0,40000
+##Size of image to be boxed in pixels
+#Enter the typical size in pixels of the images you
+will be boxing particles from. For example if the typical
+image is 4000x6000, enter 5000. This number need not
+be exact. If you have already boxed your particles out
+with other software, just enter zero here.#
+
+Imemory#0,100000
+##Memory (in megs/processor)
+#The amount of memory on your computer. If you have
+a multiprocessor shared memory machine, enter the
+amount of memory per processor.#
+
+Iproc#0,1024
+##Available Processors
+#The number of processors you expect to use on the machine
+you will do the refinement on. Note that eman only supports
+shared memory machines at this time. For typical computers this
+will be 1.#
+
+Ispeed#0,100000
+##Speed test index
+#Run 'speedtest' on the machine you plan to do your reconstructions
+on. Make sure the machine is mostly idle when running this test. This
+number will be used to estimate how much time a reconstruction will
+require.#
+
+BDONE###Click here when done##

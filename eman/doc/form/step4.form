@@ -1,0 +1,11 @@
+
+T2###You should now have a refined 3d model of some sort. This could
+be good, it could be awful. This step will help you examine the
+results of the refinement and decide where to go next.# #
+
+T3###There's nothing to enter here. Just make SURE that you ran eman
+from the directory where you ran the 'refine' command in the last step.
+When you click 'Ready', eman will help you perform some analysis on 
+the files in this directory.# #
+
+BReady###Click here when ready## 

@@ -1,0 +1,59 @@
+9 April 2009
+
+Got FFTW3 from: www.fftw.org/download.html http: fftw-3.2.1.tar.gz
+gunzip
+tar xvf
+
+In: /usr/local/spider/fftw/fftw-opt64-b   
+
+237% which pgf95
+/scratch/pgi/linux86-64/8.0-4/bin/pgf95
+
+On: valcour 
+
+./configure F77=pgf95 CC=pgcc --enable-openmp --enable-float
+
+make
+
+mkdir lib
+
+
+cp ./.libs/libfftw3f.a ./threads/.libs/libfftw3f_threads.a lib
+
+
+------------------ earlier info for fftw 3.1.2 -------------------------
+
+Dec 7 2007 A. Leith on peebles: (Opteron 64)
+Redone 27 Dec specifying: -tp k8-64
+without this does not run on samoa  gets illegal op during run
+samoa has earlier chip than the cluster nodes.
+
+
+in: /usr/local/spider/fftw/fftw3-opt64
+
+Source code and documentation for FFTW 3.1.2  downloaded from
+ FFTW  server at: http://www.fftw.org/download.html
+
+setenv F90 /usr/pgi/linux86-64/7.1/bin/pgf95
+setenv F77 /usr/pgi/linux86-64/7.1/bin/pgf95
+setenv CC  /usr/pgi/linux86-64/7.1/bin/pgcc
+
+setenv CFLAGS "-Bstatic -tp k8-64 -fastsse -O2 -fpic"
+
+./configure --enable-float --enable-threads --with-openmp --enable-k7  --enable-type-prefix  FAILS compilation
+./configure --enable-float --enable-threads --with-openmp --enable-type-prefix  
+
+make
+
+TYPICAL LINES: --------------------
+/bin/sh ../libtool --tag=CC --mode=compile /usr/pgi/linux86-64/7.1/bin/pgcc -Masmkeyword -DHAVE_CONFIG_H -I. -I. -I..  -I../simd   -Bstatic -tp k8-64 -fastsse -O2 -fpic -mp -c -o iabs.lo iabs.c
+
+ /usr/pgi/linux86-64/7.1/bin/pgcc -Masmkeyword -DHAVE_CONFIG_H -I. -I. -I.. -I../simd -Bstatic -tp k8-64 -fastsse -O2 -fpic -mp -c iabs.c -o iabs.o
+-----------------------
+
+mkdir lib
+cp .libs/*  lib
+
+cd threads
+cp  .libs/libfftw3f_threads.a ../lib
+

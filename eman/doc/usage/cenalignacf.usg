@@ -1,0 +1,3 @@
+This program will center a set of particles using an autocorrelation function
+Usage:
+cenalignacf  <input file> [mask=<rad>] [maxshift=<pix>]

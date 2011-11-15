@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="StarOffice/5.0 (Unix)">
+	<META NAME="AUTHOR" CONTENT="Steve Ludtke">
+	<META NAME="CREATED" CONTENT="19981215;23321300">
+	<META NAME="CHANGEDBY" CONTENT="Steve Ludtke">
+	<META NAME="CHANGED" CONTENT="19990123;21162700">
+	<STYLE>
+	<!--
+	-->
+	</STYLE>
+</HEAD>
+<BODY>
+<H1>EMAN Tutorial</H1>
+<H2>How to do a Reconstruction</H2>
+<H3>Particle with icosahedral symmetry</H3>
+<P><I><FONT COLOR="#ff0000">WARNING:</FONT> While EMAN does have
+support for icosahedral symmetry, it has not yet been tested or
+optimized completely. It may work well, it may work poorly, it may
+not work at all (depending on the particle). In the release version
+this support should be more complete, with options for using
+techniques specific to icosahedral particles. Feel free to experiment
+with the current version, but please don't judge the program based on
+the current state of icosahedral reconstructions!</I></P>
+<P>The first step in performing an icosahedral reconstruction is
+generating a preliminary model. This is accomplished by searching for
+particles with 5 fold, 3 fold and 2 fold symmetry. These 3 views are
+then used to construct an initial model which is then refined. No CTF
+correction is done in this part of the procedure. The model generated
+here is usually very bad. This is expected and is not a problem.
+Don't expect this model to look anything like your final
+reconstruction.</P>
+<OL>
+	<LI><P><A HREF="starticos.1.html" TARGET="detail">Determine defocus
+	of particles from each micrograph.</A> (<A HREF="http://../progs/ctfit.html">ctfit</A>)</P>
+	<LI><P><A HREF="starticos.2.html" TARGET="detail">Combine particles
+	from micrographs with similar defocus and filter at the first zero.</A>
+	(<A HREF="http://../progs/proc2d.html">proc2d</A>)</P>
+	<LI><P><A HREF="starticos.3.html" TARGET="detail">Center the
+	particles within their boxes.</A> (<A HREF="http://../progs/cenalignint.html">cenalignint</A>)</P>
+	<LI><P><A HREF="starticos.4.html" TARGET="detail">Use starticos to
+	generate a preliminary model.</A> (<A HREF="http://../progs/starticos.html">starticos</A>)</P>
+	<LI><P><A HREF="starticos.5.html" TARGET="detail">You can optionally
+	remove the intermediate files.</A></P>
+	<LI><P><A HREF="starticos.6.html" TARGET="detail">Now you should
+	decide if you want to do CTF correction or not</A>:</P>
+</OL>
+<P STYLE="margin-left: 1.27cm"><A HREF="icos.ctf.html">Yes, I want to
+make a CTF corrected structure.</A></P>
+<P STYLE="margin-left: 1.27cm"><A HREF="icos.noctf.html">No, I'll try
+the uncorrected structure first.</A></P>
+<HR>
+<P><TT><I>Last Modified:</I> 
+<SCRIPT LANGUAGE="JavaScript">
+document.write(document.lastModified)
+</SCRIPT>
+</TT></P>
+</BODY>
+</HTML>

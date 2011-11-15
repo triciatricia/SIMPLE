@@ -1,0 +1,404 @@
+<html>
+<head>
+<title>Segment Volume - Segment Marker</title>
+<style type="text/css">
+<!-- 
+body 				{ width: 640px; margin: auto; padding: 24px;
+							font: Verdana, Arial, Helvetica, sans-serif; }
+p 					{	text-align: justify; padding-left: 16px; }
+.highlight 	{ color: #006699; }
+.code 			{ color: #666666; }
+-->
+</style>
+</head>
+
+<body>
+<h2>Segment Marker</h2>
+
+<img src="segmentmarker.gif">  <!-- icon -->
+
+<h3>Introduction</h3>
+
+<p>The <span class="highlight">Segment Marker</span> module is a part of 
+the <a href="../SegmentHelp/index.html">Segment Volume</a> package used for 
+segmentating volume data. The 
+module is a <span class="highlight">Chimera</span> extension module. 
+To use this module, the <span class="highlight">Segment Menu</span> 
+module of the <span class="highlight">Segment Volume</span> package 
+is required. You will need the 
+<a href="http://www.cgl.ucsf.edu/chimera/">Chimera</a> and
+<a href="http://ncmi.bcm.tmc.edu/~steve/EMAN/doc/">EMAN</a> software 
+packages to use this module. The module interacts with 
+<span class="highlight">Volume Viewer</span>, a Chimera module for 
+visualizing 3D volume data.</p>
+
+<p><span class="highlight">Segment Marker</span> Segment Marker uses 
+<span class="highlight">simple regions</span> such as 
+a cubes to segment out multiple regions inside the volume data (MRC format) 
+and create a new volume data file(s) (MRC format) with the segmented 
+region. The <span class="highlight">simple regions</span> are
+ specified using a set of markers.</p>
+
+<p><b>Note:</b> This version of the Segment Volume package is
+a pre-release version.</p>
+
+
+<h3>More:</h3>
+
+<ul>
+	<li><a href="#startup">Startup</a>
+		<ul>
+			<li><a href="#list">Listing the module</a>
+			<li><a href="#start">Starting the module</a></li>
+		</ul>
+	</li>
+	<li><a href="#formats">Supported data formats</a>
+		<ul>
+			<li><a href="#emanformats">EMAN supported formats</a></li>
+		</ul>
+	</li>
+	<li><a href="#dialog">Dialog panel</a>
+		<ul>
+			<li><a href="#datasec">Input data section</a>
+			<li><a href="#parsec">Parameters</a></li> 
+			<li><a href="#segsec">Segmentation Info</a></li>
+			<li><a href="#outsec">Output data section</a></li>
+			<li><a href="#buttons">Other buttons</a></li>
+		</ul>
+		</li>
+	</li>
+	<li><a href="#seg">Segmentation choices</a>
+		<ul>
+			<li><a href="#segboxes">Segmented box regions</a></li>
+			<li><a href="#segnear">Nearest neighborhood regions</a></li>
+		</ul>
+	</li>
+	<li><a href="#parameters">Choice of parameters</a>	</li>
+	<li><a href="#markers">Adding markers</a>	</li>
+	<li><a href="#examples">Examples</a>
+		<ul>
+			<li><a href="#eg1">Box type segmentation</a></li>
+			<li><a href="#eg2">Nearest neighborhood (NN) segmentation</a></li>
+		</ul>
+	</li>
+	<li><a href="#notes">Notes</a>
+</ul>
+
+<a name="startup"></a>
+<h3>Startup</h3>
+
+<a name="list"></a>
+<h4>Listing the module</h4>
+
+<p>The module files are stored in the directory 
+<span class="highlight">SegmentSimple</span>. To list the module under 
+Chimera's <span class="highlight">Tools</span> menu, add the directory 
+-&nbsp;containing&nbsp;- the <span class="highlight">SegmentSimple</span> 
+directory to Chimera's list of Tools.</p>
+
+<p>To do so, open Chimera's main window, choose 
+<span class="highlight">Perferences</span> under 
+<span class="highlight">Favorites</span> menu, then choose the 
+<span class="highlight">Tools</span> category and then 
+<span class="highlight">Add</span> the directory -&nbsp;containing&nbsp;- 
+the <span class="highlight">SegmentSimple</span> directory. This will 
+list the tool under <span class="highlight">AIRS</span> on the 
+<span class="highlight">Tools</span> menu.</p>
+
+<a name="start"></a>
+<h4>Starting the module</h4>
+
+<p>To start the module from the Chimera menu, first you will need to ensure 
+that the module is <a href="#list">listed</a> under Chimera's 
+<span class="highlight">Tools</span> menu. Then, click on 
+<span class="highlight">Segment Marker</span> in the 
+<span class="highlight">AIRS</span> menu, under Chimera's 
+<span class="highlight">Tools</span> menu.</p>
+
+<p>Alternatively, you can use the command line tool in Chimera's 
+<span class="highlight">IDLE</span> tool (under Programming tools 
+on the Tools menu), and type: </p>
+
+<p>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; import SegmentSimple <br>
+&nbsp;&nbsp;&gt;&gt;&gt; SegmentSimple.simple.show_seg_marker_dialog() 
+</span>
+</p> 
+
+<hr>
+
+<a name="formats"></a>
+<h3>Supported data formats</h3>
+
+<a name="emanformats"></a>
+<h4>EMAN's data formats</h4>
+
+<p>The <span class="highlight">Segment Marker</span> module currently 
+uses <span class="highlight">EMAN</span> and 
+<span class="highlight">Chimera</span> software and hence the 
+input/output data formats are restricted to those supported by both 
+these software packages. </p>
+
+<hr>
+
+<a name="dialog"></a>
+<h3>Dialog panel</h3>
+
+<p><img src="marker.png" align='right'
+style="margin-left:16px; margin-bottom:8px;"> </p>
+
+<a name="datasec"></a>
+<h4>Input data section</h4>
+
+<p>The Segment Marker dialog panel has four main sections. The first section 
+is the Input data section. The <span class="highlight">Data file menu</span> 
+automatically lists available data regions in Chimera's 
+<span class="highlight">Volume Viewer</span>. To select a data set, 
+simply pick an entry from this menu. The size of the data set in pixels 
+is automatically displayed on the dialog, below the menu. If the data set 
+is displayed in Chimera, then the <span class="highlight">Displayed</span> 
+value is set to <span class="highlight">Yes</span>.</p>
+
+<p>To open new models, click the <span class="highlight">Open</span> 
+button below the menu. This will open Chimera's 
+<span class="highlight">Volume Viewer</span> dialog and an 
+<span class="highlight">Open file browser</span> dialog. After adding 
+the models, if the models are not listed on the data menu, click the 
+<span class="highlight">Refresh menu</span> button, next to the 
+<span class="highlight">Open button</span> on the 
+<span class="highlight">Segment Marker</span> dialog.</p>
+
+<p>Alternatively, you can directly open new models using Chimera's 
+<span class="highlight">Volume Viewer</span>. Once again, if the newly 
+opened models are not displayed on the data menu, hit the 
+<span class="highlight">Refresh menu</span> button.</p>
+
+<a name="parsec"></a>
+<h4>Parameters</a></h4> 
+
+<p>This section allows you to pick a marker set (see Chimera's 
+<span class="highlight">Volume Path</span> module) to specify
+the regions on the Chimera main window.</p>
+
+<p>To open new marker sets, click the <span class="highlight">Open</span> 
+button below the marker menu. This will open Chimera's 
+<span class="highlight">Volume Path</span> dialog and an 
+<span class="highlight">Open file browser</span> dialog. After adding 
+the marker sets, if the marker sets are not listed on the marker menu, 
+click the <span class="highlight">Refresh list</span> button, next to 
+the <span class="highlight">Open button</span> on the 
+<span class="highlight">Segment Marker</span> dialog.</p>
+
+<p>Alternatively, you can directly open new marker sets using Chimera's 
+<span class="highlight">Volume Path</span>. Once again, if the newly 
+opened marker sets are not displayed on the marker set menu, hit the 
+<span class="highlight">Refresh list</span> button.</p>
+
+<p>More on <a href="#markers">using the marker sets to specify segment 
+regions</a> follows later.</p>
+
+<a name="segsec"></a>
+<h4>Segmentation Info</h4>
+
+<p>In this section, the choice of the segmentation type 
+is made using <span class="highlight">Choose type</span> radiobutton.
+The number of output files used is specfied by using the
+<span class="highlight">Output files</span> radiobutton.
+The <span class="highlight">File MRC</span> specifies the name of 
+the output file, and hitting the <span class="highlight">Apply</span>
+button performs the segmentation.</p>
+
+<p>After hitting the <span class="highlight">Apply</span> button,
+the parameters of the marker sets are checked for 
+<a href="#parameters">validity</a>. </p>
+
+
+<a name="outsec"></a>
+<h4>Output data section</h4>
+
+<p>The output data section has an 
+<span class="highlight">Output data menu</span> that lists the 
+current segmented output files. To open or display the file in Chimera, 
+click on the <span class="highlight">Show</span> button. If more 
+than one output file was created, then you can click on 
+<span class="highlight">Show All</span> button to open and display 
+all the files on the menu. </p>
+
+<p>The <span class="highlight">Hide</span> button closes the model 
+(associated with the file on the 
+<span class="highlight">Output data menu</span>) in Chimera, but 
+leaves the entry on the <span class="highlight">Volume Viewer</span> 
+data menu unchanged. The <span class="highlight">Hide All</span> 
+button applies the <span class="highlight">Hide</span> button to all 
+the files on the output data menu.</p>
+
+<p>The <span class="highlight">Remove All</span> button removes all the 
+entries on the <span class="highlight">Output data menu</span>, but 
+leaves the corresponding entries (if any) on the 
+<span class="highlight">Volume Viewer</span> data menu unchanged.</p>
+
+<a name="buttons"></a>
+<h4>Other buttons</h4>
+
+<p>The <span class="highlight">Close</span> button closes the 
+<span class="highlight">Segment Marker</span> dialog. The 
+<span class="highlight">Help</span> button opens this help page.</p>
+
+<hr>
+
+<a name="seg"></a>
+<h3>Segmentation choices</h3>
+
+<a name="segboxes"></a>
+<h4>Segmenting box regions</h4>
+
+<p>For the <span class="highlight">Box</span> selection in 
+<span class="highlight">Segmentation Info</span> section, each marker
+specifies the location of a box region with the 
+<span class="highlight">Box Size</span> parameter in the 
+<a href="#parsec">Parameters</a> section specifiying the size of the box and
+the marker location specifying the center of the box. If 
+the <span class="highlight">Box Size</span> is not specified or set to 0, 
+then the marker diameter is used.</p>
+
+<p>If the <span class="highlight">Box Size</span> parameters is not specified
+or is 0 <b>and</b> the <span class="highlight">Output files</span> radiobutton
+is set to <span class="highlight">single</span>, then the marker note parmeter 
+(see <span class="highlight">Volume Path</span> module in Chimera) can be used 
+to specify regions that we want to zero out, by setting the note to 
+<b><span class="highlight">-</span></b>, i.e., a minus sign. The marker
+is called a <span class="highlight">negative marker</span>. In this scenario, 
+all the box regions corresponding to 
+<span class="highlight">positive markers</span> are first segmented out from
+the map, and then from the resulting map, the box regions corresponding to
+the <span class="highlight">negative markers</span> are set to zero.</p>
+
+<a name="segnear"></a>
+<h4>Nearest neighborhood regions</h4>
+
+<p>The <span class="highlight">Near</span> option in 
+<span class="highlight">Choose type</span> radio button of the 
+<span class="highlight">Segmentation Info</span> section, corresponds to
+the nearest neigborhood segmentation. Each of the input markers' location 
+is used to identify a neighborhood. </p>
+
+<p>In this option, the <span class="highlight">Output files</span> 
+radiobutton is set to <span class="highlight">Mutiple</span>.</p>
+
+<hr>
+
+<a name="parameters"></a>
+<h3>Parameters</h3>
+
+<p><span class="highlight">Marker center</span> parameters 
+should be integers corresponding to the center of the box in 
+terms of pixels (in object coordinates). The
+<span class="highlight">Marker radius</span> parameters or
+the <span class="highlight">Box Size</span> parameter should be set
+such that, the box region corresponding to a marker cannot fully lie 
+outside the original map region. </p>
+
+<hr>
+
+<a name="markers"></a>
+<h3>Using markers</h3>
+
+<p>Each marker is specified using <span class="highlight">(x,y,z)</span>
+location values. The marker radius <span class="highlight">(r)</span> or the 
+<span class="highlight">Box Size</span> parameter specified in 
+<span class="highlight">Angstroms</span> can be used to specify the 
+size of a box region, when using with the first option - 
+<span class="highlight">Box</span> type segmentation on the 
+<span class="highlight">Choose type</span> radiobutton. 
+
+<p>If the Box Size parameter is not specified or if it is zero, then the 
+marker diameter (via marker radius) is used instead. Using the marker 
+radius allows to specify differnet box sizes associated with each marker. 
+</p>
+
+<p> To place markers, move markers, setting the marker radius,
+or to add a note to a maker, use the 
+<span class="highlight">Volume Path</span> dialog in Chimera. </p>
+
+<p>
+The buttons <span class="highlight">Show</span> and <span class="highlight">Hide</span>
+next to Boxes (in <a href="#parsec">Parameters section</a>) can be used to display the
+boxes corresponding to each selected marker. The box center corresponds to the marker 
+center and the box size corresponds to the marker radius. To refresh, simply hit the
+<span class="highlight">Show</span> button.
+</p>
+
+<hr>
+
+
+<a name="examples"></a>
+<h3>Examples</h3>
+
+<a name="eg1"></a>
+<h4>Box type segmentation using markers</h4>
+
+<p>
+<img src="marker11orig.jpg" width=240px height=240px><br>
+Original map
+<br>
+<img src="marker12.jpg" width=240px height=240px align="left">
+<img src="marker13m.jpg" width=240px height=240px ><br>
+Segmented map from three markers (left). The image on the right 
+is with markers, the blue marker being negative.
+<br>
+<img src="marker14.jpg" align="left" width=240px height=240px >
+<img src="marker15m.jpg" width=240px height=240px ><br>
+Segmented map from two markers - negative marker removed (left). 
+The image on the right is with the markers.
+</p>
+
+<a name="eg2"></a>
+<h4>Nearest neighborhood (NN) segmentation using three markers</h4>
+
+<p>
+<img src="marker21orig.jpg" width=240px height=240px align="left">
+<img src="marker22.jpg" width=240px height=240px ><br>
+Original map (left). Nearest neighborhood segmented map (right).
+<br>
+<img src="marker23sep.jpg" width=240px height=240px align="left">
+<img src="marker24m.jpg" width=240px height=240px ><br>
+Segmented map regions separated (left) and the input marker set (right).
+The size of the markers is irrelevant here.
+</p>
+
+<hr>
+
+
+<a name="notes"></a>
+<h3>Notes</h3>
+
+<h4>EMAN</h4>
+
+<p>The <a href="http://ncmi.bcm.tmc.edu/~steve/EMAN/doc/">EMAN</a> 
+software package is required to use this module. One of the common 
+problems when using this module, is that of EMAN's integration into 
+Chimera's environment. This module interacts with EMAN using the 
+Python script file <a href="boxes.py">boxes.py</a>, which is 
+executed from the OS command line. So, before using the module, 
+ensure that the EMAN's Python libraries are available from within 
+Chimera's Python environment.</p>
+
+<h4>Marker sets</h4>
+
+<p>To edit the markers, use the mouse buttons to select the marker. 
+Once selected you can move the marker, or change the radius, or 
+add/remove marker notes. While saving a marker set, ensure that 
+the marker set name is changed to an appropriate name instead of 
+the default name. This will help different between the differnet 
+marker sets easily.</p>
+
+<hr>
+
+<span class="highlight">
+<i>Segment Volume package (pre-release) - Segment Marker module<br>
+2005 July, Lavu Sridhar, Baylor College of Medicine</i>
+</span>
+</body>
+
+</html>

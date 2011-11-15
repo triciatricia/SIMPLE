@@ -1,0 +1,23 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/align3dvec.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>align3dvec</h1>
+<p><h3>Rotational and translational alignment of 3d models via vectorization</h3>
+align3dvec  &lt;fixed input> &lt;free input> &lt;aligned output> [nseg=&lt;n>] [thr=&lt;threshold>] [qmap]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;fixed input></td><td>The volume to align to</td></tr>
+<tr><td>&lt;free input></td><td>The model to be aligned</td></tr>
+<tr><td>&lt;aligned output></td><td>The aligned output</td></tr>
+<tr><td>[nseg=&lt;n>]</td><td>Number of segments to split models into</td></tr>
+<tr><td>[thr=&lt;threshold>]</td><td>Threshold density for segmentation, default is 1</td></tr>
+<tr><td>[qmap]</td><td>This will output a 3D 'quality map' showing the match at all possible Euler angles</td></tr>
+</table><br><h3>Usage:</h3>
+<p>
+<h3>Description</h3>
+<P>This program is still highly experimental. You can play with it, but don't
+expect too much.
+<P>This program will take one 3d model and optimally align it to another 'reference' model.
+It uses segment3d to 'vectorize' the 3D models, then aligns the resulting vectors. A
+sufficient number of vectors (nseg=) should be used to represent the major features
+of the model.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

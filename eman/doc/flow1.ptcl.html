@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="StarOffice/5.0 (Unix)">
+	<META NAME="AUTHOR" CONTENT="Steve Ludtke">
+	<META NAME="CREATED" CONTENT="19990122;22331500">
+	<META NAME="CHANGEDBY" CONTENT="Steve Ludtke">
+	<META NAME="CHANGED" CONTENT="19990122;22570500">
+	<STYLE>
+	<!--
+	-->
+	</STYLE>
+</HEAD>
+<BODY>
+<H2>EMAN</H2>
+<H3>Preliminary Model Generation</H3>
+<H4>Raw Particles</H4>
+<P>The process of generating a preliminary 3D model begins with raw
+single particle data. This data is prepared by boxing out particles
+from scanned micrographs or CCD frames. This process can be performed
+with a variety of different programs. EMAN has a program called <A HREF="progs/boxer.html">boxer</A>
+which allows for rapid, easy manual and semiautomatic boxing of images.</p>
+<P>For generating a preliminary model, particles from
+micrographs/frames at a similar defocus should generally be used. No
+CTF correction is performed at this point.</P>
+<P>Particles may then be centered with <a href=cenalignint.html>cenalignint</a> or
+<a href=cenalignacf.html>cenalignacf</a> if they were not centered in boxer. The centered
+particles are then filtered at the first zero of the Contrast Transfer Function (CTF). An
+appropriate radius can be determined using <a href=ctfit.html>ctfit</a>. Then the data can be
+filtered using <a href=proc2d.html>proc2d</a>.
+<P><A HREF="flowchart.html">Back to the flowchart</A></P>
+<P><A HREF="flow1.sym.html">On to the next step</A></P>
+<HR>
+<P><I>Last Modified:&nbsp;</I><SCRIPT LANGUAGE="JavaScript">
+document.write(document.lastModified)
+</SCRIPT>
+ 
+</BODY>
+</HTML>

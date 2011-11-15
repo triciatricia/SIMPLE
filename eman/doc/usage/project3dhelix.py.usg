@@ -1,0 +1,3 @@
+This program will make axial and near-axial projections of 3D volumes
+Usage:
+project3dhelix.py  <3d model> ang=<ang step> [siderange=<angmax>] [tilt=<ang>] [out=<outfile>] [as1]

@@ -1,0 +1,3 @@
+This is the basisrefine equivalent to eotest
+Usage:
+basiseotest.py  [pad=<box size>] [proc=<nproc>] [ctfcw=<file>] [ctfc=<res>] [mask=<r>] [3dit=<iter>] [3dit2=<iter>] [sym=<symmetry>] [hard=<maxpr>] [automask=<r>,<thr>,<shells>

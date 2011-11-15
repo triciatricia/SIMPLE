@@ -1,0 +1,25 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/helixhunterP.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>helixhunterP</h1>
+<p><h3>This program is used to locate possible helices in intermediate resolution maps. Parallelized.</h3>
+helixhunterP  &lt;input> &lt;output> &lt;a/pix> [cyl] [int=&lt;file>] [da=&lt;angle>] [keep=&lt;sigmamult>] [filt=&lt;res>] [proc=&lt;n>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input></td><td>Input 3D map at 5-8A resolution</td></tr>
+<tr><td>&lt;output></td><td>Output 3d map of helix positions</td></tr>
+<tr><td>&lt;a/pix></td><td>Angstroms/pixel in 3D map. Must be &lt;2.</td></tr>
+<tr><td>[cyl]</td><td>Also outputs a 3d map containing the cylinder used in the search.</td></tr>
+<tr><td>[int=&lt;file>]</td><td>Outputs the raw correlation files describing helix locations.</td></tr>
+<tr><td>[da=&lt;angle>]</td><td>Angular step used in the hunt.</td></tr>
+<tr><td>[keep=&lt;sigmamult>]</td><td>Specifies the peak strength that defines a helix.</td></tr>
+<tr><td>[filt=&lt;res>]</td><td>Prefilter resolution in angstroms.</td></tr>
+<tr><td>[proc=&lt;n>]</td><td>Number of processors to use.</td></tr>
+</table><br><h3>Usage:</h3>
+<p>helixhunterP input.mrc output.mrc 1.5 proc=4
+<h3>Description</h3>
+<P>This is a parallelized version of <a href=helixhunter.html>helixhunter</a>. It is currently
+parallelized using pthreads, and will run only on shared memory machines.
+<P>This is superseded by <a href="helixhunter2.html">helixhunter2</a>
+<P>Visit web page <a href="http://ncmi.bcm.tmc.edu/~wjiang/hhfh">Helixhunter and Foldhunter</a> for 
+more information.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

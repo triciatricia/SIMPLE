@@ -1,0 +1,3 @@
+This program builds 3D models from a set of class averages using Fourier techniques
+Usage:
+make3d  <input file> [out=<outfile>] [hard=<maxpr>] [noweight] [lowmem] [sym=<c4,icos,etc>] [pad=<padsize>] [mode=<1-6>] [mask=<rad>] [apix=<num>] [norm] [keep=<sigmamult>] [resmap=<name>] [snrfile=<file>] [logit=<name>] [usecenter] [flipphase] [wiener3d=<sf file>] [iter=<n>] [subset=<i/n>] [goodbad] [log10] [savenorm] [inorm]

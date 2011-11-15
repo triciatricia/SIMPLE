@@ -1,0 +1,3 @@
+Combines a structure factor from CTFIT with a simulated curve for use in CTF correction
+Usage:
+sfmerge.py  <ctfit file> <high res file> <cutoff S> <output>

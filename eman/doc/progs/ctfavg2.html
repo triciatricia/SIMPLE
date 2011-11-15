@@ -1,0 +1,30 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/ctfavg2.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>ctfavg2</h1>
+<p><h3>Averages a set of 2D images with ctf correction</h3>
+ctfavg2  &lt;infile> &lt;outfile> [res=&lt;in A>] [ctfcw=&lt;file>] [ctfc=&lt;lp res>] [keepsig=&lt;sig>] [keepval=&lt;thr>] [mask=&lt;rad>] [fileali] [refali] [copyeuler] [refmask] [ref0] [copyrefs] [even|odd] [snrmult=&lt;val>] [nolog] [comment=&lt;str>] Sets the comment string in the output file (if supported
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;infile></td><td>Set of images to be averaged</td></tr>
+<tr><td>&lt;outfile></td><td>Output, 1 image will be appended</td></tr>
+<tr><td>[res=&lt;in A>]</td><td>Resolution in A if structure factor is not used</td></tr>
+<tr><td>[ctfcw=&lt;file>]</td><td>Structure factor file used to fit data in infile</td></tr>
+<tr><td>[ctfc=&lt;lp res>]</td><td>Lowpass filter resolution for ctf correction without wiener filter</td></tr>
+<tr><td>[keepsig=&lt;sig>]</td><td>Sigma multiplier for discarding particles</td></tr>
+<tr><td>[keepval=&lt;thr>]</td><td>Fixed threshold for discarding particles</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>Circular mask</td></tr>
+<tr><td>[fileali]</td><td>Use alignments from file</td></tr>
+<tr><td>[refali]</td><td>Do a single pass 2D alignment of each particle to the reference (ref0)</td></tr>
+<tr><td>[copyeuler]</td><td>Used only if the filspec is cls####, will read the Eulers from proj.hed</td></tr>
+<tr><td>[refmask]</td><td>Only for cls#### files, will mask based on proj.hed</td></tr>
+<tr><td>[ref0]</td><td>First image is a reference image</td></tr>
+<tr><td>[copyrefs]</td><td>Copy proj.hed image into the output file</td></tr>
+<tr><td>[even|odd]</td><td>Uses only even or odd numbered particles</td></tr>
+<tr><td>[snrmult=&lt;val>]</td><td>Multiply the SNR by this number when Wiener filtering</td></tr>
+<tr><td>[nolog]</td><td>Do not log a record of this program in .emanlog</td></tr>
+<tr><td>[comment=&lt;str>] Sets the comment string in the output file (if supported</td><td>[comment=&lt;str>] Sets the comment string in the output file (if supported)</td></tr>
+</table><br><h3>Usage:</h3>
+<p>ctfavg2 cls0000.lst classes.hed ctfcw=groel.xray
+<h3>Description</h3>
+<P>This program will average a set of prealigned images with CTF correction.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

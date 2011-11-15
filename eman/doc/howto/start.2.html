@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="StarOffice/5.0 (Unix)">
+	<META NAME="AUTHOR" CONTENT="Steve Ludtke">
+	<META NAME="CREATED" CONTENT="19990123;1415600">
+	<META NAME="CHANGEDBY" CONTENT="Steve Ludtke">
+	<META NAME="CHANGED" CONTENT="19990123;2152800">
+	<STYLE>
+	<!--
+	-->
+	</STYLE>
+</HEAD>
+<BODY>
+<H2>EMAN</H2>
+<H2>How to do a <FONT FACE="times">Reconstruction</FONT></H2>
+<P>This set of web pages will take you through the process of
+performing a 3D reconstruction from single particle data. These pages
+will assume that you have a basic understanding of the principles of
+transmission electron microscopy (cryo or negative stain). Each page
+will typically contain a minimal outline of the steps you will need
+to perform, to provide a quick summary for advanced users. Click on
+one of these outline steps to get detailed instructions for that
+step. After the description, links to programs associated with this
+step are provided in parentheses).</P>
+<OL>
+	<LI><P><A HREF="start.1.html">Box particles from scanned micrographs
+	or CCD frames</A> (<A HREF="http://../progs/boxer.html">boxer</A>,
+	<A HREF="http://../progs/eman.html">eman</A>, <A HREF="http://../othersw.html">other
+	programs</A>)</P>
+	<LI><P><A HREF="start.2.html">Select the type of particle you have
+	data for</A>:</P>
+<P>When beginning a reconstruction you should have some idea of the
+particle's symmetry. If you know your particle's symmetry, select it
+from the list below to continue. Sometimes, of course, this simply
+isn't true. If you don't know your particle's symmetry, you can use
+symeval to try to determine it. This may or may not give you a
+conclusive answer. If the answer is inconclusive, the best approach
+is typically to try a reconstruction with the most likely symmetry,
+then once a few rounds of refinement are complete, continue refining
+with no symmetry and see if the model maintains its symmetry.</P>
+<P><A HREF="start.csym.html">Particle with 1 axis of rotational
+symmetry</A> (eg - C3)</P>
+<P><A HREF="start.asym.html">Asymmetric particle</A></P>
+<P><A HREF="start.icos.html">Particle with icosahedral symmetry</A></P>
+</OL>
+<HR>
+<P ALIGN=LEFT><I>Last Modified: 
+<SCRIPT LANGUAGE="JavaScript">
+document.write(document.lastModified)
+</SCRIPT>
+</I></P>
+</BODY>
+</HTML>

@@ -1,0 +1,37 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/classesbymra2.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>classesbymra2</h1>
+<p><h3>This program classifies a set of particles based on multiple sets of references and splits the results between 2 directories.</h3>
+classesbymra2  &lt;particles> &lt;refrences> &lt;number of sets> [frac=&lt;num>/&lt;denom>] [verbose[=&lt;n>]] [mask=&lt;rad>] [imask=&lt;rad>] [precen] [sigfilt] [ctfc] [shrink=&lt;n>] [refine] [slow] [phase] [wtphase] [fscmp] [wtfscmp] [usefilt]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;particles></td><td>Raw particle filespec	</td></tr>
+<tr><td>&lt;refrences></td><td>Reference image filespec</td></tr>
+<tr><td>&lt;number of sets></td><td>Number of different reference sets</td></tr>
+<tr><td>[frac=&lt;num>/&lt;denom>]</td><td>Operate only on a fraction of the raw images</td></tr>
+<tr><td>[verbose[=&lt;n>]]</td><td>More verbose output</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>Mask the classified particles, also reduces noise for better classification</td></tr>
+<tr><td>[imask=&lt;rad>]</td><td>Inside mask, classified particles are masked for classification, but not in the cls files.</td></tr>
+<tr><td>[precen]</td><td>Particles are assumed to be accurately precentered </td></tr>
+<tr><td>[sigfilt]</td><td>Apply a real space filter so only high amplitude data is used for classification</td></tr>
+<tr><td>[ctfc]</td><td>Projections are CTF corrected</td></tr>
+<tr><td>[shrink=&lt;n>]</td><td>Shrink the particles before classification by speed</td></tr>
+<tr><td>[refine]</td><td>Refines 2D alignment done with fast algorithm. Slower, but not 'slow'.</td></tr>
+<tr><td>[slow]</td><td>Uses a very slow, exhaustive search algorithm for alignment</td></tr>
+<tr><td>[phase]</td><td>Experimental. Uses pcmp(), a weighted mean phase-error to compare images for classification</td></tr>
+<tr><td>[wtphase]</td><td>Experimental. Uses pcmp with a SNR weight.</td></tr>
+<tr><td>[fscmp]</td><td>Experimental. Uses fscmp(), a weighted mean phase-error to compare images for classification</td></tr>
+<tr><td>[wtfscmp]</td><td>Experimental. Uses fscmp with a SNR weight.</td></tr>
+<tr><td>[usefilt]</td><td>Experimental. Use the 'filt' version of the input file for classification.</td></tr>
+</table><br><h3>Usage:</h3>
+<p>classesbymra2 start.hed proj.hed 2 mask=28 ctfc
+<h3>Description</h3>
+<P>This classifies a set of raw particles based on multiple sets of reference projections.
+The output is a set of cls*.img files, one file for each reference image. If the
+projections were generated from a CTF corrected model, specify the 'ctfc' option
+so the projections will be 'decorrected' before classification.
+<P>This is basically a modified version of classesbymra. In this case, a set of numbered
+directories must exist in the current directory, ie - '1', '2', '3', etc. The file
+<references> must exist in each subdirectory. <number of sets> specifies how many
+subdirectories exist.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

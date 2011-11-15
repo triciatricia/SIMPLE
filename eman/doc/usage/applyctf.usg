@@ -1,0 +1,3 @@
+Applies/corrects CTF to sets of particle images
+Usage:
+applyctf  <input file> <output file> [setparm] [fixnoise] [parmimg=<input>] [memfile=<name>] [parmmem=<name>] [parm=<parmlist>] [sffile=<file>] [applyctf] [flipphase] [invert] [applyB[=<B factor>]] [addnoise[=<scale>]] [wiener] [mrc] [inplace]

@@ -1,0 +1,57 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/helixhunter3.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>helixhunter3</h1>
+<p><h3>This program is used to find possible alpha-helices region in medium resolution (8Angstrom) density map</h3>
+helixhunter3  &lt;input> &lt;output> &lt;a/pix> [minlen=&lt;Angstrom>] [maxlen=&lt;Angstrom>] [hlxnum=&lt;int>] [sigma=&lt;number>] [percen=&lt;0-1>] [minhelixthresh=&lt;0-1>] [iter=&lt;number>] [view] [list=&lt;filename>] [dejavu=&lt;filename>] [cosec=&lt;filename>] [explorer=&lt;binary file>] [sortbyvalue] [sortbylength] [relorig=&lt;x,y,z>] [corner] [verbose] [docylccffirst] [cyl] [int=&lt;file>] [da=&lt;angle>] [res=&lt;Angstrom>] [type=&lt;0-2>] [len=&lt;number>] [ccf] [vectavg[=&lt;angstrom>]]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input></td><td>input file, single 3D map in any format that EMAN supports, usually the reconstruction map</td></tr>
+<tr><td>&lt;output></td><td>output file, Open Inventor format, explicitly describing each helix </td></tr>
+<tr><td>&lt;a/pix></td><td>the sampling for input file, Angstrom/pixel </td></tr>
+<tr><td>[minlen=&lt;Angstrom>]</td><td>the minimal length of density region to qualify for a helix, in Angstrom</td></tr>
+<tr><td>[maxlen=&lt;Angstrom>]</td><td>the maximal length of density region to qualify for a helix, in Angstrom</td></tr>
+<tr><td>[hlxnum=&lt;int>]</td><td>the number of helices wanted, the correct threshhold would be automatically searched</td></tr>
+<tr><td>[sigma=&lt;number>]</td><td>threshhold set to number of sigma above mean for pre-threshholding the map</td></tr>
+<tr><td>[percen=&lt;0-1>]</td><td>threshhold set to percent of the maximal density for pre-threshholding the map, this is prefered when both are set</td></tr>
+<tr><td>[minhelixthresh=&lt;0-1>]</td><td>minimum threshhold for creating new helicies as a percent of maximum density </td></tr>
+<tr><td>[iter=&lt;number>]</td><td>Number of interations of threshold refinement.  Default 100.</td></tr>
+<tr><td>[view]</td><td>will automatically call ivview to show the result Open Inventor file </td></tr>
+<tr><td>[list=&lt;filename>]</td><td>also output a simple text file describing the helices: 9 white space delimited parameters for each helix(order: 3 center, 4 quaternions, radius, length)</td></tr>
+<tr><td>[dejavu=&lt;filename>]</td><td>also output a DejaVu secondary structure elements file, see DejaVu document for more details </td></tr>
+<tr><td>[cosec=&lt;filename>]</td><td>also output a COSEC secondary structure element file, see COSEC document for more details</td></tr>
+<tr><td>[explorer=&lt;binary file>]</td><td>output a file to read by an IRIS Explorer module to apply the helices</td></tr>
+<tr><td>[sortbyvalue]</td><td>sort by the pixel value at each helix center</td></tr>
+<tr><td>[sortbylength]</td><td>sort by the length of the helix</td></tr>
+<tr><td>[relorig=&lt;x,y,z>]</td><td>the position of the small boxed density(model) in the large map, default to 0,0,0</td></tr>
+<tr><td>[corner]</td><td>leave the positions in the first octant, default is to center helices </td></tr>
+<tr><td>[verbose]</td><td>show intermediate output for monitoring progress and more working details </td></tr>
+<tr><td>[docylccffirst]</td><td>to do exhaustive cross correlation search with prototypic helix first, following parameters are useful only if this is set</td></tr>
+<tr><td>[cyl]</td><td>output a protoypic helix density map in MRC format </td></tr>
+<tr><td>[int=&lt;file>]</td><td>prefix for the 3 output MRC maps from the resulted cross correlation search, </td></tr>
+<tr><td>[da=&lt;angle>]</td><td>angular step size for the search, default to appropriate number for the resolution and map size</td></tr>
+<tr><td>[res=&lt;Angstrom>]</td><td>resolution of the density map, default to 8 Angstrom</td></tr>
+<tr><td>[type=&lt;0-2>]</td><td>type of prototypic helix, default to 2</td></tr>
+<tr><td>[len=&lt;number>]</td><td>the length of prototypic helix, default to 16.2 Angstrom (3turns)</td></tr>
+<tr><td>[ccf]</td><td>using straight cross correlation function instead of the default MCF(mutual correlation function)</td></tr>
+<tr><td>[vectavg[=&lt;angstrom>]]</td><td>the score map will be locally vector averaged after the seach, default to 3x3x3 Angstrom kernel size</td></tr>
+</table><br><h3>Usage:</h3>
+<p>helixhunter2 input.mrc output.iv 1.5 
+<p>helixhunter2 input.mrc output.iv 1.5 verbose view cosec=out.cosec dejavu=out.dejavu list=helices.txt percen=0.8 
+<p>helixhunter2 input.mrc output.iv 1.5 verbose view docylccffirst da=5 percen=0.5
+<h3>Description</h3>
+<P>This program is still somewhat experimental.
+<P>This programs tries to find the helices density regions in a medium resolution density map. 
+There are two modes for this program: the default is to work directly on the density map 
+by segmenting the high density regions, analyzing the properties for each region, and making 
+decisions if the region is qualitied as a helix; the second mode is to pre-process the density map by
+exhaustive cross correlating with prototypic helix at all possible orientations, re-weighting 
+the original densities, and then adopt the first mode to find the helices. While the default 
+mode is very fast which usually takes less than 10 seconds and the second mode would take 
+much longer time which usually in minutes to tens of minutes range, the second mode usually 
+gives superior results. The parameters that need to pay attention to are the two threshhold 
+parameters <b>percen</b> and <b>sigma</b>, the higher the threshhold, the less numer of and 
+the longer helices would be found, and the lower the threshhold, the more numer of and the shorter 
+and ofter non-helix regions are found.
+<P>Visit web page <a href="http://ncmi.bcm.tmc.edu/~wjiang/hhfh">Helixhunter and Foldhunter</a> for 
+more information.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

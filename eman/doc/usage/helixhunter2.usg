@@ -1,0 +1,3 @@
+This program is used to find possible alpha-helices region in medium resolution (8Angstrom) density map
+Usage:
+helixhunter2  <input> <output> <a/pix> [minlen=<Angstrom>] [maxlen=<Angstrom>] [hlxnum=<int>] [sigma=<number>] [percen=<0-1>] [view] [list=<filename>] [dejavu=<filename>] [cosec=<filename>] [explorer=<binary file>] [sortbyvalue] [relorig=<x,y,z>] [corner] [verbose] [docylccffirst] [cyl] [int=<file>] [da=<angle>] [res=<Angstrom>] [type=<0-2>] [len=<number>] [ccf] [vectavg[=<angstrom>]]

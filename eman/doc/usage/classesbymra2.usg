@@ -1,0 +1,3 @@
+This program classifies a set of particles based on multiple sets of references and splits the results between 2 directories.
+Usage:
+classesbymra2  <particles> <refrences> <number of sets> [frac=<num>/<denom>] [verbose[=<n>]] [mask=<rad>] [imask=<rad>] [precen] [sigfilt] [ctfc] [shrink=<n>] [refine] [slow] [phase] [wtphase] [fscmp] [wtfscmp] [usefilt]

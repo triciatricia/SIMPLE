@@ -1,0 +1,3 @@
+This program assigns weights to the various axes in a footprint file
+Usage:
+fpweight  <footprint file> [tfp]

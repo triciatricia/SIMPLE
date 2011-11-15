@@ -1,0 +1,3 @@
+This program converts a distance matrix to an MRC image
+Usage:
+mx2img  <matrix file> <MRC file>

@@ -1,0 +1,34 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/foldhunter.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>foldhunter</h1>
+<p><h3>This program is used to quantitatively fit a subunit/domain into a large structure density map at intermediate resolution.</h3>
+foldhunter  &lt;map> &lt;model> &lt;outputmap> [da=&lt;angle>] [startangle=&lt;alt,az,phi>] [range=&lt;angle range>|&lt;r1,r2,r3>] [smart] [sphere_region=&lt;x0,y0,z0,r>] [cyl_region=&lt;x0,y0,z0,rmin,rmax,h>] [keep=&lt;solution_num>] [mask=&lt;x0,y0,z0,r>] [apix=&lt;angstrom_per_pixel>] [res=&lt;angstrom>] [peakwidth=&lt;pixels>] [finestda=&lt;finest angle stepsize>] [time] [int=&lt;file>] [log=&lt;filename>] [verbose] [genpdb=&lt;pdb file>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;map></td><td>input file, single 3D map in MRC format, usually the reconstruction map</td></tr>
+<tr><td>&lt;model></td><td>input file, single 3D map in MRC format, the probe map e.g. from PDB atomic structure blurred to similar resolution to &lt;map></td></tr>
+<tr><td>&lt;outputmap></td><td>the output density map in MRC format, is the rotated and then translated probe map according to the best match parameters</td></tr>
+<tr><td>[da=&lt;angle>]</td><td>angular search step size in degree</td></tr>
+<tr><td>[startangle=&lt;alt,az,phi>]</td><td>starting angles, search will be around it (+-range/2), in degree</td></tr>
+<tr><td>[range=&lt;angle range>|&lt;r1,r2,r3>]</td><td>range of the search will cover, single value will set three ranges the same, or three different ranges could be set, in degree</td></tr>
+<tr><td>[smart]</td><td>if smart is set, the search will go deep around the best orientation with finer angular step size until angular step size is smaller than 1 degree or finestda</td></tr>
+<tr><td>[sphere_region=&lt;x0,y0,z0,r>]</td><td>only consider solutions in given spheric region, in pixel, relative to center of the map</td></tr>
+<tr><td>[cyl_region=&lt;x0,y0,z0,rmin,rmax,h>]</td><td>only consider solutions in given cylinder shell region, in pixel, relative to center of the map</td></tr>
+<tr><td>[keep=&lt;solution_num>]</td><td>number of the top matches will be outputed, default to 20</td></tr>
+<tr><td>[mask=&lt;x0,y0,z0,r>]</td><td>won't consdier solutions inside the masked spheric region, in pixel, relative to center of the map</td></tr>
+<tr><td>[apix=&lt;angstrom_per_pixel>]</td><td>Angstrom/voxel, if set, the output for translation will be in Angstrom, otherwise in pixel</td></tr>
+<tr><td>[res=&lt;angstrom>]</td><td>the resolution of map, only effective when da is not set and used to calculate the maximal angular step size. default to 8 Angstrom</td></tr>
+<tr><td>[peakwidth=&lt;pixels>]</td><td>pixels assumed for each match peak width, to avoid too close peaks being considered, default to 5 pixels</td></tr>
+<tr><td>[finestda=&lt;finest angle stepsize>]</td><td>smallest angular step size that 'smart' feature will use,d efault to 1 degree</td></tr>
+<tr><td>[time]</td><td>will monitor the time spent in the 6 dimension search loop</td></tr>
+<tr><td>[int=&lt;file>]</td><td>filename for intermediate data output</td></tr>
+<tr><td>[log=&lt;filename>]</td><td>the file to send the intermediate outputs, if not set, stdout (screen) will be used</td></tr>
+<tr><td>[verbose]</td><td>output the intermediate information and the time spent in the orientation search will be monitored</td></tr>
+<tr><td>[genpdb=&lt;pdb file>]</td><td>This will generate a new PDB file in the determined orientations</td></tr>
+</table><br><h3>Usage:</h3>
+<p>foldhunter &lt;ref.mrc> &lt;probe.mrc> &lt;probe-out.mrc> da=20
+<h3>Description</h3>
+<P>This is first sequential version, the recent improvements are all on the later parallelized version
+<a href="foldhunterP.html">foldhunterP</a>, please check  <a href="foldhunterP.html">foldhunterP</a>
+and <a href="http://ncmi.bcm.tmc.edu/~wjiang/hhfh">Helixhunter and Foldhunter</a> for more information.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

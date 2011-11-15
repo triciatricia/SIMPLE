@@ -1,0 +1,3 @@
+This program uses make3diter and proc3d to iteratively make models match class averages
+Usage:
+clean3d  <classes> <3d model> [sym=<sym>] [proc=<nproc>] [3dit=<n iter>] [3dit2=<n iter>] [keepthr=<thr>] [keepsig=<sigmult>] [speed=<1-5>] [fixamp]

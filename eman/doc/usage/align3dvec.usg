@@ -1,0 +1,3 @@
+Rotational and translational alignment of 3d models via vectorization
+Usage:
+align3dvec  <fixed input> <free input> <aligned output> [nseg=<n>] [thr=<threshold>] [qmap]

@@ -1,0 +1,30 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/startcsym.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>startcsym</h1>
+<p><h3>This program generates a preliminary 3d model for objects with Cn or Dn symmetry</h3>
+startcsym  &lt;centered particles> &lt;# to keep> [sym=&lt;c?>] [imask=&lt;rad>] [nosym] [fixrot=&lt;side angle>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;centered particles></td><td>Raw centered particles to use to build a model</td></tr>
+<tr><td>&lt;# to keep></td><td>Number of particles to use for each view</td></tr>
+<tr><td>[sym=&lt;c?>]</td><td>Symmetry of model</td></tr>
+<tr><td>[imask=&lt;rad>]</td><td>Inside mask used to exclude inside regions</td></tr>
+<tr><td>[nosym]</td><td>Skips the initial symmetry search</td></tr>
+<tr><td>[fixrot=&lt;side angle>]</td><td>Used to correct side view orientation when startcsym makes a mistake</td></tr>
+</table><br><h3>Usage:</h3>
+<p>startcsym start.hed 50 sym=c7
+<h3>Description</h3>
+<P>This program uses a very simple technique to generate a VERY rough 3d
+model from a set of particle images. It seaches for particles with the
+best n-fold rotational symmetry ('top' view), and for other particles
+with good mirror symmetry, but poor n-fold rotational symmetry ('side'
+views). It generates class averages for each of these two views, then
+generates a 3D model based on them.
+<P>Specify the number of particles to use for each view. This number should
+be at least 10-20, and at most ~10% of the total particle data set.
+50-100 is good for typical data sets of 2000 or more particles.
+<P>This routine will not work well for all data sets. Sometimes the relative
+orientation of the side view will come out wrong, and will need to
+be manually adjusted with the 'fixrot' parameter. Sometimes it won't
+work at all, and startAny will have to be used.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

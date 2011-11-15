@@ -1,0 +1,523 @@
+<html>
+<head>
+<title>Segment Volume - Segment Simple</title>
+<style type="text/css">
+<!-- 
+body 				{ width: 640px; margin: auto; padding: 24px;
+							font: Verdana, Arial, Helvetica, sans-serif; }
+p 					{	text-align: justify; padding-left: 16px; }
+.highlight 	{ color: #006699; }
+.code 			{ color: #666666; }
+-->
+</style>
+</head>
+
+<body>
+<h2>Segment Simple</h2>
+
+<img src="segmentsimple.gif">  <!-- icon -->
+
+<h3>Introduction</h3>
+
+<p>The <span class="highlight">Segment Simple</span> module is a part of 
+the <a href="../SegmentHelp/index.html">Segment Volume</a> package used for 
+segmentating volume data. The 
+module is a <span class="highlight">Chimera</span> extension module. 
+To use this module, the <span class="highlight">Segment Menu</span> 
+module of the <span class="highlight">Segment Volume</span> package 
+is required. You will need the 
+<a href="http://www.cgl.ucsf.edu/chimera/">Chimera</a> and
+<a href="http://ncmi.bcm.tmc.edu/~steve/EMAN/doc/">EMAN</a> software 
+packages to use this module. The module interacts with 
+<span class="highlight">Volume Viewer</span>, a Chimera module for 
+visualizing 3D volume data.</p>
+
+<p><span class="highlight">Segment Simple</span> Segment Simple uses 
+<span class="highlight">simple regions</span> such as 
+a cuboid to segment out the region inside the volume data (MRC format) 
+and create a new volume data file (MRC format) with the segmented 
+region. The <span class="highlight">simple regions</span> can 
+be specified using a set of paremeters or drawn using the mouse.</p>
+
+<p><b>Note:</b> This version of the Segment Volume package is
+a pre-release version.</p>
+
+<h3>More:</h3>
+
+<ul>
+	<li><a href="#startup">Startup</a>
+		<ul>
+			<li><a href="#list">Listing the module</a>
+			<li><a href="#start">Starting the module</a></li>
+		</ul>
+	</li>
+	<li><a href="#formats">Supported data formats</a>
+		<ul>
+			<li><a href="#emanformats">EMAN supported formats</a></li>
+		</ul>
+	</li>
+	<li><a href="#dialog">Dialog panel</a>
+		<ul>
+			<li><a href="#datasec">Input data section</a>
+			<li><a href="#selsec">Selection region</a></li> 
+			<li><a href="#parsec">Selection region parameters</a></li>
+			<li><a href="#parsecout">Output region parameters</a></li>
+			<li><a href="#segsec">Segmentation Info</a></li>
+			<li><a href="#outsec">Output data section</a></li>
+			<li><a href="#buttons">Other buttons</a></li>
+		</ul>
+		</li>
+	</li>
+	<li><a href="#parameters">Choice of parameters</a>
+		<ul>
+			<li><a href="#boxparam">Selection region - Box</a></li>
+			<li><a href="#circparam">Selection region - Circle</a></li>
+			<li><a href="#outparam">Output region</a></li>
+		</ul>
+	</li>
+	<li><a href="#mouse">Using the mouse</a>
+		<ul>
+			<li><a href="#mousebox">Selection region - Box</a></li>
+			<li><a href="#mousecirc">Selection region - Circle</a></li>
+		</ul>
+	</li>
+	<li><a href="#example">Example</a>
+		<ul>
+			<li><a href="#m1">Method 1</a></li>
+			<li><a href="#m2">Method 2</a></li>
+		</ul>
+	</li>
+	<li><a href="#notes">Notes</a>
+</ul>
+
+<a name="startup"></a>
+<h3>Startup</h3>
+
+<a name="list"></a>
+<h4>Listing the module</h4>
+
+<p>The module files are stored in the directory 
+<span class="highlight">SegmentSimple</span>. To list the module under 
+Chimera's <span class="highlight">Tools</span> menu, add the directory 
+-&nbsp;containing&nbsp;- the <span class="highlight">SegmentSimple</span> 
+directory to Chimera's list of Tools.</p>
+
+<p>To do so, open Chimera's main window, choose 
+<span class="highlight">Perferences</span> under 
+<span class="highlight">Favorites</span> menu, then choose the 
+<span class="highlight">Tools</span> category and then 
+<span class="highlight">Add</span> the directory -&nbsp;containing&nbsp;- 
+the <span class="highlight">SegmentSimple</span> directory. This will 
+list the tool under <span class="highlight">AIRS</span> on the 
+<span class="highlight">Tools</span> menu.</p>
+
+<a name="start"></a>
+<h4>Starting the module</h4>
+
+<p>To start the module from the Chimera menu, first you will need to ensure 
+that the module is <a href="#list">listed</a> under Chimera's 
+<span class="highlight">Tools</span> menu. Then, click on 
+<span class="highlight">Segment Simple</span> in the 
+<span class="highlight">AIRS</span> menu, under Chimera's 
+<span class="highlight">Tools</span> menu.</p>
+
+<p>Alternatively, you can use the command line tool in Chimera's 
+<span class="highlight">IDLE</span> tool (under Programming tools 
+on the Tools menu), and type: </p>
+
+<p>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; import SegmentSimple <br>
+&nbsp;&nbsp;&gt;&gt;&gt; SegmentSimple.simple.show_seg_simple_dialog() 
+</span>
+</p> 
+
+<hr>
+
+<a name="formats"></a>
+<h3>Supported data formats</h3>
+
+<a name="emanformats"></a>
+<h4>EMAN's data formats</h4>
+
+<p>The <span class="highlight">Segment Simple</span> module currently 
+uses <span class="highlight">EMAN</span> and 
+<span class="highlight">Chimera</span> software and hence the 
+input/output data formats are restricted to those supported by both 
+these software packages. </p>
+
+<hr>
+
+<a name="dialog"></a>
+<h3>Dialog panel</h3>
+
+<p><img src="simple.png" 
+style="margin-left:16px; margin-bottom:8px;"> </p>
+
+<a name="datasec"></a>
+<h4>Input data section</h4>
+
+<p>The Segment Simple dialog panel has six main sections. The first section 
+is the Input data section. The <span class="highlight">Data file menu</span> 
+automatically lists available data regions in Chimera's 
+<span class="highlight">Volume Viewer</span>. To select a data set, 
+simply pick an entry from this menu. The size of the data set in pixels 
+is automatically displayed on the dialog, below the menu. If the data set 
+is displayed in Chimera, then the <span class="highlight">Displayed</span> 
+value is set to <span class="highlight">Yes</span>.</p>
+
+<p>To open new models, click the <span class="highlight">Open</span> 
+button below the menu. This will open Chimera's 
+<span class="highlight">Volume Viewer</span> dialog and an 
+<span class="highlight">Open file browser</span> dialog. After adding 
+the models, if the models are not listed on the data menu, click the 
+<span class="highlight">Refresh menu</span> button, next to the 
+<span class="highlight">Open button</span> on the 
+<span class="highlight">Segment Simple</span> dialog.</p>
+
+<p>Alternatively, you can directly open new models using Chimera's 
+<span class="highlight">Volume Viewer</span>. Once again, if the newly 
+opened models are not displayed on the data menu, hit the 
+<span class="highlight">Refresh menu</span> button.</p>
+
+<a name="selsec"></a>
+<h4>Selection region</a></h4> 
+
+<p>This section allows you to pick a mouse button to draw 
+the simple regions on the Chimera main window. To enable the 
+mouse mode, the checkbox before the 
+<span class="highlight">Use button</span> needs to be checked.
+This checkbox is activated only if the data item on the 
+<span class="highlight">Input data menu</span> is displayed.</p>
+
+
+<p>The <span class="highlight">mouse button menu</span> allows 
+you to pick a mouse button to draw the selection region. The 
+outline of selection region is displayed in red.</p>
+
+<p>The <span class="highlight">Delete</span> button deletes the 
+selection region if present. The <span class="highlight">Show</span>
+and <span class="highlight">Hide</span> buttons show and hide the
+selection region respectively. </p>
+
+<p>More on <a href="#mouse">using the mouse to draw the region</a> 
+follows later.</p>
+
+<a name="parsec"></a>
+<h4>Selection region parmaeters</h4>
+
+<p>In this section, you can pick the type of selection region you 
+want to consider for segmenting. Currently, only the 
+<span class="highlight">Box</span> (cuboid) region and 
+<span class="highlight">Circle</span> (sphere) are supported. To select 
+the selection region type, check the appropriate checkbox.</p>
+
+<p>After selecting the region type, a panel for selection 
+region parmaeters is activated, where you can enter the parameters 
+in pixels. For example, the <span class="highlight">Box</span> 
+selection type is specified using the 
+<span class="highlight">Box Size</span> and the 
+<span class="highlight">Box Center</span> values in 
+<span class="highlight">pixels units</span>. </p>
+
+<p>The <span class="highlight">Circle</span> 
+selection type is specified using a bounding box with the 
+<span class="highlight">Circle Size</span> and the 
+<span class="highlight">Circle Center</span> values in 
+<span class="highlight">pixels units</span>. 
+If the bounding box is not a cube, then the smallest dimension is 
+used as diameter for the circle (sphere) region. </p>
+
+<p>Hitting the enter key 
+in any of the parameter entry boxes will display the selection 
+region and update the parameters in Angstroms <b>if</b>  the 
+parameters in pixels are 
+<a href="#parameters">valid selection parameters</a> <b>and</b> 
+<b>if</b> the data is displayed in Chimera. The values of 
+the parameters in <span class="highlight">Angstrom units</span> 
+are read-only and cannot be directly edited. </p>
+
+<p>The values of the parameters are automatically updated when 
+the mouse is used to draw a selection region or to move the 
+selection region. The paremters are updated for the selection region 
+specified by the <span class="highlight">Choose type</span> radiobutton 
+under the <a href="#segsec">Segmentation Info</a> section.</p>
+
+<a name="parsecout"></a>
+<h4>Output region parameters</h4>
+
+<p>In this section you can specify the output region of the 
+volume data. This can be the same as the 
+<span class="highlight">segment region</span> or the same as
+the <span class="highlight">original region</span> or a 
+<span class="highlight">custom region</span> where you can 
+enter the <span class="highlight">Size</span> and 
+<span class="highlight">Center</span> parameters in pixel units.</p>
+
+<p>To pick the output region type, simple pick one of the options 
+on the <span class="highlight">Output region type menu</span>. Picking 
+the <span class="highlight">custom region</span> will activate the 
+<span class="highlight">Size</span> and 
+<span class="highlight">Center</span> parameter entries. The 
+corresponding values in 
+<span class="highlight">Angstrom units</span> are displayed if the 
+parameters in pixel units are integers, and size is positive. </p>
+
+<p>If the output region is larger than the segmented region,
+the extra space is padded with zeros.</p>
+
+<a name="segsec"></a>
+<h4>Segmentation Info</h4>
+
+<p>In this section, the actual choice of the segmentation region type 
+is made using <span class="highlight">Choose type</span> radiobutton.
+The <span class="highlight">File MRC</span> specifies the name of 
+the output file, and hitting the <span class="highlight">Apply</span>
+button performs the segmentation.</p>
+
+<p>After hitting the <span class="highlight">Apply</span> button,
+the parameters of the corresponding selection region (<b>as specified</b>
+by <span class="highlight">Choose type</span> radiobutton in the 
+<span class="highlight">Segmentation Info</span> section) are checked for 
+<a href="#parameters">validity</a>. The parameters of the output 
+region are also checked to see if the output region encloses the 
+segmented region. </p>
+
+
+<a name="outsec"></a>
+<h4>Output data section</h4>
+
+<p>The output data section has an 
+<span class="highlight">Output data menu</span> that lists the 
+current segmented output files. To open or display the file in Chimera, 
+click on the <span class="highlight">Show</span> button. If more 
+than one output file was created, then you can click on 
+<span class="highlight">Show All</span> button to open and display 
+all the files on the menu. </p>
+
+<p>The <span class="highlight">Hide</span> button closes the model 
+(associated with the file on the 
+<span class="highlight">Output data menu</span>) in Chimera, but 
+leaves the entry on the <span class="highlight">Volume Viewer</span> 
+data menu unchanged. The <span class="highlight">Hide All</span> 
+button applies the <span class="highlight">Hide</span> button to all 
+the files on the output data menu.</p>
+
+<p>The <span class="highlight">Remove All</span> button removes all the 
+entries on the <span class="highlight">Output data menu</span>, but 
+leaves the corresponding entries (if any) on the 
+<span class="highlight">Volume Viewer</span> data menu unchanged.</p>
+
+<a name="buttons"></a>
+<h4>Other buttons</h4>
+
+<p>The <span class="highlight">Close</span> button closes the 
+<span class="highlight">Segment Simple</span> dialog. The 
+<span class="highlight">Help</span> button opens this help page.</p>
+
+<hr>
+
+<a name="parameters"></a>
+<h3>Parameters</h3>
+
+<a name="boxparam"></a>
+<h4>Selection region - box</h4>
+
+<p><img src="simplebox.png" align="right" 
+style="margin-left:16px; margin-bottom:8px;"></p>
+
+
+<p>For the <span class="highlight">Box</span> selection region 
+<a href="#parsec">parameters</a>, 
+<span class="highlight">Size</span> parameters should be positive 
+integers corresponding to size of the box in terms of pixels (in 
+object coordinates). </p>
+
+<p><span class="highlight">Center</span> parameters 
+should be integers corresponding to the center of the box in 
+terms of pixels (in object coordinates). </p>
+
+<p>Once the parameters 
+have been entered correctly, if the data is shown in the 
+Chimera viewer, then pressing the 
+<span class="highlight">Return</span> or 
+<span class="highlight">Enter</span> key will display the box 
+region selection, and update the parameters in 
+<span class="highlight">Angstrom units</span>.</p>
+
+<p>For the segmentation operation 
+(<span class="highlight">Apply</span> button), if the box 
+region is completely outside the data region, then the 
+parameters are considered invalid.</p>
+
+<a name="circparam"></a>
+<h4>Selection region - circle</h4>
+
+<!-- 
+<p><img src="simplebox.png" align="right" 
+style="margin-left:16px; margin-bottom:8px;"></p>
+-->
+
+<p>For the <span class="highlight">Circle</span> selection region 
+<a href="#parsec">parameters</a>, 
+<span class="highlight">Size</span> parameters should be positive 
+integers corresponding to size of the bounding box of circle (sphere)
+in terms of pixels (in object coordinates). </p>
+
+<p><span class="highlight">Center</span> parameters 
+should be integers corresponding to the center of the bounding box 
+in terms of pixels (in object coordinates). </p>
+
+<p>Once the parameters 
+have been entered correctly, if the data is shown in the 
+Chimera viewer, then pressing the 
+<span class="highlight">Return</span> or 
+<span class="highlight">Enter</span> key will display the circle 
+region selection (using bounding box), and update the parameters in 
+<span class="highlight">Angstrom units</span>.</p>
+
+<p>For the segmentation operation 
+(<span class="highlight">Apply</span> button), if the 
+bounding box region is completely outside the data region, 
+then the parameters are considered invalid.</p>
+
+<a name="outparam"></a>
+<h4>Output parmeters</h4>
+
+<p>The <a href="#parsecout">output region parameters</a> 
+should all be integers, and should be positive for 
+<span class="highlight">Size</span> parameters. The parameters 
+in <span class="highlight">Angstrom units</span> are 
+automatically updated if the above condition is satisfied. </p>
+
+<p>However, for the segmentation operation 
+(<span class="highlight">Apply</span> button), if the output 
+region does not enclose the segmented region, then the 
+parameters are considered invalid.</p>
+
+<hr>
+
+<a name="mouse"></a>
+<h3>Using the mouse</h3>
+
+
+<p> To draw a region for the , ensure that the 
+<span class="highlight">mouse selection</span> button in the 
+<a href="#selsec">Selection region</a> section is checked, and
+that the data on data menu 
+(<a href="#datasec">Input data section</a>) is displayed.</p>
+
+<a name="mousebox"></a>
+<h4>Selection region - Box</h4>
+
+<p>For the <span class="highlight">Box selection region </span>,
+simply click on the Chimera viewer using the correct 
+mouse button and drag to draw the region. The selection region
+is displayed in red. </p>
+
+<p>To  <span class="highlight">move the box</span>, place the mouse 
+slightly away from the box and drag the mouse. To 
+<span class="highlight">move a face</span> of the box, click on the 
+face and drag the mouse.</p>
+
+<a name="mousecirc"></a>
+<h4>Selection region - Circle</h4>
+
+<p>For the <span class="highlight">Circle selection region </span>,
+draw the bounding box similar to drawing the 
+<a href="#mousebox">Box selection region</a> described above. </p>
+
+<hr>
+
+<a name="example"></a>
+<h3>Example</h3>
+
+<p>Let us say, we have an input MRC file 
+input.mrc of size 128 by 128 by 128 pixels and we want to segment 
+out the cuboid region centered at pixel location [48,48,48] in 
+object coordinates, and of size 32 by 32 by 32 pixels. (Note that 
+the origin is considered to be at one of the corner points of the 
+data set for this example.). </p>
+
+<p>Use the <span class="highlight">Open</span> button in the 
+<span class="highlight">Input data section</span> to add the file 
+to the menu. The size of the data set is displayed. There,
+are several ways of proceeding from here:</p>
+
+<a name="m1"></a>
+<h4>Method 1</h4>
+
+<p>Jump to the 
+<span class="highlight">Selection region parameters</span>,
+set <span class="highlight">Choose region</span> checkbox to
+<span class="highlight">Box</span>, and enter the values 
+<span class="highlight">[32,32,32]</span> for the box 
+<span class="highlight">Size</span> parameters, and 
+<span class="highlight">[48,48,48]</span> for the box 
+<span class="highlight">Center</span> parameters.</p>
+
+<p>If our data set is displayed in Chimera (use Chimera's 
+<span class="highlight">Volume Viewer</span>), then hitting the 
+<span class="highlight">Enter</span> or 
+<span class="highlight">Return</span> key 
+would automatically display the box selection in red.</p>
+
+<p>Now, hit the <span class="highlight">Apply</span> button in the 
+<span class="highlight">Segmentation Info</span> section, after 
+setting the <span class="highlight">Segmentation type</span> to
+<span class="highlight">Box</span>. To view the output, hit the 
+<span class="highlight">Show</span> button in the 
+<span class="highlight">Output data section</span>.</p>
+
+<a name="m2"></a>
+<h4>Method 2</h4> 
+
+<p>Go to the <span class="highlight">Selection section</span>, and 
+check the <span class="highlight">mouse button box</span> and pick 
+a button from the <span class="highlight">mouse button menu</span>. </p>
+
+<p>Use the mouse to draw a box in Chimera viewer. Dragging the mouse 
+on a face of the box will move the face of the box. Dragging the 
+mouse (away from the box) will move the entire box. You can 
+use the other mouse buttons to change the orientation of the 
+entire object.</p>
+
+<p>The <span class="highlight">Selection region parameters</span> 
+section will automatically update itself and show the box 
+<span class="highlight">Center</span> and 
+<span class="highlight">Size</span> parameters as you stop drawing 
+in Chimera viewer.</p>
+
+<p>Now, hit the <span class="highlight">Apply</span> button in the 
+<span class="highlight">Segmentation Info</span> section, after 
+setting the <span class="highlight">Segmentation type</span> to
+<span class="highlight">Box</span>. To view the output, hit the 
+<span class="highlight">Show</span> button in the 
+<span class="highlight">Output data section</span>.</p>
+
+<hr>
+
+<a name="notes"></a>
+<h3>Notes</h3>
+
+<h4>EMAN</h4>
+
+<p>The <a href="http://ncmi.bcm.tmc.edu/~steve/EMAN/doc/">EMAN</a> 
+software package is required to use this module. One of the common 
+problems when using this module, is that of EMAN's integration into 
+Chimera's environment. This module interacts with EMAN using the 
+Python script file <a href="boxes.py">boxes.py</a>, which is 
+executed from the OS command line. So, before using the module, 
+ensure that the EMAN's Python libraries are available from within 
+Chimera's Python environment.</p>
+
+</p>
+<hr>
+
+<span class="highlight">
+<i>Segment Volume package (pre-release) - Segment Simple module<br>
+2005 April, Lavu Sridhar, Baylor College of Medicine</i>
+</span>
+</body>
+
+</html>

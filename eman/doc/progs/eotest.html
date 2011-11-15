@@ -1,0 +1,47 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/eotest.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>eotest</h1>
+<p><h3>This program performs a 2 way even/odd test to determine the resolution of a reconstruction.</h3>
+eotest  [proc=&lt;min proc>,&lt;maxproc>] [hard=&lt;maxpr>] [ctfc=&lt;res in A>] [ctfcw=&lt;SF file>] [median] [sym=&lt;c2,c4,etc>] [mask=&lt;rad>] [pad=&lt;size>] [classkeep=&lt;sigma coef>] [classiter=&lt;iter>] [precen] [imask=&lt;rad>] [xfiles=&lt;a/pix>,&lt;mass in kd>,&lt;ali to>] [amask=&lt;r>,&lt;thr>,&lt;n iter>] [3dit=&lt;n it>] [3dit2=&lt;n it>] [euler2] [fscmp] [refine] [dfilt] [dfilt2] [frm2d[=&lt;rad>,&lt;samp>]] [refmaskali] [iter=&lt;n>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>[proc=&lt;min proc>,&lt;maxproc>]</td><td>Number of proceesors to use for parallel processing</td></tr>
+<tr><td>[hard=&lt;maxpr>]</td><td>Hard limit for make3d</td></tr>
+<tr><td>[ctfc=&lt;res in A>]</td><td>Performs CTF correction filtered to the specified resolution</td></tr>
+<tr><td>[ctfcw=&lt;SF file>]</td><td>Performs CTF correction with Wiener filtration using a structure factor specified in a file</td></tr>
+<tr><td>[median]</td><td>Specify this when CTF correction is NOT being performed</td></tr>
+<tr><td>[sym=&lt;c2,c4,etc>]</td><td>Imposes symmetry on the model</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>Applies an outside mask in several stages of refinement</td></tr>
+<tr><td>[pad=&lt;size>]</td><td>Pads the model during Fourier reconstruction</td></tr>
+<tr><td>[classkeep=&lt;sigma coef>]</td><td>Classkeep value for &lt;a href=classalignall.html>classalignall&lt;/a></td></tr>
+<tr><td>[classiter=&lt;iter>]</td><td>Iterations for &lt;a href=classalignall.html>classalignall&lt;/a></td></tr>
+<tr><td>[precen]</td><td>Indicates that raw particles have been accurately precentered</td></tr>
+<tr><td>[imask=&lt;rad>]</td><td>Applies an inside mask in several stages of refinement</td></tr>
+<tr><td>[xfiles=&lt;a/pix>,&lt;mass in kd>,&lt;ali to>]</td><td>Used to generate 3d models that are easy to evaluate</td></tr>
+<tr><td>[amask=&lt;r>,&lt;thr>,&lt;n iter>]</td><td>This applies an automask between steps in a reconstruction. see automask2 in proc3d. REQUIRES xfiles to be used.</td></tr>
+<tr><td>[3dit=&lt;n it>]</td><td>After constructing a model with Fourier reconstruction, this runs several iterations of real-space model 'cleansing' </td></tr>
+<tr><td>[3dit2=&lt;n it>]</td><td>This is real-space refinement with a special maximum entropy-like feature extraction method </td></tr>
+<tr><td>[euler2]</td><td>Reassigns Euler angles to class averages using the same step used by refine. ie - 2 will use ang/2 (see &lt;a href=classesrefs.html>classesrefs&lt;/a></td></tr>
+<tr><td>[fscmp]</td><td>Use fsc (frc) to compare images instead of normalized variance</td></tr>
+<tr><td>[refine]</td><td>Refine each alignment to subpixel accuracy</td></tr>
+<tr><td>[dfilt]</td><td>Experimental option which will apply a ~matching filter to the projections during class alignment</td></tr>
+<tr><td>[dfilt2]</td><td>Experimental option which will apply an improved ~matching filter to the projections during class alignment</td></tr>
+<tr><td>[frm2d[=&lt;rad>,&lt;samp>]]</td><td>This will classify using Fast Rotational Matching 2D. rad is the maximum radius of particles; samp is the number of angular sampling points at each radius circle  </td></tr>
+<tr><td>[refmaskali]</td><td>see refine</td></tr>
+<tr><td>[iter=&lt;n>]</td><td>Select the iteration to do eotest. default to last iteration</td></tr>
+<h3>Description</h3>
+<P>This program's options parallel <a href=refine.html>refine</a>. 'eotest' options are a
+subset of refine's options. eotest is used to perform a fairly robust resolution
+determination on a reconstruction. It is run in the same directory as a completed
+refine command. Note that the refine command MUST terminate normally. Chances are
+good that if refine is interrupted in the middle of a run, eotest will not produce
+valid results. eotest splits each cls file into even and odd halves, then proceeds to
+build an independent model based on each half of the data. By calculating a Fourier
+shell correlation between the two resulting maps, a fairly robust resolution determination
+can be made. For a proper determination, the data should be split into 2, 4, 8, etc sets,
+then the resolution can be determined by interpolating to the entire data set. The
+estimate made by comparing 2 halves of the data is actually slightly underestimating
+the final resolution. Due to the rapid nonlinear falloff in signal to noise ratio
+at resolution limiting spatial frequencies, this underestimation should be
+relatively slight in most cases.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

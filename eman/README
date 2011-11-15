@@ -1,0 +1,22 @@
+﻿How to install EMAN binary
+
+   1. Run the following command in your EMAN directory(i.e. ${HOME}/EMAN):
+      % eman-installer
+      
+   2. Read the output of eman-installer and do accordingly.
+
+   
+What platforms are supported
+
+    The following linux distributions have been tested to work
+    for EMAN daily release:
+    
+      - Fedora Core 3, 4, 5, 6, Fedora 7, 8
+      - Mandriva 2006, 2007.0, 2007.1, 2008.0
+      - SuSE 10.0, 10.1, 10.2, 10.3
+      - Ubuntu 4.0, 4.1, 4.2, 5.04, 5.10, 6.06, 6.10, 7.04, 7.10 
+      - CentOS 4.1, 4.2, 4.3, 4.4, 5.0
+
+    It should work for most other recent linux distributions. If not,
+    please compile EMAN from source.
+

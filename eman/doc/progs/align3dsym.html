@@ -1,0 +1,21 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/align3dsym.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>align3dsym</h1>
+<p><h3>This will rotate a 3D model so its symmetric axes are aligned on the predefined axes</h3>
+align3dsym  &lt;input file> &lt;output file> sym=&lt;Cn,Dn> [mask=&lt;rad>] [imask=&lt;rad>] [refine]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>Source file</td></tr>
+<tr><td>&lt;output file></td><td>Destination file</td></tr>
+<tr><td>sym=&lt;Cn,Dn></td><td>Apply an n-fold rotational symmetry to each image</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>Outside mask </td></tr>
+<tr><td>[imask=&lt;rad>]</td><td>Inner mask applied only for location purposes. Not applied to output.</td></tr>
+<tr><td>[refine]</td><td>Used when the orientation is off by less than 10 degrees</td></tr>
+</table><br><h3>Usage:</h3>
+<p>align3dsym threed.0a.mrc threed.0a.mrc sym=c7
+<h3>Description</h3>
+<P>This program will rotate 3D model so it's rotational symmetries are aligned on
+the predefined axes. The model MUST be centered properly before this program
+is used. By default the n-fold symmetric axis is z, and a 2-fold axis (for D symmetry)
+lies along x. Note that this program does not currently work on icosahedral particles.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

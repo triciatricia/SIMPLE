@@ -1,0 +1,3 @@
+Determines the rotation and transformation between images in a focal pair
+Usage:
+alignhuge  <image to align> <fixed reference> <output> [mrc8bit] [maxscale=<float>]

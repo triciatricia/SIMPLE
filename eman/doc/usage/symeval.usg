@@ -1,0 +1,3 @@
+Experimental - not documented yet
+Usage:
+symeval  <centered particles> [max=<max sym>] [mask=<rad>] [imask=<rad>] [sigfilt] [conly]

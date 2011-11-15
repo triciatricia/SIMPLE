@@ -1,0 +1,19 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/xtalcen.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>xtalcen</h1>
+<p><h3>This program will take a diffraction pattern, locate the center, remove the beamstop and do a background subtraction</h3>
+xtalcen  &lt;input file [out=&lt;output name>] [center=&lt;x>,&lt;y>] [filtrad=&lt;rad>] [bgsub] [zerothr=&lt;sigma mult>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file</td><td>&lt;input file></td></tr>
+<tr><td>[out=&lt;output name>]</td><td>Optional output image</td></tr>
+<tr><td>[center=&lt;x>,&lt;y>]</td><td>No automatic centering</td></tr>
+<tr><td>[filtrad=&lt;rad>]</td><td>Radius of background elimination filter for centering, should be larger than peak size, default 10</td></tr>
+<tr><td>[bgsub]</td><td>Do a background subtraction</td></tr>
+<tr><td>[zerothr=&lt;sigma mult>]</td><td>Threshold for zeroed data as a sigma multiplier, default 1.5</td></tr>
+</table><br><h3>Usage:</h3>
+<p>xtalcen edp1.mrc out=edp1a.mrc bgsub
+<h3>Description</h3>
+<P>This program will find the center of a diffraction mode diffraction pattern, mask out the beamstop
+<P>and do an optional background subtraction.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

@@ -1,0 +1,3 @@
+A simple script that generates projections of a map and uses glmatrix to visually make a similarity comparison
+Usage:
+evalsim3d.py  <model> [ang=<da>] [sym=<sym>] [shrink=<n>]

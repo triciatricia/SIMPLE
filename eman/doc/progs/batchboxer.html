@@ -1,0 +1,28 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/batchboxer.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>batchboxer</h1>
+<p><h3>This program is used for offline boxing of micrographs (MRC format ONLY!)</h3>
+batchboxer  [input=&lt;filespec>] [dbbox=&lt;filespec>] [imgbox=&lt;filespec>] [refimg=&lt;filespec>] [auto[=&lt;thr1>,&lt;thr2>,&lt;thr3>]] [mindist=&lt;pixels>] [xform=&lt;dx>,&lt;dy>,&lt;da>] [scale=&lt;mult>] [newsize=&lt;size>] [output=&lt;filespec>] [ctfout=&lt;filespec>] [dbout=&lt;filespec>] [invert] [adjust=&lt;filespec>] [insideonly]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>[input=&lt;filespec>]</td><td>Image to be boxed	(MRC format only!!!)</td></tr>
+<tr><td>[dbbox=&lt;filespec>]</td><td>Input box database</td></tr>
+<tr><td>[imgbox=&lt;filespec>]</td><td>Read box database from particle image set headers</td></tr>
+<tr><td>[refimg=&lt;filespec>]</td><td>Reference particle images for autoboxing</td></tr>
+<tr><td>[auto[=&lt;thr1>,&lt;thr2>,&lt;thr3>]]</td><td>Autobox with defined thresholds</td></tr>
+<tr><td>[mindist=&lt;pixels>]</td><td>Remove boxes whose centers are within &lt;pixels> of each other</td></tr>
+<tr><td>[xform=&lt;dx>,&lt;dy>,&lt;da>]</td><td>Rotate and translate the box database before output (see alignhuge)</td></tr>
+<tr><td>[scale=&lt;mult>]</td><td>Scale the box locations, useful if the micrograph has been resized</td></tr>
+<tr><td>[newsize=&lt;size>]</td><td>New box size for all boxes (center preserved)</td></tr>
+<tr><td>[output=&lt;filespec>]</td><td>Output file for boxed images</td></tr>
+<tr><td>[ctfout=&lt;filespec>]</td><td>File to put CTF curves into (if input is focal pair merged)</td></tr>
+<tr><td>[dbout=&lt;filespec>]</td><td>Output box database file</td></tr>
+<tr><td>[invert]</td><td>Invert the particle image before output</td></tr>
+<tr><td>[adjust=&lt;filespec>]</td><td>If images were from a focal pair, this will try to center the particles properly</td></tr>
+<tr><td>[insideonly]</td><td>This will not box particles that extend outside the micrograph</td></tr>
+</table><br><h3>Usage:</h3>
+<p>batchboxer dbbox=jj0441.box input=jj0441.mrc output=0441.hed
+<h3>Description</h3>
+<P>This program does offline boxing of particles using a box database or an automatic
+boxing routine. Please note that it will work only on MRC images.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

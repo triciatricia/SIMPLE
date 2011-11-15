@@ -1,0 +1,51 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/project3d.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>project3d</h1>
+<p><h3>Generate projections of a 3D model</h3>
+project3d  &lt;input file> [out=&lt;file>] [prop=&lt;dtheta>] [perturb] [4point[=&lt;az>]] [euler=&lt;alt>,&lt;az>,&lt;phi>] [list=&lt;euler file>] [spiral=&lt;angles>] [grid=&lt;steps>] [reproj=&lt;class file>] [mask=&lt;radius>] [text] [sym=&lt;c4,icos,etc>] [icos5fhalfmap] [pad=&lt;newsize>] [mode=&lt;1-6>] [phitoo[=&lt;ang>]] [smear] [phicomp] [randomphi] [randomall[=&lt;altmin>,&lt;altmax>,&lt;azmin>,&lt;azmax>,&lt;phimin>,&lt;phimax>]] [frac=&lt;0 to d-1>/&lt;d>] [minalt=&lt;ang>] [makemask] [mrc2voltable]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>3D model to be projected</td></tr>
+<tr><td>[out=&lt;file>]</td><td>Output file. Default is 'proj.img' </td></tr>
+<tr><td>[prop=&lt;dtheta>]</td><td>Most common option. Generates projections with a relatively uniform projection density in the unit triangle.</td></tr>
+<tr><td>[perturb]</td><td>Used with prop to generate variations within the Euler angle distribution to reduce deterministic artifacts in Fourier space</td></tr>
+<tr><td>[4point[=&lt;az>]]</td><td>Generates 4 projections. 1 polar and 3 equatorial. Optional Az will rotate the top view.</td></tr>
+<tr><td>[euler=&lt;alt>,&lt;az>,&lt;phi>]</td><td>Generate a single projection with the given orientation</td></tr>
+<tr><td>[list=&lt;euler file>]</td><td>Generate projections from a list of orientations</td></tr>
+<tr><td>[spiral=&lt;angles>]</td><td>Generate projections along a spiral from axis to equator</td></tr>
+<tr><td>[grid=&lt;steps>]</td><td>Generate projections on an rectangular alt/az mesh, nonuniform projection density</td></tr>
+<tr><td>[reproj=&lt;class file>]</td><td>Give the name of a file with class-averages, and the model will be reprojected at corresponding angles.</td></tr>
+<tr><td>[mask=&lt;radius>]</td><td>Specify a circular mask radius for the projections</td></tr>
+<tr><td>[text]</td><td>Dumps Euler angles to a text file</td></tr>
+<tr><td>[sym=&lt;c4,icos,etc>]</td><td>Specify symmetry of model to prevent redundant projections</td></tr>
+<tr><td>[icos5fhalfmap]</td><td>Specify that the input map is an icos 5f map</td></tr>
+<tr><td>[pad=&lt;newsize>]</td><td>Used in Fourier mode</td></tr>
+<tr><td>[mode=&lt;1-6>]</td><td>Default is real-space projection, this specifies various Fourier modes</td></tr>
+<tr><td>[phitoo[=&lt;ang>]]</td><td>This will also vary phi in the final file. Warning: This works only with prop= and generates a LOT of projections.</td></tr>
+<tr><td>[smear]</td><td>Used in conjunction with 'phitoo', this will rotationally smear between phi steps.</td></tr>
+<tr><td>[phicomp]</td><td>This will roughly compensate for in-plane rotation from az with phi</td></tr>
+<tr><td>[randomphi]</td><td>Randmomize phi (usually zero in most modes)</td></tr>
+<tr><td>[randomall[=&lt;altmin>,&lt;altmax>,&lt;azmin>,&lt;azmax>,&lt;phimin>,&lt;phimax>]]</td><td>Randomize all 3 Eulers.</td></tr>
+<tr><td>[frac=&lt;0 to d-1>/&lt;d>]</td><td>Generate a subset of the projections, used for parallel processing</td></tr>
+<tr><td>[minalt=&lt;ang>]</td><td>Minimum projection altitude</td></tr>
+<tr><td>[makemask]</td><td>This will generate a output mask rather than a projection</td></tr>
+<tr><td>[mrc2voltable]</td><td>For large maps, this option can save memory by reading directly into a masked memory structure</td></tr>
+</table><br><h3>Usage:</h3>
+<p>project3d threeed.4a.mrc prop=5 sym=c4
+<h3>Description</h3>
+<P>This program generates a set of projections from a 3D model. Fourier space projection is
+much faster than real-space projection, but also produces fairly severe artifacts (much
+more severe than Fourier space reconstruction). This effect can be viewed with <a href=v4.html>v4</a>
+The default 'mode' is -1, which is real-space projection with trilinear interpolation. This
+produces artifacts in Fourier space, but is quite good in real space. If mode > 0, the mode
+specifies the interpolation size in voxels. That is, mode=3 denotes 3x3x3 Gaussian interpolation
+in Fourier space. For most purposes, the default mode of -1 should be used.
+<P>The orientations to use for projections can be specified many different ways. The spiral option
+produces the most uniform projection density in the unit triangle, but has a pitch, since it
+is a spiral. This pitch can produce artifacts in a refinement. The prop option generates
+nearly as uniform a distribution as spiral, but without this artifact.
+<P>For prop=<ang>, the ang parameter is the angular spacing between altitudes in degrees. The
+azimuthal spacing is proportional to sin(alt).
+<P>Minalt is used for helical reconstructions to produce near side-views only. For example,
+minalt=80 will produce projections ranging from side views to a 10 degree tilt.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

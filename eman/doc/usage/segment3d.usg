@@ -1,0 +1,3 @@
+Split a 3d map into several pieces.
+Usage:
+segment3d  <input file> <output file> [watershed[=<lp>[,<hp>]] [nseg=<n seg>] [morph=<vector file>] [ampw] [thr=<val>] [split] [maxit=<n>] [itxp=<n>] [vector=<outfile>] [apix=<apix>] [chimeraout=<outfile.cmm>] [pdb=<outfile>] [gaussmod=<mrc out>] [randomize] [stats] [segmaxv] [resegbystats=<thr>] [sym=<sym>]

@@ -1,0 +1,283 @@
+<html>
+<head>
+<title>Segment Volume - Segment Read</title>
+<style type="text/css">
+<!-- 
+body 				{ width: 640px; margin: auto; padding: 24px;
+							font: Verdana, Arial, Helvetica, sans-serif; }
+p 					{	text-align: justify; padding-left: 16px; }
+.highlight 	{ color: #006699; }
+.code 			{ color: #666666; }
+-->
+</style>
+</head>
+
+<body>
+<h2>Segment Read</h2>
+
+<img src="segmentread.gif">  <!-- icon -->
+
+<h3>Introduction</h3>
+
+<p>The <span class="highlight">Segment Read</span> module is available 
+as a part of <a href="../SegmentHelp/index.html">Segment Volume</a> package. The 
+module is a <span class="highlight">Chimera</span> extension module. 
+To use this module, the <span class="highlight">Segment Menu</span> 
+module of the <span class="highlight">Segment Volume</span> package 
+is required. You will need the 
+<a href="http://www.cgl.ucsf.edu/chimera/">Chimera</a> software 
+package to use this module. The module interacts with 
+<span class="highlight">Volume Viewer</span>, a Chimera module for 
+visualizing 3D volume data.</p>
+
+<p><span class="highlight">Segment Read</span> uses Chimera's 
+<span class="highlight">VolumeData</span> data objects (see 
+<span class="highlight">Volume Data</span> module in Chimera) and 
+reads volume data in different file formats. </p>
+
+<p><b>Note:</b> This version of the Segment Volume package is
+a pre-release version.</p>
+
+<h3>More:</h3>
+
+<ul>
+	<li><a href="#startup">Startup</a>
+		<ul>
+			<li><a href="#list">Listing the module</a>
+			<li><a href="#start">Starting the module</a></li>
+		</ul>
+	</li>
+	<li><a href="#formats">Supported input data formats</a>
+		<ul>
+			<li><a href="#chimeraformats">Chimera's data formats</a></li>
+			<li><a href="#segreadformats">Segment Read supported data formats</a></li>
+		</ul>
+	</li>
+	<li><a href="#dialog">Dialog panel</a>
+		<ul>
+			<li><a href="#input">Input data section</a>
+			<li><a href="#read">Additional formats section</a></li>
+			<li><a href="#buttons">Other buttons</a></li>
+		</ul>
+	</li>
+	<li><a href="#command">Command line options</a> (for advanced users)
+		<ul>
+			<li><a href="#grid">Create a VolumeData grid object from a volume data file</a></li>
+			<li><a href="#viewer">Open a volume data file in VolumeViewer</a></li>
+		</ul>
+	</li>
+	<li><a href="#notes">Notes</a>
+		<ul>
+			<li><a href="#noteformats">Additional input data formats</a></li>
+		</ul>
+	</li>	
+</ul>
+
+<hr>
+
+<a name="startup"></a>
+<h3>Startup</h3>
+
+<a name="list"></a>
+<h4>Listing the module</h4>
+
+<p>The module files are stored in the directory 
+<span class="highlight">SegmentRead</span>. To list the module under 
+Chimera's <span class="highlight">Tools</span> menu, add the directory 
+-&nbsp;containing&nbsp;- the <span class="highlight">SegmentRead</span> 
+directory to Chimera's list of Tools.</p>
+
+<p>To do so, open Chimera's main window, choose 
+<span class="highlight">Perferences</span> under 
+<span class="highlight">Favorites</span> menu, then choose the 
+<span class="highlight">Tools</span> category and then 
+<span class="highlight">Add</span> the directory -&nbsp;containing&nbsp;- 
+the <span class="highlight">SegmentRead</span> directory. This will 
+list the tool under <span class="highlight">AIRS</span> on the 
+<span class="highlight">Tools</span> menu.</p>
+
+<a name="start"></a>
+<h4>Starting the module</h4>
+
+<p>To start the module from the Chimera menu, first you will need to ensure 
+that the module is <a href="#list">listed</a> under Chimera's 
+<span class="highlight">Tools</span> menu. Then, click on 
+<span class="highlight">Segment Read</span> in the 
+<span class="highlight">AIRS</span> menu, under Chimera's 
+<span class="highlight">Tools</span> menu.</p>
+
+<p>Alternatively, you can use the command line tool in Chimera's 
+<span class="highlight">IDLE</span> tool (under Programming tools 
+on the Tools menu), and type: </p>
+
+<p>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; import SegmentRead <br>
+&nbsp;&nbsp;&gt;&gt;&gt; SegmentRead.show_seg_read_dialog() 
+</span>
+</p> 
+
+<hr>
+
+<a name="formats"></a>
+<h3>Supported input data formats</h3>
+
+<a name="chimeraformats"></a>
+<h4>Chimera's data formats</h4>
+
+<p>The <span class="highlight">Segment Read</span> module currently supports 
+all of Chimera's <span class="highlight">VolumeData</span> data types, 
+handled by the <span class="highlight">Volume Data</span> module of Chimera.</p>
+
+<a name="segreadformats"></a>
+<h4>Segment Read supported data formats</h4>
+
+<p>Additional formats supported by the 
+<span class="highlight">Segment Read</span> module 
+include the following:</p>
+
+<ul>
+	<li>RawIV data format - format specifications are in 
+		<a href="rawiv_specs.py">rawiv_specs.py</a></li>
+</ul>
+<hr>
+
+<hr>
+
+<a name="dialog"></a>
+<h3>Dialog panel</h3>
+
+<p><img src="init.png" align="right" 
+style="margin-left:16px; margin-bottom:8px;"> </p>
+
+<a name="input"></a>
+<h4>Input data section</h4>
+
+<p>The Segment Read dialog panel has two main sections. The first section 
+is the Input data section. The <span class="highlight">Data file menu</span> 
+automatically lists available data regions in Chimera's 
+<span class="highlight">Volume Viewer</span>. To select a data set, 
+simply pick an entry from this menu. The size of the data set in pixels 
+is automatically displayed on the dialog, below the menu. If the data set 
+is displayed in Chimera, then the <span class="highlight">Displayed</span> 
+value is set to <span class="highlight">Yes</span>.</p>
+
+<p>To open new models, click the <span class="highlight">Open</span> 
+button below the menu. This will open Chimera's 
+<span class="highlight">Volume Viewer</span> dialog and an 
+<span class="highlight">Open file browser</span> dialog. After adding 
+the models, if the models are not listed on the data menu, click the 
+<span class="highlight">Refresh menu</span> button, next to the 
+<span class="highlight">Open button</span> on the 
+<span class="highlight">Segment Read</span> dialog.</p>
+
+<p>Alternatively, you can directly open new models using Chimera's 
+<span class="highlight">Volume Viewer</span>. Once again, if the newly 
+opened models are not displayed on the data menu, hit the 
+<span class="highlight">Refresh menu</span> button.</p>
+
+<a name="read"></a>
+<h4>Additional formats section</h4>
+
+<p>To read additional datat formats, pick the format from this section,
+and the click on the <span class="highlight">Open</span> button next 
+to the format name. This will open an <span class="highlight">Open 
+file browser</span>.</p>
+
+<p>The file will be listed on the 
+<span class="highlight">Input data menu</span> of this dialog as well as 
+the <span class="highlight">Volume Viewer</span> data menu. If the file 
+is not already displayed, use the <span class="highlight">Show</span> 
+button on the <span class="highlight">Volume Viewer</span> dialog.</p>
+
+<a name="buttons"></a>
+<h4>Other buttons</h4>
+
+<p>The <span class="highlight">Close</span> button closes the 
+<span class="highlight">Segment Read</span> dialog. The 
+<span class="highlight">Help</span> button opens this help page.</p>
+
+<hr>
+
+<a name="command"></a>
+<h3>Command line options (for advanced users)</h3>
+
+<p>The command line options can be used in Chimera's 
+<span class="highlight">IDLE</span> tool (under Programming tools 
+on the Tools menu).</p>
+
+<a name="grid"></a>
+<h4>Create a VolumeData grid object from a volume data file (for advanced users)</h4>
+
+<p>Volume data in Chimera is handled by the 
+<span class="highlight">Volume Data</span> module in Chimera, 
+and is represented as a grid object. The grid object essentially 
+contains the header info. To creata a <span class="highlight">VolumeData</span> 
+grid data object, simply type:</p>
+
+<p>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; import SegmentRead
+</span><br>
+
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; data = SegmentRead.rawiv_read.open_rawiv(path)  
+</span>
+
+<span class="highlight"># RawIV data format</span>
+
+</p>
+
+<p>For further help, type:<br>
+<span class="code">
+&gt;&gt;&gt;&nbsp;help(SegmentRead.rawiv_read.open_rawiv)
+</span>
+<span class="highlight"># RawIV data format</span>
+</p>
+
+<a name="viewer"></a>
+<h4>Open a volume data file in Volume Viewer (for advanced users)</h4>
+
+<p>Volume data in Chimera is handled by the 
+<span class="highlight">Volume Data</span> module in Chimera, and is 
+represented as a grid object. To open the file in 
+<span class="highlight">Volume Viewer</span>, simply type:</p>
+
+<p>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; import SegmentRead
+</span><br>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; data, region = SegmentRead.rawiv_read.display_rawiv(path)
+</span>
+<span class="highlight"># RawIV data format</span>
+</p>
+
+<p>For further help, type:</p>
+
+<p>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; help(SegmentRead.rawiv_read.display_rawiv)
+</span>
+<span class="highlight"># RawIV data format</span>
+</p>
+
+<hr>
+
+<a name="notes"></a>
+<h3>Notes</h3>
+
+<a name="noteformats"></a>
+<h4>Additional input data formats</h4>
+<p>Currently, only the RawIV input data format is supported. </p>
+
+<hr>
+
+<span class="highlight">
+<i>Segment Volume package (pre-release) - Segment Read module<br>
+2005 April, Lavu Sridhar, Baylor College of Medicine</i>
+</span>
+
+</body>
+
+</html>

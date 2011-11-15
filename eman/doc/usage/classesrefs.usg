@@ -1,0 +1,5 @@
+Classifies particles using a set of invariants
+Usage:
+classesrefs  <footprint file [list] [nocls] [no0] [weight=<file>]This program will classify images based on a set of rotational/translational invariants
+Usage:
+classesrefs  <footprint file [list] [nocls] [no0] [weight=<file>]

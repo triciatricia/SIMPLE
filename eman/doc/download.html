@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+                
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+                
+  <meta name="author" content="Steve Ludtke">
+                
+  <meta name="GENERATOR" content="Mozilla/4.78 [en] (X11; U; Linux 2.4.16 i686) [Netscape]">
+</head>
+  <body bgcolor=#a0ffa0>
+ <a href="http://ncmi.bcm.tmc.edu/%7Estevel/EMAN/doc"><img src="EMAN.logo.png">
+ </a>
+ 
+<h2> Download EMAN</h2>
+    Please contact me if you run into any problems. Happy reconstructing.    
+<p>Downloads are currently only available through <a href=http://ncmi.bcm.tmc.edu/>the NCMI's web site</a>. You will
+  be requested to provide your name/institution when you download a new version.
+  This request is for grant reporting purposes, to justify continued support for
+software  development. We will not provide your name or personal information
+to outside  entities other than the granting agency. Please help us keep
+our grant support by providing accurate information. <br>
+   &nbsp; </p>
+
+<h2><b>Binary</b></h2>
+
+<p><b><i>Note for experienced sysops:</i></b><br>
+<i>By default, EMAN is installed in your home directory, this way no root
+privliges are required. If you wish to install EMAN in a central location,
+either use /usr/local/EMAN, - OR - each user must set the 'EMANDIR' environment
+variable to point to the main EMAN directory. /usr/local/EMAN will be checked
+by default. If there are still problems with a central installation, users
+can try making a symbolic link so EMAN appears to be in their home directory.</i><br>
+</p>
+<p>Installation: </p>
+
+<pre>cd ~
+tar xvzf eman.[version].tgz
+-or-
+zcat eman.[version].tgz | tar xvf -
+<br></pre>
+The EMAN binary releases now come with an installer script. Run EMAN/eman-installer
+and follow the corrections to update your login script. 
+<p>If you prefer to do this manually, you will need to set LD_LIBRARY path to point
+to EMAN/lib, set the PATH to include EMAN/bin, and set PYTHONPATH to point to EMAN/lib,
+wherever these files reside.
+
+<p><a href="http://ncmi.bcm.tmc.edu/ncmi/software/software_details?selected_software=eman">
+   Download here</a>
+ </p>
+<p>EMAN binaries used to require making changes to various shared libraries provided
+with the distribution. EMAN now uses a semi-static linking proceedure which means that
+a single EMAN binary will run on most linux variants. Note that there are limits,
+particularly old linux distributions will not work properly with EMAN, even with
+a recompile. EMAN now requires Python 2.2 or newer, regardless of platform.</p>
+
+<p><a href="http://ncmi.bcm.tmc.edu/ncmi/software/software_details?selected_software=eman"><br>
+ </a>
+ </p>
+
+<h2> Source</h2>
+<p>As of version 1.4, EMAN is switching from GNU configure to CMake for cross-platform configuration.
+While this does add an extra step to the compilation process, installing CMake is
+quite trivial. CMake has proven to be much more reliable than configure. CMake can
+be downloaded from www.cmake.org, or may be included as an optional package with your OS.
+<p>   
+   
+<p>EMAN has been verified to compile on SGIs, Mandrake Linux 9.0-10.2, Redhat Linux
+9.0, FC 1-3, Gentoo, under Windows using Cygwin (with some effort), and under OS X (buggy). 
+It is possible to partially compile under earlier linux versions, but Python support will be unavailable, which will
+limit some features. It may compile and run on Alphas, but due to some hardware
+restrictions inherent to this platform, we cannot make any guarentees. AIX is also
+partially supported. Please let us know if you have difficulty compiling EMAN.<br>
+ </p>
+<p>Platform specific notes:
+<ul>
+<LI>Mandrake 10.0+, or (possibly) other KDE3.2 platforms: Use the appropriate option in ccmake to resolve QT problems</LI>
+<LI>for OSX, make sure you are using the X11 version of QT</li>
+</ul></p>
+ 
+<p><a href="http://ncmi.bcm.tmc.edu/ncmi/software/software_details?selected_software=eman">
+   Download here</a>
+ </p>
+
+<hr>
+<h2>Test Data</h2>
+
+<p>Here is the data set used in testing the program as described in our first
+ EMAN paper (JSB 1999). It is QUITE large. Don't download it unless you really
+ want it. I will also make the data from our 11.5 A GroEL reconstruction (JMB
+ 2001) available upon request. </p>
+
+<p><a href="http://ncmi.bcm.tmc.edu/%7Estevel/EMAN/BTVtest">BTV.test.tgz&nbsp;</a>
+  - This is a gzipped tar file, although it may not be obvious from the filespec
+when it is downloaded.   </p>
+
+<hr>
+<p><i>Last Modified: 05/05/2005</i>
+
+</body>
+</html>

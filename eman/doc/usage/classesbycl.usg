@@ -1,0 +1,3 @@
+This classifies a set of centered particles using self common lines.
+Usage:
+classesbycl  <particles> <refrences> [assigneuler] [eulerinref] [frac=<num>/<denom>] [verbose[=<n>]] [matrix] [logit=<label>]

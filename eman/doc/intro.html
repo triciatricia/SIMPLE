@@ -1,0 +1,90 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (X11; U; Linux 2.2.13 i686) [Netscape]">
+</head>
+<body bgcolor="#f0e8b0">
+
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=EMAN.logo.png></a>
+<h2>Documentation</h2>
+
+<p>
+<h3>
+What is EMAN and what can you do with it?</h3>
+<b><font size=+1>The Experimental Technique</font></b>
+<br>EMAN is a set of image/volume processing tools to perform single particle
+reconstructions. This is a technique for determining the 3 dimensional
+structure of a molecule from thousands to hundreds of thousands of noisy
+images of individual molecules. There are other techniques for performing this
+task, such as x-ray diffraction, NMR spectroscopy, and 2d/helical electron
+crystallography.
+<p>Most structural techniques examine the average properties of a very
+large number of molecules. For example, a .1 mm cubic crystal of a 10nm
+particle would contain approximately 1 trillion individual protein molecules
+aligned in a crystalline lattice. When x-rays diffract from this crystal,
+the positions and intensities of the resulting spots can be used to determine
+the structure of an individual protein molecule, often to atomic resolution
+(although the difficult 'phase problem' still exists). In single particle
+analysis, the molecules to be studied are prepared in a solution which
+is then frozen in a very thin (~1um) layer of vitreous ice. This ice is
+frozen so rapidly it does not crystallize, it remains in a fluid-like conformation
+at liquid nitrogen or liquid helium temperatures. This preserves the protein in its native
+fluid conformation. This sample is then placed in a transmission electron
+microscope where images of the individual molecules in random orientations
+are collected. These images represent projections through the molecule.
+The individual molecule images are then processed in a computer to determine
+the 3D structure of the molecule. A typical reconstruction uses 10,000
+- 100,000 particle images. Note that this is an extremely small amount
+of protein, much less than is required to prepare a crystal. Currently
+this technique is limited to ~7 angstrom resolution, but microscopes
+and analysis techniques are rapidly advancing. It is likely that near atomic
+resolution will eventually be achieved.
+<p>This techniques has several advantages over x-ray crystallography: 1)
+No phase problem. Electron microscopy measures phases directly since images
+are collected in real-space. 2) In x-ray crystallography, smaller molecules are easier to crystallize and process,
+in cryo-EM, larger molecules are generally easier. Particles as large as
+2000 angstroms have been processed using this technique. X-ray crystallography
+generally becomes more difficult for particles larger than 100 angstroms or so. 3)
+Very often a protein can exist in one of several different functional states.
+Usually it is very difficult to crystallize a protein in each of these
+states to determine the structural changes involved. However, using single
+particle analysis, it is often possible to statistically analyze the particles
+and separate the functional states from the overall population. If this
+proves difficult, the protein (in solution) can be biochemically driven
+into a nearly homogenious population of a single functional state. This
+solution is then frozen and imaged.
+<p><b><font size=+1>The Software</font></b>
+<br>EMAN consists of a set of image processing tools which are specifically
+designed to make high resolution single particle reconstructions relatively easy to perform.
+It also contains a variety of useful routines for general image processing,
+as well as a complete C++ library of routines useful in analyzing electron
+micrographs. The core of EMAN is a C++ image processing library. This library is
+also wrapped for use from Python (an easy to learn scripting language), so very complicated
+tasks can be performed with a simple script. On top of the library and Python
+bindings sits a set of command-line programs. These programs perform various
+low-level tasks, such as classification, filtration, etc. These programs are in
+turn wrapped by a set of high-level command-line programs for performing refinements
+and pre/post processing of the images. Finally on top of all of this infrastructure
+is a set of graphical programs to make the entire process as user-friendly as possible.
+<p>EMAN was designed to automate as much of the single particle reconstruction
+process as possible. In general, once a set of boxed out particle images
+have been prepared, the entire reconstruction proceeds with almost no human
+intervention. When the run is done, a complete set of tools for analyzing
+the results are provided. An initial, low resolution reconstruction of
+a new protein can typically be processed overnight on a single processor
+Athlon class computer. For example, ~2000 particles of Ca++ release channel
+at 80x80 pixels/particle were processed to produce a ~28 angstrom 3d model
+in about 2 hours on a single processor Athlon (2 ghz).
+<p>IMPORTANT NOTE: EMAN does incorporate features for performing reconstructions
+of particles with icosahedral symmetry, but it was originally designed with
+less symmetric particles in mind. The routines for doing icosahedral reconstruction
+are fairly robust now, but not well covered in the documentation beyond the
+generic details applicable to all structures. Contact Wen Jiang (wjiang@blake.bcm.tmc.edu)
+for more information on icosahedral reconstruction in EMAN. 
+<p>
+<hr>
+<p><i>Last Modified: 06/11/03</i>
+
+</body>
+</html>

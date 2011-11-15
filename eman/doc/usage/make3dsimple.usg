@@ -1,0 +1,3 @@
+This program builds 3D models from a set of class averages using Fourier techniques
+Usage:
+make3dnonorm  <input file> [out=<outfile>] [noweight] [sym=<c4,icos,etc>] [pad=<padsize>] [mode=<1-6>] [mask=<rad>] [norm] [resmap=<name>] [inorm]

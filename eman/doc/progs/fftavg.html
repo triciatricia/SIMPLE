@@ -1,0 +1,24 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/fftavg.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>fftavg</h1>
+<p><h3>This program reads a set of images, transforms them, and generates and averaged power spectrum</h3>
+fftavg  &lt;apix> &lt;image file><br><br>fftavg  &lt;apix> &lt;Image 1> &lt;Image 2> etc
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;apix></td><td>A/pixel</td></tr>
+<tr><td>&lt;image file></td><td>Reads all images from a multi-image file</td></tr>
+</table><br><table border=3>
+<tr><td>&lt;apix></td><td>A/pixel</td></tr>
+<tr><td>&lt;Image 1></td><td>First image</td></tr>
+<tr><td>&lt;Image 2></td><td>Second image</td></tr>
+<tr><td>etc</td><td>etc.</td></tr>
+</table><br><h3>Usage:</h3>
+<p>fftavg im*.mrc
+<p>fftavg 2248.img
+<h3>Description</h3>
+<P>This program reads a set of images (all the same size), does an FFT of each, then
+averages them to generate an approximate power spectrum. This functionality is already
+incorporated into <a href=ctfit.html>ctfit</a>, but this program may still be useful
+for offline calculations. An x/y plot of the power spectrum is dumped to stdout, and
+the averaged image is output to fftavg.tnf (a complex MRC file)
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

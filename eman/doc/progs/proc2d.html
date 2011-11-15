@@ -1,0 +1,115 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/proc2d.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>proc2d</h1>
+<p><h3>This program performs various processing operations on images and sets of images (WARNING: auto normalization removed)</h3>
+proc2d  &lt;input file> &lt;output file> [first=&lt;n>] [last=&lt;n>] [list=&lt;list file>] [exclude=&lt;list file>] [nobad] [inplace] [edgenorm] [norm[=&lt;mean>,&lt;sigma>]] [invert] [flip] [rot=&lt;angle>] [trans=&lt;dx>,&lt;dy>] [center] [acfcenter] [scale=&lt;sca>] [clip=&lt;newsize x&y>] [shrink=&lt;n>] [meanshrink=&lt;n>] [apix=&lt;A/pix>] [lp=&lt;filt r>] [hp=&lt;filt r>] [tlp=&lt;filt r>] [rfilt=&lt;type>[,&lt;val1>[,&lt;val2>[,&lt;val3>]]]] [blfilt=&lt;sigma1,sigma2,iter,localwidth>] [filefilt=&lt;file>] [mask=&lt;radius>] [imask=&lt;radius>] [noisemask] [gaussmask] [calcsf=[&lt;n>,]&lt;output>] [mrc] [mrc8bit] [mrc16bit] [pif] [hdf] [png] [em] [spider] [spider-single] [spiderswap] [spiderswap-single] [pgm[=&lt;low>,&lt;hi>]] [sharphp=&lt;pixels>] [norefs] [rotav] [average] [fftavg=&lt;file name>] [split=n] [ctfsplit] [interlv=&lt;file 2 interleave>] [sym=&lt;Cn>] [plt[=&lt;plt file>]] [setsfpairs] [addnoise=&lt;level>] [randomize=&lt;dr>,&lt;da>,&lt;flip>] [snrfilt=&lt;SF file>] [wiener=&lt;SF file>[,&lt;amp sca>[,&lt;amp cont>]]] [wienernoc=&lt;SF file>] [selfcl[=&lt;steps>][,&lt;mode>]] [comment=&lt;str>] Sets the comment string in the output file (if supported [radon] [rfp] [mraprep] [phot] [rsub]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>Source file</td></tr>
+<tr><td>&lt;output file></td><td>Destination file, appends unless 'inplace' specified</td></tr>
+<tr><td>[first=&lt;n>]</td><td>Specify the first image in the input to process (0 - n-1)</td></tr>
+<tr><td>[last=&lt;n>]</td><td>Specify the last image in the input to process</td></tr>
+<tr><td>[list=&lt;list file>]</td><td>Works only on the image numbers contained in &lt;list file></td></tr>
+<tr><td>[exclude=&lt;list file>]</td><td>Excludes image numbers in &lt;list file></td></tr>
+<tr><td>[nobad]</td><td>Exclude particles with simga=0</td></tr>
+<tr><td>[inplace]</td><td>Output overwrites input, USE SAME FILENAME, DO NOT 'clip' images.</td></tr>
+<tr><td>[edgenorm]</td><td>Output is always normalized, this will set 0 to the circular edge value rather than the overall mean</td></tr>
+<tr><td>[norm[=&lt;mean>,&lt;sigma>]]</td><td>Normalize the result</td></tr>
+<tr><td>[invert]</td><td>Inverts the density</td></tr>
+<tr><td>[flip]</td><td>Vertical flip of image (inverts handedness)</td></tr>
+<tr><td>[rot=&lt;angle>]</td><td>Rotate by an angle (degrees)</td></tr>
+<tr><td>[trans=&lt;dx>,&lt;dy>]</td><td>Translateorm</td></tr>
+<tr><td>[center]</td><td>Center image using center of mass</td></tr>
+<tr><td>[acfcenter]</td><td>Center image using CCF with 180 deg rotation</td></tr>
+<tr><td>[scale=&lt;sca>]</td><td>Scale by specified scaling factor. Clip must also be specified to change the dimensions of the output map</td></tr>
+<tr><td>[clip=&lt;newsize x&y>]</td><td>Define the output image size (always square)</td></tr>
+<tr><td>[shrink=&lt;n>]</td><td>Reduce an image size by an integral scaling factor, uses median filter. Clip is not required.</td></tr>
+<tr><td>[meanshrink=&lt;n>]</td><td>Same as shrink, but takes the average instead of the median. Clip is not required.</td></tr>
+<tr><td>[apix=&lt;A/pix>]</td><td>Specify the Angstr/pixel for S scaling</td></tr>
+<tr><td>[lp=&lt;filt r>]</td><td>Gaussian lowpass filter, r in angstroms if apix defined, pixels if undef</td></tr>
+<tr><td>[hp=&lt;filt r>]</td><td>Arctan highpass filter, r in angstroms if apix defined, pixels if undef</td></tr>
+<tr><td>[tlp=&lt;filt r>]</td><td>Arctan lowpass filter, r in angstroms if apix defined, pixels if undef</td></tr>
+<tr><td>[rfilt=&lt;type>[,&lt;val1>[,&lt;val2>[,&lt;val3>]]]]</td><td>Apply one of a variety of real-space filters</td></tr>
+<tr><td>[blfilt=&lt;sigma1,sigma2,iter,localwidth>]</td><td>Apply bilateral filtering</td></tr>
+<tr><td>[filefilt=&lt;file>]</td><td>Filter with a Fourier filter specified in a 2 column text file</td></tr>
+<tr><td>[mask=&lt;radius>]</td><td>Circular mask</td></tr>
+<tr><td>[imask=&lt;radius>]</td><td>Circular inner mask</td></tr>
+<tr><td>[noisemask]</td><td>Fill the masked region with 1-sigma noise rather than zero</td></tr>
+<tr><td>[gaussmask]</td><td>Make the mask a Gaussian falloff</td></tr>
+<tr><td>[calcsf=[&lt;n>,]&lt;output>]</td><td>This will calculate a radial structure factor for the image and write it to the specified output file, must specify apix. Optionally divide into &lt;n> angular bins</td></tr>
+<tr><td>[mrc]</td><td>Output a set of MRC files rather than a single IMAGIC stack</td></tr>
+<tr><td>[mrc8bit]</td><td>Output a set of 8-bit MRC files to conserve space</td></tr>
+<tr><td>[mrc16bit]</td><td>Output a set of 16-bit MRC files to conserve space</td></tr>
+<tr><td>[pif]</td><td>Output to a PIF (Purdue Image Format) file</td></tr>
+<tr><td>[hdf]</td><td>Output to a HDF5 (Hierarchical Data Format) file.</td></tr>
+<tr><td>[png]</td><td>Output to a PNG (Portable Network Graphics) file</td></tr>
+<tr><td>[em]</td><td>Output to a EM image file</td></tr>
+<tr><td>[spider]</td><td>Output a Spider stack file rather than an IMAGIC stack</td></tr>
+<tr><td>[spider-single]</td><td>Output in individual Spider files rather than an IMAGIC file</td></tr>
+<tr><td>[spiderswap]</td><td>Output a spider stack file in byte-swapped order (ie - PC vs SGI)</td></tr>
+<tr><td>[spiderswap-single]</td><td>Output in individual Spider files in swapped order rather than an IMAGIC file</td></tr>
+<tr><td>[pgm[=&lt;low>,&lt;hi>]]</td><td>Output a set of PGM images rather than an IMAGIC stack</td></tr>
+<tr><td>[sharphp=&lt;pixels>]</td><td>A highpass with a sharp cutoff (beware artifacts)</td></tr>
+<tr><td>[norefs]</td><td>Skip any input images which are marked as references (usually used with classes.*)</td></tr>
+<tr><td>[rotav]</td><td>Each image is rotationally averaged</td></tr>
+<tr><td>[average]</td><td>Averages all input images (without alignment) and writes a single (normalized) output image</td></tr>
+<tr><td>[fftavg=&lt;file name>]</td><td>Incoherent Fourier average of all images and write a single power spectrum image</td></tr>
+<tr><td>[split=n]</td><td>Splits the input file into a set of n output files</td></tr>
+<tr><td>[ctfsplit]</td><td>Splits the input file into output files with the same CTF parameters</td></tr>
+<tr><td>[interlv=&lt;file 2 interleave>]</td><td>Specifies a 2nd input file. Output will be 2 files interleaved.</td></tr>
+<tr><td>[sym=&lt;Cn>]</td><td>Apply an n-fold rotational symmetry to each image</td></tr>
+<tr><td>[plt[=&lt;plt file>]]</td><td>output the orientations in IMAGIC .plt file format</td></tr>
+<tr><td>[setsfpairs]</td><td>Applies the radial structure factor of the 1st image to the 2nd, the 3rd to the 4th, etc</td></tr>
+<tr><td>[addnoise=&lt;level>]</td><td>Add flatband gaussian noise with defined standard deviation</td></tr>
+<tr><td>[randomize=&lt;dr>,&lt;da>,&lt;flip>]</td><td>This will randomly rotate and translate each particle</td></tr>
+<tr><td>[snrfilt=&lt;SF file>]</td><td>Filter the images by the estimated SNR in each image.</td></tr>
+<tr><td>[wiener=&lt;SF file>[,&lt;amp sca>[,&lt;amp cont>]]]</td><td>Wiener filter the images using the estimated SNR with CTF amplitude correction.</td></tr>
+<tr><td>[wienernoc=&lt;SF file>]</td><td>Wiener filter the images without CTF amplitude correction.</td></tr>
+<tr><td>[selfcl[=&lt;steps>][,&lt;mode>]]</td><td>Output file will be a 180x180 self-common lines map for each image.</td></tr>
+<tr><td>[comment=&lt;str>] Sets the comment string in the output file (if supported</td><td>[comment=&lt;str>] Sets the comment string in the output file (if supported)</td></tr>
+<tr><td>[radon]</td><td>Do Radon transform</td></tr>
+<tr><td>[rfp]</td><td>Experimental</td></tr>
+<tr><td>[mraprep]</td><td>Experimental</td></tr>
+<tr><td>[phot]</td><td>Experimental</td></tr>
+<tr><td>[rsub]</td><td>Experimental</td></tr>
+</table><br><h3>Usage:</h3>
+<p>proc2d 3244.img start.hed invert apix=5 lp=18
+<p>proc2d start.hed start.hed invert inplace
+<h3>Description</h3>
+<P>IMPORTANT NOTE: proc2d no longer automatically normalizes output images. Use the 'norm' or 'edgenorm' flag to re-enable this.
+<P>This program is used to perform a variety of generic 2D image processing tasks. Like all of the
+EMAN programs, it will read any supported file format. By default it outputs to an Imagic file although
+there are options to change this. Note that, by default, images are appended to the end of the output
+file if it already exists. All images in one file MUST have the same size. ie - if you try to copy 50x50
+images to the end of a file that already contains 100x100 images, an error will result. Note the 'first='
+and 'last=' options allow a subset of the input file to be processed. The 'inplace' keyword may be used
+to cause output images to overwrite the input images rather than being appended to the end of the file.
+<P>Most of the processing is explained in sufficient detail above, but
+there are a few notes:
+<UL>
+<LI> The scale operation does NOT resize the image in pixels. Generally you want to specify both scale and clip.
+<LI> If apix is not specified, all filters are specified in pixels in Fourier space. If apix
+is specified, all filters are specified in Angstroms. ie - 'apix=4.5 lp=8' would filter
+the image using a Gaussian in Fourier space with a 1/e width of 1/8 reciprocal angstroms.
+<LI> The 'center' option generally doesn't produce very good results on noisy images. Use the 'cenalignint'
+program instead.
+<LI> You might notice that 'mask'ing an image often produces a mask that doesn't match the density just inside
+the mask very well. The 'edgemean' value normalizes the images so the mean value matches the edge of the image
+rather than the overall mean value of the image.
+<LI> The self common-lines option takes two optional parameters. The first is the size of the self common-line image. For
+example, 180 would produce 180x180 maps, meaning a 2 degree spacing. Also note that these maps have been undiagonalized,
+meaning the normal diagonal line of 1's is along the x-axis. The mode determines how the common-lines are calculated:
+0 will do real-space calculations, 1 will do amplitude-weighted Fourier phase-error common-lines scaled and inverted  so higher is better, 2 will do amplitude-only Fourier common-lines
+<li> The real-space filter option can perform a variety of filters:
+<UL><li>0: x&lt;val1 -> 0	(simple threshold) <li>1: x&lt;val1 -> 0, then normalize
+<li>2: x&lt;val1 -> 0, x>val1 -> 1 <li>3: x>val1 -> x 0&lt;x&lt;val1 -> 0 x&lt;0 -> val2, then normalize
+<li>4: x -> fabs(x) <li>5: x towards zero by val1 set to zero if passes zero
+<li>6: x!=0 ->1 <li>7: x&lt;val1*maxval -> 0 <li>9: x -> (x+val1)*val2<li>10: x -> sqrt(x) <li>11: x -> exp(x/val1-val2) <li>12: x -> 2*(val1-x)<li>14: val1<=x<=val2 -> 1.0 else 0.0<li>13: x>val1 -> val1, x&lt;val2 -> val2,  histogram tail chopper
+<li>15: x -> log(x) <li>16: x -> e^x<li>17: x>mean+sigma*val1 or x&lt;mean-sigma*val2 -> mean, histogram tail chopper<li>20: median filter, val1 is size<li>21: like 20, but takes std dev of box instead of median<li>22: like 20, but takes max value<li>50: Tries to remove linear gradients
+<li>51: Vertical stripe filter to remove Zeiss artifacts<li>60:Fill zeroes at the edges with nearest non-zero value<li>61: Fill constant regions with zero<li>62: Eliminate beamstop in diffraction images (sigma,x center,y center) negative sigma will do a radial subtract as well
+<li>102: Eliminate x,y pixels from the edge of the image<li>103: Map each value to the radius at that point (useful in proc3d as well)
+<li>110: Iterative expansion of a binary mask, val1 = number of layers to expand, val2 = number of layers before starting Gaussian decay
+<li>111: Iterative expansion of a multilevel mask file (see qsegment). Simultaneoulsy expands all levels and prevents overlap problems.
+<li>113: Local gradient remover, subtracts the local average from each pixel, val1= size of box to average over
+</UL>
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

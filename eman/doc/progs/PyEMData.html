@@ -1,0 +1,199 @@
+<html>
+<head><title>EMAN Reference: EMData Class</title></head>
+<body bgcolor="#f0f0f0">
+<h1> <center>EMAN Reference: EMData Class</center> </h1>
+<br>
+<table border=1 cellpadding=3 cellspacing=3>
+  <tr><td><font color=blue>addConst</font></td><td>addConst(float)<br> add a constant</td></tr>
+  <tr><td><font color=blue>add</font></td><td>add(EMData in)<br>  adds 'in' to 'this'</td></tr>
+  <tr><td><font color=blue>addIncoherent</font></td><td>addIncoherent(EMData in)<br>  adds 'in' to 'this'</td></tr>
+  <tr><td><font color=blue>addMaskShell</font></td><td>addMaskShell(int shells)<br>  Will add additional shells/rings to an existing 1/0 mask image</td></tr>
+  <tr><td><font color=blue>addRadNoise</font></td><td>addRadNoise(int n, float x0, float dx, list y, int interp)</td></tr>
+  <tr><td><font color=blue>aliPeak</font></td><td>float aliPeak()</td></tr>
+  <tr><td><font color=blue>alt</font></td><td>float alt()</td></tr>
+  <tr><td><font color=blue>ap2ri</font></td><td>ap2ri() <br>  converts amp/pha to real/imaginary (complex only)</td></tr>
+  <tr><td><font color=blue>applyMask</font></td><td>applyMask(int r,int type)<br>  applies a circular mask to the data. type=0 is a step cutoff to the mean value type=4 is a step cutoff to zero type=1 fills in with flatband random noise</td></tr>
+  <tr><td><font color=blue>applyRadFn</font></td><td>applyRadFn(int n,float x0,float dx, list y,int interp=1)</td></tr>
+  <tr><td><font color=blue>autoMask</font></td><td>autoMask(float thresh,float filter=.1) <br>  Attempts to automatically mask out the particle, excluding other particles in the box, etc. thresh runs from ~ -2 to 2, negative numbers for dark. protien and positive numbers for light protein (stain) filter is expressed as a fraction of the Fourier radius </td></tr>
+  <tr><td><font color=blue>az</font></td><td>float az()</td></tr>
+  <tr><td><font color=blue>BilateralFilter</font></td><td>void BilateralFilter(float sigma1, float sigma2, int iter=1, int localWidth=1);</td></tr>
+  <tr><td><font color=blue>Busy</font></td><td>int Busy() <br>  Returns 1 if data is checked out</td></tr>
+  <tr><td><font color=blue>calcAzDist</font></td><td>calcAzDist(int n,float a0,float da, list data,float rmin,float rmax)</td></tr>
+  <tr><td><font color=blue>calcCCF</font></td><td>EMData calcCCF(EMData with, EMData filter=None) <br>  cross correlation between 2 images</td></tr>
+  <tr><td><font color=blue>calcCCFX</font></td><td>EMData calcCCFX(EMData with, int y0=0, int y1=-1, int nosum=0) <br>  calculates sum of x-axis CCFs</td></tr>
+  <tr><td><font color=blue>calcHist</font></td><td>calcHist(list hist, int n, float hmin=0, float hmax=0, int add=0)</td></tr>
+  <tr><td><font color=blue>calcMCF</font></td><td>EMData calcMCF(EMData with, EMData filter=None) <br>  mutual correlation between 2 images</td></tr>
+  <tr><td><font color=blue>calcRadDist</font></td><td>calcRadDist(int n,float x0,float dx, list y)</td></tr>
+  <tr><td><font color=blue>calcRCF</font></td><td>calcRCF(EMData with, list sum,int NS)</td></tr>
+  <tr><td><font color=blue>cirMean</font></td><td>float cirMean()</td></tr>
+  <tr><td><font color=blue>clearCTF</font></td><td>clearCTF() <br>  Clear CTF parameters.</td></tr>
+  <tr><td><font color=blue>clip</font></td><td>EMData clip(int x0, int y0, int xsize, int ysize) <br>EMData clip(int x0, int y0, int z0, int xsize, int ysize, int zsize) <br>  inclusive clip. Pads if larger than data</td></tr>
+  <tr><td><font color=blue>cmCenter</font></td><td>cmCenter(int intonly=1)<br>  center at center of mass, ignores old dx,dy</td></tr>
+  <tr><td><font color=blue>col</font></td><td>EMData col(int n)<br>  extract vector from matrix</td></tr>
+  <tr><td><font color=blue>commonLines</font></td><td>commonLines(EMData d1,EMData d2,int mode=0,int steps=180,int horiz=0) <br>  finds common lines between 2 complex images. mode 0 is a summed dot-product mode 1 is weighted phase residualsteps is 1/2 the resolution of the )map</td></tr>
+  <tr><td><font color=blue>commonLinesR</font></td><td>commonLinesR(EMData data1,EMData data2,int steps=180,int horiz=0)</td></tr>
+  <tr><td><font color=blue>convolute</font></td><td>EMData convolute(EMData with)</td></tr>
+  <tr><td><font color=blue>copy</font></td><td>EMData copy(int withfft=0, int withparent=1)<br>  returns an exact copy of itself</td></tr>
+  <tr><td><font color=blue>copyHead</font></td><td>EMData copyHead() <br> copies descriptive information without any real data</td></tr>
+  <tr><td><font color=blue>CTFCmp</font></td><td>int CTFCmp(EMData with)<br>  used to detect if 2 images have the same CTF parameters</td></tr>
+  <tr><td><font color=blue>ctfMap</font></td><td>ctfMap(int type, XYData sf=None)</td></tr>
+  <tr><td><font color=blue>cutSlice</font></td><td>void cutSlice(EMData *map,float z,Euler *ort=NULL,int interp=1,float x=0,float y=0);<br>  this will cut a slice out of a real 3D map</td></tr>
+  <tr><td><font color=blue>dCenter</font></td><td>float dCenter()<br>  This will find the density value at the peak of the image histogram, sort of like the mode of the density</td></tr>
+  <tr><td><font color=blue>display</font></td><td>int display() <br>  Display the current image. Returns 0 if success; Returns -1 on error.</td></tr>
+  <tr><td><font color=blue>dist</font></td><td>float dist(EMData second, int n=0)</td></tr>
+  <tr><td><font color=blue>doDWT</font></td><td>doDWT(int basis, int level) <br>  in place DWT, basis/level defined elsewhere</td></tr>
+  <tr><td><font color=blue>doFFT</font></td><td>EMData doFFT() <br>  Apply fourier transform on the data.</td></tr>
+  <tr><td><font color=blue>doIFT</font></td><td>EMData doIFT() <br>  Apply inverse fourier transform on the data.</td></tr>
+  <tr><td><font color=blue>doIWT</font></td><td>doIWT(int basis, int level) <br>  inverse wavelet x-form</td></tr>
+  <tr><td><font color=blue>doneSlice</font></td><td>doneSlice(int log=0)<br>   once all of the slices have been added with insertSlice(), this routine does a normalization and returns a real 3d volume</td></tr>
+  <tr><td><font color=blue>doneSliceWF</font></td><td>doneSliceWF(int log=0)<br>  It should only be used in conjunction with insertSliceWF</td></tr>
+  <tr><td><font color=blue>doRadon</font></td><td> EMData doRadon() <br>  Radon transform of image, comes out square</td></tr>
+  <tr><td><font color=blue>dot</font></td><td>float dot(EMData data,int evenonly=0)<br>  dot product of 2 images (same size !)</td></tr>
+  <tr><td><font color=blue>DWTFilt</font></td><td>DWTFilt(int basis, int level, float thresh) <br>  in place nonlinear threshold wavelet filter. thresh is with respect to the 'ideal' threshold</td></tr>
+  <tr><td><font color=blue>Dx</font></td><td>float Dx()</td></tr>
+  <tr><td><font color=blue>Dy</font></td><td>float Dy()</td></tr>
+  <tr><td><font color=blue>Dz</font></td><td>float Dz()</td></tr>
+  <tr><td><font color=blue>edgeMean</font></td><td>float edgeMean()</td></tr>
+  <tr><td><font color=blue>edgeNormalize</font></td><td>edgeNormalize(int cir=0)<br>  normalizes so mean -> value at edge of image, if cir=1, uses 2 pixel circular border</td></tr>
+  <tr><td><font color=blue>EMData</font></td><td>EMData() <br>  construct an empty EMData instance</td></tr>
+  <tr><td><font color=blue>fastTranslate</font></td><td>fastTranslate(int inplace=1)<br>  fast integer-only translation</td></tr>
+  <tr><td><font color=blue>fftSlice</font></td><td>EMData fftSlice(float alt,float az,float phi,int mode=5)<br>  takes a slice from a 3d complex image for generating projections.</td></tr>
+  <tr><td><font color=blue>fileCount</font></td><td>tuple fileCount(string imagefile) <br> Returns a tuple with the number of images in a file and the image type.</td></tr>
+  <tr><td><font color=blue>filter</font></td><td>filter(float highpass,float lowpass,int type)<br>  fourier filters an image, real or imaginary</td></tr>
+  <tr><td><font color=blue>fscmp</font></td><td> float fscmp(EMData with)<br>  returns a quality factor based on FSC between images larger numbers indicate a better match</td></tr>
+  <tr><td><font color=blue>getATime</font></td><td>long getATime() <br>  Returns access time for the image file.</td></tr>
+  <tr><td><font color=blue>getCTF</font></td><td>list getCTF() <br>  Returns the CTF parameters in a list.</td></tr>
+  <tr><td><font color=blue>getEuler</font></td><td>Euler getEuler()</td></tr>
+  <tr><td><font color=blue>getFlags</font></td><td>int getFlags()</td></tr>
+  <tr><td><font color=blue>getImagicHed</font></td><td>imagicH getImagicHed()</td></tr>
+  <tr><td><font color=blue>getMRCHed</font></td><td>mrcH getMRCHed()</td></tr>
+  <tr><td><font color=blue>getSpiHed</font></td><td>SPIDERH getSpiHed() <br>  Returns the header of a spider image.</td></tr>
+  <tr><td><font color=blue>gimmeFFT</font></td><td>gimmeFFT() <br>  gives the caller ownership of the recently obtained fourier transform, so it won't be freed automatically</td></tr>
+  <tr><td><font color=blue>hasCTFF</font></td><td>int hasCTFF()</td></tr>
+  <tr><td><font color=blue>hasCTF</font></td><td>int hasCTF()</td></tr>
+  <tr><td><font color=blue>hFlip</font></td><td>hFlip()<br>  flips image horizontally</td></tr>
+  <tr><td><font color=blue>iftSlice</font></td><td>EMData iftSlice()<br>  This does an IFT of a volume reconstructed from slices. Includes a real-space correction for the linear interpolation in Fourier space</td></tr>
+  <tr><td><font color=blue>insertClip</font></td><td>insertClip(EMData block, int x0, int y0) <br> used for 2D only</td></tr>
+  <tr><td><font color=blue>insertSlice3DReal</font></td><td>insertSlice3DReal(EMData slice,float weight)</td></tr>
+  <tr><td><font color=blue>insertSlice</font></td><td>insertSlice(EMData slice,  float alt,float az,float phi,int mode=5,float weight=1.0) <br>  this inserts a complex slice into an image that has been setup4IS()</td></tr>
+  <tr><td><font color=blue>insertSliceWF</font></td><td>insertSliceWF(EMData slice,  float alt,float az,float phi,int mode,list SNR,float padratio)<br>  this inserts a complex slice into an image that has been setup4IS()</td></tr>
+  <tr><td><font color=blue>interpFT3d</font></td><td>interpFT3d(float x,float y,float z, list ret,int mode)</td></tr>
+  <tr><td><font color=blue>invert</font></td><td>invert()<br>  multiply by -1</td></tr>
+  <tr><td><font color=blue>isComplex</font></td><td>int isComplex() <br> Returns 1 if the data is in complex number mode; Returns 0 othewise.</td></tr>
+  <tr><td><font color=blue>isComplexX</font></td><td>int isComplexX()</td></tr>
+  <tr><td><font color=blue>isFlipped</font></td><td>int isFlipped()</td></tr>
+  <tr><td><font color=blue>Kurtosis</font></td><td>float Kurtosis()</td></tr>
+  <tr><td><font color=blue>lcmp</font></td><td>tuple lcmp(EMData noisy,int keepzero=0,int invert=0)<br>  linear comparison of 2 data sets (smaller better)</td></tr>
+  <tr><td><font color=blue>leastSquareNormalizeTo</font></td><td>tuple leastSquareNormalizeTo(EMData to, float low_thresh=FLT_MIN, float high_thresh=FLT_MAX)</td></tr>
+  <tr><td><font color=blue>littleBigDot</font></td><td>EMData littleBigDot(EMData with, int sigma=0) <br>  CCF in real-space, designed for cases where with is small</td></tr>
+  <tr><td><font color=blue>makeAverageCTFC</font></td><td>makeAverageCTFC(list in,float filtr)<br>  averages the images in the list with CTF correction filtr is in angstroms,</td></tr>
+  <tr><td><font color=blue>makeAverageCTFCWauto</font></td><td>makeAverageCTFCWauto(list in, string outfile=None)<br>  This does CTF correction with a Wiener filter where the filter is estimated directly from the data</td></tr>
+  <tr><td><font color=blue>makeAverageCTFCW</font></td><td>makeAverageCTFCW(list in, XYData sf, list SNR=None)<br>  averages the images in the list with CTF correction</td></tr>
+  <tr><td><font color=blue>makeAverage</font></td><td>makeAverage(list in,EMData sigma=None)<br>  averages the images in the list, result in 'this' optionally makes a sigma image as well</td></tr>
+  <tr><td><font color=blue>makeAverageIter</font></td><td>makeAverageIter(list in)</td></tr>
+  <tr><td><font color=blue>makeAverageWT</font></td><td>makeAverageWT(list in,EMData curves,XYData sf)<br>  averages the images in the list with SNR weightingbut no CTF correction</td></tr>
+  <tr><td><font color=blue>makeMedian</font></td><td>makeMedian(list in)<br>  Median of the images in the list, result in 'this'</td></tr>
+  <tr><td><font color=blue>makeRFP</font></td><td>EMData makeRFP(int premasked=0,int unwrap=1)<br>  Makes a 'rotational footprint', which is an 'unwound' autocorrelation function. if unwrap is 0 the rfp is not cached. generally the image should be edgenormalized and masked before using this</td></tr>
+  <tr><td><font color=blue>maskNormalize</font></td><td>maskNormalize(EMData mask,int sigmatoo=1)<br>  Uses a 1/0 mask defining a region to use for the zero-normalization, if sigma is 0, std-dev not modified</td></tr>
+  <tr><td><font color=blue>Max</font></td><td>float Max()</td></tr>
+  <tr><td><font color=blue>MaxLoc</font></td><td>tuple MaxLoc() <br>  Returns maxium value locations in a tuple with (max_x_loc, max_y_loc, max_z_loc)</td></tr>
+  <tr><td><font color=blue>Mean2</font></td><td>float Mean2()</td></tr>
+  <tr><td><font color=blue>Mean</font></td><td>float Mean()</td></tr>
+  <tr><td><font color=blue>meanShrink</font></td><td> meanShrink(int i)<br>  reduces the size of the image by a factor of i, using the average value of the pixels in a block</td></tr>
+  <tr><td><font color=blue>medianShrink</font></td><td>medianShrink(int i)<br>  reduces the size of the image by a factor of i using a local median filter</td></tr>
+  <tr><td><font color=blue>Min</font></td><td>float Min()</td></tr>
+  <tr><td><font color=blue>MinLoc</font></td><td>tuple MinLoc() <br>  Returns minimum value locations in a tuple with (min_x_loc, min_y_loc, min_z_loc)</td></tr>
+  <tr><td><font color=blue>multConst</font></td><td>multConst(float)<br>  multiply by constant</td></tr>
+  <tr><td><font color=blue>mult</font></td><td>mult(EMData in,int recip=0)<br>  multiplies 'in' by 'this', if recip, then divide</td></tr>
+  <tr><td><font color=blue>mxMult</font></td><td> EMData mxMult(EMData second)</td></tr>
+  <tr><td><font color=blue>Name</font></td><td>string Name()</td></tr>
+  <tr><td><font color=blue>NImg</font></td><td>int NImg() <br>  Returns the number images in this image file.</td></tr>
+  <tr><td><font color=blue>normalizeMax</font></td><td>normalizeMax()<br>  mean -> 0, std dev -> 1</td></tr>
+  <tr><td><font color=blue>normalizeTo</font></td><td>tuple normalizeTo(EMData noisy,int keepzero=0,int invert=0)<br>  This will multiply 'this' by a constant so. it is scaled to the signal in 'to'keepzero will exclude zero values, and keep them at zero in the result</td></tr>
+  <tr><td><font color=blue>normSlice</font></td><td>tuple normSlice(EMData slice,float alt,float az,float phi)<br>  try to make sure the slice is normalized properly</td></tr>
+  <tr><td><font color=blue>one</font></td><td>one() <br>  Sets all the data values to be 1.</td></tr>
+  <tr><td><font color=blue>Parent</font></td><td>EMData Parent()</td></tr>
+  <tr><td><font color=blue>Path</font></td><td>string Path()</td></tr>
+  <tr><td><font color=blue>PathN</font></td><td>int PathN()</td></tr>
+  <tr><td><font color=blue>pcmp</font></td><td>float pcmp(EMData data, XYData snr=None) <br>  amplitude weighted mean phase error, 'data' should be less noisy than 'this' pcmp</td></tr>
+  <tr><td><font color=blue>phi</font></td><td>float phi()</td></tr>
+  <tr><td><font color=blue>Pixel</font></td><td>float Pixel() <br>  returns the pixel value.</td></tr>
+  <tr><td><font color=blue>project3d</font></td><td>EMData project3d(float alt,float az, float phi, int mode, float thr=1.0) <br>  makes a 3d projection of a volume, mode=-1 does real space projection, 1-5 use fftslice for fourier projection</td></tr>
+  <tr><td><font color=blue>radialAverage</font></td><td>radialAverage()<br>  makes image circularly symmetric</td></tr>
+  <tr><td><font color=blue>radialSubtract</font></td><td>radialSubtract()<br>  subtracts circularly symmetric part of image</td></tr>
+  <tr><td><font color=blue>readImage</font></td><td>int readImage(filename, n = 0, nodata = 0, imagetype = EMData.ANY) <br>  Reads a single image from a file. If image type is not specified, the image type will be determined from file type. return 0 if succeeds; return -1 if fails.</td></tr>
+  <tr><td><font color=blue>readImagesExt</font></td><td>list readImagesExt(string imagefile, string ext, int n0, int n1, int nodata=0) <br>  Read a set of filtered images with an automatically generated filename. return a list of EMData instances ranging from image n0 to image n1. If nodata is 0, only read image header information. If nodata is 1, read both image data and image header.</td></tr>
+  <tr><td><font color=blue>readImages</font></td><td>list readImages(string imagefile, int n0, int n1, int nodata=0) <br>  Read a set of images. return a list of EMData instances ranging from image n0 to image n1. If nodata is 0, only read image header information. If nodata is 1, read both image data and image header.</td></tr>
+  <tr><td><font color=blue>readLST</font></td><td>int readLST(string filespec, int n, int nodata=0, string file_ext = None) <br>  writes a pointer to an image file to a LST file</td></tr>
+  <tr><td><font color=blue>readMRCArea</font></td><td>int readMRCArea(string fsp, int x0, int y0, int xsize, int ysize) <br>  read a rectangular area from a mrc file. works ONLY for real 2d images. Also the area MUST reside within the image. <br><br>int readMRCArea(string fsp, int x0, int y0, int z0, int xsize, int ysize, int zsize) <br>  read a cube from a 3D mrc file. works ONLY for real 3d images. Also the area MUST reside within the image.</td></tr>
+  <tr><td><font color=blue>realFilter</font></td><td>realFilter(int type, float val1=0,float val2=0, float val3=0)<br>  a variety of real-space filters</td></tr>
+  <tr><td><font color=blue>refineAlign</font></td><td>refineAlign(EMData with,int mode=1)</td></tr>
+  <tr><td><font color=blue>ri2ap</font></td><td>ri2ap() <br>  converts real/imaginary to amp/pha (complex only)</td></tr>
+  <tr><td><font color=blue>rot180</font></td><td>rot180()<br>  fast rotation by 180 degrees</td></tr>
+  <tr><td><font color=blue>rotAlignCH</font></td><td>float rotAlignCH(EMData with, int irad=8, int orad=0) <br>  rotational alignment via circular harmonic</td></tr>
+  <tr><td><font color=blue>rotAlign</font></td><td>float rotAlign(EMData with) <br>  rotational alignment using angular correlation</td></tr>
+  <tr><td><font color=blue>rotAlignPrecen</font></td><td>float rotAlignPrecen(EMData with) <br>  rotational alignment assuming centers are correct</td></tr>
+  <tr><td><font color=blue>rotateAndTranslateFast</font></td><td>rotateAndTranslateFast(float scale=1.0)<br>  rotate and translate using current settings behavior changes if parent is/not set</td></tr>
+  <tr><td><font color=blue>rotateAndTranslate</font></td><td>rotateAndTranslate(float scale=1.0,float dxc=0,float dyc=0,float dzc=0,int r=0)</td></tr>
+  <tr><td><font color=blue>rotateX</font></td><td>rotateX(int dx) <br>  This performs a translation of each line along x with wraparound this is equivalent to a rotation when performed on 'unwrapped' maps</td></tr>
+  <tr><td><font color=blue>row</font></td><td>EMData row(int n)<br>  extract vector from matrix</td></tr>
+  <tr><td><font color=blue>RTAlign</font></td><td>EMData RTAlign(EMData with, int usedot=0, int maxshift=0)</td></tr>
+  <tr><td><font color=blue>RTAlignRadon</font></td><td>EMData RTAlignRadon(EMData with,int maxshift=-1,EMData radonwith=None,EMData radonthis=None)</td></tr>
+  <tr><td><font color=blue>RTFAlign</font></td><td>EMData RTFAlign(EMData with=None,EMData flip=None,int usedot=1,int maxshift=-1) <br>  rotational, translational and flip alignment</td></tr>
+  <tr><td><font color=blue>RTFAlignRadon</font></td><td>EMData RTFAlignRadon(EMData with,int maxshift=-1,EMData thisf=None,EMData radonwith=None ,EMData radonthis=None,EMData radonthisf=None) <br>  rotational, translational and flip alignment with Radon transforms</td></tr>
+  <tr><td><font color=blue>RTFAlignSlowest</font></td><td>EMData RTFAlignSlowest(EMData with,EMData flip=None,int maxshift=-1)<br>  rotational, translational and flip alignment using exhaustive search. VERY SLOW</td></tr>
+  <tr><td><font color=blue>RTFAlignSlow</font></td><td>EMData RTFAlignSlow(EMData with,EMData flip=None,int maxshift=-1)<br>  rotational, translational and flip alignment using real-space methods, SLOW</td></tr>
+  <tr><td><font color=blue>serialIn</font></td><td>serialIn(int file_descriptor)</td></tr>
+  <tr><td><font color=blue>serialOut</font></td><td>serialOut(int file_descriptor) <br>  used ONLY for FILESERVER operation, not safe otherwise</td></tr>
+  <tr><td><font color=blue>setCol</font></td><td>setCol(EMData d,int n)<br>  insert vector into matrix</td></tr>
+  <tr><td><font color=blue>setComplex</font></td><td>setComplex(int i)</td></tr>
+  <tr><td><font color=blue>setComplexX</font></td><td>setComplexX(int i)</td></tr>
+  <tr><td><font color=blue>setCTFF</font></td><td>setCTF(list new_ctf) <br>  Sets CTF parameters with new values from a list. <br><br>setCTFF(string s) <br>  Sets CTF parameters with new values from a string.</td></tr>
+  <tr><td><font color=blue>setCTF</font></td><td>setCTF(list new_ctf) <br>  Sets CTF parameters with new values from a list. <br><br>setCTFF(string s) <br>  Sets CTF parameters with new values from a string.</td></tr>
+  <tr><td><font color=blue>setFlipped</font></td><td>setFlipped(int f)</td></tr>
+  <tr><td><font color=blue>setImagicHed</font></td><td>setImagicHed(imagicH hed)</td></tr>
+  <tr><td><font color=blue>setName</font></td><td>setName(string name)</td></tr>
+  <tr><td><font color=blue>setParent</font></td><td>setParent(EMData data)</td></tr>
+  <tr><td><font color=blue>setPath</font></td><td>setPath(string path)</td></tr>
+  <tr><td><font color=blue>setPathN</font></td><td>setPathN(int n)</td></tr>
+  <tr><td><font color=blue>setPixel</font></td><td>setPixel(float pix) <br>  set the pixel value.</td></tr>
+  <tr><td><font color=blue>setRAlign</font></td><td>setRAlign(Euler angle)</td></tr>
+  <tr><td><font color=blue>setRI</font></td><td>setRI(int i)</td></tr>
+  <tr><td><font color=blue>setRow</font></td><td>setRow(EMData d,int n)<br>  insert vector into matrix</td></tr>
+  <tr><td><font color=blue>setSize</font></td><td>int setSize(int x, int y=1, int z=1) <br> Sets x, y, z dimension sizes</td></tr>
+  <tr><td><font color=blue>setTAlign</font></td><td>setTAlign(float x, float y, float z=0)</td></tr>
+  <tr><td><font color=blue>setup4IS</font></td><td> setup4IS(int size)</td></tr>
+  <tr><td><font color=blue>setup4Slice</font></td><td>setup4Slice(int redo=1)</td></tr>
+  <tr><td><font color=blue>setValueAt</font></td><td>setValueAt(int x, int y, int z, float v)<br> it does not set the changed flag</td></tr>
+  <tr><td><font color=blue>sigDiff</font></td><td>float sigDiff()<br>  Calculates sigma above and below the mean and returns the difference between them</td></tr>
+  <tr><td><font color=blue>Sigma2</font></td><td>float Sigma2()</td></tr>
+  <tr><td><font color=blue>Sigma</font></td><td>float Sigma()</td></tr>
+  <tr><td><font color=blue>Skewness</font></td><td>float Skewness()</td></tr>
+  <tr><td><font color=blue>subNoise</font></td><td>subNoise() <br>  Subtract average noise from intensity. Negative results allowed.</td></tr>
+  <tr><td><font color=blue>subtract</font></td><td>subtract(EMData data) <br>  subtracts 'data' from the current set</td></tr>
+  <tr><td><font color=blue>SumSq</font></td><td>float SumSq()</td></tr>
+  <tr><td><font color=blue>swapin</font></td><td>int swapin() <br>  Swaps the data in from the swap file.</td></tr>
+  <tr><td><font color=blue>swapout</font></td><td>int swapout() <br>  Swaps the data out to a temporary file.</td></tr>
+  <tr><td><font color=blue>transAlign3d</font></td><td>float transAlign3d(EMData with,int useparent=0,int intonly=0) <br>  translational alignment using CCF</td></tr>
+  <tr><td><font color=blue>transAlign</font></td><td>tuple transAlign(EMData with, int useparent, int intonly, int maxshift)  <br>  translational alignment using CCF</td></tr>
+  <tr><td><font color=blue>uncutSlice</font></td><td>void uncutSlice(EMData *map,float z,Euler *ort=NULL,float x=0,float y=0);<br>  Opposite of cutSlice(). It will take a slice and insert the data into a real 3D map. It does not interpolate, it uses the nearest neighbor.</td></tr>
+  <tr><td><font color=blue>unwrap</font></td><td>EMData unwrap(int r1=-1,int r2=-1,int xs=-1,int dx=0,int dy=0,int do360=0)<br>  maps polar coordinates to cylindrical coordinates</td></tr>
+  <tr><td><font color=blue>update</font></td><td>update() <br>  Tells EMData to update itself in the future.</td></tr>
+  <tr><td><font color=blue>valueAt</font></td><td>float valueAt(int x, int y) <br>  Return data at a 2D position. <br><br>float valueAt(int x, int y, int z) <br>  Return data at a 3D position.</td></tr>
+  <tr><td><font color=blue>valueAtInterp</font></td><td>float valueAtInterp(float x, float y) <br> Returns a data value at a 2D position.</td></tr>
+  <tr><td><font color=blue>valueAtSafe</font></td><td>float valueAtSafe(int x, int y) <br>  Return a data value at a 2D position. It has no locking. <br><br>float valueAtSafe(int x, int y, int z) <br>  Return a data value at a 3D position. It has no locking.</td></tr>
+  <tr><td><font color=blue>vertACF</font></td><td>EMData vertACF(int maxdy) <br>  vertical autocorrelation calculated in real-space over a range of translations</td></tr>
+  <tr><td><font color=blue>vFlip</font></td><td>vFlip()<br>  flips image vertically</td></tr>
+  <tr><td><font color=blue>Wait</font></td><td>Wait() <br>  Waits until the data becomes available.</td></tr>
+  <tr><td><font color=blue>waitReady</font></td><td>int waitReady(int readonly) <br>  Waits for data to become available; Returns 0 if OK; Returns non-zero if any error.</td></tr>
+  <tr><td><font color=blue>writeDebug</font></td><td>writeDebug(int n) <br>  write to a special graphical debug viewer</td></tr>
+  <tr><td><font color=blue>writeImage</font></td><td>int writeImage(filename, n=0, imagetype=EMData.ANY, nolock=0, swap = 0, mode=MODE_float) <br>  Writes a single image to a file. If image type is not specified, teh image type will be determined from given file type. return 0 if succeeds; return -1 if fails.</td></tr>
+  <tr><td><font color=blue>writeLST</font></td><td>int writeLST(string filespec, int n, string reffile, int refn, string comment)</td></tr>
+  <tr><td><font color=blue>xNormalize</font></td><td>xNormalize(int mode=0)<br>  normalizes each row in the image individually</td></tr>
+  <tr><td><font color=blue>xSize</font></td><td>int xSize() <br>  Returns x dimension size</td></tr>
+  <tr><td><font color=blue>ySize</font></td><td>int ySize()  <br>  Returns y dimension size</td></tr>
+  <tr><td><font color=blue>zero</font></td><td>zero() <br>  Sets all the data values to be 0.</td></tr>
+  <tr><td><font color=blue>zSize</font></td><td>int zSize() <br>  Returns z dimension size</td></tr>
+</table>
+</body>
+</html>

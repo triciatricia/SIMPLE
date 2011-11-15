@@ -1,0 +1,3 @@
+This is a highly experimental refinement procedure using a novel alignment/classification procedure
+Usage:
+basismultirefine.py  <groups> <iterations [pad=<box size>] [ang=<dang>] [proc=<nproc>] [ctfcw=<file>] [ctfc=<res>] [mask=<r>] [nbasis=<n>] [xfiles=<A/pix>,<mass>,<ali to>] [3dit=<iter>] [3dit2=<iter>] [sym=<symmetry>] [hard=<maxpr>] [automask=<r>,<thr>,<shells>] [nbasiscls=<num>] [clsbylcmp] [jacobi] [phicomp] [align4[=<topphi>]] [snrmult=<val>] [keep=<% to keep>

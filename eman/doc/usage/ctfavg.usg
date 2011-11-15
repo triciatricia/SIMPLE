@@ -1,0 +1,3 @@
+Averages a set of 2D images with ctf correction
+Usage:
+ctfavg  <infile> <outfile> [res=<in A>] [sffile=<file>] [mask=<rad>] [copyeuler] [refmask] [ref0] [copyrefs] [even|odd] [snrmult=<val>] [nolog]

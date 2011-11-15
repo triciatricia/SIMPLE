@@ -1,0 +1,42 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/clean3d.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>clean3d</h1>
+<p><h3>This program uses make3diter and proc3d to iteratively make models match class averages</h3>
+clean3d  &lt;classes> &lt;3d model> [sym=&lt;sym>] [proc=&lt;nproc>] [3dit=&lt;n iter>] [3dit2=&lt;n iter>] [keepthr=&lt;thr>] [keepsig=&lt;sigmult>] [speed=&lt;1-5>] [fixamp]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;classes></td><td>File with class averages</td></tr>
+<tr><td>&lt;3d model></td><td>Preliminary 3d model to clean up</td></tr>
+<tr><td>[sym=&lt;sym>]</td><td>Symmetry specification</td></tr>
+<tr><td>[proc=&lt;nproc>]</td><td>Number of processors to use</td></tr>
+<tr><td>[3dit=&lt;n iter>]</td><td>Number of 'normal' cleaning iterations</td></tr>
+<tr><td>[3dit2=&lt;n iter>]</td><td>Number of 'zeroing' cleaning iterations</td></tr>
+<tr><td>[keepthr=&lt;thr>]</td><td>Threshold for exclusion of class-averages (see make3diter)</td></tr>
+<tr><td>[keepsig=&lt;sigmult>]</td><td>Alternate specification of threshold (see make3diter)</td></tr>
+<tr><td>[speed=&lt;1-5>]</td><td>Speed in make3diter, convergence rate, dfl=1</td></tr>
+<tr><td>[fixamp]</td><td>Uses the Fourier amplitudes from the original image</td></tr>
+</table><br><h3>Usage:</h3>
+<p>clean3d classes.5.img threed.5a.img sym=d7 3dit=2 3dit2=2
+<h3>Description</h3>
+<P>This program performs iterative real-space refinement to make
+a 3D model more closely match a set of class-averages. There are 2
+versions of the routine. The '3dit=' routine simply tries for the
+'median' match. The '3dit2=' routine drives the densities towards zero
+as much as is permitted by the class averages.
+<P>The algorithm used by this program is quite difficult to describe.
+The basic idea is to calculate the differences between each class average
+and a corresponding projection of the model, then compute a 3D 'error model'
+describing the error in each pixel compared to unfiltered back-projection.
+However, this isn't strictly accurate, since not just the average error value
+is calculated for each voxel. In reality, we calculate a statistical set of
+predicted errors for each voxel. '3dit' uses the median value of the
+predicted error. '3dit2' uses a value between the median value, and the
+max/min value which would move the density towards zero. For a real explanation,
+you'll have to dissect the code. We'd like to retire this algorithm and replace
+it with something more mathematically robust, but in testing so far, it has
+produced the best corrections.
+<P>The '3dit2' algorithm can get a bit carried away if you run it for too many iterations.
+From experience we suggest '3dit2=2 3dit=1' will generally provide good results. Using
+the 'automask2' option of <a href=proc3d.html>proc3d</a> is also a good idea. during
+iterative refinement.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

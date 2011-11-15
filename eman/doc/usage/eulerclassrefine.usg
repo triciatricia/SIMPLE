@@ -1,0 +1,3 @@
+This program will try to refine the Euler angles for a set of class-averages using the concept of common-lines
+Usage:
+eulerclassrefine  <classfile>

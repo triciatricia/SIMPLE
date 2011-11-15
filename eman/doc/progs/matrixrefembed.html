@@ -1,0 +1,27 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/matrixrefembed.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>matrixclass</h1>
+<p><h3>This program will take a distance matrix and a pre-embedded space</h3>
+matrixclass  &lt;input file> &lt;reference file> &lt;output file> [fixq=&lt;val>] [classes]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>Source matrix file from classesbymra</td></tr>
+<tr><td>&lt;reference file></td><td>Already embedded locations</td></tr>
+<tr><td>&lt;output file></td><td>Destination file (ascii)</td></tr>
+<tr><td>[fixq=&lt;val>]</td><td>Output with a fixed quality factor rather than the calculated one</td></tr>
+<tr><td>[classes]</td><td>This will classify the particles and output a set of cls files like classesbymra.</td></tr>
+</table><br><h3>Usage:</h3>
+<p>matrixclass matrix.dat groel.loc class.loc
+<h3>Description</h3>
+<P>This program is still experimental.
+<P>This program is used in conjunction with matrixembed and the 'matrix' option of
+classesbymra. It is used to assign embedded locations to a set of points based on
+distances to a set of already embedded points. The typical sequence would be as 
+follows:
+<P><UL>
+<LI>classesbymra proj.hed proj.hed matrix</LI>
+<LI>matrixembed matrix.dat proj.loc euler=proj.hed</LI>
+<LI>classesbymra start.hed proj.hed matrix</LI>
+<LI>matrixclass matrix.dat proj.loc start.loc</LI>
+</UL>
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

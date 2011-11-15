@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="StarOffice/5.0 (Unix)">
+	<META NAME="AUTHOR" CONTENT="Steve Ludtke">
+	<META NAME="CREATED" CONTENT="19981215;23321300">
+	<META NAME="CHANGEDBY" CONTENT="Steve Ludtke">
+	<META NAME="CHANGED" CONTENT="19981216;1572800">
+	<STYLE>
+	<!--
+	-->
+	</STYLE>
+</HEAD>
+<BODY>
+<H1>EMAN Tutorial</H1>
+<H2>How to do a Reconstruction</H2>
+<P>The first step is to 'box out' the individual particles. That is,
+select the individual particles from the digitized micrograph (or CCD
+frame), and save each as a separate image. Currently EMAN doesn't
+have an internal program for doing this, but numerous programs are
+available for this purpose. For manual boxing of particles EMTOOL is
+suggested (it has many other uses as well). For automatic boxing,
+PTOOL is good (for certain classes of particles). Save all of the
+boxed particles in each micrograph (or frame) to a separate file in
+the IMAGIC format. That is, you should have one IMAGIC file for each
+micrograph/frame. This file (actually a pair of files, one '.hed'
+file and one '.img' file) contains all of the particle images from
+that micrograph.</P>
+<P>Please note, when scanning images, it is important to use the
+proper resolution. For example, if you're trying to get a 15A
+structure, you should try to scan so the images have a pixel size of
+about 5A, that is ~1/3 of the final resolution goal. Please also keep
+the memory requirements of the software in mind. If your boxed
+particles are 200x200 pixels, the final 3d model will be
+200x200x200x4  = 32 megabytes. Your computer must have enough memory
+to hold at LEAST 2 of these models in memory at once, preferably 3. 
+</P>
+<P>Next, select the type of particle you have data for:</P>
+<OL>
+	<LI><P><A HREF="start.icos.html">Particle with icosahedral symmetry</A></P>
+	<LI><P><A HREF="start.csym.html">Particle with 1 axis of rotational
+	symmetry</A> (ie - c3 or c4)</P>
+	<LI><P><A HREF="start.asym.html">Asymmetric particle</A></P>
+</OL>
+<P>If the symmetry of the particle is unknown, you can use 'symhist'
+to try to get some idea of what, if any symmetry your particle might
+have.</P>
+</BODY>
+</HTML>

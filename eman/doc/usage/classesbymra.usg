@@ -1,0 +1,3 @@
+This program classifies a set of particles based on a set of references (usually projections).
+Usage:
+classesbymra  <particles> <refrences> [split] [frac=<num>/<denom>] [projbatches=<num>] [verbose[=<n>]] [mask=<rad>] [refmask] [imask=<rad>] [maxshift=<rad>] [precen] [sigfilt] [tree1=<treefile>] [tree2=<treefile>] [ctfc[=<SF file>]] [applyb2] [matrix] [sep=<nspl>] [logit=<label>] [touch=<filename>] [rfp] [norot] [usefilt] [refine] [slow] [updateheader] [flipphase] [phase] [wtphase] [fscmp] [wtfscmp] [dfilt] [frm2d[=<rad>,<samp>]] [quiet]

@@ -1,0 +1,3 @@
+This program will take a diffraction pattern, locate the center, remove the beamstop and do a background subtraction
+Usage:
+xtalcen  <input file [out=<output name>] [center=<x>,<y>] [filtrad=<rad>] [bgsub] [zerothr=<sigma mult>]

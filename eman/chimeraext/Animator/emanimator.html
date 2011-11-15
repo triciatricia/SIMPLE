@@ -1,0 +1,268 @@
+<html>
+<body>
+
+<h1>
+EMANimator
+</h1>
+
+<p>
+Chimera Extension written by Steve Ludke.<br>
+Usage notes by Tom Goddard.<br>
+February 19, 2004
+</p>
+
+<p>
+Animator (also known as EMANimator) is a Chimera extension to make
+animations.  It was written by Steve Ludke at the National Center for
+Macromolecular Imaging and is distributed with the source code of
+Steve's
+<a href="http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc/">EMAN package</a>.
+The EMAN package is for computing 3-dimensional density maps using
+"single particle reconstruction".  This technique takes thousands of
+2 dimensional electron microscope images of a large molecular complex
+like a virus, and produces a 3-dimensional density map.
+</p>
+
+<p>
+The extension is under development, has quite a few rough edges, and
+Steve has not written documentation.  Steve uses it on Linux.  It is
+all Python code so will run on other platforms.  This page describes
+what I learned about Animator from using the version from the EMAN
+nightly snapshot downloaded February 19, 2004 together with Chimera
+1.1899.  The extension is in the EMAN source code *.tar.gz file under
+EMAN/chimeraext/Animator.
+</p>
+
+<h2>
+What It Does
+</h2>
+
+<p>
+The Animator extension lets you script motions and color changes of
+models and outputs a sequence of jpeg images that can be used to
+create a movie.  It tries to run a program called mencoder to create
+an mpeg4 format movie from these jpeg images.  The mencoder program is
+part of the
+<a href="http://www.mplayerhq.hu/homepage/design6/news.html">mplayer</a>
+package available for Linux and Mac machines.
+</p>
+
+<h2>
+Types of Animation Segments
+</h2>
+
+<p>
+An animation is created as a sequence of
+</p>
+
+<ul>
+<li>model motions
+<li>model color changes
+<li>showing and hiding models
+<li>changing thresholds for isosurfaces
+<li>camera zooms
+</ul>
+
+<p>
+Each step of the animation is created using the Animotor dialog
+and positioned in a time-line displayed by the dialog.
+</p>
+
+<h2>
+Limited in What can be Animated
+</h2>
+
+<p>
+The above actions are the only ones possible.  Many changes to
+molecules cannot be animated.  For example, animations cannot change
+molecule display from wire mode to ribbon, or hide selected atoms, or
+rotate bonds.  The Animator code is written to allow adding new kinds
+of actions.  Steve has been primarily interested in animations displaying
+volumetric data.  Adding code for a new type of action looks like it
+would take a few hundred of lines of Python code, and a great deal
+of Chimera programming knownledge.
+</p>
+
+<h2>
+Animator Dialogs
+</h2>
+
+<p>
+The Animator extension (menu entry Tools/EMAN/Animator) shows two dialogs.
+One is titled Model Parameter Memories and the other is Animator.
+</p>
+
+<p>
+The Memories dialog records the positions, colors, show/hide state
+for all models, the threshold level volume surfaces, and the camera
+parameters.  It records this whenever the "New" button is pressed.
+Each memory is numbered (starting from 0), and has a corresponding column
+of small buttons.  Pressing the top-most button that shows the memory
+number restores that configuration in the Chimera graphics window.
+The buttons below in that column restore individual settings, like
+model color, or orientation, or camera zoom.
+</p>
+
+<table>
+<tr>
+<td>
+<img src="memories.png">
+<td>
+<img src="animator.png">
+</table>
+
+<p>
+The Animator dialog has a row of 4 buttons at the top, 3 panels in the
+middle, and some buttons and entry fields at the bottom.  The buttons
+along the top, "Mem A->B", Spin, Color/Fade, and Sequence are used to
+create specific types of animation segments.  Pressing one of these
+buttons shows entry fields for the parameters associated with that
+type of segment in the upper right panel, the segment parameters
+panel.  Pressing the Apply button in the segment parameters panel
+creates an animation segment which is shown in the lower timeline
+panel.  The models and attributes (color, orientation, ...) that are
+changed during a segment are shown selected in the upper left panel,
+the model attributes panel.  The
+buttons and frame rate and size entries at the bottom of the Animator
+dialog are for playing the animation or recording it to files.
+</p>
+
+<h2>
+How to Make an Animation
+</h2>
+
+<p>
+The most basic kind of segment of an animation starts at one
+configuration memory and smoothly transitions to another one.  First
+record two configurations using the New button of the Memories dialog.
+Then press the "Mem A->B" button at the top of the Animator dialog and
+enter the start and stop memory numbers.  In the model attributes
+panel (upper left) of the Animator dialog select the attributes
+(color, threshold, show/hide state, orientation, and camera zoom) that
+you want to have smoothly interpolated.  You can select one or more
+attributes.  Then press the Apply button in the parameters panel
+(upper right).  This will add one or more blue colored bars to the
+timeline (lower panel) in the Animator dialog.  There is one bar for
+each attribute that you chose to change.  Pressing the Play button at
+the bottom of the Animator dialog will now play through this animation
+consisting of one segment.  The duration (in seconds) of the
+transition can be set using the Duration entry field in the parameters
+panel.
+</p>
+
+<p>
+There are 3 other types of segments.  A Spin segment allows you to
+rotate the models about a specified axis by a specified angle.  There
+are cases where you cannot do this with the "Mem A->B" type segment.
+For example, when you want to rotate 360 degrees.  The start and end
+positions are then identical and a "Mem A->B" segment will not produce
+any motion.  There is a Color/Fade segment that lets you
+transition smoothly from one model color to another.  The last segment type
+is Sequence which shows a sequence of different models, each
+for an equal time.  I think you can get the same effect as the
+Color/Fade and Sequence segment types using Mem A->B segments, but
+Color/Fade and Sequence are easier to setup.
+</p>
+
+<p>
+Each segment is created and placed on the timeline by pressing the
+Apply button.  Segments can be dragged with the mouse along the
+timeline.  Clicking on a segment bar on the timeline displays the
+parameters for that segment in the segment parameters panel (upper
+right).  The parameters can then be edited after which you must press
+Apply for the changes to take effect.
+</p>
+
+<h2>
+Other Features
+</h2>
+
+<p>
+The bars on the timeline can have one of 4 colors (blue, green, pink,
+yellow) corresponding to the 4 types of segments (Mem A->B, Spin,
+Color/Fade, Sequence).  The Mem A->B, Spin, Color/Fade, and Sequence
+buttons at the top of the Animator dialog have matching colors.
+</p>
+
+<p>
+To delete a segment, click on its bar in the timeline, the press the
+Delete button in the segment parameter panel (upper right).
+</p>
+
+<p>
+Each model attribute gets its own row in the timeline panel.
+The model numbers are shown in the row labels ending in :0, :1, ....
+The model attributes panel (upper left) also indicates the different
+model numbers by rows starting with 0:, 1:, ....  These are the same
+model numbers that can be seen in the Chimera Model Panel.
+</p>
+
+<p>
+The vertical black line accross the timeline moves from left to right
+when you press Play indicating the time.  You can drag the vertical line
+with the mouse and the segments play as the line is moved.
+</p>
+
+<p>
+The Snapshot button on the Memories dialog writes jpeg images of each
+of the memory configurations to files in the current directory (where
+Chimera was started).  The file names end in the memory number.
+</p>
+
+<p>
+Using Chimera save session saves all the animation segments and parameter
+memories.
+</p>
+
+<p>
+The Record button plays the animation outputing a series of jpeg images
+emanframeXXXXX.jpg to the current directory (the one Chimera was started
+in) and tries to run mencoder on these images to make a MPEG4 format
+movie.  The frames per second and size of the image are set in entry
+fields next to the Record button.  The image saving uses Chimera's standard
+tiled supersampled rendering.
+</p>
+
+<h2>
+Problems and Limitations
+</h2>
+
+<p>
+If you don't select anything in the model attributes panel and press Apply
+in the segment parameters panel it will not create a segment, and the
+segment parameters panel changes to just show start time and duration
+losing your other settings for the segment.
+</p>
+
+<p>
+If you type in a new duration in the Duration entry field of the segment
+parameters panel, you have to press the enter key.  Otherwise, pressing
+Apply will not pick up the changed value.
+</p>
+
+<p>
+After creating model memories and then opening new models and creating
+more memories, Animator started raising exceptions about index out of
+range.  It may be necessary to open all the needed models before starting
+to make an animation.
+</p>
+
+<p>
+A spin segment has to have a starting memory.  If you overlap in time
+the spin segment with another segment that reorients the model the
+starting position for the spin segment will cause a jump in model position.
+Would be nice to permit having no starting memory.
+</p>
+
+<p>
+Molecule coloring only controls molecule level color.  Ribbon and Atom
+colors cannot be changed as part of the movie.
+</p>
+
+<p>
+The model parameters memory window provides no way to delete the remembered
+states.  Each new state is added as another column making the window wider.
+</p>
+
+</body>
+</html>

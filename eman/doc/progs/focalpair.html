@@ -1,0 +1,32 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/focalpair.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>focalpair</h1>
+<p><h3>Merges focal pairs into a single image with partial CTF correction</h3>
+focalpair  &lt;input 1> &lt;input 2> &lt;output> [im1parm=&lt;parm 1>] [im2parm=&lt;parm 2>] [im1=&lt;ctfparm entry>] [im2=&lt;ctfparm entry>] sffile=&lt;SF File> [noampc] [filt=&lt;%>] [noali]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input 1></td><td>First input (MRC only!)</td></tr>
+<tr><td>&lt;input 2></td><td>Second input (MRC only!)</td></tr>
+<tr><td>&lt;output></td><td>Combined output</td></tr>
+<tr><td>[im1parm=&lt;parm 1>]</td><td>Parameters of first image (from ctfit)</td></tr>
+<tr><td>[im2parm=&lt;parm 2>]</td><td>Parameters of second image</td></tr>
+<tr><td>[im1=&lt;ctfparm entry>]</td><td>Label from ctfparm.txt file</td></tr>
+<tr><td>[im2=&lt;ctfparm entry>]</td><td>Same for second image</td></tr>
+<tr><td>sffile=&lt;SF File></td><td>Structure factor file (intensity vs s, 2 column)</td></tr>
+<tr><td>[noampc]</td><td>Do not perform amplitude correction or Wiener filtration</td></tr>
+<tr><td>[filt=&lt;%>]</td><td>High-pass filter the output, 0-100 as a % of Fourier space</td></tr>
+<tr><td>[noali]</td><td>This indicates that the input images have already been aligned to each other</td></tr>
+</table><br><h3>Usage:</h3>
+<p>fpmerge jj1000.mrc jj1001.mrc jj1000m.mrc sffile=groel.xray
+<h3>Description</h3>
+<P>This program impliments focal pair merging for the purpose of combining the
+low resolution information from a second exposure with the higher resolution
+information from the first exposure. It performs partial CTF correction.
+That is, it properly weights the two data sets during combination, and
+performs phase flipping. However, it does not deconvolute the actual
+CTF. Instead, it writes an output file containing the necessary information
+for complete CTF correction at a later point.
+<P>The filt option (confusingly) specifies a filter radius as a percentatge.
+A typical value for the filt option would be ~5, but this may vary for
+different microscopes/specimens.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

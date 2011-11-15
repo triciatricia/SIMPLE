@@ -1,0 +1,24 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/projtree.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>projtree</h1>
+<p><h3>Generates a list of projections used for high speed particle classification</h3>
+projtree  &lt;infile> &lt;outfile> [level=2,3] [sym=&lt;cn,icos,etc]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;infile></td><td>Projection file</td></tr>
+<tr><td>&lt;outfile></td><td>Output 'tree' text file</td></tr>
+<tr><td>[level=2,3]</td><td>The decomposition level to use</td></tr>
+<tr><td>[sym=&lt;cn,icos,etc]</td><td>Model symmetry, used for azimuth wrapping</td></tr>
+</table><br><h3>Usage:</h3>
+<p>projtree proj.img proj.tree level=2 sym=c4
+<h3>Description</h3>
+<P>This program is used internally by <a href=refine.html>refine</a>. It generates a file used by 
+<a href=classesbymra.html>classesbymra</a>. Normally classesbymra comapres each particle to
+each projection. The 'tree' option allows each particle to be compared to 1/4 (level 2) or
+1/9 (level 3) of the projections initially. Each particle is then locally refined to
+determine the exact matching projection. So, the total number of comparisons is N/4 + 6
+or N/9 + 18. This is an improvement only if the number of projections is sufficiently large.
+There is also a potential problem if the images are very noisy and the 'best' peaks are
+sharp and poorly defined. If the incorrect initial maxima is chosen, the 'detailed' maxima
+will also obviously be wrong. 
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

@@ -1,0 +1,31 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/make3dsimple.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>make3dnonorm</h1>
+<p><h3>This program builds 3D models from a set of class averages using Fourier techniques</h3>
+make3dnonorm  &lt;input file> [out=&lt;outfile>] [noweight] [sym=&lt;c4,icos,etc>] [pad=&lt;padsize>] [mode=&lt;1-6>] [mask=&lt;rad>] [norm] [resmap=&lt;name>] [inorm]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>File containing class averages</td></tr>
+<tr><td>[out=&lt;outfile>]</td><td>Output 3D MRC file</td></tr>
+<tr><td>[noweight]</td><td>Normally the class averages are weighted by the number of raw particles used, this disables that</td></tr>
+<tr><td>[sym=&lt;c4,icos,etc>]</td><td>The symmetry to apply to the model</td></tr>
+<tr><td>[pad=&lt;padsize>]</td><td>To reduce Fourier artifacts, the model is typically padded by ~25%</td></tr>
+<tr><td>[mode=&lt;1-6>]</td><td>Specifies the interpolation size, 2 is the default</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>real-space mask radius</td></tr>
+<tr><td>[norm]</td><td>Normalize the slices based on associated projections in a 'classes' style file</td></tr>
+<tr><td>[resmap=&lt;name>]</td><td>Generates a 'resolution map' in another 3D MRC file</td></tr>
+<tr><td>[inorm]</td><td>This will use a special weighting scheme to compensate for poor SNR sampling on the unit sphere</td></tr>
+</table><br><h3>Usage:</h3>
+<p>make3d classes.1.img out=threed.1.mrc hard=25 sym=c4 pad=128 mask=42
+<h3>Description</h3>
+<P>This program is virtually identical to make3d except for 3 changes.
+First, it has a reduced memory footprint because it doesn't keep
+all of the particles/class-averages in memory. Second, it only normalizes
+slices on request, and does so by comparing to associated class-averages.
+Finally, there is no mechanism for excluding
+'bad' slices.
+<P>inorm can be used to compensate for cases where strange high resolution radial
+artifacts occur. This is generally due to nonuniform orientation distributions
+producing azimuthal variations in signal/noise ratio. It may have some odd noise
+enchancing effects, though.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

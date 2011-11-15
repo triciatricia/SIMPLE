@@ -1,0 +1,17 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/make3dicos2.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>make3dicos2</h1>
+<p><h3>Do not use this program directly. It is called from make3dicos.</h3>
+make3dicos2  &lt;input file> &lt;outfile> [pad=&lt;padsize>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>File containing class averages</td></tr>
+<tr><td>&lt;outfile></td><td>Output 3D MRC file</td></tr>
+<tr><td>[pad=&lt;padsize>]</td><td>To reduce Fourier artifacts, the model is typically padded by ~25%</td></tr>
+</table><br><h3>Usage:</h3>
+<p>make3dicos classes.1.img out=threed.1.mrc pad=128
+<h3>Description</h3>
+<P>This program should only be called from make3dicos. It does the hard work
+of building a 3d icosahedral model in Fourier space. However, it uses VolFrag
+objects, which aren't very useful outside the context of these 2 programs
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

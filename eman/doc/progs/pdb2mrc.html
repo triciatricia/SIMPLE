@@ -1,0 +1,42 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/pdb2mrc.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>pdb2mrc</h1>
+<p><h3>This program will generate a 3D electron density map from PDB files</h3>
+pdb2mrc  &lt;pdb input> &lt;mrc output> [info] [apix=&lt;a/voxel>] [res=&lt;resolution>] [box=&lt;box size>] [het] [center] [solvate] [full] [allmdl] [sym=&lt;cn|dn|icos>] [rot=&lt;alt,az,phi>] [gen1] [sf=&lt;filename>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;pdb input></td><td>The PDB file to convert</td></tr>
+<tr><td>&lt;mrc output></td><td>The output file for the generated map</td></tr>
+<tr><td>[info]</td><td>If this is specified, information on the PDB file is displayed, no conversion is performed.</td></tr>
+<tr><td>[apix=&lt;a/voxel>]</td><td>Angstroms per voxel in the output, default is 1</td></tr>
+<tr><td>[res=&lt;resolution>]</td><td>Resolution defined in 'EM' way. reciprocal of the 1/2 width of a Gaussian in Fourier space</td></tr>
+<tr><td>[box=&lt;box size>]</td><td>Box size in voxels, automatic if unspecified</td></tr>
+<tr><td>[het]</td><td>Include HET atoms in the conversion</td></tr>
+<tr><td>[center]</td><td>Center the model (center of charge)</td></tr>
+<tr><td>[solvate]</td><td>Solvate the model (with water). This is an approximate algorithm.</td></tr>
+<tr><td>[full]</td><td>Apply non-crystallographic symmetry (MTRIXs or BIOMTs) to get full structure</td></tr>
+<tr><td>[allmdl]</td><td>Ignore ENDMDL flags</td></tr>
+<tr><td>[sym=&lt;cn|dn|icos>]</td><td>Apply additional symmetry to the structure</td></tr>
+<tr><td>[rot=&lt;alt,az,phi>]</td><td>Apply rotation after symmetries are applied,</td></tr>
+<tr><td>[gen1]</td><td>This will generate density for only 1 copy of the molecule, but otherwise act as if all copies were generated.</td></tr>
+<tr><td>[sf=&lt;filename>]</td><td>Generates the scattering structural factor curve</td></tr>
+</table><br><h3>Usage:</h3>
+<p>pdb2mrc 1FAQ.pdb FAQ.mrc apix=1 res=1.5 center
+<h3>Description</h3>
+<P><b>WARNING: the definition of resolution changed between build 34 and 35</b>
+<P>This will generate a 3D MRC map from a PDB file. This may be used by <a href=align3d.html>
+align3d</a> or <a href=foldhunter.html>foldhunter</a>, or for other purposes. The solvate
+option is better than that used by some other similar programs, but is NOT discrete
+water molecule solvation. It is still an approximate continuous method which still
+produces artifacts. In addition, without solvation, the program can generate models at any
+resolution, but with solvation, resolution must be 1.5 A or better.
+<P>The purpose of [sym=<cn|dn|icos>] is mainly for generating full icosahedral virus structure,
+since the PDB files for some viruses (bluetongue virus) only have non-crystallographic symmetry
+transform matrix for half of the virus, we need to apply additional symmetry operation (for bluetongue
+virus use sym=c2) to generate the full structure. For bluetongue virus, the C2 is
+not enough, it requires another rotation along Z axis to make the the XYZ all on 2-fold
+axes, so [rot=<alt,az,phi>] is added for this purpose to tranform the coordinates instead
+tranform of density map later on.
+<P>The solvate option works best with apix=.8 and res=2.4. The approximation becomes worse if 
+res<3*apix. This will take some time to calculate, and is only an approximation.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

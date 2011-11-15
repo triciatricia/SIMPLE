@@ -1,0 +1,27 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/startnrclasses.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>startnrclasses</h1>
+<p><h3>This program takes a set of particle images and generates reference free class averages</h3>
+startnrclasses  &lt;infile> &lt;# pt per class> [imask=&lt;rad>] [mask=&lt;rad>] [parm=&lt;# fp>] [proc=&lt;n proc>] [nobad]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;infile></td><td>Input file of raw (centered) particles</td></tr>
+<tr><td>&lt;# pt per class></td><td>Approximate number of particles to use for each class average</td></tr>
+<tr><td>[imask=&lt;rad>]</td><td>Inside mask radius for data exclusion</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>Mask radius</td></tr>
+<tr><td>[parm=&lt;# fp>]</td><td>Number of MSA basis vectors to use in classification, default is usually adequate</td></tr>
+<tr><td>[proc=&lt;n proc>]</td><td>Processors to run on</td></tr>
+<tr><td>[nobad]</td><td>Exclude empty classes from the result, losing correlation to cls files</td></tr>
+</table><br><h3>Usage:</h3>
+<p>startnrclasses start.img 50
+<h3>Description</h3>
+<P>This program is used to generate reference free class averages. It is fully automated. All
+you specify is the approximate number of particles to use for each class. Generally this
+routine will produce at least a few good representative class averages. It may not
+cover all possible orientations, and there may be many class averages containing almost
+identical averages. This program is generally used in conjunction with 
+<a href=startAny.html>startAny</a>. First startnrclasses is used to generate a
+large number of class averages. The user then manually selects several representing
+as diverse a range of orientations as possible, and runs them through startAny to
+generate an initial model for refinement.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

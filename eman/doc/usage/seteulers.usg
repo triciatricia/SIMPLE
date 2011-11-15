@@ -1,0 +1,3 @@
+Will assign Eulers from a text file or modify existing assignments (IMAGIC only)
+Usage:
+seteulers  <images> [dump=<listfile>] [spiderout] [imagicout] [mrcout] [sgiout] [fromfile=<listfile>] [collapse=<angle>]

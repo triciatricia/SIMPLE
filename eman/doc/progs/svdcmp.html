@@ -1,0 +1,22 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/svdcmp.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>svdcmp</h1>
+<p><h3>This will determine a set of orthogonal basis images from a set of aligned particles</h3>
+svdcmp  &lt;images> &lt;basis> [n=&lt;n basis>] [mask=&lt;radius>] [jacobi] [altwt]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;images></td><td>Input file, images to be analyzed</td></tr>
+<tr><td>&lt;basis></td><td>Output file, set of orthogonal basis images</td></tr>
+<tr><td>[n=&lt;n basis>]</td><td>Number of basis images to output (&lt;= number of input images)</td></tr>
+<tr><td>[mask=&lt;radius>]</td><td>Mask radius in pixels (use the smallest reasonable value), 0 is no mask, -1 is box radius</td></tr>
+<tr><td>[jacobi]</td><td>Uses Jacobi method, much slower, but more accurate</td></tr>
+<tr><td>[altwt]</td><td>Weights the input images by altitude, helps when used on projections generated with 'prop='</td></tr>
+</table><br><h3>Usage:</h3>
+<p>svdcmp proj.hed basis.hed
+<h3>Description</h3>
+<P>This program is designed to produce a set of orthogonal basis images to
+use for noise reduction on raw particles. Typically this program will
+be used on a set of projections covering the asymmetric triangle, but
+with no in-plane rotation. The resulting basis images can then be applied
+to an (aligned) noisy image to act as a sort of filter. 
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

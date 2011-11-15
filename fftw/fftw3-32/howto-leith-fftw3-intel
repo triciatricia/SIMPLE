@@ -1,0 +1,53 @@
+14 April 2009
+
+Got FFTW3 from: www.fftw.org/download.html http: fftw-3.2.1.tar.gz
+gunzip
+tar xvf
+
+In: /usr/local/spider/fftw/fftw-opt64-b   
+
+237% which pgf95
+/scratch/pgi/linux86-64/8.0-4/bin/pgf95
+
+On: valcour 
+
+setenv CFLAGS "-Bstatic -tp p7 -fastsse -mp=nonuma -fpic"
+
+./configure F77=pgf95 CC=pgcc --enable-openmp --enable-float --enable-openmp 
+
+make
+
+mkdir lib
+
+
+cp ./.libs/libfftw3f.a ./threads/.libs/libfftw3f_threads.a lib
+
+
+------------------ earlier info for fftw 3.1.2 -------------------------
+
+
+Source code and documentation for FFTW 3.1.2  downloaded from
+ FFTW  server at: http://www.fftw.org/download.html
+
+setenv F90 /usr/pgi/linux86-64/7.1/bin/pgf95
+setenv F77 /usr/pgi/linux86-64/7.1/bin/pgf95
+setenv CC  /usr/pgi/linux86-64/7.1/bin/pgcc
+
+setenv CFLAGS "-Bstatic -fastsse -O2 -fpic"
+
+./configure --enable-float --enable-threads --with-openmp --enable-k7  --enable-type-prefix  FAILS compilation
+./configure --enable-float --enable-threads --with-openmp --enable-type-prefix  
+
+make
+
+TYPICAL LINES: --------------------
+/usr/pgi/linux86-64/7.1/bin/pgcc -c -tp p7 -Bstatic_pgi -fastsse -O2 -fpic -mp=nonuma  conftest.c >&5
+
+-----------------------
+
+mkdir lib
+cp .libs/*  lib
+
+cd threads
+cp  .libs/libfftw3f_threads.a ../lib
+

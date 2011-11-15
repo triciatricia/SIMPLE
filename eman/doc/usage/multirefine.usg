@@ -1,0 +1,3 @@
+This performs refinement on a set of 3D models simultaneously
+Usage:
+multirefine  <total iter> <# models> [sym=<sym0>,<sym1>,etc. []

@@ -1,0 +1,23 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/startoct.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>startoct</h1>
+<p><h3>This program generates a preliminary 3d model for objects with octahedral symmetry</h3>
+startoct  &lt;centered particles> &lt;# to keep> [nosym]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;centered particles></td><td>Raw centered particles to use to build a model</td></tr>
+<tr><td>&lt;# to keep></td><td>Number of particles to use for each view</td></tr>
+<tr><td>[nosym]</td><td>Skips the initial symmetry search</td></tr>
+</table><br><h3>Usage:</h3>
+<p>startoct start.hed 50
+<h3>Description</h3>
+<P>This program uses a very simple technique to generate a VERY rough 3d
+model from a set of particle images. It seaches for particles with the
+best 4-fold rotational symmetry. It generates class averages for this 
+view, then generates a 3D model based on it.
+<P>Specify the number of particles to use. This number should
+be at least 10-20, and at most ~10% of the total particle data set.
+50-100 is good for typical data sets of 2000 or more particles.
+<P>This routine will not work well for all data sets. Sometimes it won't
+work at all, and startAny will have to be used.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

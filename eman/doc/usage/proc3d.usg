@@ -1,0 +1,7 @@
+Misc. 3d image processing
+Usage:
+proc3d  <input file>
+
+ <input file> <output file> [shrink=<div>] [scale=<factor>] [clip=<x,y,z[,xc,yc,zc]>] [fftclip=<x,y,z>] [rot=<alt,az,phi>] [rotspin=<n1,n2,n3,angle>] [trans=<dx,dy,dz>] [posttrans=<dx,dy,dz>] [center] [acfcen] [apix=<A/pix>] [origin=<x,y,z>] [lp=<filt r>] [hp=<filt r>] [tlp=<filt r>] [unhp=<filt r>] [filefilt=<file>] [rfilt=<type>[,<val1>[,<val2>[,<val3>]]]] [blfilt=<sigma spa,sigma den,iter,localwidth>] [normfilt=<thr,filt>] [axialfilt=<filt r>] [flip] [yflip] [sym=<c?,icos,etc>] [mask=<radius>[,<width>]] [maskzero=<radius>[,<width>]] [imask=<radius>[,<width>]] [automask=<thr1>,<thr2>] [automask2=<rad>,<thr>,<N>] [maskfile=<file>] [maskfile2=<file>] [maskfile3=<file>] [maskval=<int>] [mask1file=<file>] [maskresample=<ref file>] [maskmerge=<mask file2>] [cut1stquad] [norm] [normto=<ref>] [bin=<thresh>] [bin2] [mult=<constant>] [add=<constant>] [noise=<level>] [signoise=<sig mult>] [setsf=<SF file>] [calcsf=<output>] [icos5fTo3f] [icos3fTo5f] [icos5fTo2f] [icos2fTo5f] [icos5fhalfmap] [tophalf] [icos5fhalf2full] [vtk] [df3] [em] [amira] [amiralabel] [amirashort] [amirabyte] [rawiv] [xplor] [icos] [spider] [spidersingle] [imagic] [mrc8bit] [mrc16bit] [pif] [hdf] [png] [gwin=<radius>] [edgenorm]
+
+ <input 1> <input 2> [apix=<A/pix>] [fsc=<out>] [phase=<out>] [snr=<out>] [rfactor=<out>] [rms=<thresh>] [rdiv=<out>] [rdivf=<out>] [diffmap[=<~binary thr>]] [sum=<output>] [pha1amp2=<out>] [anim=<frames>] [animorph=<frames>,<vecfile>[,<start #>]]

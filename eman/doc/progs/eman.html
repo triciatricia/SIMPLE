@@ -1,0 +1,313 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+  <title></title>
+             
+  <meta name="GENERATOR" content="StarOffice/5.0 (Unix)">
+       
+  <meta name="CREATED" content="19990107;23365700">
+       
+  <meta name="CHANGEDBY" content="Steve Ludtke">
+       
+  <meta name="CHANGED" content="19990108;43300">
+       
+  <style>
+  <!--
+  -->
+  </style>
+</head>
+  <body background="../paper01.jpg">
+<a href="http://ncmi.bcm.tmc.edu/%7Estevel/EMAN/doc"><img src="../EMAN2.logo.png">
+</a>
+<h2>eman</h2>
+<p>&nbsp;  </p>
+<h3>The main graphical user interface for the EMAN package.  </h3>
+<p style="margin-bottom: 0cm; "><br>
+<b>Usage</b><br>
+ eman<br>
+<br>
+</p>
+<p><b>Description</b><br>
+ This is the main graphical user interface program for EMAN. It has 2 purposes. 
+First, It will take you step by step through the process of performing a single
+particle reconstruction. Second, it has a file/history browser which allows
+you to analyze the results of your reconstruction, view image files, create
+figures for presentations, etc. </p>
+<p><b>Important note:</b> there are a large number of image display widgets 
+in this program, there are also a few plot widgets. Any time you see an image 
+or a plot, you can bring up an inspector (to adjust the brightness/contrast, 
+print, save a snapshot, etc.) by pressing the middle button on the image or
+plot (or both buttons at once for those with 2 button mice). This is true 
+in virtually every program in the EMAN package. <br>
+<img src="eman1.png">
+</p>
+<p><i>eman</i> does not take any command line arguments. When you run the
+ program, the above window will appear. There are 7 buttons in this window.
+ The <i>HELP</i> and <i>QUIT</i> buttons should be fairly obvious.  </p>
+<h3>The 4 steps</h3>
+<p>The top 4 buttons in the window represent the 4 stages of performing a 
+single particle reconstruction in EMAN. When beginning a new reconstruction,
+ 'cd' to the directory containing your raw data, and run <i>eman</i> from 
+there. Next, press the 'step 1' button. This will cause a window to appear 
+with a set of questions about the particle you are working with. Fill in all
+of the requested information. If you don't understand one of the lines, press
+the '?' button on that line, and a more detailed description will appear. 
+Don't worry, none of this information will be sent anywhere. It will be stored 
+in a file called '.form1' in the local directory for later use. When you've
+ answered all of the questions, press the 'DONE' button. </p>
+<p>EMAN will then examine the information you provided and generate a customized 
+set of instructions for the first stage of the reconstruction. This will appear
+in a new window as soon as you press the 'done button'. If you wish to print
+out these instructions, they are stored in the local directory as 'form1.html'.
+This file can be opened later in a web browser, or you can get it to reappear
+by pressing the 'step 1' button again. All of your previous answers will
+already be filled in for you the second time. The current version of EMAN
+does not make as much use of the information you provided as it could, but
+in future versions, the instructions will become more and more detailed. Still,
+the answers <i>are</i> used, so be sure to answer all of questions accurately.
+When you finish step 1, move on to step 2, etc. If you are using the 'step
+1' - 'step 4' buttons, make sure you run eman from the same directory each
+time. It will not allow you to run step 2 until you've completed step 1 in
+the current directory. </p>
+<h3>The file/history browser</h3>
+<p>The other button, 'Browse Files/History' causes the file/history browser, 
+pictured below, to appear. <br>
+<img src="eman2.png">
+</p>
+<p>This window is the main analysis tool in the EMAN package. It is fairly 
+complex, and has a wide variety of features for image viewing and analysis. 
+There are 3 sections to the main inspector window. </p>
+<p>Section 1 is the file selector. It will contain a list of the files in
+ the current directory. As a convenience, any files ending in '.hed' are
+hidden, so in IMAGIC file pairs, only one file will be listed. Directories
+are also listed, and single clicking is sufficient to change directory. In
+addition, you can change directory by entering a path in the text field above
+the file selector, or by pressing the 'Browse' button. </p>
+<p> Section 2 is the history selector. This will contain a list of all EMAN 
+commands (with a few exceptions) that have been run in the current directory. 
+If a file is selected, the history selector will display ONLY history entries
+ that are relevant to that file. To see a list of all commands again, select
+ the <b>directory</b> tab in area 3. </p>
+<h3>History Tab</h3>
+<p>Selecting an item in the history selector will cause the History tab to 
+be selected in area 3. Section 4 will then display the relevant information
+ about the line you selected, including the exact command that was run. The
+ command string is in a selectable text box, so you can select it (left mouse
+ drag) and paste it (middle mouse click) into an x-term window, editor, etc.
+ </p>
+<h3>Directory Tab</h3>
+<p>Changing directories, or selecting the directory tab will cause the  directory 
+inspector to appear in area 4. This inspector has some basic information about
+the current directory, as well as a comments window  where you can (and should)
+enter a description of the files in the current directory. This information
+is saved in the README file in the current directory. This feature is provided
+to encourage users to label the contents of their image analysis directories.
+You never know when you'll come back to a project 9 months later and not
+remember exactly what you were doing in a particular directory. </p>
+<h3>File Tab</h3>
+<p>Selecting an image file (single left mouse click) will cause the <b>File</b>
+  inspector to appear (the <b>file</b> tab in area 3). This inspector displays
+ relevant information about the selected image to the left, and a small view 
+of the image itself to the right. If the image needs to be scaled down too 
+much to fit into the small image display window, a message saying 'Big view 
+required' will appear instead of the image. For multiple image files, the 
+first image is displayed. In this case, you can scroll through all of the 
+images in the file by changing the image number (starting with 0) to the left
+of the image. To view large images, click on the 'Detach' button. This will
+put the image view into its own window, which can be resized. To see all
+of the small images in a stack file at once, simply press the 'Matrix View'
+button. This will bring up a new window containing all of the images in the
+file, with scroll bars if necessary to see everything. Since all displayed
+images are loaded into memory, the program will ask you for confirmation
+if you try to open a matrix view containing more than 20 megs of data. </p>
+<p>  </p>
+<p>   </p>
+<h3>Image Control Panel (any eman GUI program)</h3>
+<img src="eman5.png" alt="(image of control panel goes here)">
+<br>
+ Pressing the middle mouse button over any image displayed in virtually ANY 
+eman program will cause the image control panel to appear. This panel has
+quite a lot of functionality, and can appear with 2 variations. When displayed
+for a single image view, it will appear as above. If opened for a multi-image
+view, 2 additional check-boxes will appear. The 2 sliders at the top allow
+you to modify the display brightness and contrast. The 'Sca' text box allows
+you to modify the image scaling. There are 5 possible check-boxes:<br>
+<ul>
+  <li>Invert - Will allow you to interactively invert the contrast of the
+image display. This can be useful for spotting particles in low contrast
+images.</li>
+  <li>Label - This will place a numerical image number in the lower left
+corner of each image in a multi-image view.</li>
+  <li># Ptcl - This will display the 'nimg' parameter from the image header
+in the lower left corner of each image in a multi-image view. On a classes.*.img
+file, this number represents the number of raw particles used to construct
+a class-average.</li>
+  <li>Hist - Display the image histogram. The bottom 1/2 of the view above
+will not appear unless this checkbox is selected.</li>
+  <li>FFT - This only appears for single image views. It allows you to visualize
+the FFT of the displayed image. Note that the brightness and contrast are
+likely to require substantial adjustment. </li>
+</ul>
+Below the checkboxes are the mouse modes:<br>
+<ul>
+  <li>app - This will pass mouse events on to the main application</li>
+  <li>probe - This will allow you to use the mouse to probe around the image
+for specific pixel values. A magnified images of the pixels near the mouse
+cursor will appear in the lower right corner of the control panel. The numbers
+underneath the magnified view represent the position of the mouse with respect
+to the center of the image (as defined in EMAN). A red bar will also appear
+in the histogram representing the currently selected pixel, with the pixel
+value displayed numerically in the upper right of the histogram.&nbsp;</li>
+  <li>move - This allows you to rearrange the images in a multiimage view.
+Simply drag one image over another, and they will be rearranged. Note that
+this has no effect on the file, but occurs only in the computer's memory.
+If you wish to save the rearranged image stack to a file, see 'save' below.</li>
+  <li>split - This is a powerful feature which allows you to select individual
+images from a multi-image view. This can be very useful when preparing figures
+for talks/publications, etc. When you click on an image in 'split' mode,
+a new multi-image view will open, and a copy of the selected image will appear
+in the new window. You can continue to click on additional images. The new
+window also has it's own control-panel, etc. &nbsp;Note that the 'split'
+window cannot be closed. The only way to get rid of it is to close the parent
+image view that created it.</li>
+  <li>delete - This allows you to delete individual images in a multi-image
+view. Note, again, that this change occurs only in memory. It does not directly
+affect the image file.</li>
+</ul>
+The histogram has several features to determine the value at a particular
+point in the histogram simply drag with the left mouse button and a red line
+will indicate the position under the cursor, with the value displayed in
+the upper right corner. To display image statistics, right-click on the histogram.
+The mean value is indicated as blue line. The green line indicates the 'center'
+of the histogram. <br>
+Three additional buttons may appear:<br>
+<ul>
+  <li>Save - This will save the images in a multi-image view, complete with
+any modifications made by the browser, to an IMAGIC format image stack. Note
+that this routine will APPEND images to existing files. That is, if you save
+to the same file being displayed in the multi-image view, you will end up
+with the original images PLUS the images currently displayed.</li>
+  <li>Save View - This will save a snapshot of the current image view to
+a PNG file. This is a lossless, portable file-format compatible with all
+modern web-browsers and office suites. This will save the view exactly as
+it appears on the screen, just like a screenshot.</li>
+  <li>Print - This will print the current view to an available printer. Note
+that the printer support is broken in QT on several platforms. If 'Print'
+doesn't work properly, please use the 'Save View' button, then print the
+resulting image manually.</li>
+</ul>
+<h3>Compare Images Tab</h3>
+<img src="eman3.png">
+<p>When an image is selected, the 'Compare Images' tab will be enabled. When
+ this tab is selected, a view similar to the one above will appear. This
+is  the image comparison inspector. It is designed to allow you to compare
+2 images within a single image file (a later version may allow comparison
+between images in different files). This inspector has a variety of useful
+features for image comparison. In 'General' mode, the individual image numbers
+to display on the left and right can be selected. The center image can then
+display a variety of different things: </p>
+<ul>
+  <li>Difference - The images are subtracted and the (renormalized) difference 
+is displayed. </li>
+  <li>Aligned Difference - Image 2 is translationally and rotationally aligned 
+to Image 1 before subtraction. </li>
+  <li>Swap - Sometimes the best way to judge the differences between 2 images 
+is to rapidly swap back and forth between image 1 and 2. In 'Swap' mode, pressing
+the 'GO' button will alternate between image 1 and 2. </li>
+  <li>Animate - Currently does nothing at all. </li>
+  <li>CCF &amp; RCF - These options are experimental and may even cause the
+program to crash. Avoid them for now. </li>
+</ul>
+You can also select the normalization to be applied to the image(s):<br>
+<ul>
+  <li>None - The images are used exactly as they are in the file</li>
+  <li>Edge - This will set the mean value around the edge of each image to
+0 and set the standard deviation to 1.</li>
+  <li>Std - This will set the overall mean image value to 0 and the standard
+deviation to 1.</li>
+  <li>Pair - This will perform a least-squares fit of the pixel values in
+one image vs the values in the other image, then normalize one image to produce
+the optimal match. ie - the images will be normalized so the difference between
+them is as small as possible.</li>
+</ul>
+<h3>Euler Tab</h3>
+<img src="eman4.png">
+<p>This inspector allows you to investigate the orientations represented by
+2D images. It currently works in 3 different ways. In the 'Orient' mode, a
+single image (this may be a single particle, or a class average) is compared 
+against a set of projections to determine how accurately its orientation can
+be determined. The comparison is made similarly to classesbymra, but no CTF
+correction is performed in this case. Select the file with the image you
+wish to orient, then select the correct image number at the left of the Euler 
+inspector. The orientation determination will use whatever projections it 
+finds in proj.hed/img, so make sure this file already exists with the proper 
+angular spacing and symmetry. Pressing the 'Orient' button will begin the 
+determination (it may take some time). When it is complete, a dot will be 
+displayed for each projection in the triangle in the right side of the inspector. 
+This triangle represents the asymmetric triangle of your particle with whatever 
+symmetry you specified. That is, the top of the triangle represents looking 
+at your particle along the Z axis, or north pole of your particle. The base 
+of the triangle represents a fraction of a circle in the x-y plane (or above 
+the plane for icosahedral symmetry). Each dot will be colored according to 
+how well the selected particle matched that particular projection. The top 
+5% of values will be colored in gradually stronger red color. Below this point,
+brighter white indicates a stronger match. You can select a projection by
+clicking on one of the dots in the triangle. The selected projection will 
+be displayed in the center window, with information below it (numerical quality 
+factor, and orientation of the projection). From the width of the bright white
+area you can get an idea of the uncertainty in the  orientation determination. 
+Also, if there are multiple white areas, you can see if there are weaknesses 
+in your model, like incorrect symmetry specification. </p>
+<p>The second mode for the Euler inspector is 'Classes' mode. This is the
+most useful mode of the Euler Inspector. The triangle is used to display
+the distribution of particle orientations in a large data set. You must select
+a 'classes.#.img' file generated from a refinement run for this to work.
+When a classes file is selected, then the 'Classes' button is pressed, the
+triangle will display a dot for each class average in the file. The color
+will be determined by the number of particles that was used to generate each
+class average. In this case, the coloring is done on a logarithmic scale,
+so a doubling in brightness actually indicates 10x more particles in that
+class. Again, selecting an individual dot will display the corresponding
+class average and display the numbers associated with it. Note that if you
+did not use the euler2 option in <i> refine</i>, the class averages will
+be fairly evenely distributed in the unit triangle. With the euler2 option,
+the classes may be clustered in areas around the triangle. This is a good
+indication of preferred orientations in your sample.</p>
+<p>The 'Classes' mode can also be used to display projections based on their
+position within the asymmetric triangle. If you select a 'proj.img' file
+in Classes mode, all of the projections will have the same color. Selecting
+one will allow you to see the projection appearance as well as it's Euler
+angles.</p>
+<p>The third mode is 'Matrix' mode. This mode is used to view a similarity
+matrix generated by classesbymra in 'matrix' mode. It is still considered
+experimental.<br>
+ </p>
+<h2>Convergence Plot</h2>
+<p>The final tool currently provided by <i>eman</i> is the convergence plot. 
+To use this, you must run EMAN in a directory containing several completed 
+iterations of a <i>refine</i> command, and optionally the results of a <i>
+ ttest</i> command. This option will calculate the FSC (Fourier shell correlation) 
+curves between sucessive 3D models generated by the refinement. Since each 
+model is pseudo-independent from the previous model, this curve will give 
+a good preliminary analysis of the resolution convergence of the refinement
+ process. To get a more accurate resolution, a t-test should be run once
+the  refinement has completed. This will generate 2 models using 1/2 of the
+data  for each. This provides a fairly accurate estimate of the model resolution.
+ Note that these 2 models are not completely independent, since the same
+reference model was used to classify each set of particles, but generally
+speaking, resolution will be noise/alignment limited, so this is not a serious
+problem. It may cause a slight overestimation of the resolution, should not
+be significant.  </p>
+<p>One trick worth noting: to display a legend of the (often confusing) array
+ of colors and line types in this plot, hold down the control button and
+drag with the left mouse button in the plot to position the legend. </p>
+<p>More details on using this plot are included in the 4 step reconstruction
+ instructions.</p>
+<p>Also note, that there is currently (1.2 (42)) a bug which causes eman
+to crash if you try to produce a second convergence plot within a single
+eman invocation.<br>
+  </p>
+<hr>
+<p><i>EMAN 1.0b1, 1997-2000 Steve Ludtke, Phil Baldwin</i></p>
+</body>
+</html>

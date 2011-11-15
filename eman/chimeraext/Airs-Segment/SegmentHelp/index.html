@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>Segment Volume Package</title>
+<style type="text/css">
+<!-- 
+body 				{ width: 640px; margin: auto; padding: 24px;
+							font: Verdana, Arial, Helvetica, sans-serif; }
+p 					{	text-align: justify; padding-left: 16px; }
+.highlight 	{ color: #006699; }
+.code 			{ color: #666666; }
+-->
+</style>
+</head>
+
+<body>
+<h2>Segment Volume</h2>
+
+<img src="../SegmentSimple/segmentsimple.gif">  <!-- icon -->
+
+<h3>Introduction</h3>
+
+<p>The <span class="highlight">Segment Volume</span> package is a tool
+designed for segmenting 3D volume data. The package consists of modules
+which are <span class="highlight">Chimera</span> extension modules. 
+To use these modules, you will need the 
+<a href="http://www.cgl.ucsf.edu/chimera/">Chimera</a> and
+<a href="http://ncmi.bcm.tmc.edu/~steve/EMAN/doc/">EMAN</a> software 
+packages to use this module. </p>
+
+<p><b>Note:</b> This is pre-release version of the Segment Volume 
+package.</p>
+
+<h3>Package contents</h3>
+
+<ul>
+	<li><a href="../SegmentSimple/simple.html">Segment Simple</a> module</li>
+	<li><a href="../SegmentSimple/marker.html">Segment Marker</a> module</li>
+	<li><a href="../SegmentRead/init.html">Segment Read</a> module</li>
+	<li><a href="../SegmentWrite/init.html">Segment Write</a> module</li>
+	<li><a href="../SegmentTrack/trackxform.html">Track Transform</a> module</li>
+	<li><a href="../SegmentMask/maskmain.html">Segment Mask</a> module</li>
+	<li><a href="../DockManual/dockmanual.html">Dock Manual</a> module</li>
+	<li><a href="../MeasureStick/init.html">Measure Stick</a> module</li>
+</ul>
+
+<h3>Startup</h3>
+
+<h4>Listing the module</h4>
+
+<p>To list the module under Chimera's 
+<span class="highlight">Tools</span> menu, add the directory 
+-&nbsp;containing&nbsp;- the modules directories (eg: Segment Simple module is 
+in the directory <span class="highlight">SegmentSimple</span>) 
+directory to Chimera's list of Tools.</p>
+
+<p>To do so, open Chimera's main window, choose 
+<span class="highlight">Perferences</span> under 
+<span class="highlight">Favorites</span> menu, then choose the 
+<span class="highlight">Tools</span> category and then 
+<span class="highlight">Add</span> the directory -&nbsp;containing&nbsp;- 
+the module directories. This will 
+list the tools under <span class="highlight">AIRS</span> on the 
+<span class="highlight">Tools</span> menu.</p>
+
+<a name="start"></a>
+<h4>Starting the module</h4>
+
+<p>To start a module from the Chimera menu, first you will need to ensure 
+that the module is <a href="#list">listed</a> under Chimera's 
+<span class="highlight">Tools</span> menu. Then, click on the 
+<span class="highlight"><i>module name</i></span> in the 
+<span class="highlight">AIRS</span> menu, under Chimera's 
+<span class="highlight">Tools</span> menu.</p>
+
+<a name="debug"></a>
+<h4>Debugging</h4>
+
+<p>To debug the package, you can run a small script file that will produce a
+text message. Please follow the instructions in the message
+or email the text message along with any error messages.</p>
+
+<p>To run the debug file, locate the file named debug.py in
+the <span class="highlight">SegmentDebug</span> sub-directory 
+of <span class="highlight">Airs-Segment</span> directory in 
+the chimera extension for EMAN.</p>
+
+<p>Then run the script file by first launching the
+<span class="highlight">IDLE</span> program in Chimera. From the Chimera 
+<span class="highlight">Tools</span> menu, locate 
+<span class="highlight">IDLE</span> under one of the menu items,
+and click on it.</p>
+
+<p>Now, from the command line, type 
+<span class="code">execfile([FULL PATH TO DEBUG SCRIPT FILE])</span>.</p>
+
+<p>For example, if the path is /home/user/EMAN/chimeraext/Airs-Segment/SegmentDebug/debug.py, then type:
+<span class="code">execfile('/home/user/EMAN/chimeraext/Airs-Segment/SegmentDebug/debug.py')</span></p>
+
+<hr>
+
+
+<span class="highlight">
+<i>Segment Volume package (pre-release) - Main module<br>
+2005 April, Lavu Sridhar, Baylor College of Medicine</i>
+</span>
+</body>
+
+</html>

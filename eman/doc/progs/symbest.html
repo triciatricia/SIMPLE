@@ -1,0 +1,22 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/symbest.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>symbest</h1>
+<p><h3>This program searches a large set of particles for those with the best symmetry.</h3>
+symbest  &lt;input file> &lt;output file> sym=&lt;Cn> [keep=&lt;N>] [mirror=&lt;mirror out>] [mask=&lt;rad>] [imask=&lt;rad>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>Input file constining raw particles</td></tr>
+<tr><td>&lt;output file></td><td>Output file with the selected best particles</td></tr>
+<tr><td>sym=&lt;Cn></td><td>Symmetry to search for</td></tr>
+<tr><td>[keep=&lt;N>]</td><td>Number of particles to keep</td></tr>
+<tr><td>[mirror=&lt;mirror out>]</td><td>Also search for particles with mirror symmetry</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>Mask radius</td></tr>
+<tr><td>[imask=&lt;rad>]</td><td>Inside mask radius</td></tr>
+</table><br><h3>Usage:</h3>
+<p>symbest start.img best.img sym=c4
+<h3>Description</h3>
+<P>This program searches a set of particles for those with the best rotational and/or
+mirror symmetry. They should be precentered with <a href=cenalignint.html>cenalignint</a>
+or a similar utility. This program is generally indirectly through the use of
+<a href=startcsym.html>startcsym</a> or <a href=starticos.html>starticos</a>.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

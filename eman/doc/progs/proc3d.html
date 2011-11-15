@@ -1,0 +1,143 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/proc3d.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>proc3d</h1>
+<p><h3>Misc. 3d image processing</h3>
+proc3d  &lt;input file><br><br>proc3d  &lt;input file> &lt;output file> [shrink=&lt;div>] [scale=&lt;factor>] [clip=&lt;x,y,z[,xc,yc,zc]>] [fftclip=&lt;x,y,z>] [rot=&lt;alt,az,phi>] [rotspin=&lt;n1,n2,n3,angle>] [trans=&lt;dx,dy,dz>] [posttrans=&lt;dx,dy,dz>] [center] [acfcen] [apix=&lt;A/pix>] [origin=&lt;x,y,z>] [lp=&lt;filt r>] [hp=&lt;filt r>] [tlp=&lt;filt r>] [unhp=&lt;filt r>] [filefilt=&lt;file>] [rfilt=&lt;type>[,&lt;val1>[,&lt;val2>[,&lt;val3>]]]] [blfilt=&lt;sigma spa,sigma den,iter,localwidth>] [normfilt=&lt;thr,filt>] [axialfilt=&lt;filt r>] [flip] [yflip] [sym=&lt;c?,icos,etc>] [mask=&lt;radius>[,&lt;width>]] [maskzero=&lt;radius>[,&lt;width>]] [imask=&lt;radius>[,&lt;width>]] [automask=&lt;thr1>,&lt;thr2>] [automask2=&lt;rad>,&lt;thr>,&lt;N>] [maskfile=&lt;file>] [maskfile2=&lt;file>] [maskfile3=&lt;file>] [maskval=&lt;int>] [mask1file=&lt;file>] [maskresample=&lt;ref file>] [maskmerge=&lt;mask file2>] [cut1stquad] [norm] [normto=&lt;ref>] [bin=&lt;thresh>] [bin2] [mult=&lt;constant>] [add=&lt;constant>] [noise=&lt;level>] [signoise=&lt;sig mult>] [setsf=&lt;SF file>] [calcsf=&lt;output>] [icos5fTo3f] [icos3fTo5f] [icos5fTo2f] [icos2fTo5f] [icos5fhalfmap] [tophalf] [icos5fhalf2full] [vtk] [df3] [em] [amira] [amiralabel] [amirashort] [amirabyte] [rawiv] [xplor] [icos] [spider] [spidersingle] [imagic] [mrc8bit] [mrc16bit] [pif] [hdf] [png] [gwin=&lt;radius>] [edgenorm]<br><br>proc3d  &lt;input 1> &lt;input 2> [apix=&lt;A/pix>] [fsc=&lt;out>] [phase=&lt;out>] [snr=&lt;out>] [rfactor=&lt;out>] [rms=&lt;thresh>] [rdiv=&lt;out>] [rdivf=&lt;out>] [diffmap[=&lt;~binary thr>]] [sum=&lt;output>] [pha1amp2=&lt;out>] [anim=&lt;frames>] [animorph=&lt;frames>,&lt;vecfile>[,&lt;start #>]]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>Get info/stats on this file</td></tr>
+</table><br><table border=3>
+<tr><td>&lt;input file></td><td>Source file</td></tr>
+<tr><td>&lt;output file></td><td>Destination file</td></tr>
+<tr><td>[shrink=&lt;div>]</td><td>Shrinks the image by an integral scaling factor, median filter</td></tr>
+<tr><td>[scale=&lt;factor>]</td><td>Rescales the image, generally used with clip= </td></tr>
+<tr><td>[clip=&lt;x,y,z[,xc,yc,zc]>]</td><td>Make the output have this size, no scaling</td></tr>
+<tr><td>[fftclip=&lt;x,y,z>]</td><td>Make the output have this size, rescaling by padding FFT</td></tr>
+<tr><td>[rot=&lt;alt,az,phi>]</td><td>Rotate the volume, angles in degrees</td></tr>
+<tr><td>[rotspin=&lt;n1,n2,n3,angle>]</td><td>Rotate the volume around axis (n1,n2,n3) by angle degrees</td></tr>
+<tr><td>[trans=&lt;dx,dy,dz>]</td><td>Translate the volume, before the rotation</td></tr>
+<tr><td>[posttrans=&lt;dx,dy,dz>]</td><td>Translate the volume, after the rotation</td></tr>
+<tr><td>[center]</td><td>Centers volume using center of mass</td></tr>
+<tr><td>[acfcen]</td><td>Centers volume using cross correlation with mirrored model</td></tr>
+<tr><td>[apix=&lt;A/pix>]</td><td>Specify the Angstr/pixel for S scaling</td></tr>
+<tr><td>[origin=&lt;x,y,z>]</td><td>Set the coordinates for the pixel (0,0,0)</td></tr>
+<tr><td>[lp=&lt;filt r>]</td><td>Gaussian lowpass filter, r in angstroms if apix defined, pixels if undef</td></tr>
+<tr><td>[hp=&lt;filt r>]</td><td>Arctan highpass filter</td></tr>
+<tr><td>[tlp=&lt;filt r>]</td><td>Gaussian/artan mix lowpass</td></tr>
+<tr><td>[unhp=&lt;filt r>]</td><td>Undoes the hp= filter</td></tr>
+<tr><td>[filefilt=&lt;file>]</td><td>Applies a filter defined by an x/y text file</td></tr>
+<tr><td>[rfilt=&lt;type>[,&lt;val1>[,&lt;val2>[,&lt;val3>]]]]</td><td>Apply one of a variety of real-space filters</td></tr>
+<tr><td>[blfilt=&lt;sigma spa,sigma den,iter,localwidth>]</td><td>Apply bilateral filtering</td></tr>
+<tr><td>[normfilt=&lt;thr,filt>]</td><td>This filter attempts to perform a 'local normalization' so low density and high density features will be on a more even playing field in an isosurface display. Thr is an isosurface threshold at which all desired features are visible, filt is a normalization size similar to an lp= value</td></tr>
+<tr><td>[axialfilt=&lt;filt r>]</td><td>This filter applies a correction for cases where reconstructions with many 'side' views have produced an asymmetric resolution. Specify the gaussian resolution in the z direction.</td></tr>
+<tr><td>[flip]</td><td>Mirrors the object across the x-y plane</td></tr>
+<tr><td>[yflip]</td><td>Mirrors the object across the x-z plane</td></tr>
+<tr><td>[sym=&lt;c?,icos,etc>]</td><td>Applies the specified symmetry to the map</td></tr>
+<tr><td>[mask=&lt;radius>[,&lt;width>]]</td><td>Applies a circular mask to the circualr edgemean value, with an optional Gaussian falloff with the specified width</td></tr>
+<tr><td>[maskzero=&lt;radius>[,&lt;width>]]</td><td>Applies a circular mask to 0.0</td></tr>
+<tr><td>[imask=&lt;radius>[,&lt;width>]]</td><td>Applies an circular inner mask to 0.0</td></tr>
+<tr><td>[automask=&lt;thr1>,&lt;thr2>]</td><td>Tries to mask out only interesting density</td></tr>
+<tr><td>[automask2=&lt;rad>,&lt;thr>,&lt;N>]</td><td>Same goal as automask</td></tr>
+<tr><td>[maskfile=&lt;file>]</td><td>Multiplies the input by the specified file using pixel indices(must be same size)</td></tr>
+<tr><td>[maskfile2=&lt;file>]</td><td>Multiplies the input by the specified file using pixel coordinates instead of pixel indices (can be different size) and use the original cube</td></tr>
+<tr><td>[maskfile3=&lt;file>]</td><td>Multiplies the input by the specified file using pixel coordinates instead of pixel indices (can be different size) and use the smaller cube of the two</td></tr>
+<tr><td>[maskval=&lt;int>]</td><td>Value to be used in a multi-valued masks</td></tr>
+<tr><td>[mask1file=&lt;file>]</td><td>This will take a file containing a set of masks and apply the first mask to the image</td></tr>
+<tr><td>[maskresample=&lt;ref file>]</td><td>Resample the input mask file to use the &lt;ref file> apix, origin and size	</td></tr>
+<tr><td>[maskmerge=&lt;mask file2>]</td><td>Merge the second mask file to the first mask	</td></tr>
+<tr><td>[cut1stquad]</td><td>Cut the first quad frin the map</td></tr>
+<tr><td>[norm]</td><td>Normalizes the output, mean->0 sigma->1</td></tr>
+<tr><td>[normto=&lt;ref>]</td><td>Normalizes one volume to another to optimize linear mapping of the densities, ignoring zero values</td></tr>
+<tr><td>[bin=&lt;thresh>]</td><td>use the threshold value to turn the 3D map into a binary map</td></tr>
+<tr><td>[bin2]</td><td>Turn any non-zero values into 1 to create a binary map</td></tr>
+<tr><td>[mult=&lt;constant>]</td><td>Scales the densities in the output</td></tr>
+<tr><td>[add=&lt;constant>]</td><td>Adds a constant to the densities</td></tr>
+<tr><td>[noise=&lt;level>]</td><td>Adds flatband noise at specified absolute level</td></tr>
+<tr><td>[signoise=&lt;sig mult>]</td><td>Same, but level in terms of sigma</td></tr>
+<tr><td>[setsf=&lt;SF file>]</td><td>Sets the structure factor based on a 1D x/y text file, must specify apix</td></tr>
+<tr><td>[calcsf=&lt;output>]</td><td>This will calculate a radial structure factor for the current 3D model and write it to the specified output file, must specify apix.</td></tr>
+<tr><td>[icos5fTo3f]</td><td>Rotate the map from icos 5 fold view to 3 fold view</td></tr>
+<tr><td>[icos3fTo5f]</td><td>Rotate the map from icos 3 fold view to 5 fold view</td></tr>
+<tr><td>[icos5fTo2f]</td><td>Rotate the map from icos 5 fold view to 2 fold view</td></tr>
+<tr><td>[icos2fTo5f]</td><td>Rotate the map from icos 2 fold view to 5 fold view</td></tr>
+<tr><td>[icos5fhalfmap]</td><td>The input is the icos 5f top half map generated by the "tophalf" option</td></tr>
+<tr><td>[tophalf]</td><td>The output only keeps the top half map to save some memory</td></tr>
+<tr><td>[icos5fhalf2full]</td><td>Generate full map from the icos5f half map</td></tr>
+<tr><td>[vtk]</td><td>Output should be in VTK format</td></tr>
+<tr><td>[df3]</td><td>Output in df3 format (POVRAY)</td></tr>
+<tr><td>[em]</td><td>Output should be in EM format.</td></tr>
+<tr><td>[amira]</td><td>Output should be in AMIRA format, not MRC</td></tr>
+<tr><td>[amiralabel]</td><td>Output should be in AMIRA labelField format</td></tr>
+<tr><td>[amirashort]</td><td>Output should be in AMIRA short data type format</td></tr>
+<tr><td>[amirabyte]</td><td>Output should be in AMIRA byte data type format</td></tr>
+<tr><td>[rawiv]</td><td>Output should be in RawIV format, not MRC</td></tr>
+<tr><td>[xplor]</td><td>Output should be in XPLOR format, not MRC</td></tr>
+<tr><td>[icos]</td><td>Output should be in ICOS format, not MRC</td></tr>
+<tr><td>[spider]</td><td>Output should be in Spider format, not MRC. Warning, this is a spider stackfile, and Spider may not be able to read stacks of 3D images. spidersingle is a better choice</td></tr>
+<tr><td>[spidersingle]</td><td>Output should be in single-image Spider format, not MRC</td></tr>
+<tr><td>[imagic]</td><td>Output is an IMAGIC file</td></tr>
+<tr><td>[mrc8bit]</td><td>Output an 8 bit MRC image</td></tr>
+<tr><td>[mrc16bit]</td><td>Output an 16 bit MRC image</td></tr>
+<tr><td>[pif]</td><td>Output to a PIF (Purdue Image Format) file</td></tr>
+<tr><td>[hdf]</td><td>Output to a HDF5 (Hierarchical Data Format) file</td></tr>
+<tr><td>[png]</td><td>Output to a PNG (Portable Network Graphics) file</td></tr>
+<tr><td>[gwin=&lt;radius>]</td><td>Apply a Gaussian radial falloff, r is 1/e width</td></tr>
+<tr><td>[edgenorm]</td><td>Normalize the image based on the mean value at the edge of the box</td></tr>
+</table><br><table border=3>
+<tr><td>&lt;input 1></td><td>Input 1 to compare/process</td></tr>
+<tr><td>&lt;input 2></td><td>Input 2 to compare/process</td></tr>
+<tr><td>[apix=&lt;A/pix>]</td><td>Specify the Angstr/pixel for S scaling</td></tr>
+<tr><td>[fsc=&lt;out>]</td><td>Fourier shell correlation</td></tr>
+<tr><td>[phase=&lt;out>]</td><td>mean phase difference (not residual!)</td></tr>
+<tr><td>[snr=&lt;out>]</td><td>Relative signal to noise ratio between 2 images.</td></tr>
+<tr><td>[rfactor=&lt;out>]</td><td>R factor between inputs</td></tr>
+<tr><td>[rms=&lt;thresh>]</td><td>RMS variation above threshold</td></tr>
+<tr><td>[rdiv=&lt;out>]</td><td>Radial plot of input 1/input 2</td></tr>
+<tr><td>[rdivf=&lt;out>]</td><td>Radial plot of input 1/input 2 in Fourier space</td></tr>
+<tr><td>[diffmap[=&lt;~binary thr>]]</td><td>Generates a difference map in "diffmap.mrc"</td></tr>
+<tr><td>[sum=&lt;output>]</td><td>Adds input files</td></tr>
+<tr><td>[pha1amp2=&lt;out>]</td><td>Makes a new image with the phases from image 1 and the amplitudes from image2</td></tr>
+<tr><td>[anim=&lt;frames>]</td><td>Generates linearly interpolated intermediates between two maps</td></tr>
+<tr><td>[animorph=&lt;frames>,&lt;vecfile>[,&lt;start #>]]</td><td>Generates a linear morphing of one map into another based on a vector file</td></tr>
+</table><br><h3>Usage:</h3>
+<p>proc3d threed.5a.mrc
+<p>proc3d threed.1.mrc threed.1a.mrc unhp=1 lp=15
+<p>proc3d threed.1a.mrc threed.2a.mrc apix=4.67 fsc=corr12.dat
+<h3>Description</h3>
+<P>This program performs a variety of 3d image processing operations. Like all EMAN
+programs, it will automatically read any supported file format. It can be invoked in
+one of 3 ways. The first form simply provides statistical information on a single
+volume data set.
+<P>The second form will copy an input file to and output file after processing it in
+various ways. Most of the processing is explained in sufficient detail above, but
+there are a few notes:
+<UL>
+<LI> The scale operation does NOT resize the volume in voxels.
+Generally you want to specify both scale and clip.
+<LI> If apix is not specified, all filters are specified in pixels in Fourier space. If apix
+is specified, all filters are specified in Angstroms. ie - 'apix=4.5 lp=8' would filter
+the volume using a Gaussian in fourier space with a 1/e width of 1/8 reciprocal angstroms.
+<LI> If apix is specified, fsx, phase and rfactor will have their s-axis (1st column) in
+reciprocal angstroms. Otherwise it will be in Fourier pixels.
+<LI> The automask options are used to try to eliminate spurious noise outside the model.
+Automask2 is preferred. To use this, specify 3 numbers. First, the smallest radius from
+the center of the map that contacts some density of the 'good' part of the map. Second,
+A threshold density at which all of the undesirable density is disconnected from the
+desired mass. Finally, a number of 1-voxel 'shells' to include after the correct
+density has been located (this allows you to use threshold densities higher than the desired
+isosurface threshold density). The iterative shells will include a 'soft' Gaussian edge after 2 pixels. ie -
+if you add 8 shells, the density will decay in this region using a 1/2 width of 3 pixels starting at the 3rd
+pixel. If the number of shells is specified as a negative value, then the mask will have a sharp edge, and
+any hollow areas inside the mask will be filled in.
+<LI> To invert the density of a map, use 'mult=-1'.
+<LI> 'phase=' calculates the mean phase difference between two maps, NOT the true
+phase residual (which is a very messy thing to calculate).
+<LI> The symmetries supported by 'sym=' are: Cn, Dn and icos. for C and D symmetries,
+the n-fold axis must be the z axis.
+</UL>
+<P>Realfilter options detailed in proc2d docs. 3D - specific filters:
+<UL>
+<li>110: Iterative expansion of a binary mask, val1 = number of layers to expand, val2 = number of layers before starting Gaussian decay
+<li>111: Iterative expansion of a multilevel mask file (see qsegment). Simultaneoulsy expands all levels and prevents overlap problems.
+</UL>
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

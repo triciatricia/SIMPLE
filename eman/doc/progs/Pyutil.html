@@ -1,0 +1,44 @@
+<html>
+<head><title>EMAN Reference: util Class</title></head>
+<body bgcolor="#f0f0f0">
+<h1> <center>EMAN Reference: util Class</center> </h1>
+<br>
+<table border=1 cellpadding=3 cellspacing=3>
+  <tr><td><font color=blue>addHTMLSection</font></td><td>void addHTMLSection(string sourcefile, FILE out, string secid)</td></tr>
+  <tr><td><font color=blue>agauss</font></td><td>float agauss(float a, float dx, float dy, float dz, float d)</td></tr>
+  <tr><td><font color=blue>appinit</font></td><td>void appinit(list argv) <br>  All applications should call this before parsing the command line</td></tr>
+  <tr><td><font color=blue>appusage</font></td><td>void appusage(string argv0)</td></tr>
+  <tr><td><font color=blue>bestfftsize</font></td><td>int bestfftsize(int low) <br> returns a good fft size >= than low</td></tr>
+  <tr><td><font color=blue>bilin</font></td><td>float bilin(float p1, float p2, float p3, float p4, float t, float u)</td></tr>
+  <tr><td><font color=blue>cyc</font></td><td>int cyc(int i, int n)</td></tr>
+  <tr><td><font color=blue>error</font></td><td>void error(string msg, int pri)</td></tr>
+  <tr><td><font color=blue>file_lock</font></td><td>int file_lock(FILE file)</td></tr>
+  <tr><td><font color=blue>file_lock_wait</font></td><td>int file_lock_wait(FILE file)</td></tr>
+  <tr><td><font color=blue>file_unlock</font></td><td>void file_unlock(FILE file)</td></tr>
+  <tr><td><font color=blue>floor2</font></td><td>int floor2(float x)</td></tr>
+  <tr><td><font color=blue>frand</font></td><td>float frand(float min, float max)</td></tr>
+  <tr><td><font color=blue>FSsend</font></td><td>int FSsend(int command, int datalen, string filename, string data,int fileno=0)</td></tr>
+  <tr><td><font color=blue>grand</font></td><td>float grand(float mean, float sigma)</td></tr>
+  <tr><td><font color=blue>hypot2</font></td><td>float hypot2(float x, float y)</td></tr>
+  <tr><td><font color=blue>hypot3</font></td><td>float hypot3(float x,float y,float z)</td></tr>
+  <tr><td><font color=blue>interpolate</font></td><td>float interpolate(float xl, int n, list x_list, list y_list)</td></tr>
+  <tr><td><font color=blue>isvalidfft</font></td><td>int isvalidfft(int low)</td></tr>
+  <tr><td><font color=blue>LOGbegin</font></td><td>int LOGbegin(list argv, int ppid=0)</td></tr>
+  <tr><td><font color=blue>LOGerror</font></td><td>void LOGerror(int ref, int err, string text)</td></tr>
+  <tr><td><font color=blue>LOG</font></td><td>void LOG(int ref, string filename, int mode, string text)</td></tr>
+  <tr><td><font color=blue>lsqfit</font></td><td>lsqfit(int n, list dx, list dy, Float m, Float b, int ign0 = 1) <br> least squares fit returns slope, m, and intercept, b</td></tr>
+  <tr><td><font color=blue>maxf</font></td><td>float maxf(float f1, float f2)</td></tr>
+  <tr><td><font color=blue>minf</font></td><td>float minf(float f1,float f2,float f3=1.0e30)</td></tr>
+  <tr><td><font color=blue>npfa</font></td><td>int npfa(int low)</td></tr>
+  <tr><td><font color=blue>p5peak</font></td><td>float p5peak(float v1, float v2, float v3, float v4,float v5) <br> this will interpolate a peak location. v3 is considered to be at x=0. The other points are nearest neighbors returns 0 if not well defined</td></tr>
+  <tr><td><font color=blue>resolv</font></td><td>unsigned long resolv(string host = NULL)</td></tr>
+  <tr><td><font color=blue>roteulertb</font></td><td>void py_roteulertb(Float alt, Float az, Float phi, float dx, float dy)</td></tr>
+  <tr><td><font color=blue>run</font></td><td>int run(string program);</td></tr>
+  <tr><td><font color=blue>save_data</font></td><td>void py_save_data(list x_list, list y_list, int n, string filename);</td></tr>
+  <tr><td><font color=blue>sock_open</font></td><td>int sock_open(unsigned long addr, unsigned short port)</td></tr>
+  <tr><td><font color=blue>SQR</font></td><td>float SQR(float x)</td></tr>
+  <tr><td><font color=blue>tmpnam2</font></td><td>string tmpnam2()</td></tr>
+  <tr><td><font color=blue>writesock</font></td><td>int writesock(int sock, string data, int len)</td></tr>
+</table>
+</body>
+</html>

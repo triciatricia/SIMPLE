@@ -1,0 +1,41 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/make3dicos.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>make3dicos</h1>
+<p><h3>This program builds 3D models from a set of particles with icosahedral symmetry</h3>
+make3dicos  &lt;input file> [out=&lt;outfile>] [pad=&lt;padsize>] [proc=&lt;nproc>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>File containing class averages</td></tr>
+<tr><td>[out=&lt;outfile>]</td><td>Output 3D MRC file</td></tr>
+<tr><td>[pad=&lt;padsize>]</td><td>To reduce Fourier artifacts, the model is typically padded by ~25%</td></tr>
+<tr><td>[proc=&lt;nproc>]</td><td>Number of processors to use.</td></tr>
+</table><br><h3>Usage:</h3>
+<p>make3dicos classes.1.img out=threed.1.mrc pad=128
+<h3>Description</h3>
+<P>Experimental - works, but not perfectly. make3d is better (but much slower)
+<P>This program is used to build a 3d model from a set of projections/class
+averages. The individual projections must already have assigned euler
+angles.
+<P>Reconstructions are performed in Fourier space. This causes certain
+artifacts to appear in the 3d model. These artifacts can be reduced
+by padding the images in real space. 50% padding produces excellent
+results in most cases, ie - an 80x80 image would be padded to 120x120.
+This would be specified with 'pad=120'. 25% padding provides adequate
+results in most cases. The other artifact is caused by interpolation
+in Fourier space. 'make3d' supports 6 levels of interpolation. Type
+1 is 'nearest neighbor' interpolation and is very fast, but produces
+significant artifacts. The default in most cases is type 2, which 
+generally produces the best
+all-around results. If you have a very small number of slices, you
+might try mode=5. This effect can be observed qualitatively using the 
+<a href=v4.html>v4</a> program.
+This program allows you to interactively select the interpolation
+mode used for generating forward projections of a 3d model. The artifacts
+in v4 are more severe, but qualitatively similar to those produced
+by Fourier reconstruction.
+<P>Finally, since Fourier reconstruction DOES produce some undesirable
+artifacts, generally this is just used as a preliminary model. Once
+this model has been generated, typically this model will be improved
+using a real-space iterative technique. This is implimented in
+<a href=make3diter.html>make3diter</a>.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

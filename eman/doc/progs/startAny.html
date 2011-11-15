@@ -1,0 +1,26 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/startAny.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>startAny</h1>
+<p><h3>This program will generate a 3D model from a set of class averages, using cross common lines.</h3>
+startAny  &lt;imagefile> [sym=&lt;c?>] [proc=&lt;num proc>] [rounds=&lt;2-5>] [mask=&lt;rad>] [lp=&lt;radius>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;imagefile></td><td>File containing class averages to be used</td></tr>
+<tr><td>[sym=&lt;c?>]</td><td>Cn symmetry if any</td></tr>
+<tr><td>[proc=&lt;num proc>]</td><td>Number of processors to use</td></tr>
+<tr><td>[rounds=&lt;2-5>]</td><td>Rounds of Euler angle determination to use</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>Mask radius</td></tr>
+<tr><td>[lp=&lt;radius>]</td><td>Lowpass filter radius in Fourier pixels</td></tr>
+</table><br><h3>Usage:</h3>
+<p>startAny classes.hed sym=c3 mask=42
+<h3>Description</h3>
+<P>This program uses cross common lines to determine the relative orientations of a set of
+class averages, then builds a 3d model from them. This will not work well on
+individual particle images, as they are generally too noisy. Typically 
+<a href=startnrclasses.html>startnrclasses</a> is used to generate reference free
+class averages. The user then manually selects 10 or 20 of these class-averages,
+then runs them through startAny to generate a 3D model.
+<P>Despite a great deal of time and effort put into this program, it still doesn't
+work well on some data sets. Usually it will generate results which are
+adequate for use as a preliminary model for refinement.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

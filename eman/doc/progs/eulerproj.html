@@ -1,0 +1,28 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/eulerproj.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>eulerproj</h1>
+<p><h3>This program reassigns Euler angles to a set of class averages by projection matching</h3>
+eulerproj  &lt;classes> &lt;refrences> [sigfilt] [frac=&lt;num>/&lt;denom>] [mask=&lt;radius>] [imask=&lt;radius>] [phase] [writeali] [verbose]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;classes></td><td>The file containing the class averages to be oriented</td></tr>
+<tr><td>&lt;refrences></td><td>Projections to be used as references</td></tr>
+<tr><td>[sigfilt]</td><td>Apply a real-space filter to use only intense data in the classification</td></tr>
+<tr><td>[frac=&lt;num>/&lt;denom>]</td><td>Operate only on a fraction of the raw images</td></tr>
+<tr><td>[mask=&lt;radius>]</td><td>Circular mask</td></tr>
+<tr><td>[imask=&lt;radius>]</td><td>Circular innner mask</td></tr>
+<tr><td>[phase]</td><td>Use phase error as a similarity criteria</td></tr>
+<tr><td>[writeali]</td><td>Write the aligned images over the original images</td></tr>
+<tr><td>[verbose]</td><td>More verbose output during classification</td></tr>
+</table><br><h3>Usage:</h3>
+<p>eulerproj classes.img proj.img mask=42
+<h3>Description</h3>
+<P>When raw images are classified, there may be classification errors. Sometimes the
+misclassified images may outnumber the correctly classified images in specific classes.
+This means the class average generated from these images may not have the correct
+Euler angles. Since the class average is much less noisy, the Euler angle assignment
+is much more accurate for class averages. This program is used to redetermine the
+Euler angles for lower noise class averages. It could potentially be used to assign
+Euler angles to individual particles as well, although this practice is not part
+of the standard reconstruction procedure in EMAN.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

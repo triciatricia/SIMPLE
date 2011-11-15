@@ -1,0 +1,3 @@
+This program converts helices in Open Inventor format to DejaVu secondary structure elements file format
+Usage:
+iv2dejavu  <input IV file> <output DejaVu file> [verbose]

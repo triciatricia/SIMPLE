@@ -1,0 +1,36 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/snrboxer.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>snrboxer</h1>
+<p><h3>This program is used for offline boxing of micrographs (MRC format ONLY!)</h3>
+snrboxer  [input=&lt;filespec>] [dbbox=&lt;filespec>] [imgbox=&lt;filespec>] [refimg=&lt;filespec>] [auto[=&lt;thr1>,&lt;thr2>,&lt;thr3>]] [xform=&lt;dx>,&lt;dy>,&lt;da>] [scale=&lt;mult>] [newsize=&lt;size>] [output=&lt;filespec>] [ctfout=&lt;filespec>] [dbout=&lt;filespec>] [invert] [adjust=&lt;filespec>] [insideonly]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>[input=&lt;filespec>]</td><td>Image to be boxed	(MRC format only!!!)</td></tr>
+<tr><td>[dbbox=&lt;filespec>]</td><td>Input box database</td></tr>
+<tr><td>[imgbox=&lt;filespec>]</td><td>Read box database from particle image set headers</td></tr>
+<tr><td>[refimg=&lt;filespec>]</td><td>Reference particle images for autoboxing</td></tr>
+<tr><td>[auto[=&lt;thr1>,&lt;thr2>,&lt;thr3>]]</td><td>Autobox with defined thresholds</td></tr>
+<tr><td>[xform=&lt;dx>,&lt;dy>,&lt;da>]</td><td>Rotate and translate the box database before output (see alignhuge)</td></tr>
+<tr><td>[scale=&lt;mult>]</td><td>Scale the box locations, useful if the micrograph has been resized</td></tr>
+<tr><td>[newsize=&lt;size>]</td><td>New box size for all boxes (center preserved)</td></tr>
+<tr><td>[output=&lt;filespec>]</td><td>Output file for boxed images</td></tr>
+<tr><td>[ctfout=&lt;filespec>]</td><td>File to put CTF curves into (if input is focal pair merged)</td></tr>
+<tr><td>[dbout=&lt;filespec>]</td><td>Output box database file</td></tr>
+<tr><td>[invert]</td><td>Invert the particle image before output</td></tr>
+<tr><td>[adjust=&lt;filespec>]</td><td>If images were from a focal pair, this will try to center the particles properly</td></tr>
+<tr><td>[insideonly]</td><td>This will not box particles that extend outside the micrograph</td></tr>
+</table><br><h3>Usage:</h3>
+<p>snrboxer input=jj0441.mrc output=0441.hed dbout=0441.box auto=0.005,1,6 refimg=refs.hed
+<h3>Description</h3>
+<P>This program does offline boxing of particles using using an
+automatic boxing routine. (Please note that it will work only on
+MRC images.) This program is meant as an alternative to the
+batchboxer program, with slightly different thresholds: (1) the
+first threshold uses a minimum estimated SNR to find all candidate
+particles, (2) the second eliminates boxes with high residual noise
+energy, and (3) the third eliminates boxes with high
+spectral variation in the residual noise. The second and third have
+similar purposes, but one may be more effective in particular
+cases. It is strongly recommended that the user specify an accurate
+set of references (in particular, accounting for the CTF if possible).
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

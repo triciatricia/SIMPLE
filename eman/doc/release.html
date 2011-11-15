@@ -1,0 +1,302 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "file:///usr/share/screem/dtd/loose.dtd">
+<html>
+<head>
+  <title>EMAN Release Notes</title>
+  <meta name="author" content="Steve Ludtke">
+  <meta name="generator" content="screem 0.6.0">
+  <meta name="keywords" content="">
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+</head>
+<body>
+<br>
+<h2>EMAN Release Notes (1.9)</h2>
+<P>EMAN1.9 is a bugfix release, intended as a final release of EMAN1
+as it is gradually deprecated in favor of EMAN2. There were no
+'major' changes in this release, strictly a large number of bugfixes
+and small improvements made over the last 2 years. The fixes are
+substantial enough that EMAN1.8 users should definitely upgrade to
+this version.s</P>
+<HR>
+<h2>EMAN Release Notes (1.8)</h2>
+<H3>Major changes in v1.8 :</H3>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Substantial improvements in
+	refine2d.py. Strongly suggest using refine2d.py on all new data sets
+	before moving on to 3D reconstruction. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Some programs use the EMAN2 style
+	arguments ie - 'program &lt;file&gt; --option=value'&nbsp; rather
+	than the old style 'program &lt;file&gt; option=value' 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New HDF5 format compatible with
+	EMAN2. Data can be stored in HDF5 files in many different ways. EMAN
+	1.9 will read both old (EMAN 1.7) HDF5 format files as well as new
+	EMAN2 style HDF5 files. HDF5 writes are always in 'new' HDF5 format.
+	Note that the current HDF I/O methods have poor performance on files
+	with large numbers (~10,000 or more) of images in a single file.
+	We're working on it...</P>
+	<LI><P STYLE="margin-bottom: 0in">New AIRS programs, such as
+	'skeleton' 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Initial support for
+	tetrahedral/cubic symmetry (thx to David Woolford and Phil Baldwin).
+	Not well tested yet.</P>
+	<LI><P STYLE="margin-bottom: 0in">New options to make refinement
+	work better on large icosahedral objects. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Improvements in parallelism
+	infrastructure, though network-related problems may still exist on
+	some linux clusters (please report problems) 
+	</P>
+	<LI><P>Fixed random model generation in makeinitialmodel.py 
+	</P>
+</UL>
+<H3>Known bugs in the current version 
+</H3>
+<UL>
+	<LI><P>Some linux clusters seem to have ssh-related problems. The
+	symptom is either the refine command unreproducibly 'freezing'
+	during the 'classalignall' process. If this happens, you can run
+	'killall ssh' on the node where refine is running, and the job will
+	resume, though a few particles may be lost from the current
+	reconstruction. The other problem is that you may observe some small
+	fraction of the particles being missing from each iteration of the
+	reconstruction. Both problems are relatively harmless, though
+	annoying. Please report specific problems so we can try to establish
+	what the unifying factor is...</P>
+</UL>
+<HR>
+<h2>EMAN Release Notes (1.7)</h2>
+<p>Welcome to EMAN 1.7.&nbsp; Remember the full online help
+for
+EMAN is always available by pressing the "HELP" button in <i>eman</i>.
+Most of our development effort is now focused on the completely
+revamped EMAN 2.0, though another release in the 1.x series is likely.<br>
+</p>
+<p>EMAN 1.7 has some major enhancements over 1.61.<br>
+</p>
+Major changes in v1.7<br>
+<ul>
+  <li>Major overhaul of parallelism infrastructure (runpar). Now uses
+fileserver for both reads and writes in the cluster versions. Fault
+tolerance has also improved. If a node dies during a run, the run will
+continue, and simply stop using that node. Better job distribution to
+nodes.<br>
+  </li>
+  <li>Binary release for AMD64, and better support for OSX (still
+imperfect).</li>
+  <li>New program <span style="font-style: italic;">refine2d.py</span>
+for generating reference-free class-averages from a set of particles.
+Uses a combination of SVD and alignment. MUCH better than
+startnrclasses.</li>
+  <li>New program <span style="font-style: italic;">makeinitialmodel.py</span>
+for constructing 3D models from blobs, good for making random or
+deterministic shapes.</li>
+  <li>Greatly expanded and improved <span style="font-weight: bold;">AIRS</span>
+software with Chimera bindings. This includes tools for locating
+secondary structure in intermediate resolution maps (<span
+ style="font-style: italic;">ssehunter.py</span>), docking crystal
+structures (<span style="font-style: italic;">foldhunter.py</span>),
+and many other useful tools.<br>
+  </li>
+  <li>Support for both full and 1/2 maps for icosahedral reconstructions</li>
+  <li>Support for exponential envelope functions in CTF correction
+(normally Gaussian), email if to ask about this.<br>
+  </li>
+  <li>Major improvements to experimental 2D crystallography
+preprocessing program (qindex)</li>
+</ul>
+Minor changes<br>
+<ul>
+  <li>PIF writer fixed</li>
+  <li>Reader for 3D .dm3 files added (Digital Micrograph)</li>
+  <li>AMIRA file format support (r/w)</li>
+  <li>Fixed MRC/CCP4 compatibility problem</li>
+  <li>Fixed SPIDER read for 1 image stacks</li>
+  <li>Problem with A/pix adjustment when scaling fixed</li>
+  <li>Improvements to <span style="font-style: italic;">tiltseries</span>
+(simple tomography program), though the EMAN2 equivalent is much better.<br>
+  </li>
+</ul>
+<HR>
+<h2>EMAN Release Notes (1.6)</h2>
+Major changes in v1.60 : <br>
+<ul>
+  <li>dfilt option in refine works now. <b>This is the major cause for
+the 1.6 release</b>. This option was used for our recent 6 A
+reconstruction of GroEL, and we have been touting it as the best
+current approach for doing EMAN reconstructions (which it is).
+Unfortunately, due to an unfortunate error on my part, a critical
+change never got updated in the EMAN source repository. So,
+essentially, this option worked very well for me, but not for anyone
+else. Anyone who was experimenting with the dfilt option
+should give it another try. On the bright side, the bug wasn't causing
+any harm, specifying dfilt in the buggy version
+was almost equivalent to not specifying it at all. I apologize for this
+nasty snafu.</li>
+  <li>Better support for icosahedral reconstructions and for
+reconstructions of large models (contact wjiang@bcm.tmc.edu for more
+info)</li>
+  <li>Some programs didn't like EMAN's MRC files. They should now be
+properly CCP4 compliant.</li>
+  <li>EM file format support was minimal in last version, now properly
+handles stack files and byte-ordering</li>
+  <li>New program <i>qplot</i> utility for plotting 2 column text
+files.</li>
+  <li>EMAN can now compile and run on Macs (again). OS 10.3 only, with
+appropriate fink packages installed. This is still not officially
+supported.</li>
+  <li>The &gt;2G file support was apparently broken in v1.5. This has
+been fixed.</li>
+  <li>Improved 64-bit support for use on Athlon-64's and Opterons. This
+is currently the fastest platform available for EMAN refinements
+(and the most cost-effective)</li>
+  <li>Support for KDE 3.2/Mandrake 10.0</li>
+  <li>Fixed funny narrow display in some cases in asymmetric triangle
+viewer</li>
+  <li><i>fitctf</i> improved to work on a wider range of images,
+including particles from CCD frames</li>
+  <li>usefilt support in <i>multirefine</i></li>
+  <li>MRC file i/o improved for use with chimera</li>
+</ul>
+<br>
+<p>Known bugs:</p>
+<ul>
+  <li>While we've fixed the majority of the lockup problems that
+occured under OSX and a few other specific systems, there still seem to
+be some problems running under RH9 with Gnome. KDE has no problems.
+This seems to be a wierd incompatibility between QT and Gnome on this
+platform.</li>
+</ul>
+<hr>
+<h2>EMAN Release Notes (1.5)</h2>
+Major changes in version 1.5 :<br>
+<ul>
+  <li>dfilt option in refine (great results, but requires ctfcw=)<br>
+  </li>
+  <li>Prototype of animation module and other tools for Chimera<br>
+  </li>
+  <li>Chimera output in segment3d, autosegmentation of symmetric
+structures</li>
+  <li>Fixed bug in PNG image writing<br>
+  </li>
+  <li>Better PGM image writing<br>
+  </li>
+  <li>Chimera-compatible MRC header information on all MRC file writes</li>
+  <li>Improvements to procpdb.py<br>
+  </li>
+  <li>Fixed bugs with alignments in images not divisible by 4</li>
+  <li>realfilter 110 and 111 for iterative expansion of masks<br>
+  </li>
+  <li>Binaries for more Linux platforms<br>
+  </li>
+</ul>
+<hr style="width: 100%; height: 2px;">
+<h2>EMAN Release Notes (1.4)</h2>
+<p>Here's a list of the major changes in version 1.40: </p>
+<ul>
+  <li>3dit/3dit2 - A number of recent problems have been associated
+with these options, and we have found that they are actually not
+necessary in many cases. If you experience strange problems with your
+3D models containing horizontal bands, or being completely black, try
+not using these options. We are working to resolve this issue in a more
+satisfactory way. If they
+are necessary for your project (try running clean3d manually on a model
+and
+see if there is a substantial impact), look for an upcoming nightly
+release
+version to address this problem.</li>
+  <li>Substantial improvements were made to EMAN's parallelism. When
+used on small particles on a large number of processors, the previous
+versions of EMAN would run at less than 100% capacity on each
+processor. The new version should run at 100% on fairly large numbers
+of CPUs.</li>
+  <li>Python support - EMAN now officially supports Python scripting.
+Some very powerful operations can be performed with some very simple
+(and easy) scripts. Just to give you the flavor, here's a quick example
+which will compare class-averages to projections:</li>
+  <pre>python<br>from EMAN import *<br>img=readImages("classes.1.hed",-1,-1)<br>for i in range(0,len(img),2):<br>    print i," vs. ",i+1," -&gt; ",img[i].lcmp(img[i+1],1,0)[0]<br></pre>
+  <li>New options in the <i>refine</i> command:
+    <ul>
+      <li>setsf=&lt;res&gt; - Will apply the user defined 1D structure
+factor to the final reconstructed model after each iteration. This
+represents the ultimate in CTF amplitude correction. While the 'ctfcw='
+option does a
+very good job of CTF correction, it does make certain assumptions which
+aren't valid in all cases. If you have a reliable structure factor
+(from x-ray solution scattering, or generated from a set of
+micrographs), this option is highly recommended.</li>
+      <li>refine - How confusing, an option with the same name as the
+command. Normal alignments in EMAN classification are +- 1 pixel. This
+option
+will refine all 2D alignments to +-.05-.1 pixels. This can signficantly
+improve classification accuracy for certain structures, and hence
+improve resolution. In some cases it will have little or no effect.
+There is a significant
+speed penalty associated with this option.</li>
+      <li>phasecls - This option will use signal to noise ratio
+weighted phase residual as a classification criteria (instead of the
+default optimized real space variance). Over the last year or so,
+people working on cylindrical structures (like GroEL), have noticed
+that 'side views' of this particle seem to frequently get classified as
+being tilted 4 or 5 degrees from the side view. While apparently this
+didn't effect the models significantly at the obtained resolution, it
+is quite irritating. This problem turns out to be due to resolution
+mismatch between the 3D model and the individual particles. Using phase
+residual solves this problem, although it's unclear if there is any
+resolution improvement. This option has a slight speed penalty</li>
+      <li>fscls - An improvement, albeit an experimental one, over
+phasecls. phasecls basically ignores Fourier amplitude when making
+image comparisons. fscls will use a SNR weighted Fourier shell
+correlation as a similarity criteria. Preliminary tests have shown that
+this produces slightly better results than phasecls, but it should
+still be used with caution.</li>
+      <li>slow - This option tries to do an even better job of 2D
+particle alignment. Used with the 'refine' option above, this option
+uses fsc as a criteria during alignment. This is quite slow, but
+theoretically even more
+accurate.</li>
+      <li>axialfilt=&lt;val&gt; - In theory, direct Fourier
+reconstruction algorithms, such as the one used in EMAN are not
+susceptible to problems with an excess of images in a particular set of
+orientations. However, there are certain circumstances under which this
+is not the case, and a certain amount of 'axial blurring' can occur.
+This largely occurs with cylindrical particles where virtually all of
+the data is in side views. Axialfilt can perform some empirical
+corrections for this effect.</li>
+    </ul>
+  </li>
+  <li>qindex - a program for very basic indexing of 2D crystal images
+was added. This program may be enhanced in future, depending on
+community response.</li>
+  <li>fitctf - improvements in fitting quality and accuracy. May still
+have problems with some CCD data.</li>
+  <li>procpdb.py - a script for basic manipulation of PDB files,
+designed largely for use with <i>foldhunter</i></li>
+  <li>foldhunter - new option added to generate rotated/translated PDB
+files corresponding to the best fits</li>
+  <li>multirefine - now permits a different symmetry to be specified
+for each model. This is still an experimental option.</li>
+  <li>building EMAN from source - We previously used GNU configure to
+easily configure EMAN on any platform. Due to a variety of problems
+with this system, we are now switching to 'CMake'. This is the
+cross-platform configuration tool written as part of the ITK project.
+If you wish to compile EMAN from source, please download and install
+the cmake version provided on the EMAN required libraries download
+page. The INSTALL text file will describe how to use it. GNU configure
+is still present, but is deprecated.<br>
+  </li>
+  <br>
+</ul>
+As always, comments, suggestions and questions are always welcome. Just
+email sludtke@bcm.tmc.edu.<br>
+<br>
+Good luck, and enjoy EMAN !<br>
+<br>
+<br>
+<pre>----------------------------------------------------------------------------<br>Steven Ludtke, PhD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Baylor College of Medicine<br>sludtke@bcm.tmc.edu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Co-Director<br>stevel@alumni.caltech.edu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  | National Center For Macromolecular Imaging<br>V: (713)798-6989&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  |&nbsp;&nbsp;&nbsp; Dept of Biochemistry and Mol. Biol.<br>instant messenger: sludtke42&nbsp;&nbsp;  |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Those who do ARE *<br>http://ncmi.bcm.tmc.edu/~stevel |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The converse also holds<br></pre>
+</body>
+</html>

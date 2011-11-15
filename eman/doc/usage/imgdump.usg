@@ -1,0 +1,3 @@
+Dump an image's dimensions and raw data into a file.
+Usage:
+imgdump  <imgfile> image filenam

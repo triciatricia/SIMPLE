@@ -1,0 +1,3 @@
+This program converts helices in COSEC secondary structure elements file format to Open Inventor format 
+Usage:
+cosec2iv  <input COSEC file> <output IV file> [verbose]

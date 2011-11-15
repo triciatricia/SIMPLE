@@ -1,0 +1,25 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/alignhuge.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>alignhuge</h1>
+<p><h3>Determines the rotation and transformation between images in a focal pair</h3>
+alignhuge  &lt;image to align> &lt;fixed reference> &lt;output> [mrc8bit] [maxscale=&lt;float>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;image to align></td><td>First input (MRC only!)</td></tr>
+<tr><td>&lt;fixed reference></td><td>Second input (MRC only!)</td></tr>
+<tr><td>&lt;output></td><td>&lt;input 1> aligned to &lt;input 2></td></tr>
+<tr><td>[mrc8bit]</td><td>Output 8-bit MRC file to conserve space</td></tr>
+<tr><td>[maxscale=&lt;float>]</td><td>Maximal fraction of scale difference. default to 0.05</td></tr>
+</table><br><h3>Usage:</h3>
+<p>alignhuge im0221.mrc im0222.mrc
+<h3>Description</h3>
+<P>This will determine the relative alignment parameters between two
+very large images. It's designed for use with 'identical' images (except
+for defocus), ie - a focal series. It will output the aligned image and
+display the rotation/translation parameters.
+The file "alignhuge.txt" will contain the image to align, reference image, x, y, rotation,
+and scale.
+<P>A compile-time option exists to determine scaling differences as well as rot/trans.
+The program must be recompiled to disable this behavior. On JEOL microscopes,
+the scaling error is below the error limit for this program.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

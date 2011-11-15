@@ -1,0 +1,3 @@
+This will align the images in all of the cls*img files in the current directory
+Usage:
+classalignall  <iterations> [nobad] []

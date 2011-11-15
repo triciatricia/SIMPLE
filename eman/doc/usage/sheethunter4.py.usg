@@ -1,0 +1,3 @@
+Beta sheet identification
+Usage:
+sheethunter2.py  <target> <nseg=> <thr=> <apix=> <dist=> <angle=>

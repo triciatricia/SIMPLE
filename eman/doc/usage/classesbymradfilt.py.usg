@@ -1,0 +1,3 @@
+This program is a new version of classesbymra using the dfilt option
+Usage:
+classesbymradfilt.py  <particles> <refrences> [frac=<num>/<denom>] [mask=<rad>] [refmask] [maxshift=<rad>] [ctfc] [logit=<label>] [refine] [usefilt]

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Steve Ludtke">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en] (X11; I; Linux 2.0.35 i686) [Netscape]">
+</HEAD>
+<BODY>
+
+<H2>
+Overview of EMAN for Programmers</H2>
+All of the common routines in EMAN are contained in the shared archive
+libEM.so. This includes the <A HREF="Pemdata.html">EMData</A>, <A HREF="Peuler.html">Euler</A>
+and <A HREF="Plist.html">List</A> C++ objects as well as common routines
+such as the FFT library. The EMData object is the primary object you will
+use to access and process EM data. This object contains parallel-safe routines
+for reading/writing a variety of common EM file formats, performing FFTs,
+masking, 3d model construction, etc. The single EMData object can deal
+with 1, 2 or 3 dimensional data.
+<P>The Euler object is used to store either the orientation of a slice
+in the overall volume or the absolute orientation of a volume data set.
+This class provides routines for converting euler angles to/from a variety
+of different conventions (Imagic, quaternion, Spider, etc.), as well as
+routines for 'multiplication', a symmetry iterator, etc.
+<P>The List object is a very basic object for storing lists of pointers.
+It doesn't even use prototypes currently.&nbsp; For programs with a GUI,
+the QList object would probably be a better choice, but for non-graphical
+programs List is more consistent.
+<P>Graphical user intefaces for EMAN programs are all implimented using
+the <A HREF="http://www.troll.no">QT&nbsp;toolkit</A>, along with a library
+of widgets called <A HREF="http://ncmi.bcm.tmc.edu/~stevel/qscilib/index.html">QSciLib</A>.
+The QT toolkit is a semi-commercial, C++ based GUI&nbsp;toolkit with many
+attractive features. First, it is free for use in non-commercial software
+written under Unix/X-windows. A version of the toolkit also exists for
+win95/NT, which means any applications you write for X using the toolkit
+can be trivially ported to Win95. The Win95 version of QT is not free,
+but they offer a per-developer license with no distribution licenseing
+fees. Second, the toolkit offers an exceptionally good model for inter-object
+communications called Signals and Slots. This mechanism permits objects
+to communicate seamlessely without knowing of each other's existance.
+<P>
+<HR WIDTH="100%">
+<H3>
+What you will need:</H3>
+
+<UL>
+<LI>
+EMAN source distribution</LI>
+
+<LI>
+QSciLib distribution</LI>
+
+<LI>
+QT Toolkit</LI>
+
+<LI>
+netPBM (if 8 bit formats like GIF, TIFF, etc... will be used)</LI>
+
+<LI>
+C++ compiler</LI>
+</UL>
+The QT&nbsp;Toolkit, as a semi-commercial package, will compile trivially
+on just about any Unix/X system around. It even supports a variety of compilers
+on each platform.
+<P>QSciLib and EMAN have currently been tested only under IRIX&nbsp;(SGI)
+and Linux (any CPU should be ok). Machine independance was a major goal
+when EMAN was being developed, but porting to other platforms is likely
+to require a few trivial changes, like changes in include file names, etc.
+If you do port the code to another platform, please send me a list of patches
+and I'll merge it into the general source for the next release. In theory,
+most of the code should even be portable to Win 95, but we haven't purchased
+a QT license for Win 95.
+<BR>&nbsp;
+<BR>&nbsp;
+<P>
+<HR WIDTH="100%">
+<BR>Last modified 9/28/98
+<BR>&nbsp;
+</BODY>
+</HTML>

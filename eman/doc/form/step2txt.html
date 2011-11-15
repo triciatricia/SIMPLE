@@ -1,0 +1,282 @@
+$0
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Steve Ludtke">
+</head>
+<body>
+<h1>EMAN Reconstruction - Phase 2</h1>
+<hr>
+<p>Building a preliminary model. There are specific instructions for generating
+a 'good' model for various symmetry possibilities. However, note that our
+current recommended technique is actually to start with a very bad answer, let
+the refinement converge, start with a different bad answer, refine to convergence
+again, and compare the results. If you can get the same results from 2-3 different
+starting models, you can be fairly confident that you have found the best 
+structure. If you get different results in the trials, you can try 5-10 trials
+and see if one solution is obviously more correct (higher resolution, better
+agreement between projections, class averages and data). To generate a 'bad' starting
+model, ignore the instructions in this step and just run 'makeinitialmodel.py'. However
+make SURE that when you go to the 'refine' command in step 3 that you use the
+actual symmetry of your object. 
+$csym
+<h3>1. Cn symmetry - use startcsym</h3>
+$csym.1
+<p>If you know your model has a Cn symmetry (n>2), or a Cn pseudosymmetry, it
+is generally very easy to generate an adequate preliminary model in EMAN. The
+command <i>startcsym</i> performs this task automatically from start.hed/img.
+This program will automatically search for particles which are top views (along
+the Cn axis) and side views of the macromolecule. It then generates a class average
+for both of these views, then builds a rough 3d model from the 2 class averages.
+This model will be VERY rough and noisy. This isn't generally a problem. In
+most cases this model will be sufficient for the refinement loop to converge.
+Note that it is critical that the particles you run startcsym on have been
+processed by cenalignint as described in step 1. You might also consider low-pass filtering the 
+particles you are using for this step, using 'proc2d' with the
+'lp=' and 'apix=' options. When you go on to the next
+step (iterative refinement), you can go back to the original start.hed which
+has not been centered. To use the program, type:
+
+<pre>startcsym start.hed <var>#-ptcl-to-use</var> sym=c<var>n</var></pre> 
+
+<p>Replace <i>n</i> with the symmetry of your particle, eg 'c5'
+'#-ptcl-to-use' is the number of particles used to generate the top and side
+views. This number should generally be between 20 and 100, and should not be
+more than 5-10% of your total number of particles. A larger number will give
+less noisy class-averages, but they will be blurred out by averaging a wider
+range of different orientations. A smaller number will give a sharper but
+noisier result. If you have a LOT of particles (>5000), you might want to
+use only the first few thousand for this step to save time, eg:
+<pre>proc2d start.hed tmp.hed last=3999
+startcsym tmp.hed 60 sym=c4
+rm tmp.hed tmp.img</pre>
+
+<p>After running this command, several new files will exist:
+<br>cls000.hed - the individual particles used to generate the top view
+<br>cls001.hed - the individual particles used to generate the side view
+<br>classes.hed - contains 2 class averages, the top view and the side view
+<br>sym.hed - contains 3 images, the symmetrized top view, the side view, and
+the side view aligned to the symmetric axis
+<br>threed.0a.mrc - The preliminary 3d model.
+<p>You should take a look at classes.hed and sym.hed (use the <i>eman</i>
+file/history browser). Make sure that
+the symmetrized and unsymmetrized top views look somewhat similar. Make
+sure the side view isn't too ridiculous. If these are ok, chances are, the
+3d model is good enough for the next step. Don't bother looking at the
+3D model in projection. It will look terrible from most angles. An isosurface
+rendering will give you a better idea.
+<p>There is a possibility that the orientation of the side view may be
+determined incorrectly (the 3rd image in sym.img). Usually, if startcsym is
+wrong, it will be off by exactly 90 degrees. If this occurs, run:
+<pre>startcsym start.hed <var>#-ptcl-to-use</var> sym=c<var>n</var> nosym fixrot=90</pre>
+<p>This will fix the 3D model withour rerunning the symmetry search. Double-check
+that it worked properly if you do this.
+<p>If the top view doesn't seem to have the correct symmetry, or the
+side view seems obviously wrong, then this technique may not work in your
+case. This problem can occur for one of several reasons. First, your particle
+may have a preferred orientation, and there may simply not be any top views
+present in the data set. Second, the image contrast might simply be too low
+for an accurate symmetry search (in this case, you might consider trying
+a higher dose, or negative stain for an initial model). Finally, the particles
+may not be well-centered in the box. The symmetry search can tolerate some
+degree of poor centering, but too much can make it fail.
+<p>If this method fails, you can try specifying 'unk' for the symmetry and
+following the resulting instructions, though for the subsequent steps
+(running the 'refine' command), you should specify the correct symmetry
+again).
+$dsym
+<h3>1. Dn symmetry - use startcsym</h3>
+$dsym.1
+If you know your model has a Dn symmetry (n>2), or a Dn pseudosymmetry, a
+preliminary model can be generated using the same method as Cn symmetry. The
+command <i>startcsym</i> performs this task automatically from start.hed/img.
+This program will automatically search for particles which are top views (along
+the Cn axis) and side views of the particle. It then generates a class average
+for both of these views, then builds a rough 2d model from the 2 class averages.
+This model will be VERY rough and noisy. This isn't generally a problem. In
+most cases this model will be sufficient for the refinement loop to converge.
+Note that it is critical that the particles you run startcsym on have been
+processed by cenalignint as described in step 1. When you go on to the next 
+step (iterative refinement), you can go back to the original start.hed which
+has not been centered. You might also consider low-pass filtering the 
+particles you are using for this step, using 'proc2d' with the
+'lp=' and 'apix=' options. To use the program, type:
+
+<pre>startcsym start.hed <var>#-ptcl-to-use</var> sym=c<var>n</var></pre>
+
+
+<p>Replace <i>n</i> with the symmetry of your particle. Note that you specify
+C symmetry for this program, even if your particle has D symmetry.
+'#-ptcl-to-use' is the number of particles used to generate the top and side
+views. This number should generally be between 20 and 100, and should not be
+more than 5-10% of your total number of particles. A larger number will give
+less noisy class-averages, but they will be blurred out by averaging a wider
+range of different orientations. A smaller number will give a sharper but
+noisier result. If you have a LOT of particles (>5000), you might want to
+use only the first few thousand for this step to save time, eg:
+<pre>proc2d start.hed tmp.hed last=3999
+startcsym tmp.hed 60 sym=c4
+rm tmp.hed tmp.img</pre>
+
+<p>After running this command, several new files will exist:
+<br>cls000.hed - the individual particles used to generate the top view
+<br>cls001.hed - the individual particles used to generate the side view
+<br>classes.hed - contains 2 class averages, the top view and the side view
+<br>sym.hed - contains 3 images, the symmetrized top view, the side view, and
+the side view aligned to the symmetric axis
+<br>threed.0a.mrc - The preliminary 3d model.
+<p>You might want to take a look at classes.hed and sym.hed. Make sure that
+the symmetrized and unsymmetrized top views look somewhat similar. Make
+sure the side view isn't too ridiculous. If these are ok, chances are, the
+3d model is ok to try refining. Don't bother looking at the
+3D model in projection. It will look terrible from most angles. An isosurface
+rendering will give you a better idea.
+<p>There is a possibility that the orientation of the side view may be
+determined incorrectly (the 3rd image in sym.img). Usually, if startcsym is
+wrong, it will be off by exactly 90 degrees. If this occurs, run:
+<pre>startcsym start.hed <var>#-ptcl-to-use</var> sym=c<var>n</var> nosym fixrot=90</pre>
+<p>This will fix the 3D model withour rerunning the symmetry search. Double-check
+that it worked properly if you do this.
+<p>If the top view doesn't seem to have the correct symmetry, or the
+side view seems obviously wrong, then this technique may not work in your
+case. This problem can occur for one of several reasons. First, your particle
+may have a preferred orientation, and there may simply not be any top views
+present in the data set. Second, the image contrast might simply be too low
+for an accurate symmetry search (in this case, you might consider trying
+a higher dose, or negative stain for an initial model). Finally, the particles
+may not be well-centered in the box. The symmetry search can tolerate some
+degree of poor centering, but too much can make it fail.
+<p>If this method fails, you can try specifying 'unk' for the symmetry and
+following the resulting instructions, though for the subsequent steps
+(running the 'refine' command), you should specify the correct symmetry
+again).. 
+$icos
+<h3>1. Icosahedral symmetry - use starticos</h3>
+$icos.1
+<p>Please note that, while EMAN does support icosahedral symmetry, the current
+version is better suited for lower symmetries. For particles with such high
+symmetries, other techniques may work better than the one used by EMAN. We
+have successfully used EMAN to refine several icoshedral particles, so it's
+useable, just remember that it's one of the more poorly supported features
+in the current version. We are actively working on optimizing these routines
+for future releases. You might consider using SAVR, an EMAN/MRC hybrid available
+on the <a href=http://ncmi.bcm.tmc.edu>NCMI home page</a>.
+<p>There are many ways to generate a preliminary model from icosahedral data.
+EMAN uses a particularly simple and fast routine that will work well in
+many cases. The program <i>starticos</i> searches the data set (start.hed)
+for particles with the best 5, 3 and 2-fold symmetries. It will locate a
+number of particles for each symmetry, then align/average them to make
+a class average for each symmetric axis. These 3 views are then used to
+generate a 3d model. This routine will generally work well as long as the
+distribution of orientations contains particles near all 3 symmetries. If
+one or more is under-represented in the data, the result may not be
+satisfactory. Use it like this:
+<pre>starticos start.hed <var>#-ptcl-to-use</var> [imask=<var>radius</var>]</pre>
+<p>The #-ptcl-to-use should generally be between 10 and 100, and less than 5-10%
+of the total number of particles. imask is optional. If your particle has a lot
+of non-icosahedral mass in the center (like DNA/RNA), this option allows you
+to exclude the center of each particle from the symmetry search. This may
+produce better results in some cases. Specify the exclusion radius in pixels if
+desired.
+<p>After running this command, several new files will exist:
+<br>cls000.hed - the individual particles used to generate the 5f view
+<br>cls001.hed - the individual particles used to generate the 3f view
+<br>cls002.hed - the individual particles used to generate the 2f view
+<br>classes.hed - contains 3 class averages, the 5f, 3f and 2f views
+<br>sym.hed - Contains the symmterized class averages
+<br>threed.0a.mrc - The preliminary 3d model.
+<p>You might want to take a look at classes.hed and sym.hed. Make sure that
+the symmetrized and unsymmetrized views look somewhat similar. If these are
+ok, chances are, the 3d model is ok to try a refinement on.
+$asym
+<h3>1. No symmetry (or C2 symmtery) - use refine2d.py and startAny</h3>
+$asym.1
+<p>I'm sorry to see that you're reading this section. Asymmetric particles can
+be among the most difficult particles to refine. Of course, this is not necessarily the
+case, certain particles, like ribosomes, actually refine very nicely using
+standard techniques with relatively little effort. However, other particles,
+like alpha-crystallin, are virtually impossible to refine to a single
+self-consistent answer. In general, if the particle has considerable internal
+structure OR has a very clear non-spherical shape, you're probably ok. In general
+if your particle has no symmetry at all, you must be very cautious when you
+reach the post-processing phase. You may need to perform some additional tests,
+such as radial randomization of the model with re-refinement. If there is
+any possibility that your particle has a pseudosymmetry, or may be vaguely
+cylindrical in shape, you may consider generating a starting model assuming
+some C symmetry.
+<p>Assuming you're going to stick it out and do a fully asymmetric starting
+model, you will first, use the results from the 'refine2d.py' command you
+ran in step 1. 
+<p>Manually examine the class averages in <i>iter.final.hed</i>.
+Select some class averages that look good, and put them in a file called
+<i>good.hed</i>. You can do this by running 'v2 iter.final.hed', middle-clicking
+on the resulting view, then using 'split' mode to make a new view with selected
+particles in it. Then middle-click on the new view and save the particles into
+a new file. The precise number of classes to select depends on the particle.
+Generally at least 7 or 8 should be selected. You can take as many more as
+you like, but try to avoid particularly noisy ones, or duplicates of the
+same view. Once you have <i>good.hed</i> prepared, run:
+<pre>
+startAny good.hed [sym=<var>symetry</var>]
+</pre>
+<p>If your particle has some symmetry, but was not amenable to the other
+methods, then specify it above. For asymmetric particles, don't specify
+<i>sym=</i>.
+$unk
+<h3>1. Unknown symmetry - use startnrclasses and startAny</h3>
+$unk.1
+<p>If you don't know the symmetry of your molecule, it's best to try to
+make a preliminary guess, then relax the symmetry later if it proves to
+be incorrect. First, use the results from the 'refine2d.py' command you
+ran in step 1. 
+<p>Manually examine the class averages in <i>iter.final.hed</i>.
+Select some class averages that look good, and put them in a file called
+<i>good.hed</i>. The precise number of classes to select depends on the particle.
+Generally at least 7 or 8 should be selected. You can take as many more as
+you like, but try to avoid particularly noisy ones, or duplicates of the
+same view.
+You can generate a new file with only
+the 'good' images in them as follows:
+<ul>
+<li>Run <i>eman</i> and select the file browser
+<li>Locate <i>iter.final.hed</i> and select it
+<li>The first class average will be visible in the upper right corner of the browser.
+Click on the 'Big View' button.
+<li>A window will appear which will display a matrix of the images in the classes file.
+If you see a question about reading over 20 megs, answer yes.
+<li>Resize the window so it's a convenient size, and you can see most of the images
+at once. Click with the middle mouse button (both buttons at once on a 2 button mouse)
+anywhere in this window. A small control panel should appear.
+<li>Select 'Split' mode. This will allow you to click on good class-averages and
+create a new window containing only the selected particles. You can then middle-click
+on the new window. The changes you just made are in memory only. You now need to save this set of
+selected images to a new file. Hit the 'Save' button in the image inspector. Call
+the new file 'good.hed' (make sure it doesn't exist already first).
+</ul>
+<p>Simply close the 'Big View' when you're done with it. You might want to examine
+good.hed in the browser, just to make sure it contains all the images you wanted 
+in the correct order.
+<p>The next step is to take these images and try to build a 3D model from them. This
+is accomplished with the 'startAny' command, as follows:
+<pre>startAny good.hed [sym=c&lt;n&gt;] [proc=&lt;nproc&gt;]</pre>
+<p>Specify symmetry if it is known, but only a single c symmtery is allowed in this
+program. This  will run for some time. It uses cross-common lines in Fourier space to try
+to determine the relative orientations of the particles, then eventually builds
+a 3d model. As with the other startup programs, the output will be written to
+<i>threed.0a.mrc</i>. When it's done, you might want to have a look at this
+model in projection or as an isosurface, to see if it came out well. To look at it
+in projection, either select it in the <i>eman</i> file browser, and rotate it with
+the <b>right</b> mouse button, or use <i>v4 threed.0a.mrc</i>. For isosurfaces, use
+your favorite MRC capable rendering program. 
+<a href=http://www.ssec.wisc.edu/~billh/vis5d.html>Vis5d</a> is included with the EMAN
+package. It's an excellent (and free) package originally designed for weather visualization. To
+use it, type:
+<pre>mrc2v5dt threed.0a.mrc x.v5d
+vis5d -box 1 1 1 -path / x.v5d</pre>
+<p>Read the vis5d reference manual referenced above for more info.
+$2
+<h3>2. Go on to step 3</h3>
+<p>You should now have <i>start.hed/img</i> and <i>threed.0a.mrc</i>. 
+This is what you need to start a refinement. Go on to step 3.
+</body>
+</html>

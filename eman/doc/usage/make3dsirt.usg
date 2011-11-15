@@ -1,0 +1,3 @@
+Misc. 3d image processing
+Usage:
+make3dsirt   in=<input file> iter=<iterMax> prop=<ang>

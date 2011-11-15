@@ -1,0 +1,1284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>EMAN - FAQ</title>
+
+
+</head>
+
+
+<body style="background-color: rgb(176, 176, 255);">
+
+<a href="http://ncmi.bcm.tmc.edu/%7Estevel/EMAN/doc"><img src="EMAN.logo.png"> </a>
+<h2>Frequently Asked Questions</h2>
+
+Here are some detailed answers to questions by users. If you don't find
+what you need here, just email <a href="mailto:sludtke@bcm.tmc.edu">sludtke@bcm.tmc.edu</a>
+.<br>
+
+<br>
+
+<ol>
+
+  <li><a href="#a1"><span style="font-weight: bold;">I read the
+documentation, and I
+still don't know what to do. How can I get more help ?</span></a>
+  </li>
+
+  <li><a href="#a2"><b>What paper should I
+cite if I use EMAN1 in
+published results ?</b></a></li>
+
+  <li><a href="#a2a"><b>I've heard that
+(insert favorite program) runs
+much faster
+than EMAN. Is this true ?</b></a></li>
+
+  <li><a href="#a2b"><b>I heard that someone
+did a refinement in
+(insert favorite
+program) and got a higher resolution structure than they did in EMAN.
+Is this true ?</b></a></li>
+
+  <li><a href="#a2c"><b>I'm running EMAN in parallel on a cluster, and it
+seems to lock up when it reaches the class-averaging step (classalign2).</b></a><b><br>
+
+    </b></li>
+
+  <li><a href="#a3"><b>How do I compile EMAN
+for OSX(Mac) ?</b></a></li>
+
+  <li><a href="#a4"><b>I'm trying my first
+EMAN refinement, but the
+refine command
+crashes or produces black images in classes.1.hed. What's going on?</b></a></li>
+
+  <li><a href="#a5"><b> How can I read images
+in
+format ABC ? &nbsp;What file formats does EMAN support ?</b></a></li>
+
+  <li><a href="#a6"><b>Symmetry determination
+- Do you have a facility
+for
+calculating rotational power spectra ? How can I determine the symmetry
+of my particles ?</b></a></li>
+
+  <li><a href="#a7"><b>CTF Correction - I
+can't do an x-ray solution
+scattering
+experiment on my specimen. Is there some way I can get an apporoximate
+structure factor to use in fitting and CTF correction ?</b></a></li>
+
+  <li><a href="#a8"><b>How can I find out how
+many particles were used
+in a
+reconstruction ? How can I look at the particles that were discarded ?</b></a></li>
+
+  <li><a href="#a9"><b>I'm trying to do CTF
+correction. Did I
+understand it right,
+that the aim of the sliders it to get the theoretical curve and the
+"data-curve" congruent? If so, to what extent should this be done? I am
+curently playing around with that feature and am not sure how curves
+should match as I did not succeed to get everything congruent</b></a></li>
+
+  <li><a href="#a10"><b>I'd like to process a
+really big data set with
+EMAN. Is it up
+to the task ?</b></a></li>
+
+  <li><a href="#a11"><b>If I have particles
+already picked and
+'extracted' using a
+picking software other than 'boxer', how can I put them all into a
+'.hed' file so as to use them with EMAN?</b></a></li>
+
+  <li><a href="a12"><b>I have a particle which
+might have a c5, c6 or
+c7 symmetry.
+How can I find out which it is ?</b></a></li>
+
+  <li><a href="#a13"><b> Is there anywhere
+that explains the text
+output of the
+classification and model construction routines? being impatient an
+dhaving calculated several completely bogus models of my asymmetric
+particle, I am hoping there is a way to tell fromt he numbers when it
+might be better to stop the procedure than to let it run on.</b></a></li>
+
+  <li><a href="#a14"><b>I want to simulate
+noise and CTF to
+generate "real" EM-pictures from the projections of my molecule, just
+as you did in the orginal EMAN-paper for the BTV trimer. When I measure
+the carbon-film and use ctfit to determine the ctf, are the
+noise-levels determined simultaneously? How do I apply these parameters
+to the pictures?</b></a> </li>
+
+  <li><a href="#a15"><b>I have a bunch of MRC
+convention Euler angles
+and need to
+generate projections of a model in EMAN</b></a></li>
+
+  <li><a href="#a16"><b>I have heard that EMAN
+can process
+heterogeneous data sets and
+produce
+multiple models, for example, to study dynamics or ligand binding</b></a></li>
+
+  <li><a href="#a17"><b>What sort of problems
+will EMAN have
+with initial model bias ?&nbsp; What if I can't get my structure to
+converge to something sensible in EMAN, but I can in another program ?</b></a></li>
+
+  <li><b><a href="#a18">If I have a good
+template and a bunch of raw
+particles, is
+there a way
+to determine the particle center and orientation by some EMAN programs?
+In our reconstruction programs,
+we can get a set of parameters for each particle during refinement
+again a
+single reference. Including the x, y shift and 3 angle rotation. We are
+thinking about getting those parameters from EMAN.</a> </b></li>
+
+</ol>
+
+<hr style="width: 100%; height: 2px;">
+<ul>
+
+  <li><span style="font-weight: bold;"><a name="a1"></a>I read the
+documentation, and I
+still don't know what to do. How can I get more help ?</span>
+    <p>Every other spring, the NCMI hosts a workshop on single
+particle
+reconstruction and post-processing (at least we
+have for a number of years thru March 2007). This workshop covers all
+of the basics of performing a CTF corrected
+single particle reconstruction and analyzing the results, and
+historically has been free of charge (though you
+must cover your own travel expenses). Check <a href="http://ncmi.bcm.tmc.edu">the NCMI webserver</a>
+for more
+details on the next available workshop.</p>
+
+    <p>If you're in a hurry, and the next workshop isn't
+imminent, just
+contact sludtke@bcm.edu with your questions
+(if that fails, you can try stevel@alumni.caltech.edu). Simple
+questions can be answered by email or phone, and
+other arrangements can be made in specific cases where real training is
+required.</p>
+
+  </li>
+
+  <li><b><a name="a2"></a>What paper
+should I cite if I use EMAN1 in
+published results ?</b> <br>
+
+This one:<br>
+
+Ludtke, S.J., Baldwin, P.R., and Chiu, W. (1999). EMAN: semiautomated
+software for high-resolution single-particle reconstructions. <i>J
+Struct Biol</i> 128, 82-97. <br>
+
+  </li>
+
+  <li><a name="a2a"></a><b>I've heard
+that (insert favorite program)
+runs much faster than EMAN. Is this true ?</b><br>
+
+The quick answer is: EMAN strives for the best, most accurate solution,
+not the fastest solution.
+That may sound like a 'yes', but it definitely is NOT. It is quite
+possible to make EMAN run very fast, indeed. It all depends on the
+options you use. In the early rounds of refinement, or when you are
+still trying to determine the quaternary structure of your object, you
+are strongly encouraged to do things that will provide many different
+results to compare quickly. This includes downsampling the data, using
+a coarse ang=, and not using the 'high quality' options to the <span style="font-style: italic;">refine</span> command,
+like&nbsp; <span style="font-style: italic;">dfilt</span>
+and <span style="font-style: italic;">refine.</span>
+When you are trying to get
+your final reconstruction for publication, you generally are after
+accuracy, not speed. If use all of the highest quality options, EMAN
+can be quite computationally intensive.</li>
+
+  <li><b><a name="a2b"></a>I heard that
+someone did a refinement in
+(insert favorite
+program)
+and got a higher resolution structure than they did in EMAN. Is this
+true ?</b>
+    <p>This is a very complicated issue, and depends a lot on
+your
+relative
+skill in using the different packages as well as your understanding of
+some very complicated issues. The first issue is what your friend
+meant by 'better resolution'. People in CryoEM often confuse <b>resolvability</b>
+with <b>resolution</b>.
+These are two VERY different terms. In single particle processing,
+resolution typically refers
+to the results of a test where the data is split into even and odd
+halves, then reconstructions are compared using the Fourier shell
+correlation curve. Fundamentally this is measuring
+the signal to noise ratio in your
+model. That is, it measures at what resolution your model begins to
+look noisy. Resolvability is a measure
+of how close together two blobs can get in your model and still be
+discerned as two distinct objects. The trick here is that you can apply
+an arbitrary low pass
+filter (blurring) to your structure, thus making the <span style="font-weight: bold;">resolvability</span> much
+worse, while having <i>absolutely no</i> impact on the
+measured <span style="font-weight: bold;">resolution</span>
+of the structure.</p>
+
+    <p>Sometimes someone looks at their final structure and sees
+all of
+these beautiful
+'high resolution' features, then looks at the structure from another
+reconstruction
+packaged, and sees some of these features blurred out, concluding that
+one package did a
+a better job reconstructing the model than the other package. This is
+simply not true.
+Different packages handle CTF amplitude correction and B-factor
+correction in very different
+ways. It may well be that if you take the 'blurrier' structure and
+apply a small inverse B-factor
+correction, that the structure that originally looked 'blurrier' may
+actually be better. </p>
+
+    <p>The next issue is initial model/noise bias. Different
+reconstruction strategies are susceptible
+to different degrees to this problem. EMAN incorporates an iterative
+class-averaging proceedure designed
+specifically to make it almost completely unsusceptible to this
+problem. This option is embodied in the <i>classiter=</i>
+option in <i>refine</i>.
+If you run your final
+high-resolution refinement with <i>
+classiter=8</i>, your reconstruction will end up significantly
+blurrier
+than it could be. On the other hand,
+if you refine with <i>classiter=0</i>, which is equivalent
+to what
+most other single particle reconstruction
+programs do, you can end up with a substantially exaggerated resolution
+(and incorrect features in your model
+that you may be tempted to interpret). In general, in EMAN, we suggest
+starting out in the early refinement
+rounds with <i>classiter=</i> in the 5-8 range to
+eliminate model bias
+and improve convergence rate. Then when
+you are doing your final refinement, drop this value to 3 (the smallest
+permissible value other than the special
+case 0, which disables the routine). While this will not produce the
+absolute highest possible resolution, it
+will be very close, and largely prevent any model bias from creeping
+it. It may also be safe at some stage to run a few iterations with <i>classiter=0</i>
+to produce the highest possible resolution structure, but if you
+do so, you must run a range of additional tests to demonstrate the
+reliability of your model.</p>
+
+    <p> Another issue relates to angular sampling. In EMAN, and
+other
+programs which generate
+reference projections of your 3-D model for classification, resolution
+can be strongly
+affected by angular sampling. Perversely, using a larger angular
+sampling, which results in
+rotationally 'blurring' your structure, will actually produce a <i>better</i>
+resolution
+using standard methods. Why ? When you reduce your angular sampling,
+you are averaging
+more particles together in specific orientations, thus reducing the
+noise-levels in that
+orientation. Ideally we would use very fine angular sampling in
+conjunction with maximum liklihood methods to optimally weight the data
+contributions at different angles.
+Lacking that, however, it is possible to exaggerate your resolution (or
+underestimate it
+in the opposite case), through bad choices of angular spacing. </p>
+
+    <p>One final issue is how resolution is measured. Ideally
+people
+would split their raw data in two
+halves, then run a full refinement on each set, thus testing both for
+noise levels as well as
+model-bias. However, this is not what most people do. Typically people
+go to the final refinement
+step (3-D reconstruction) and do 2 reconstructions, one from even
+numbered particles and one from
+odd numbered particles. However, in this case, all of the Euler angles
+are fixed, and were generated
+based on the refinement performed with the full data set. The eman <i>eotest</i>
+program does something
+between these two extremes. While it does make use of the particle
+classification (2 Euler angles
+determined) from the final refinement iteration, it reruns the
+iterative 2-D class averaging process
+to reduce model-bias problems in the resolution estimate. If <i>classiter</i>
+is set high, again, a
+worse resolution estimate will result. Even if classiter is set to 0 in
+    <i>eotest</i> if it was not also
+0 in the final iteration of <i>refine</i>, a slighly worse
+resolution
+estimate may be produced.</p>
+
+    <p>So, the final answer is, it depends on how you use each
+software
+package. You need to understand the
+terms you are using. In the end, the real question is how detailed are
+the features I can reliably
+interpret in my map. This may give you a different answer than
+comparing 'resolutions'. </p>
+
+  </li>
+
+  <li><a name="a2c"></a><b>I'm running EMAN in parallel on a cluster, and it
+seems to lock up when it reaches the class-averaging step (classalign2).</b><br>
+
+    <p>This is known to occur on a few clusters, but not in a predictable fashion. It seems
+to be related to a bug in older versions of OpenSSH, or perhaps in the network kernel
+itself. If (while refine is locked up) you run 'netstat' on the node where the refine command was run, and see a number
+ssh processes in the CLOSE_WAIT state, this is the problem you are having. Unfortunately
+there isn't a universal fix, other than to run a newer version of Linux on your cluster.
+Upgrading to a newer version of OpenSSH (4.2 or higher) may solve the problem. If you want a
+stopgap solution, you can simply run 'killall ssh' on the node where refine is running, and the
+job will start running again. However, you may be forced to do this once in every iteration, assuming it
+continues to 
+    </p>
+  </li>
+  <li><b><br>
+
+    </b></li>
+
+  <li><b><a name="a3"></a>How do I
+compile EMAN for OS 10.3 (Mac) ?</b> <br>
+
+    <p>We now offer partial support for OSX (current OSX version
+only).
+Still, to compile yourself, you need to know what you're doing if you
+want
+to make it work on that platform. Basically: </p>
+
+    <pre>use 'fink' to install required libraries:<br> QT3 (X11 not native version)<br> GSL<br> FFTW2 (not 3)<br> HDF5<br> cmake<br><br>Then just follow the normal unix install instructions:<br><br>cd eman<br>ccmake .<br>press 'c'<br>set various options<br>press 'c' then 'g'<br>make<br>make install<br></pre>
+
+  </li>
+
+  <li><b><a name="a4"></a>I'm trying my
+first EMAN refinement, but the
+refine command
+crashes or produces black images in classes.1.hed. What's going on?</b>
+    <br>
+
+    <p>There are several possible causes for this. The first
+possibility is
+that your particles in start.hed and your initial 3D model in
+threed.0a.mrc aren't the same size. Do an 'iminfo start.hed' and
+'iminfo
+threed.0a.mrc' and make sure they're the same size in pixels.<br>
+
+    <br>
+
+Aside from that, &nbsp;by far the most likely problem is that you
+used
+the 'ctfc=' or 'ctfcw=' options in the 'refine' command, but didn't
+properly prepare the input particles. With 'ctfit', 'fitctf' and/or
+'applyctf'. The answer here is RTFM (read the _ manual). If you want to
+see if your particles are prepared for CTF correction run the 'eman'
+file browser, and look at the start.img file. In the text box below the
+image, you should see something like:<br>
+
+    <br>
+
+'!--2.38 252 1.22 0.15 0 6.84 2.54 1.43 400 4.1 2.7'<br>
+
+    <br>
+
+Your numbers will be different, of course, but there should be a row
+of numbers beginning with '!-'. If you don't see this, then your images
+haven't been properly phase flipped.<br>
+
+    <br>
+
+    </p>
+
+  </li>
+
+  <li><b><a name="a5"></a> How can I
+read images in
+format ABC ? &nbsp;What file formats does EMAN support ?</b> <br>
+
+    <i>updated 10/24/2006, EMAN 1.9</i> <br>
+
+    <p>EMAN supports a lot of different formats, and it does it
+transparently. That is, in general, <b>all </b>EMAN
+program can read <b>any</b>
+image in a wide variety of formats without you having to do anything
+special. EMAN currently supports reading
+SPIDER, IMAGIC, MRC, HDF5,Gatan DM2, Gatan DM3, PIF and ICOS formats.
+TIFF
+images are
+now natively supported using libtiff. You should now be able to
+directly
+read 16 bit tiffs. Most generic image formats like TIFF, GIF, PGM, BMP,
+PNG, etc. are also supported if you have the IMAGEMAGICK package
+installed on your machine. Due to Gatan constantly changing things, we
+cannot guarentee that DM3 file reading will be perfect.<br>
+
+    <br>
+
+For image writing, EMAN supports most of the above formats as well.
+However, most EMAN programs default to IMAGIC format (for 2D) and MRC
+format (for 3D). To convert to a different format, use 'proc2d' for 2D
+images and 'proc3d' for 3D images. EMAN will detect most filename
+extensions automatically, or you can force several of the output
+formats with a program option.<br>
+
+    <br>
+
+Some of you may also be aware of the 'byte ordering' issue. Different
+machines (SGI vs Intel, for example) store their numbers in the
+opposite
+byte-order. Often this means files generated on one machine will be
+unreadable on machines using the opposite convention. However, EMAN
+handles this problem as well. Any supported image can be read
+regardless
+of byte-order. When writing images EMAN uses the native byte order of
+the machine the software is being run on. <br>
+
+    </p>
+
+  </li>
+
+  <li><b><a name="a6"></a>Symmetry
+determination - Do you have a
+facility for
+calculating rotational power spectra ? How can I determine the symmetry
+of my particles ?</b> <br>
+
+    <i>added 2/4/2004, EMAN 1.5</i> <br>
+
+    <p>This can be done in EMAN, though it
+doesn't use rotational power spectra. Real-space approaches are more
+accurate, though proper centering is critical. Past attempts at the
+rotational power spectrum approach (on several test cases) showed it to
+be
+unreliable and imprecise. <br>
+
+    </p>
+
+    <pre>First, center the particles:<br>cenalignint particles.hed maxshift=&lt;pixels&gt;<br> (warning, this can use a lot of memory. You should have 3x<br> as much ram as the size of the file you operate on. If not,<br> use the frac= option)<br>- or -<br>proc2d particles.hed centered.hed &lt;center | acfcenter&gt;<br></pre>
+
+    <p>One of those three should do a decent job centering your
+particles (they
+do not need to be in the same orientation). </p>
+
+    <pre>Then take the centered data and run :<br>startcsym centered.hed &lt;# top view particles to keep&gt; sym=&lt;trial symmetry&gt;<br></pre>
+
+    <p>While this is also designed to look for side views, it
+will find
+top
+views (with the corresponding symmetry) very nicely. </p>
+
+    <p>So, pick a trial symmetry, and run startcsym. Then look at
+the
+first 2
+image in classes.hed and the first image in sym.hed. The first image in
+classes.hed is an unsymmetrized particle with the strongest specified
+symmetry. The first image in sym.hed is a symmetrized version. If the
+two
+look the same and have a visible symmetry, you've probably got the
+right
+answer. Repeat for all possible symmetries. The answer will usually
+stand
+out very clearly, and can be presented in publication by showing the 2
+images side-by-side for each trial symmetry. Note that there are some
+known situations (detached virus portal complexes, for example) where a
+single data set may contain particles with multiple symmetries. <br>
+
+    <br>
+
+    <i>Also see related question below</i> <br>
+
+    </p>
+
+  </li>
+
+  <li><b><a name="a7"></a>CTF Correction
+- I can't do an x-ray solution
+scattering
+experiment on my specimen. Is there some way I can get an apporoximate
+structure factor to use in fitting and CTF correction</b> <br>
+
+    <p>The documentation really needs to address this, but
+doesn't.
+There are two
+reasons for this, though. First, it is really difficult to describe
+this
+adequately textually. Second, you&nbsp; need to have a sound
+understanding
+of the mathematics being used in CTF correction to use this method
+properly
+and avoid doing bad things to your structure (without realizing
+it).&nbsp;<br>
+
+    </p>
+
+    <p>One other note. Many people (myself included) have
+suggested
+generating a
+structure factor curve computationally from a PDB structure of a
+similar protein.
+As it turns out, this is a very difficult thing to do, largely because
+solvent
+effects have a profound effect on the overall shape of this curve.
+Current software
+(2003) used by the solution scattering community can accurately predict
+peak locations, etc.,
+but it doesn't have the correct overall shape, and should not be used
+for EM work.
+Perhaps this situation will improve in the future. </p>
+
+    <p>Still, there is a way to get the necessary curve. It isn't
+perfect, but it's adequate in most cases, and has been used for several
+published structures.
+The basic idea is to use several sets of particles from images at
+different defocuses.
+You then simultaneously fit the CTF of these data sets such that the
+CTF curve is a reasonable fit, and simultaneously the predicted
+structure factor for all of the
+curves matches pretty well at low resolution. This process must be done
+manually using
+ctfit, but once you have a result, you should be able to do most of
+your fitting with
+the automated program 'fitctf'. </p>
+
+    <p>The optimal way to approach this problem is to have some
+sort of
+solution scattering
+curve on-hand. This curve is simply used for scaling the data, and
+getting some general
+idea of a reasonable B-factor and amplitude contrast. It will not
+impose it's features on the final structure factor. This is also not
+strictly necessary, it is possible to
+proceed without one. The '<a href="http://ncmi.bcm.tmc.edu/eman/groel.sm">groel.sm</a>'
+curve
+(native GroEL structure factor) is probably adequate for most cases.
+Then do the following: </p>
+
+    <ol>
+
+      <li>Load 3 or 4 particle sets into ctfit</li>
+
+      <li>Select each set in turn, then select the 'From File'
+button
+in the 'Structure Factor' section. Select groel.sm or some other
+structure factor you will use as a model. (you can skip this if you
+like)</li>
+
+      <li>Go to the 'Advanced' menu and select 'Change background
+mode'. This will change the model used for the background noise. In
+this model, only the first parameter 'N/A' has any effect. the
+remainder of the background is fit based on the zeros of the CTF. Note
+that this mode is currently INCOMPATIBLE with doing actual CTF
+correction of the data, but it can be used for this task of producing a
+structure factor. </li>
+
+      <li>Set 'Amp' to 0, then adjust 'N/A' to make the
+background
+curve look fairly continuous. Note that the background curve should
+always be lower than the data curve. Try and make the curve somewhat
+continuous, DON'T try to fit the data curve. </li>
+
+      <li>Now adjust the remaining parameters to get the best
+possible
+fit. If you are using groel.sm, this fit will not be good at all at low
+spatial frequency. The peaks won't match up even vaguely in most cases.
+This isn't the point. The point is to get the overall scale of the
+curve to match reasonably well.</li>
+
+      <li>Now select the 'Struc Fac' button in the 'Display 2'
+section
+of the plot window. This will make a second plot appear, containing the
+predicted structure factor for all visible data sets. This is
+calculated from the data itself, based on the fit you have done. Note
+that it will act poorly around the CTF zeros. Don't worry about it.
+Zoom in (drag right mouse on the plot) to the low resolution range,
+from the x origin to around the first zero of the CTF.</li>
+
+      <li>This is the tricky part. You need to adjust the CTF
+parameters in such a way that the low resolution predicted structure
+factors match each other as well as possible, while simultaneously not
+making the fit bad in the other window. Generally Amp is the most
+useful parameter to adjust.</li>
+
+      <li>When everything looks good, make a note of the
+resolution
+just below the first zero that disturbs the structure factor. Hopefully
+this will be somewhere in the 1/20 - 1/30 angstrom range.</li>
+
+      <li>On the 'Advanced' menu, select 'Save 1 Column'. Give it
+a
+filename, and tell it to save column 11. </li>
+
+      <li>Almost done. Exit ctfit. Now use 'sfmerge.py' to
+combine the
+file you just created (at low resolution) with some other structure
+factor (like groel.sm) at high resolution. type 'sfmerge.py' for usage.
+Note that the cutoff frequency is in 1/A. ie - if you found the cutoff
+resolution to be at 25 A, specify .04.</li>
+
+      <li>That's it, use the new predicted structure factor file
+you
+just made to fit all of your data with either ctfit or fitctf. Then
+specify this structure factor using ctfcw= in the refine command.
+Remember you cannot currently use the alternate background mode in
+ctfit when fitting the data you will be reconstructing.</li>
+
+    </ol>
+
+    <br>
+
+    <br>
+
+  </li>
+
+  <li><b><a name="a8"></a>How can I find
+out how many particles were
+used in a
+reconstruction ? How can I look at the particles that were discarded ?</b>
+    <br>
+
+    <p>Good questions! To find out how many particles were
+included in
+the class-averages,
+type (for example) 'iminfo classes.4.hed all'. The last number on each
+line
+is the number of particles included in that class-average. At the end a
+total number of
+particles included in the classes file will be shown. </p>
+
+    <p> Now this is where it gets tricky. If all of the
+class-averages
+were used in the
+reconstruction, you'd be done. However, some class-averages may get
+excluded (depending
+on the value you select for hard=). However, they are not necessarily
+the
+same class averages
+that are excluded from the original <i>make3d</i>
+reconstruction. <i>make3d</i>
+will output
+how many original particles were included in the final reconstruction
+as part of its
+output on the screen. This is probably the best answer you'll get, but
+it isn't stored anywhere.
+Generally when I talk about the number of particles used in a
+reconstruction, I'm referring to
+the 'iminfo classes.4.hed all' method. </p>
+
+    <p>The next part is a little trickier. A complete record of
+particles excluded from the
+class-averages is kept (along with classification information) for all
+iterations, in
+'particle.log'. This file has a variety of different information in it,
+depending on the
+first character of the line. Lines starting with 'X' indicated excluded
+particle numbers.
+If going through this file is too much of a pain, you can rerun the
+'classalignall' command
+with the 'badfile'. This will create a set of files containing the
+excluded images for
+whatever options you provide to classesbymra. </p>
+
+    <p>Note that the particle.log file can also be used to
+recreate the
+'cls' files from any
+particular iteration using the 'clsregen' command. </p>
+
+  </li>
+
+</ul>
+
+<ul>
+
+  <li><b><a name="a9"></a>I'm trying to
+do CTF correction. Did I
+understand it right,
+that the aim of the sliders it to get the theoretical curve and the
+"data-curve" congruent? If so, to what extent should this be done? I am
+curently playing around with that feature and am not sure how curves
+should match as I did not succeed to get everything congruent</b>
+    <br>
+
+    <p> Not exactly. The curve from your data (the power
+spectrum) is
+equal to noise + ctf * envelope * structure factor. The curve you're
+fitting with is just noise + ctf * envelope. The structure factor is
+missing, and is very important. This problem can be tackeled three
+ways, described in : <span style="text-decoration: underline;">the
+documentation.</span>
+If you're
+in the situation where you don't have x-ray data (which you presumably
+don't), the best results are generally achieved via the following
+process: </p>
+
+    <pre>1) you will need several data sets at different defocuses<br>2) read the first data set into CTFIT<br>3) set the 'amp' to zero, then use the 4 noise sliders to fit the<br> background by passing through the zeros of the the ctf, and matching the<br> high-resolution end of the curve (where the zeros are no longer visible).<br>4) Increase the amplitude and adjust the defocus and envelope function as<br> best you can. You should be able to determine the defocus quite<br> accurately. The envelope function is somewhat arbitrary.<br>5) Read in the second data set, and repeat this process for it.<br>6) Bring up a second plot window, and set it to display the structure<br> factor. This will show the structure factor for each displayaed data set,<br> calculated from the data. This is not a very accurate calculation, but<br> it's generally good enough.<br>7) Now, without spoiling the fitting you've just done, adjust all of the<br> parameters of the 2 data sets such that the structure factor curves match<br> as well as you can. Don't worry too much about the divergence at high<br> frequency. Work on getting a match out to the first or second zero, then<br> just try to get the general trend at high frequency to be the same.<br>8) continue to add the other data sets in the same way.<br>9) When you've got them all fitted satisfactorally, use the 'phase<br> correct' option as described in the instructions.<br></pre>
+
+  </li>
+
+  <li><b><a name="a10"></a>I'd like to
+process a really big data set
+with EMAN. Is it up
+to the task ?</b>
+    <p>Gosh, I hope so! Seriously, there are a few issues to be
+aware
+of. First, one factor often of concern is the fact that EMAN generally
+keeps the entire set of particles in a single image file stack A really
+big reconstruction might cause this file to become bigger than 2
+gigabytes,
+which is a problem for some parts of certain
+operating systems and a lot of other software packages. While EMAN does
+the proper things to support files
+larger than 2G, sometimes the underlying system still won't allow it.
+However, there is a good workaround. EMAN supports a special file
+format
+called the LST format. This format is basically a text file containing
+a list of images in other files. For example, if you have too much
+data to put into a single start.hed/img file, do the following: </p>
+
+    <ul>
+
+      <li>INSTEAD of combining your micrograph images into a
+single
+file,
+make a subdirectory called 'raw' where you intend to run 'refine'.</li>
+
+      <li>move all of your hed/img files into this subdirectory</li>
+
+      <li>cd back to the 'refine' directory</li>
+
+      <li>lstcat.py start.hed raw/*.hed</li>
+
+      <li>ln -s start.hed start.img</li>
+
+    </ul>
+
+    <p>You now have 2 files (start.hed/img) which appear to eman
+to be
+equivalent to a big imagic file, without any of the normal 2G
+limitations.
+Note, however, that you cannot add new images to this file with proc2d.
+It
+isn't really an image file. </p>
+
+    <p>There are other issues. Some are of concern when there are
+a lot
+of pixels in each image and others are of concern when there are a lot
+of images. In the first case, memory on the computer is the biggest
+problem. For example, if you were trying to reconstruct a 512x512x512
+volume, each volume dataset requires 512 MB. Several programs require
+enough memory for 2 or 3 3D models. So any machine used to process this
+dataset would need to have at least 2 GB of RAM. There are too many
+issues involved to cover all possibilities here. In general, I'd say
+yes, EMAN can handle really big problems. If you run into problems,
+email me, and I'll try to help you resolve them. </p>
+
+  </li>
+
+  <li><b><a name="a11"></a>If I have
+particles already picked and
+'extracted' using a
+picking software other than 'boxer', how can I put them all into a
+'.hed' file so as to use them with EMAN?</b>
+    <p>The answer depends on the source images. EMAN reads most
+EM file
+formats directly. If you have each particle in a separate image file,
+for
+example, img001.img, img002.img, etc., then the following command
+would do it (zsh, similar for other shells): </p>
+
+    <pre>foreach i (img*.img)<br>proc2d $i start.hed<br>end<br></pre>
+
+    <p>-or- (csh)</p>
+
+    <pre>for i in img*.img<br>proc2d $i start.hed<br></pre>
+
+It doesn't matter what file format the source images are in. Any EMAN
+program transparently reads any supported image type (byte order
+doesn't
+matter either). If the images are already in a Spider stack file
+called, for example, part.spi, the following would do it:
+    <pre>proc2d part.spi part.hed<br></pre>
+
+    <p>All of the 2D EMAN commands currently write Imagic files
+by
+default. 3D commands write MRC format by default. There are options in
+proc2d and proc3d for writing to other file formats. <br>
+
+    </p>
+
+  </li>
+
+  <li><b><a name="a12"></a>I have a
+particle which might have a c5, c6
+or c7 symmetry.
+How can I find out which it is ?</b>
+    <p>Tricky. There is a possibility that the answer is "you
+can't".
+In most cases, however, it's possible to get a pretty accurate answer.
+In cases where the symmetry of the particle is unknown, the ability to
+distinguish between different symmetries is proportional to the overall
+contrast in the image. In cryo-EM there is always a tradeoff between
+contrast and resolution, so the best thing to do if you're trying to
+determine symmetry is exactly the opposite of what you'd do for high
+resolution. That is, take some micrographs in negative stain, or in
+ice, fairly far from focus at low voltage. This will provide the best
+overall contrast for an attempt to determine symmetry.</p>
+
+    <p>Once you've collected high-constrast data, there are a
+number of
+techniques to try to determine symmetry. for particles with a suspected
+Cn or Dn symmetry, <a href="progs/startcsym.html">startcsym</a>
+is a
+good starting point. By running it several times with each possible
+symmetry you can see how well each one fits the data. Frequently
+comparing the symmetrized model in sym.hed with the class-averages in
+classes.hed will give the first indications of the true symmetry. </p>
+
+    <p>The next step is to try to refine each of the possible
+initial
+models and see if they 'fall apart' during refinement. This should
+resolve the symmetry question IF you have sufficient contrast, and IF
+your particles are in fairly random orientations. If the contrast is
+too low, or there is a strongly preferred orientation, however, an
+accurate answer may not be possible. </p>
+
+    <p>If the first technique fails, there are other
+possibilities,
+like using multivariate statistical analysis on an aligned set of raw
+particles. These issues are too complicated for discussuion in this FAQ.</p>
+
+    <p><br>
+
+    </p>
+
+  </li>
+
+  <li><b><a name="a13"></a> Is there
+anywhere that explains the text
+output of the
+classification and model construction routines? Being impatient and
+having calculated several completely bogus models of my asymmetric
+particle, I am hoping there is a way to tell fromt he numbers when it
+might be better to stop the procedure than to let it run on. </b>
+    <p>No, the docs don't really explain all of the text output
+at this
+point. I can tell you what the numbers are, but I don't think it's
+going to help you very much. While you may be able to judge the quality
+of an individual particle when compared to a good model using the
+quality factor, they really won't tell you what you're trying to find
+out. There are just too many variables involved. </p>
+
+    <p>If you're anxious that things are going too slow, the best
+approach is to increase the angular step for the first couple of
+refinement iterations. For an asymmetric model you could go as high as
+15 or 18 degrees for the first round or two. That should be enough to
+tell you if the model is reasonable. You may also consider downsampling
+the data with, for example, <span style="font-style: italic;">proc2d
+start.hed newdir/start.hed shrink=2</span><br>
+
+    </p>
+
+    <p>As we tried to impress in the documentation, asymmetric
+models
+can be very tricky. It depends on their overall shape. If, for example
+you have something 'L' shaped, then getting a good starting model
+shouldn't be difficult at all. However, if you have something that's
+basically round with a few lumps, it may actually be impossible to
+generate an unabiguous accurate starting model. It is actually possible
+to have a set of random projections which can produce several DIFFERENT
+models, all of which are consistent with the data at some resolution. </p>
+
+    <p>StartAny uses c1startup, so no, there's no difference. The
+routine it uses isn't all that great. For 'easy' models it will work
+pretty well, but in tough cases, it may just come up with something
+completely wrong. In these cases, there are really only two good
+solutions in EMAN right now: </p>
+
+    <p>1) if your model may have a pseudosymmetry, ie - it's
+vaguely
+cylindrical in shape or something, you can often use the startcsym
+routine and get something that's good enough to start. </p>
+
+    <p>2) Final resort. Use tomography. If you're comfortable
+with it,
+then you might actually start here. Anyway, the idea is simple enough,
+take a tilt series (probably have to use stain or glucose for this).
+EMAN has a few experimental programs for generating a 3D model from the
+tilt series and aligning/averaging several such 3D models to generate a
+starting model. Even this approach isn't perfect (at least the simple
+implementation EMAN uses isn't), but we have used is with some success
+on a few projects. </p>
+
+    <p>To answer your question anyway: the output from
+classesbymra
+looks like: </p>
+
+    <pre>0 -&gt; 256 (506.86)<br>1 -&gt; 296 (508.74)<br>2 -&gt; 278 (502.86)<br>3 -&gt; 273 (504.82)<br></pre>
+
+    <p>The first line is saying that particle 0 (the first one in
+start.hed) looked the most like projection number 256. The quality
+factor was 506.86. The interpretation of the quality factors can
+depend on the shape of your model and the box size, etc.</p>
+
+  </li>
+
+  <li><b><a name="a14"></a>I want to
+simulate noise and CTF to
+generate "real" EM-pictures from the projections of my molecule, just
+as you did in the orginal EMAN-paper for the BTV trimer. When I measure
+the carbon-film and use ctfit to determine the ctf, are the
+noise-levels determined simultaneously? How do I apply these parameters
+to the pictures?</b> <br>
+
+    <p>AThis feature is not well documented. The best
+approach
+is:<br>
+
+    <br>
+
+1) generate a set of projections 'proj.hed'<br>
+
+2) 'ctfit proj.hed'<br>
+
+3) On the 'Process' menu select 'Simulate' -&gt; 'RT CTF Sim'<br>
+
+&nbsp;&nbsp; this will open a file dialog, select proj.hed again<br>
+
+4) A window with a picture of your first projection will appear<br>
+
+&nbsp;&nbsp; as you modify the ctf parameters, the appearance
+of this
+image will<br>
+
+&nbsp;&nbsp; be updated continuously.<br>
+
+5) Set the desired parameters. A reasonable set for a decent FEG scope
+is:<br>
+
+&nbsp;&nbsp; 200 kev, 1 mm Cs<br>
+
+&nbsp;&nbsp; Noise : 0, 1, 6, 3<br>
+
+&nbsp;&nbsp; Amp Cont: 10<br>
+
+&nbsp;&nbsp; Envelope: 7.5<br>
+
+&nbsp;&nbsp; Defocus: whatever you want, usu 1-4 microns<br>
+
+6) This will set the basic parameters. The one parameter you cannot
+define<br>
+
+&nbsp;&nbsp; a 'typical' value for is 'Amp', since it depends
+on the
+amplitude of<br>
+
+&nbsp;&nbsp; your projections (usually you'd start out with a
+normalized 3d model).<br>
+
+&nbsp;&nbsp; Basically you adjust 'Amp' to achieve the desired
+signal
+to noise<br>
+
+&nbsp;&nbsp; ratio visually. Once you've applied the ctf to the
+entire
+set of<br>
+
+&nbsp;&nbsp; projections, you can read the simulated set back
+into
+ctfit again and<br>
+
+&nbsp;&nbsp; redetermine the SNR.<br>
+
+7) select 'process' -&gt; 'simulate' -&gt; 'apply ctf 2d'<br>
+
+&nbsp;&nbsp; This will not overwrite the input file. It will
+create a
+new file<br>
+
+&nbsp;&nbsp; with the CTF parameters determined<br>
+
+    <br>
+
+Note: if you want to do this on many files, you can use 'applyctf' once<br>
+
+you have a good set of parameters.<br>
+
+    <br>
+
+    </p>
+
+  </li>
+
+  <li><b><a name="a15"></a>I have a
+bunch of MRC convention Euler
+angles and need to
+generate projections of a model in EMAN</b> <br>
+
+(added 9/3/2003, eman 1.4)<br>
+
+Here is a python script that should give you something to start with.
+Don't forget the help() function in python, ie:<br>
+
+    <pre> import EMAN<br> help(EMAN.EMData)<br> help(EMAN.Euler)<br> </pre>
+
+Here's the script:
+    <pre># This reads a text file with a space separates Euler triplet<br># and generates projections<br>from EMAN import *<br>infile=open("eulers.txt","r")<br>lines=infile.readlines()<br>infile.close()<br><br># Ok, this next line is not all that transparent, there<br># are other ways to do this, but it is a useful construct<br># converts a set of input lines into a list of tuples<br>eulers=map(lambda x:tuple(map(lambda y:float(y)*math.pi/180.0,x.split())),lines)<br>e=Euler()<br><br># read the volume data<br>data=EMData()<br>data.readImage("model.mrc",-1)<br><br>for euler in eulers:<br> e.setByType(euler,Euler.MRC)<br><br> # -4 is the best real-space projection mode<br> out=data.project3d(e.alt(),e.az(),e.phi(),-4)<br> out.writeImage("proj.hed",-1) # file type determined by extension<br><br></pre>
+
+    <br>
+
+    <br>
+
+  </li>
+
+  <li><b><a name="a16"></a>I have heard
+that EMAN can process
+heterogeneous data sets and
+produce
+multiple models, for example, to study dynamics or ligand binding</b>
+    <br>
+
+    <br>
+
+(added 08/10/05, eman 1.7) <br>
+
+Yes, EMAN does have software to do this. The software itself is no more
+difficult to use than the normal 'refine' command (in fact the syntax
+is almost
+identical). However the overall process you normally follow to produce
+reliable
+results can be somewhat involved, and hasn't been well documented.
+Also,
+note that it is much more computationally intensive than a single model
+refinement. We have applied this methodology to several systems,
+including SR398 (a single ring GroEL mutant) and fatty acid synthase.
+In
+any case,
+here's an outline of how to tackle this. This assumes some basic
+familiarity with normal single-model refinement in EMAN: <br>
+
+    <br>
+
+Using multirefine:
+    <ul>
+
+      <li>set up a directory containing start.hed/img (the raw
+data),
+and if you're using Wiener filtered CTF correction, the 1D structure
+factor file as well</li>
+
+      <li>make a set of numbered subdirectories in this directory
+for
+the models you will refine. ie - if you wish to split the data into 4
+structures you would <i>mkdir 0 1 2 3</i></li>
+
+      <li>
+        <p>each subdirectory must contain a 'threed.0a.mrc' file,
+the
+starting model for each subpopulation. In most cases these starting
+models don't need to look at all like the final structure, and in fact,
+when you refine a structure from something like a Gaussian blob, this
+can produce the most convincing results (note that this does not always
+work). The sole absolute requirement here is that the models cannot be
+numerically identical. ie - if you start with a Gaussian blob for a
+starting model, you must add a small amount of perturbative noise to
+each. </p>
+
+        <p>It is also quite acceptable, especially for a first
+effort,
+to use 'good' models from single model refinement as starting models
+for the multi model refinement. Typically this would be done by taking
+the last n iterative models from a normal refine and using them as
+starting models. ie - if you ran refine for 10 cycles, use
+threed.7a.mrc as threed.0a.mrc in subdirectory 0, threed.8a.mrc as
+threed.0a.mrc in directory 1, etc. </p>
+
+      </li>
+
+      <li>if you have a structure factor file, a copy must also
+be in
+each of these subdirectories.</li>
+
+      <li>run 'multirefine'. The options are virtually identical
+to
+'refine', except the second parameter is the number of models to
+produce - eg 'multirefine 8 4 mask=27 ...' will run 8 rounds of
+refinement on 4 models (directories 0 - 3).</li>
+
+    </ul>
+
+    <p>If you don't have any experience with 'refine', I would
+strongly
+suggest
+learning how to do single model refinements first, then moving on to
+multirefine. <br>
+
+    <br>
+
+The overall process: </p>
+
+    <ul>
+
+      <li>Monitor the convergence of the overall process by
+stepping
+through the iterative 3D models in each directory. When the models in
+all of the subdirectories seem to have stabilized (don't change much
+from one iteration to the next), then you can stop (it is possible to
+run the convergence test in 'eman' in each of the subdirectories as
+well)</li>
+
+      <li>When the multirefine has completed and converged
+reasonably
+well, we still need to do more. It is very important that you allow
+multirefine to complete (ie - not killing it in the middle of a run)
+before this step. The cls*lst files in each subdirectory contain the
+particles associated with each of the final refined models (except for
+the first image which is a reference). What we need to do next is
+combine these images into several new start.hed files and run single
+model refinements on each of the subpopulations. This will produce much
+better converged models and will act as an initial validation that the
+structures you got from multirefine are truly representative of the
+data:
+        <pre>mkdir r0 r1 r2 r3<br>cd 0<br>foreach i (cls*lst)<br>proc2d $i ../r0/start.hed first=1<br>refine .... (normal refinement)<br><br>cd ../1<br>foreach i (cls*lst)<br>proc2d $i ../r1/start.hed first=1<br><br>etc.<br></pre>
+
+      </li>
+
+      <li>Now compare the final refinements in each r? directory.
+If
+the data is truly heterogeneous you should see variations
+characteristic of the variations present in the data. This works very
+well for things like partial ligand or antibody binding. For things
+like large-scale dynamics, it also works, but there can be multiple
+'correct' sets of answers.</li>
+
+      <li>In general, multirefine will produce a set of models as
+different from each other as permitted by the data. However, cryoEM
+data is inherently noisy, meaning if you start with very homogeneous
+(but noisy) data, you will still get a set of different models out,
+with the differences being constructed based on variations in the low
+frequency noise. These variations will generally be fairly small, but
+the true variations you are looking for could also be small, so you
+need to be cautious and do some validations</li>
+
+      <li>So, the next step, assuming you saw interesting
+variations,
+is to confirm that they are real. There are several validations you can
+perform:
+        <ul>
+
+          <li>you can repeat the entire proceedure above using
+different starting models. If your system is discretely heterogeneous
+(ligand binding, etc), you should get effectively the same results. If
+your system is continuously heterogeneous (dynamics), you should at
+least observe a consistent set of relative motion.</li>
+
+          <li>you can perform a cross-validation test. Repeat the
+refinement in, for example 'r0', but use the final refined model from
+'r1' as an initial model, and vice-versa. That is, if you can start
+with a model strongly biased towards the 'wrong' structure, and still
+produce the correct model then you can be sure that at least this
+subset of the data represents the structure you determined.</li>
+
+        </ul>
+
+      </li>
+
+    </ul>
+
+  </li>
+
+  <li><b><a name="a17"></a>What sort of
+problems will EMAN have
+with initial model bias ?&nbsp; What if I can't get my structure to
+converge to something sensible in EMAN, but I can in another program ?</b>
+    <br>
+
+    <span style="font-style: italic;">(revised 10/24/06,
+EMAN 1.9)</span>
+    <p>This is largely answered in the question above relating to
+resolution
+of reconstructions. If you are not using optimal options with the <i>refine</i>
+command, you may, indeed, not get optimal results.
+The
+basic options provided by the EMAN tutorial do not give the entire
+picture. For example, if you continue to use <i>classiter=8</i>
+for your high resolution work, you will never get the highest
+possible resolution. Similarly, if you don't use the <i>refine</i>
+option
+to the <i>refine</i> command, you will end up slightly
+blurring your
+model
+in most cases. The bottom line is, to get optimal results, you must
+specify
+the optimal options.</p>
+
+  </li>
+
+  <li><b><a name="a18"></a>If I have a
+good template and a bunch of raw
+particles, is
+there a way
+to determine the particle center and orientation by some EMAN programs?
+In our reconstruction programs,
+we can get a set of parameters for each particle during refinement
+again a
+single reference. Including the x, y shift and 3 angle rotation. We are
+thinking about getting those parameters from EMAN. </b><br>
+
+    <br>
+
+    <p>There are some caveats in this reply. The fundamental
+refinement strategy in
+EMAN (1.x) is not really conducive to providing these numbers in a way
+that they
+can be reasonably compared to values from another program. While it is
+possible to
+produce them, they will not be as accurate as they effectively are
+during a
+refinement loop. CTF correction and parameters are taken into account
+very
+heavily in a normal EMAN refinement. That is, we have a CTF corrected
+3D model,
+projections are made, then the projections are modified by the CTF
+before
+comparison to the raw particles. Unless you pull these parameters out
+of
+the middle of a refinement loop, the numbers you get using a straight
+uncorrected comparison will be less accurate. In addition, one
+substantial
+advantage of EMAN refinement is the 2D iterative class-averaging
+proceedure,
+which further refines the 2D particle orientations. These numbers would
+not be
+available. </p>
+
+    <p>If you are running a full EMAN refinement and you wait
+until it
+converges, then
+getting these values is straightforward. Untar the cls.*.tar file from
+the final
+iteration. These cls files are the particles associated with each
+projection (ie
+- that gives you 2 of the Euler angles). Each line in this file
+contains a
+particle number from start.hed, then at the end of the line is:</p>
+
+similarity, rotation (radians), dx, dy </li>
+
+  <hr>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="StarOffice/5.0 (Unix)">
+	<META NAME="AUTHOR" CONTENT="Steve Ludtke">
+	<META NAME="CREATED" CONTENT="19990122;22331500">
+	<META NAME="CHANGEDBY" CONTENT="Steve Ludtke">
+	<META NAME="CHANGED" CONTENT="19990122;23221100">
+	<STYLE>
+	<!--
+	-->
+	</STYLE>
+</HEAD>
+<BODY>
+<H2>EMAN</H2>
+<H3>Preliminary Model Generation</H3>
+<H4>Determine the last euler angle</H4>
+<P>This stage in generating a preliminary model is determining the
+remaining undetermined euler angle for the symmetric class averages
+determined in the last step. This step is performed as part of
+<A HREF="progs/startcsym.html">startcsym</A> or <A HREF="progs/starticos.html">starticos</A>.</P>
+<P>The symmetric particles are stored in sym.img by the previous
+step. In the case of Cn (n-fold rotational) symmetry, the first class
+average is a top view, and the second class average is a side view.
+This statement specifies 2 of the 3 euler angles for the particle.
+However, we don't know how the side view is aligned with respect to
+the top view, so an unknown euler angle remains. This angle is
+determined using a common-lines method at this stage. In the case of
+icosahedral particles, the 3 class averages represent 5-fold, 3-fold
+and 2-fold rotational symmetries. In this case, there is 1 unknown
+euler angle for each particle. 
+</P>
+<P><A HREF="flowchart.html">Back to the flowchart</A></P>
+<P><A HREF="flow1.make3d.html">On to the next step</A></P>
+<HR>
+<P><I>Last Modified:&nbsp;</I><SCRIPT LANGUAGE="JavaScript">
+document.write(document.lastModified)
+</SCRIPT>
+ 
+</BODY>
+</HTML>

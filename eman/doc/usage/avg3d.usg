@@ -1,0 +1,3 @@
+This program will average a set of aligned 3d images together
+Usage:
+avg3d  [keep=<sigma mul>] [min] <output file> <input 1> <input 2> etc

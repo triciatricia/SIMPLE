@@ -1,0 +1,3 @@
+This program is used for offline boxing of micrographs (MRC format ONLY!)
+Usage:
+batchboxer  [input=<filespec>] [dbbox=<filespec>] [imgbox=<filespec>] [refimg=<filespec>] [auto[=<thr1>,<thr2>,<thr3>]] [mindist=<pixels>] [xform=<dx>,<dy>,<da>] [scale=<mult>] [newsize=<size>] [output=<filespec>] [ctfout=<filespec>] [dbout=<filespec>] [invert] [adjust=<filespec>] [insideonly]

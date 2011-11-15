@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head title="Mathematical conventions in EMAN">
+</head>
+<body bgcolor="#a0a0b0">
+<h1>Mathematical/Geometrical conventions in EMAN</h1>
+<p>Perversely, we decided to add yet another Euler angle convention to
+the
+EM community (we did have a good reason at the time). However, on the
+bright
+side, the EMAN library has routines to convert to other conventions.
+EMAN
+uses a Z,X,Z&#8217; convention (Az, Alt, Phi). That is, first there is a
+rotation about the Z axis, then about X, then about the new Z axis.
+When viewing projections,
+the convention is to look along the Z axis, so a 0,0,0 projection will
+be
+a &#8216;top&#8217; view of the particle. The three rotations are given the names
+azimuth,
+altitude and phi. In projection, phi represents rotation in the plane
+of
+the projection. For example, Alt=90 will produce a &#8216;side&#8217; view of the
+particle,
+and azimuth will rotate through the various possible side
+views.&nbsp;The
+C++/Python 'Euler' object contains code for converting between various
+EM
+Euler angle conventions. See libEM/Euler.C for rotation matrices, etc.</p>
+<br>
+Since all large biological molecules possess handedness, the only
+symmetries
+possible are:<br>
+<table border="1" cellpadding="2" cellspacing="2" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top">Cn<br>
+      </td>
+      <td valign="top">Single n-fold rotational axis (n components)<br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">Dn<br>
+      </td>
+      <td valign="top">Single n-fold rotational axis + n 2-fold
+rotational
+axes 90 degrees from the n-fold, eg - GroEL is approximately D7 (2n
+components)<br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">tet<br>
+      </td>
+      <td valign="top">Tetrahedral, also called cubic: 3,2 symmetry,
+parent symmetry for octahedral and icosahedral
+symmetries, perversely, this is not the full symmetry of a cube. This
+symmetry
+is supported in EMAN 1.9, but not thoroughly tested.<br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">oct<br>
+      </td>
+      <td valign="top">Octahedral symmetry: 4,3,2. This is the symmetry
+of
+a cube. (24 components)<br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">icos<br>
+      </td>
+      <td valign="top">Icosahedral symmetry: 5,3,2. (60 components)<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<p>The EMAN convention is for the axis with the highest symmetry to be
+aligned
+along Z. So, for a D8 symmetry, the 8-fold axis lies along Z, and the
+asymmetric
+triangle spans alt=[0,90] and az=[0,45]. For icosahedral symmetry, the
+5-fold
+lies along Z. Note that this differs from the MRC convention in which
+2-folds
+are aligned with x, y and z.</p>
+</body>
+</html>

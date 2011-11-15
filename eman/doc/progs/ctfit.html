@@ -1,0 +1,283 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (X11; U; Linux 2.2.13 i686) [Netscape]">
+   <meta name="CREATED" content="19990107;23365700">
+   <meta name="CHANGEDBY" content="Steve Ludtke">
+   <meta name="CHANGED" content="19990108;344200">
+<style>
+	<!--
+	-->
+	</style>
+</head>
+<body background="../paper01.jpg" nosave>
+
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a>
+<h2>
+ctfit</h2>
+&nbsp;
+<h3>
+A graphical utility for determining CTF parameters directly from data collected
+on transmission electron microscopes.</h3>
+
+<p><br><b>Usage</b>
+<br>ctfit
+<p>
+<hr><img SRC="ctfit.png" >
+<h4>
+Overview</h4>
+Data collected on a transmission electron microscope contains an artifact
+due to physics of electron optics. This artifact is known as the contrast
+transfer function, or CTF, of the microscope. In addition, incoherent background
+noise from multiple sources is present in the images. 'ctfit' allows the
+user to determine the paramters of the CTF in each micrograph by fitting
+parameters in a predefined 10 parameter model to the power spectrum of
+data taken from the micrograph. These parameters are then used by the automatic
+reconstruction procedure to make corrections for the CTF.
+<p>In addition to determining the CTF parameters from experimental data,
+CTFIT can be used to simulate the effects of an electron microscope on
+simulated data. This can be used as a teaching tool to show what to expect
+as the microscope focus is changed, for generating simulated data for use
+in software testing, and to help predict what a specific molecule might
+look like on the microscope.
+<h4>
+Windows</h4>
+Three windows will appear when ctfit is run. There is a plot window, an
+image window, and the control panel.
+<h5>
+Control Panel</h5>
+This panel has a wide variety of complicated looking controls. Don't be
+intimidated. It's not as complex as it appears. The window is divided into
+4 areas, shown above.
+<p>Area 1 is the list of currently loaded images and simulations. Each
+data set represents a power spectrum generated from one or more image files.
+When plotted, 2 lines will be displayed for each data set. One line is
+the power spectrum from the image. The other line is a simulation generated
+from the parameters specified in area 3 and 4. It is also possible to generate
+simulations without an associated data curve. When the program starts,
+one default simulation called 'New' will be automatically created and listed
+in this window. Each simulation and data set can be independently turned
+off and on (displayed in the plot window). Data sets currently displayed
+in the plot window will have a colored line to the left of them, indicating
+their color in the plot. To toggle the display of an image/simulation,
+simply double click on it in this list. Single clicking on an image/simulation
+will make it the current dataset. All of the parameters displayed in areas
+3 and 4 refer to the currently selected data set in this list. If you select
+(single click) on another data set, all of the parameters in areas 3 and
+4 will be updated. When a new data set is read into the program, the parameters
+will default to whatever their settings are when the image is loaded.
+<p>In areas 3 and 4 are all of the parameters for the currently selected
+data set/simulation. The first 11 items are sliders representing the parameters
+of the CTF/background model. The 5th parameter is experimental and is not
+used in CTF correction. The astigmatism parameters are also currently ignored
+by the CTF correction routine. It is suggested that you discard any images
+that exhibit any significant amount of astigmatism. Only 3 of the parameters
+in section 4 must be set for fitting results to be valid. Microscope voltage,
+Cs and A/pix (number of angstroms/pixel in the scanned image) must all
+be correct for the simulation/fit to be valid. The other parameters are
+stored for database purposes only (although it is suggested that you fill
+them in as you go to maintain a permanent record of your data).
+<p>The CTF correction model is described in detail in the <a href="../ctfc/ctfc.html">CTF
+Correction</a> section of the manual. To adjust the CTF parameters manually,
+simply drag the sliders or enter a number in the text box next to each
+slider. It is also possible to change the range of each slider. Simply
+enter '&lt;' or '>' and the new minimum or maximum value for the slider.
+<p>Section 2 contains parameter memories. Each data set already has an
+independent set of parameters, but these values are not stored anywhere
+outside the program. If you quit, then restart the program, these parameters
+will all be lost. Parameter memories are used to provide a long term record
+of the parameters of any micrograph. They also provide a mechanism for
+tracking the performance of your microscope(s) over time. Memories are
+divided into groups for your convenience. Generally the groups represent
+different samples or conditions. To make a new group, type its name into
+the 'Group' selection box. The new group will the appear on the pull down
+menu. Any groups that are empty (no memories in them) when you exit the
+program will not appear when you next run the program. To create a new
+memory with the current parameters, select the Group you want the new memory
+to be in, then hit the 'New' button. A new memory will appear with the
+name 'Default'. Simply type the correct name in the box above the 'Set'
+button and press return to change the name. You can then use the the 'Set'
+and 'Rcl' buttons to change or restore the current parameters to/from the
+memory. The memories are persistent, ie - the next time you run ctfit,
+you will still have all of your memories from the last session. Double
+clicking on a memory is equivalent to selecting that memory and pressing
+'Rcl'.
+<h5>
+Plot Window</h5>
+The plot window can display one of several possible plots. To the left
+of the plot are a set of buttons for selecting which plot to display. In
+addition there are buttons in the 'Display 2' box. If one of these buttons
+is selected, another plot window will appear. This window will simultaneously
+display one of the other possible plots. This is generally used so the
+structure factor can be viewed simultaneously with the power spectrum fit. The
+mouse can perform several operations in any plot window in EMAN. The left
+mouse button will produce crosshairs for locating the position of points
+in a curve. The right mouse button will allow you to zoom in/out. If you drag
+a box with the right mouse button, it will zoom in to that area of the plot.
+clicking the right button without dragging will zoom out so all points in the
+plot are visible. 
+<p>Sometimes, even more customization is required. Clicking
+on the plot with the middle mouse button (or both buttons at the same time
+for those without a middle button) will cause a plot inspector to appear.
+This window will allow you to customize the appearance of the plot. Note
+that many of the changes you make with the plot inspector may be transitory.
+<i>ctfit</i> has control of the plots, and will modify many of the settings
+itself if you do something that causes the plot to be redrawn. However, if
+you want to modify the plot appearance for printing or saving an image
+(both of these options are available in the plot inspector), you can
+make changes in the inspector then hit the 'print' or 'save' button
+immediately to save a snapshot of the plot. Note that the print option
+produces color postscript, which will produce much better output than
+saving a picture and printing that. Note that this plot inspector is
+still being developed, so some features are not fully functional yet (it
+will be obvious which).
+<p>The various plot types that can be displayed are:
+<ul>
+<li>
+<b>Complete</b> - This displays the power spectrum of the image (not present
+present for simulations) and the full 10 parameter simulation, including
+possible structure factor. This is a display of intensity as a function
+of s.</li>
+
+<li>
+<b>CTF Amplitude</b> - This will display the simulated CTF amplitude using
+the first 5 parameters only. That is, only the CTF and Envelope function
+are included. Background is excluded.</li>
+
+<li>
+<b>Stigmatic</b> - Identical to 'Complete', but the power spectrum is averaged
+over two small arcs rather than a full circle. Two curves are plotted,
+representing the major and minor axes. The curves will be dynamically recalculated
+as the stigmatic angle varies. This is used for determining image astigmatism,
+but the parameters are NOT used for CTF correction.</li>
+
+<li>
+<b>Signal to Noise Ratio</b> - This is the signal to noise ratio calculated
+by taking the simulated CTF * Envelope function divided by the simulated
+background. If the structure factor is enabled, it will be included as
+well. This is a ratio of <i>intensities</i>, not amplitudes.</li>
+
+<li>
+<b>Particles Required</b> - This is currently an experimental option.</li>
+
+<li>
+<b>Structure Factor</b> - This will display the structure factor predicted
+by subtracting the simulated background from the image power spectrum and
+dividing by the CTF and envelope functions. Due to model approximations,
+this is generally only valid at low spatial frequencies.</li>
+
+<li>
+<b>User Function</b> - This will plot a user defined function which can
+include information from the power spectrum as well as all of the simulation
+parameters. The 'Process -> Advanced -> Edit User Fn' menu item allows
+you to enter this function for all displayed plots.</li>
+
+<li>
+<b>User Fn + Complete</b> - As above, but the image power spectrum is also
+displayed. This can be used to fit custom functions to an image. This won't
+be used for CTF correction, but it may be useful nonetheless.</li>
+</ul>
+
+<h5>
+Image Window</h5>
+If a simulation is currently selected, this window is empty. If an image
+has been opened and is currently selected in the Control Panel, the 2D
+average power spectrum of the image(s) will be displayed. Dragging the
+left mouse button in this image will adjust the postion of the first zero
+of the CTF (First dark ring), and therefore the defocus. Unlike all other
+images in EMAN, the middle mouse button is used to adjust the angle and
+size of the astigmatic minor axis. The right mouse button can be dragged
+across the image to adjust the contrast.
+<p><b>CTF Parameter Determination</b>
+<p>Actually determining the CTF parameters for a micrograph is not an absolutely
+trivial process. The difficulty lies in the fact that the measured data
+consists of the structure factor multiplied by the CTF. Generally speaking,
+the structure factor is unknown. Since it varies by several orders of magnitude,
+this can make accurate CTF&nbsp;parameter determination rather difficult.
+There are a few possible solutions to this problem :
+<p>Solution 1:
+<br>Collect x-ray solution scattering data for your specimen. Clearly this
+is not a trivial thing to do. If you've done this, hit the 'From File'
+button in the Structure Factor section of the screen. You can then read
+your data into the program (it must be in a 2 column text file with scattering
+intensity vs spatial frequency). Once you've done this, the simulation
+line for the current data set will include the structure factor. You can
+then try for an exact match between the simulation curve and your data
+curve.
+<p>Solution 2:
+<br>The structure factor of proteins of similar size and general overall
+shape are remarkably similar to each other on a logarithmic scale. While
+there is some difference, perhaps a factor of 2 or 3 in the 5-10 A range
+depending on helix/sheet content, the overall shape, which covers several
+orders of magnitude, is basically the same. By using a 'standard' curve,
+prepared from a set of similar proteins, the CTF parameters can be fit
+fairly accurately in the same way as solution 1.
+<p>Solution 3:
+<br>This is the least reliable method, and generally using method 2 to
+start out, then finishing off with method 3 is advisable. This method involves
+realizing that the structure factor is always the same, regardless of defocus,
+etc. This method is the reason for allowing 2 plots to be displayed simultaneously.
+The idea is to get a good fit in the defocus and noise parameters in the
+'Complete' plot, and simultaneously get all of the data sets to have the
+same predicted structure factor in the 'Struc Fac' plot. This plot displays
+a predicted structure factor for each data set, calculated by taking the
+power spectrum minus the background divided by the CTF. Note that this
+cuve will be very inaccurate when the CTF&nbsp;approaches zero, so it will
+generally contain some large spikes near the zeros of the CTF. It will
+also tend to diverge rapidly at high frequency due to inaccurate fitting
+of the background. Neither of these effects represent a problem. Simply
+ignore the spikes, and try to get the curves to match far from the zeros.
+You might also try to get the same general behavior at high spatial frequencies.
+<p>The reason this method tends to be somewhat unreliable is that the envelope
+function width and the %&nbsp;amplitude contrast cannot be predicted accurately
+with this methodolgy. Generally a range of amplitude contrasts can be used,
+and a good match between data sets can still be obtained. This has profound
+effects on the final reconstruction. If you find you are getting a reconstruction
+with black or white 'bloctches' outside your map, chances are you have
+used the wrong amplitude contrast.
+<p>The envelope function is also a problem with this method. While this
+method does determine the relative envelope function between different
+data sets, it leaves the overall envelope function completely undetermined.
+To determine the overall envelope function, you have to have some knowledge
+of how rapidly the structure factor falls off, so the structure factor
+can be separated from the envelope function.
+<p>Both of these deficiencies can be taken care of using solution 2. Even
+if the match isn't perfect, using solution 2 to determine the amplitude
+contrast and envelope function width for one data set can 'bootstrap' using
+method 3.
+<p>Solution 4:
+<br>The last solution works only if you have collected some or all of your
+data in ice on a continuous carbon substrate. Often this causes preferred
+orientations, and the carbon film will effectively add more noise to the
+data. However, with a known carbon film structure factor, you can box out
+both areas of just carbon (no protein), as well as areas with protein.
+These 2 types of data are then read in separately. The CTF parameters can
+then be determined for the carbon film with a known carbon film structure
+factor, then these same parameters can be applied to the protein (with
+some possible small adjustments for defocus, since the protein is in a
+different plane).
+<p><b>Performing CTF correction</b>
+<br>Once the parameters have been determined, you need to actually apply
+the corrections to your data. In EMAN, this occurs in 2 stages. The first
+step occurs within CTFIT. Once you have determined the CTF and background
+parameters for all of your data sets (and have stored them in individual
+memories for later use), you then select each data set (1 at a time) and
+then use the 'Phase Correct' menu item on each. This option will perform
+the phase flipping portion of CTF correction, and will store all of the
+CTF parameters in the image headers for use in the second part of CTF&nbsp;correction.
+When you select this menu item it will read the original data set in, do
+the phase flipping, then write the results to a new image file with '.fix'
+inserted in the name. The '.fix' files are then used in reconstruction.
+The second phase of CTF correction (CTF weighted amplitude correction)
+is performed transparently by the reconstruction procedure. Simply enable
+CTF correction with the 'ctfc=&lt;res>' option.
+<p><b>Other options</b>
+<br>There are a variety of other menu commands. These are currently undocumented.
+Some are pretty self explanatory. Look for more details in future releases. One warning, if
+you use the equation parser features, note that unary '-' has higher precedence than '^'. That is, if you want exp(-s^2), it must be entered as exp(-(s^2)).
+<br>&nbsp;
+<p>
+<hr><b><font size=-2>EMAN Manual page, last update Sun Jan 2 16:20:28 2000</font></b>
+</body>
+</html>

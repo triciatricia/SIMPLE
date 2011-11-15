@@ -1,0 +1,3 @@
+This program is used to produce a skeleton representation of a 3D map. The skeleton preserves the topology (i.e., connectivity) of the input map, yet with a reduced structure consisting only of curves (corresponding to tubular shapes in the map, such as helices) and surfaces (corresponding to platelike shapes in the map, such as beta-sheets). The skeleton can also be used to generate helix/sheet scores for given points in the map.
+Usage:
+skeleton  <[4|5|6]> <input mrc> <pseudo atoms> <apix> <threshold> <min helix size> <min sheet size>    Minimum size of surfaces in the skeleton ( 3 is a good choice  <output score>

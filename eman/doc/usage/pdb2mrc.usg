@@ -1,0 +1,3 @@
+This program will generate a 3D electron density map from PDB files
+Usage:
+pdb2mrc  <pdb input> <mrc output> [info] [apix=<a/voxel>] [res=<resolution>] [box=<box size>] [het] [center] [solvate] [full] [allmdl] [sym=<cn|dn|icos>] [rot=<alt,az,phi>] [gen1] [sf=<filename>]

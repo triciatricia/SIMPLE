@@ -1,0 +1,7 @@
+IN CLASSIFY:
+CONSIDER IMPLEMENTING SOLVENT FLATTENING
+write discrete orientations + path relink, make soft assignment post refinement
+do emc-style refinement of the balanced HAC solution, test noise robustness in comparsion to ordinary
+
+DONE
+(1) test the random model generation >> did NOT work

@@ -1,0 +1,3 @@
+This program will take helical cls files and make class-averages
+Usage:
+classalignhelix.py  <cls file>

@@ -1,0 +1,29 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/symAxisSearchOMP.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>symAxisSearch</h1>
+<p><h3>This program is used to iteratively search for the local rotation symmtry axis</h3>
+symAxisSearch  &lt;map> &lt;n> &lt;sym coeff file> [outmap=&lt;file.mrc>] [maskout=&lt;output MRC file>] [symrad=&lt;pixels>] [srchrad=&lt;pixels>] [thresh=&lt;min sym coeff>] [zslice=&lt;z0,z1>] [start=&lt;x,y>] [convergat=&lt;degrees,pixels>] [cpu=&lt;n>] [verbose]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;map></td><td>input 3D map with the symmetry axis nearly along Z-axis</td></tr>
+<tr><td>&lt;n></td><td>the rotation symmetry</td></tr>
+<tr><td>&lt;sym coeff file></td><td>the list of symmetry coeffecients at different slices along the axis</td></tr>
+<tr><td>[outmap=&lt;file.mrc>]</td><td>output the 3D map that trasnformed to let the symmetry axis along the Z-axis and through the map center (nx/2,ny/2,nz/2)</td></tr>
+<tr><td>[maskout=&lt;output MRC file>]</td><td>after searching the symmetry axis, mask out the symmtric voxels above certain threshold </td></tr>
+<tr><td>[symrad=&lt;pixels>]</td><td>radius of the symmtric region</td></tr>
+<tr><td>[srchrad=&lt;pixels>]</td><td>radius of search region</td></tr>
+<tr><td>[thresh=&lt;min sym coeff>]</td><td>minimal symmetry coeff to be included in axis fitting and density masking</td></tr>
+<tr><td>[zslice=&lt;z0,z1>]</td><td>slices to search</td></tr>
+<tr><td>[start=&lt;x,y>]</td><td>start axis position in xy plane, in pixel </td></tr>
+<tr><td>[convergat=&lt;degrees,pixels>]</td><td>the criterion to stop the iterative search, default to 1 degree and 1 pixel</td></tr>
+<tr><td>[cpu=&lt;n>]</td><td>number of CPUs to use. parallelized with OpenMP </td></tr>
+<tr><td>[verbose]</td><td>if set, intermediate results are outputed</td></tr>
+</table><br><h3>Usage:</h3>
+<p>symAxisSearchOMP map.mrc 3 sym-coeff.dat cpu=4 start=60,66 thresh=0.8 zslice=30,92 maskout=map-masked.mrc outmap=map-sym.mrc
+<h3>Description</h3>
+<P>This program will take the input 3D map, assuming the rotation symmetry axis is near the Z axis, find the best
+symmetry center in each slice, least-square-fit to a straight line to determine the direction and position of the  
+symmetry axis. 
+<P>The parallelization is done with OpenMP, which means it only work on shared memory systems.
+This is not compiled by default.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

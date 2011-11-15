@@ -1,0 +1,3 @@
+Run a list of programs in parallel on one or several machines
+Usage:
+runpar  [proc=<min>[,<max>]] [file=<command file>] [nofs] [test]

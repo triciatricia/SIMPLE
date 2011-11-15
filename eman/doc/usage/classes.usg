@@ -1,0 +1,3 @@
+This implements reference-free k-means classification based on a set of footprint files
+Usage:
+classes  <footprint file> <# classes> [list] [weight=<wt file>] [maxmove=<n>] The maximum number of particle moves in an iteration before the result is considered stable (default=0 [maxiter=<n>] The maximum number of iterations to run before stopping (default=100 [minsize=<n>] The minumum number of elements to permit in a valid class (default=1 [restart=<n>] Number of times to restart by moving one of the 2 closest together points to a random point

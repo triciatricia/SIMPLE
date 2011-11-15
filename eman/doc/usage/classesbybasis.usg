@@ -1,0 +1,3 @@
+This will classify and align a set of particles based on an orthogonal basis as produced by svdcmp or geodcmp
+Usage:
+classesbybasis  <input> <ref set> <basis set> [mask=<rad>] [frac=<num>/<denom>] [nbasis=<n>] [saveali=<aligned out>] [savealiparm] [logit=<label>] [groups=<ngrp>] [maxshift=<dxy>] [verbose[=<n>]] [lcmptoo] [clsbylcmp[=<filt rad>]] [quiet] [noisecomp] [skip1] [shrink=<n>] [svweight]

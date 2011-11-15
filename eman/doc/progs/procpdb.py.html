@@ -1,0 +1,23 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/procpdb.py.html</TITLE></HEAD><BODY background=../paper01.jpg>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>procpdb.py</h1>
+<p><h3>This program is for performing simple operations on PDB files</h3>
+procpdb.py  &lt;infile> [&lt;outfile>] [rot=&lt;alt,az,phi>] [trans=&lt;dx,dy,dz>] [posttrans=&lt;dx,dy,dz>] [centeratoms] [centerelec] [centermass] [animorph=&lt;n>,&lt;apix>,&lt;vecfile>] [apix=&lt;A/pix>] [split] [include=[helix,sheet,other] [chains=&lt;chainltr>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;infile></td><td>Input file</td></tr>
+<tr><td>[&lt;outfile>]</td><td>Output file</td></tr>
+<tr><td>[rot=&lt;alt,az,phi>]</td><td>Rotation in EMAN convention</td></tr>
+<tr><td>[trans=&lt;dx,dy,dz>]</td><td>Translate (before rotation)</td></tr>
+<tr><td>[posttrans=&lt;dx,dy,dz>]</td><td>Post-translation</td></tr>
+<tr><td>[centeratoms]</td><td>Center based on the mean atom position</td></tr>
+<tr><td>[centerelec]</td><td>Center based on the center of electron charge</td></tr>
+<tr><td>[centermass]</td><td>Center based on the center of mass</td></tr>
+<tr><td>[animorph=&lt;n>,&lt;apix>,&lt;vecfile>]</td><td>This will use a morph vector file (segment3d) to morph atom positions</td></tr>
+<tr><td>[apix=&lt;A/pix>]</td><td>multiply trans by apix</td></tr>
+<tr><td>[split]</td><td>Split file at TER records. Results imperfect.</td></tr>
+<tr><td>[include=[helix,sheet,other]</td><td>[include=[helix,sheet,other]]</td></tr>
+<tr><td>[chains=&lt;chainltr>]</td><td>eg - "ABO", for extracting a portion of a complex</td></tr>
+<h3>Description</h3>
+<P>Simple program for manipulating PDB files in the EMAN convention
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

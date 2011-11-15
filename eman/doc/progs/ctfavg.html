@@ -1,0 +1,24 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/ctfavg.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>ctfavg</h1>
+<p><h3>Averages a set of 2D images with ctf correction</h3>
+ctfavg  &lt;infile> &lt;outfile> [res=&lt;in A>] [sffile=&lt;file>] [mask=&lt;rad>] [copyeuler] [refmask] [ref0] [copyrefs] [even|odd] [snrmult=&lt;val>] [nolog]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;infile></td><td>Set of images to be averaged</td></tr>
+<tr><td>&lt;outfile></td><td>Output, 1 image will be appended</td></tr>
+<tr><td>[res=&lt;in A>]</td><td>Resolution in A if structure factor is not used</td></tr>
+<tr><td>[sffile=&lt;file>]</td><td>Structure factor file used to fit data in infile</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>Circular mask</td></tr>
+<tr><td>[copyeuler]</td><td>Used only if the filspec is cls####, will read the Eulers from proj.hed</td></tr>
+<tr><td>[refmask]</td><td>Only for cls#### files, will mask based on proj.hed</td></tr>
+<tr><td>[ref0]</td><td>Will ignore the first image in the file</td></tr>
+<tr><td>[copyrefs]</td><td>Copy proj.hed image into the output file</td></tr>
+<tr><td>[even|odd]</td><td>Uses only even or odd numbered particles</td></tr>
+<tr><td>[snrmult=&lt;val>]</td><td>Multiply the SNR by this number when Wiener filtering</td></tr>
+<tr><td>[nolog]</td><td>Do not log a record of this program in .emanlog</td></tr>
+</table><br><h3>Usage:</h3>
+<p>ctfavg cls0000.lst classes.hed sffile=groel.xray
+<h3>Description</h3>
+<P>This program will average a set of prealigned images with CTF correction.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

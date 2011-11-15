@@ -1,0 +1,7 @@
+fmkmf.pl -f90 ifort -openmp 0 -opt 0 -mac 0 fpmatch.f90 > makefile
+fmkmf.pl -f90 gfortran -openmp 0 -opt 0 -mac 0 fpmatch.f90 > makefile
+
+Compiling FFTW for Linux
+./configure --enable-float --enable-threads
+make
+sudo make install

@@ -1,0 +1,31 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/ptcltrace.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>ptcltrace</h1>
+<p><h3>Trace how classification of a single particle changes</h3>
+ptcltrace  [ptcl=&lt;n>[,&lt;n>]] [iter=[&lt;n0>,&lt;n1>][&lt;n0>-&lt;n1>]] [sym=&lt;cn>] [simple] [report] [zap=&lt;maxang>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>[ptcl=&lt;n>[,&lt;n>]]</td><td>Particle number to evaluate (range 0-n)</td></tr>
+<tr><td>[iter=[&lt;n0>,&lt;n1>][&lt;n0>-&lt;n1>]]</td><td>Iterations to evaluate (range 1-n)</td></tr>
+<tr><td>[sym=&lt;cn>]</td><td>Specify symmetry of model only for Cn symmetries, NOT Dn </td></tr>
+<tr><td>[simple]</td><td>Short form report</td></tr>
+<tr><td>[report]</td><td>Generate report.txt with per-particle orientations for the last requested iteration</td></tr>
+<tr><td>[zap=&lt;maxang>]</td><td>Mark particles with a mean error that's too large</td></tr>
+</table><br><h3>Usage:</h3>
+<p>ptcltrace ptcl=5
+<p>ptcltrace iter=5,8 zap=5
+<h3>Description</h3>
+<P>This program is used to analyze particle.log and determine how
+consistent the orientation assignment for each particle is. In addition
+it can create a start.exclude file to exclude 'bad' particles from 
+further rounds of refinement.
+<P>The per-particle analysis compares the assigned Euler angles of each
+particle through several refinement iterations. The zap= option is
+used to specify the maximum allowable average Euler angle variation
+for each particle. Any particle which is not classified consistently
+within this angle will be added to the start.exclude file and will not
+be used in further rounds of refinement.
+<P>Iteration 0 is special. It represents the Euler angles stored in the particle
+headers. This can be used within EMAN for testing with simulated data, or
+with outside software that puts angles in the headers.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

@@ -1,0 +1,23 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/ivFit.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>ivFit</h1>
+<p><h3>This program fits the matched paires of helices returned by COSEC</h3>
+ivFit  &lt;input to-be-transformed IV file> &lt;input ref IV file> &lt;out IV file> [matched=&lt;n1,n2,n3,..>] [step=&lt;angle>] [int] [verbose]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input to-be-transformed IV file></td><td>The input Open Inventor format file for the helices to be transformed to match the &lt;ref IV></td></tr>
+<tr><td>&lt;input ref IV file></td><td>The input Open Inventor format file containing the ref helices </td></tr>
+<tr><td>&lt;out IV file></td><td>The output Open Inventor format file with transformed helices matching the ref helices</td></tr>
+<tr><td>[matched=&lt;n1,n2,n3,..>]</td><td>set the corresponding helices in &lt;ref IV file> that match the helices in &lt;input to-be-transformed IV file>, -1 for non-match</td></tr>
+<tr><td>[step=&lt;angle>]</td><td>step size in degree for the rotation fit, default to 5</td></tr>
+<tr><td>[int]</td><td>output the intermediate results with only the matched helices into file: ivFitProbe.iv and ivFitRef.iv</td></tr>
+<tr><td>[verbose]</td><td>will output some intermediate information</td></tr>
+</table><br><h3>Usage:</h3>
+<p>ivFit probe.iv ref.iv probe-out.iv step=4 matched=2,6,-1,3,8,5 verbose
+<h3>Description</h3>
+<P>This program uses Open Inventor library, so it is only working on SGI at this moment.
+<P>This program works correctly only for the special Open Inventor file containing only cylinders (helices).
+The matched option parameters come from the COSEC search result output.
+<P>Visit web page <a href="http://ncmi.bcm.tmc.edu/~wjiang/hhfh">Helixhunter and Foldhunter</a> for 
+more information.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

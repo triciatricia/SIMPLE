@@ -1,0 +1,3 @@
+This program reassigns Euler angles to a set of class averages by projection matching
+Usage:
+eulerproj  <classes> <refrences> [sigfilt] [frac=<num>/<denom>] [mask=<radius>] [imask=<radius>] [phase] [writeali] [verbose]

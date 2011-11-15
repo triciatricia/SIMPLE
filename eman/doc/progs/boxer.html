@@ -1,0 +1,390 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+        
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        
+  <meta name="Author" content="Steve Ludtke">
+        
+  <meta name="GENERATOR" content="Mozilla/4.6 [en] (X11; U; Linux 2.2.10 i686) [Netscape]">
+</head>
+  <body background="../paper01.jpg" nosave="">
+   <a href="http://ncmi.bcm.tmc.edu/%7Estevel/EMAN/doc"><img src="../EMAN2.logo.png">
+ </a>
+   
+<h2> boxer</h2>
+    
+<h3> A graphical program for locating particles within micrographs.</h3>
+    
+<p><br>
+ <b>Usage</b> <br>
+ boxer [&lt;filename&gt;] [area=&lt;num&gt;,&lt;denom&gt;,&lt;box size&gt;]
+ </p>
+ 
+<p><b>Description</b> <br>
+ Boxer is a graphical program for selecting particles from micrographs (or 
+CCD frames). Particle selection can be performed manually or semi-automatically.
+ Run the program with the name of the image containing particles to be selected.
+ </p>
+ 
+<p><b>Machines with limited memory</b> </p>
+ 
+<p>Since these images are often very large, possibly larger than your machine's
+ memory, the 'area=' option is provided to allow only a portion of the image
+ to be examined at once. Currently this option only works with images in
+the MRC format (Without this option, boxer can read images in any of the
+supported file formats). The 'area=' option has 3 parameters. The second
+parameter is the number of regions to split the micrograph into. This number
+must be an integer squared (ie - 4,9,16,...). The third number is the particle
+box size. When individual sections of the micrograph are read, enough overlap
+ between sections is allowed to insure that particles near the edge of the
+ secion can still be selected. Finally, the first number specifies which
+area should be read. This value is ranges from 0 to n-1. That is, if the
+second number is 4, the first number is 0,1,2 or 3. You can run 'iminfo &lt;image 
+file&gt;' to determine how much memory the entire micrograph will take. Generally 
+you want to make sure you have at least 50% more memory than this. If you 
+have less, you should use the 'area=' option or find a machine with more memory.
+</p>
+ 
+<p><b>Using boxer</b> </p>
+ 
+<p>The control panel for boxer is shown below. <br>
+ <img src="boxer.png" nosave="" height="180" width="327">
+  <br>
+ A. Measure Mode - The mouse can be used to measure distances in the micrograph
+ <br>
+ B. Select Mode - The mouse can be used to select particles and/or drag existing 
+boxes <br>
+ C. Delete Mode - The mouse can be used to delete particles in either view
+ <br>
+ D. Draw Mode - The mouse can be used to blank out areas of the micrograph
+ containing contamination to prevent autoboxing <br>
+ E. Box Size - The box size in pixels for Select and Draw mode <br>
+ F. A/Pix - Angstroms/pixel used in Measure Mode <br>
+ G. Scale - The scale used in the image display <br>
+ H. Panner - This allows you to pan around the micrograph<br>
+ I. Helix Mode - Special helix boxing mode allows filamentous particles to 
+be extracted as a set of particles<br>
+ J. Helix Submode - Allows for some subtle modifications to the helix boxing 
+mode<br>
+ K. Overlap - Specifies the amount of overlap between boxes in helix mode<br>
+ </p>
+ 
+<p>There are 3 windows in boxer. The control panel, the micrograph view,
+and the particle view. The control panel is described above. The micrograph
+view will display some fraction of the overall micrograph. The 'scale' in
+the control panel determines the scaling factor for this window. To pan around 
+the micrograph, either use the Panner (H) in the control panel, or drag directly 
+in the micrograph view with the middle mouse button. The particle view contains 
+the individual boxed out particles. In select mode, you can click on a particle 
+in the particle view and that particle will be centered in the micrograph 
+view. In delete mode, particles can be removed from either the micrograph 
+or the particle view. </p>
+ 
+<p>To adjust the brightness and contrast of either the image view or the
+particle view, click the center mouse button anywhere in the image. This
+will cause an 'image inspector' window to appear. This contains a variety
+of adjustments, and even allows you to save snapshots of the window to use
+in web pages or reports. </p>
+ 
+<p><b>Semi-automatic Boxing</b> </p>
+ 
+<p>Particles can be semi-automatically selected. This is done with a simple 
+correlation based method. There are four versions of this feature. Two are 
+currently functional, one for use on new particles where no 3D model yet exists,
+and another for cases where a low-resolution 3D model is available.  This
+feature is relatively easy to use, and generally works reasonably well, especially
+when a 3D reference is available: </p>
+ 
+<p><i>No 3D model available:</i> </p>
+ 
+<ol>
+  <li>If there are large areas of contamination, or the edge of the holey 
+film, etc., consider using the 'Draw' mode to paint out these areas. Otherwise 
+you may have to manually delete any boxes incorrectly assigned to these areas.
+   </li>
+   <li> Manually select a few representative particles in 'select' mode.
+Try to select a diverse set of particle orientations. In most cases 2 or
+3 particles is sufficient. The more particles you select here, the slower
+the autoboxing will be. </li>
+   <li>Select 'Autobox' from the 'Boxes' menu. In a few moments, you should 
+notice the list of boxed particles will change, and another window will appear 
+with 4 sliders. As you adjust the sliders, a 1024x1024 area surrounding the
+ first particle you selected manually will be continually reboxed. These
+sliders  represent several thresholds which are used to decide what is and
+isn't a particle. Since boxing the entire micrograph takes some time, these
+sliders are adjusted with only a 1k x 1k area being interactively reboxed.
+This allows accurate threshold setting for optimal autoboxing. </li>
+   <li> First, adjust the top slider until everything that could possibly 
+be a particle is selected. Then adjust the next three sliders to eliminate 
+anything that isn't a particle (you might not manage to get rid of all of 
+the non-particles). Generally, it's best to slide the last 3 sliders as far 
+to the right as possible without eliminating any real particles. When you've 
+got the sliders adjusted to do a pretty good job in selecting the particles 
+in this region of the micrograph, press 'OK'. The remainder of the micrograph 
+will then be automatically boxed. </li>
+   <li>You may wish to manually prune the particles in delete mode when the 
+autoboxing is complete. IF you did not use 'Draw' mode, this will be especially
+ necessary. </li>
+   <li>If you find that the autoboxing worked very poorly, you might want 
+to try again with different threshold settings. To do this, select 'Clear 
+boxes' from the 'Boxes' menu, then start again on step 2. </li>
+ 
+</ol>
+   
+<p>When you've got all of the particles in the micrograph selected, you can 
+save the selected particles using the 'Save Boxed Particles' command on the 
+Boxes menu. You may also wish to save a box database file (containing a list 
+of box positions in the micrograph). If you ever wish to go back to the original 
+micrograph and modify the box positions, you'll need this file. This is saved 
+using the 'Save Boxes' option on the Boxes menu. </p>
+ 
+<p><i>Preliminary 3D model available:</i> </p>
+ 
+<p> </p>
+ 
+<p>The basis for this technique is preparing a set of reference particles 
+from the available 3D model. Unlike the above method, no rotational averaging 
+is performed, making the particle matching much more accurate. However, this 
+means each reference must be prepared over a range of angles of in-plane rotation.
+Since this would produce a <i>very</i> large number of references which would
+make automatic boxing take prohibitively long, a novel procedure for determining
+an optimal smaller set of references is used. Once the reference set has
+been prepared, they may be reused. A script, new in version 1.2, is provided
+to make preparing the references easier. The script performs the following
+tasks. <i>Note: you do NOT need to perform these tasks manually</i> : </p>
+ 
+<ol>
+  <li><a href="project3d.html">project3d</a>
+  &lt;preliminary model&gt; sym=<sym if="" any=""> prop=30 phitoo <br>
+ Specify the symmetry if the model has any. You may wish to adjust the angle 
+(prop=) depending on the symmetry. Keep in mind that this angle is used for 
+in-plane rotations as well, so a small number can produce a <i>lot</i> of 
+projections. </sym></li>
+   <li><a href="classesbymra.html">classesbymra</a>
+  proj.hed proj.hed matrix split norot <br>
+ This process compares every projection with every other projection and stores 
+the results in matrix.dat. </li>
+   <li><a href="mx2img.html">mx2img</a>
+  matrix.dat matrix.mrc </li>
+   <li><a href="matrixembed.html">matrixembed</a>
+  matrix.mrc self.loc euler=proj.hed bestref=50 <br>
+ This determines the best set of reference images and puts them in best.hed. 
+'bestref=' specifies how many references to prepare, however, the images in
+best.hed is sorted. So, the best n references will always be the first n
+images in best.hed. </li>
+   <li>Decide how many references you want to use. More references will mean 
+slower, but more accurate autoboxing. To do this, use <a href="eman.html">
+ eman</a>
+  to examine best.hed and decide at what point this file can be truncated. 
+Assuming the projections have the opposite contrast of the micrographs, the 
+particles must be inverted as well. If, for example you decide to use 15 references,
+do: <br>
+ proc2d best.hed boxref.hed last=14 invert</li>
+ 
+</ol>
+   
+<p>To do all of this in one step, simply run:</p>
+ 
+<p>makeboxref.py &lt;threed file&gt; [sym=&lt;sym&gt;]&nbsp; [nref=&lt;n to
+gen&gt;] [invert] [ang=&lt;dalt&gt;] [phi=&lt;dphi&gt;]</p>
+ 
+<p>Generally you don't want to specify ang= or phi=, the automatic values 
+will suffice. EMAN uses higher densities as positive values by default. Generally 
+electron cryomicrographs will have smaller values for higher densities. If 
+this is the case for you, then you will want to specify the <i>invert</i>
+  option, so the reference image contrast matches your micrograph images. 
+nref specifies the number of reference images to generate. For an asymmetric 
+particle, you may want as many as 40-50. With some symmetry, you may be able 
+to drop this. Generally you'll pick a larger value than you expect to use, 
+then examine the results manually with <a href="eman.html">eman.</a>
+  What you're looking for is a set of projections that represents all possible 
+unique views of your particle at some unspecified level of detail. Generally 
+more references will produce more accurate boxing, but will (obviously) take 
+a proportionally longer time. Note that when selecting a subset of particles 
+to use, you may truncate the list of references, but you should NOT randomly 
+select particles from the list. The particles are sorted in order of their 
+mathematical dissimilarity. <br>
+ </p>
+ 
+<p>Now that you've got a set of reference images in boxref.hed/img, you're 
+ready to autobox some micrographs: </p>
+ 
+<ol>
+  <li>If there are large areas of contamination, or the edge of the holey 
+film, etc., consider using the 'Draw' mode to paint out these areas. Otherwise 
+you may have to manually delete any boxes incorrectly assigned to these areas.
+   </li>
+   <li>Center an area of the micrograph where some particles are visible
+on the screen. </li>
+   <li>Use the 'Boxes-&gt;Autobox from references' menu item, and select
+the boxref.hed file you created. </li>
+   <li>A small area of the micrograph will be interactively autoboxed, and 
+a panel with 4 sliders will appear. In this method, only the top 2 sliders 
+are currently used. To get optimal thresholds, slide the second slider all 
+the way to the left, then move the top slider to the left in small steps until
+everything you think is a particle is selected. Then, gradually move the
+second slider to the right until most of the improperly selected particles 
+have been eliminated. If you cannot eliminate virtually all of the false positives
+with the second slider, you may have to use the first slider to get a better
+set. When the sliders are set, click OK. </li>
+   <li>The entire micrograph will then be autoboxed. When the process is
+complete, you can (optionally) go through the particles manually and remove
+any remaining bad particles. When you're done, save the particles AND the
+box database.    </li>
+
+</ol>
+
+Alternatively, there is an 'Boxes-&gt;Autobox from references (with
+SNR)' menu item. This uses slightly different criteria for particle
+selection: the first threshold uses a minimum estimated SNR to find
+all candidate particles, the second eliminates boxes with high
+residual noise energy, and the third eliminates boxes with high
+spectral variation in the residual noise. (The second and third have
+similar purposes, but one may be more effective in particular cases.)
+Here is one way of determining a good set of thresholds: (1) Set the
+SNR treshold to zero; (2) adjust the second and third sliders to
+eliminate most junk; and (3) fine tune the SNR treshold. Finally, it
+is strongly recommended that the user specify an accurate set of
+references when using this option (in particular, accounting for the
+CTF if possible).
+
+<p><b>Focal Pairs</b> One common techniqe for locating particles in close 
+to focus micrographs is to take a focal pair, and begin by locating the particles 
+in the far from focus micrograph, where they are easier to find. Then the 
+particles from the close to focus micrograph can be determined by mapping 
+the boxes from one micrograph to the other. There are 2 ways to accomplish 
+this mapping.  </p>
+ 
+<p>The first is somewhat manual, but works well in most cases. Locate the 
+particles in the far from focus micrograph as described above. Then save the
+box positions to a file with the 'Save Box DB' menu item. Next, run boxer 
+with the close to focus micrograph. Then read in the box database you just 
+saved. Next you must manually adjust the positions of a few boxes in the micrograph.
+It's best to do this for at least one particle in each corner of the micrograph.
+Simply put the mouse in select mode and drag the boxes to their correct location.
+Note that it is VERY important to only do this for particles you can accurately
+adjust. Once you've moved a particle, it must be moved to the correct location.
+You cannot put it back where it started. If you make a mistake, clear the
+'Clear Boxes' menu item and read the database in again. Once you've manually
+adjusted several box positions, select the 'Adjust Boxes' menu item. The
+other boxes will then be adjusted. If you did a good job manually moving
+the boxes, you should have a pretty good match now.  </p>
+ 
+<p>The second method for adjusting the box locations is fully automatic, but
+it requires that your computer have a lot of memory (enough for 2 micrographs 
+at once), and it occasionally makes mistakes. For this method, box out the 
+particles in the first micrograph as before. It's probably a good idea to 
+save the particles and the box database for this micrograph before proceeding. 
+Next, select the 'Focal Pair Autoalign' menu item. This will pop up a brief 
+set of instructions. When you click OK, a file selector will appear. Select 
+the file containing the close to focus micrograph. Boxer will then automatically 
+align 1k x 1k areas of the first micrograph to the second micrograph. When 
+it finishes, all of the box positions should be correct. You can now save 
+the new box database and the boxed particles. </p>
+ 
+<p><b>Iterative Centering</b> </p>
+ 
+<p>Sometimes, especially when using the first autoboxing method, the selected 
+particles will not be well centered in their boxes. (In most cases, if the 
+second autoboxing method is used, the centering will be quite good, and this 
+procedure is not necessary). Previously, a program called <a href="cenalignint.html">
+  cenalignint</a>
+  was often used to better center the particles when a problem did exist. 
+ The 'Iterative Centering' option in boxer mimics this procedure, but with 
+several advantages. First, when centering already boxed particles, the edge 
+of the particles would be filled in with zero when the particle was translated. 
+This could lead to alignment problems later in processing. Second, this technique 
+led to lots of stray files laying around. Third, there are no problems with 
+particles being too close to the edge of the box and getting chopped in half.
+ </p>
+ 
+<p> Using this option in boxer will attempt to center the box positions as 
+described in the <a href="cenalignint.html">cenalignint</a>
+  manual page. It does not work on all particles. For example, particles
+like GroEL, with very non-rotationally symmetric features in some views,
+work very poorly with this procedure. Using this technique on some particles
+will cause the boxes to become severely mispositioned. It is a good idea
+to save your box database before trying this option. </p>
+ 
+<p><b>Normalize </b>In the previous versions (before 1.2 (42)), boxer would 
+automatically normalize the micrograph after reading it in. This no longer 
+happens. A menu item is available if you wish to do this. Generally it's a
+good idea, unless you have a specific reason not to.<br>
+ </p>
+ 
+<p><b>Stripe Filter</b> Some scanners (most notably Zeiss, now Z/I Imaging) 
+produce noticable vertical stripe patterns in scanned images. This is due 
+to poor averaging when normalizing the CCD. This problem has been improved 
+in recent versions of the scanner, I'm told, but still exists for many existing 
+scanners. This filter will average the center 1/2 of the micrograph vertically 
+and subtract the resulting values along vertical lines. This will remove the
+stripe artifacts in most cases. However, if there is strong contamination, 
+or if you have very large high-contrast particles, this technique may actually
+ produce new vertical stripes. Sometimes it's useful, sometimes it's not.
+</p>
+ 
+<p><b>Median Filters</b> </p>
+ 
+<p>Another way to find particles in a close to focus micrograph with poor 
+contrast is to filter the micrograph before locating the particles. Once the
+box positions are known, the data can then be boxed out of the unfiltered 
+micrograph. The 'Process' menu allows you to apply several different median 
+filters to the raw micrograph in memory. Once you've selected the particles 
+in the close to focus image, save the box database, read the original image 
+back in, and read the box database from the file.<br>
+</p>
+<p><b>Boxing filaments/helices</b></p>
+<p>Selecting helices is fairly straightforward. When the mouse is in helix
+mode, boxer will work as in 'select' mode, except pairs of boxes define the
+endpoints of a filament. That is, click once on one end of the filament,
+then click a second time one the other end of the filament. Boxer will create
+all of the particle boxes along the filament length. You can adjust the position
+of either endpoint. You may create as many such helical segments as you like
+within a single micrograph. The 'olap' parameter allows you to select how
+much overlap there should be between boxes. By default, the boxes will be
+separated by 'boxsize'-'Olap' pixels measured along the length of the helix.</p>
+<p>There are several submodes for helix mode, which allow other useful operations
+to be performed. In 'normal mode' the boxes are created along a straight-line
+path connecting the endpoints, and the 'particles' are simply boxed out normally.
+In 'Rotate Helix' mode, each individual box will be rotated so the helical
+segment will be aligned vertically in the box. This assumes, of course, that
+the filament is straight, and the endpoints are properly centered.&nbsp;</p>
+<p>A further refinement is the 'Align Helix' mode, which will attempt to
+follow the path of the helix between the 2 endpoints. The helical segments
+are then rotated to be vertical based on a local tangent to the helical path.
+This option is still experimental (1.2 (42)), and may not work well in all
+cases.</p>
+<p>The final mode is 'Unbend' mode. This mode will carefully trace the path
+of the filament between the endpoints. The boxed out 'particles' are no longer
+simply rotated, but are now unbent utilizing tangents and normals to the
+helical path at each pixel location. Of course this cannot compensate for
+true structural distortions present when a helix is bent, but it should be
+better than doing nothing at all. This option does not yet work properly
+in version 1.2 (42), but should work in subsequent releases.</p>
+<p><b><br>
+</b> </p>
+ 
+<p><b>Other Options</b> </p>
+ 
+<p>Most of the other options are experimental at this point. The 'check for 
+drift' option is amusing, if not exceptionally useful. Once particles have 
+been selected from the micrograph, this option will do a rough determination 
+of the relative amount of drift present in various areas of the image. Boxer 
+will calculate the 2D power spectrum of particles within a small area around 
+each particle. The averaged power spectrum is then checked for asymmetry. 
+The degree and direction of the asymmetry are used as an indication of the 
+relative amount of drift. This will be displayed by drawing a line for each 
+box. The length of the line  indicates the relative amount of drift. Note 
+that this value is relative. A micrograph with very little drift will still 
+have long lines in certain areas. <br>
+ &nbsp; </p>
+
+<p><b>Special Notes</b> </p>
+ 
+<p>Don't use too long path for the image files. If the whole path plus file 
+name is over 1024 charaters, it will make this application crash. <br>
+ &nbsp; </p>
+
+</body>
+</html>

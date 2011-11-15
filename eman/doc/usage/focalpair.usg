@@ -1,0 +1,3 @@
+Merges focal pairs into a single image with partial CTF correction
+Usage:
+focalpair  <input 1> <input 2> <output> [im1parm=<parm 1>] [im2parm=<parm 2>] [im1=<ctfparm entry>] [im2=<ctfparm entry>] sffile=<SF File> [noampc] [filt=<%>] [noali]

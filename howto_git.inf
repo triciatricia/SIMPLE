@@ -1,0 +1,59 @@
+git commit creates snapshot
+
+To create a repository from an existing directory of files, you can simply run git init in that directory.
+For example, let's say we have a directory with a few files in it, like this:
+
+$ cd konichiwa
+$ ls
+README   hello.rb
+
+This is a project where we are writing examples of the "Hello World" program in every language.
+So far, we just have Ruby, but hey, it's a start. To start version controlling this with Git, 
+we can simply run git init.
+
+$ git init
+Initialized empty Git repository in /opt/konichiwa/.git/
+Now you can see that there is a .git subdirectory in your project.
+This is your Git repository where all the data of your project snapshots are stored.
+
+$ ls -a
+.        ..       .git     README   hello.rb
+
+Congratulations, you now have a skeleton Git repository and can start snapshotting your project.
+In a nutshell, you use git init to make an existing directory of content into a new Git repository. 
+You can do this in any directory at any time, completely locally.
+
+git clone 
+
+copy a git repository so you can add to it
+If you need to collaborate with someone on a project, or if you want to get a copy of a project so you
+can look at or use the code, you will clone it. You simply run the git clone [url] command with the URL 
+of the project you want to copy.
+
+$ git clone git://github.com/schacon/simplegit.git
+Initialized empty Git repository in /private/tmp/simplegit/.git/
+remote: Counting objects: 100, done.
+remote: Compressing objects: 100% (86/86), done.
+remote: Total 100 (delta 35), reused 0 (delta 0)
+Receiving objects: 100% (100/100), 9.51 KiB, done.
+Resolving deltas: 100% (35/35), done.
+$ cd simplegit/
+$ ls
+README   Rakefile lib
+
+This will copy the entire history of that project so you have it locally and it will give you a working 
+directory of the main branch of that project so you can look at the code or start editing it. If you change
+into the new directory, you can see the .git subdirectory - that is where all the project data is.
+
+$ ls -a
+.        ..       .git     README   Rakefile lib
+$ cd .git
+$ ls
+HEAD        description info        packed-refs
+branches    hooks       logs        refs
+config      index       objects
+
+By default, Git will create a directory that is the same name as the project in the URL you give it -
+basically whatever is after the last slash of the URL. If you want something different, you can just put
+it at the end of the command, after the URL. In a nutshell, you use git clone to get a local copy of a
+ Git repository so you can look at it or start modifying it.

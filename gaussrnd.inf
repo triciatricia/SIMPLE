@@ -1,0 +1,24 @@
+Technical
+MVN was written in Fortran 90.
+
+To produce random multivariate normal numbers, MVN first generates random univariate normal numbers using the TOMS Algorithm 712 by JL Leva. The full reference is: Leva JL. Algorithm 712. A normal random number generator. ACM Transactions on Mathematical Software (TOMS), v.18 n.4, pp. 454-455, Dec. 1992. (Note this reference applies only to the generation of random univariate normal numbers, which is a step in the generation of random multivariate normal numbers.)
+
+The algorithm above uses the ratio of uniforms method of AJ Kinderman and JF Monahan augmented with quadratic bounding curves (citation needed).
+
+Uniform random numbers, used by this algorithm, are supplied by the default random number function of the Fortran 90 compiler (Absoft Pro Fortran 90, v. 7).
+
+The random multivariate normal numbers are produced by pre-multiplying a vector of random univariate normal numbers by the Cholesky decomposition of the correlation matrix according to the formula:
+
+                    Y = L X
+
+where
+
+    Y = a vector of random multivariate normal numbers 
+
+    X = a vector of random univariate normal numbers 
+
+    L = the Cholesky decomposition of the correlation matrix. 
+
+Here the Cholesky decomposition is stored in the lower triangle and main diagonal of a square matrix; elements in the upper triangle of the matrix are 0.
+
+Standard deviations are then multiplied and/or means added per the user specifications. 

@@ -1,0 +1,3 @@
+Generates an optimal set of reference projections from a 3D model for use in automatic particle selection
+Usage:
+makeboxref.py  <threed file> [sym=<sym>] [ang=<dalt>] [phi=<dphi>] [nref=<# to gen>] [invert]

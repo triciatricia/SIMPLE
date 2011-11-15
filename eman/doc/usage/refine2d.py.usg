@@ -1,0 +1,3 @@
+This is a program for iterative MSA-based particle classification and averaging
+Usage:
+refine2d.py  [--iter=<i>] [--ninitcls=<n>] [--finalsep=<n2>] [--nbasis=<b>] [--proc=<p>] [--ctfcw=<sffile>] [--minptcl=<m>] [--aliref=<ref img>]

@@ -1,0 +1,5 @@
+This program reads a set of images, transforms them, and generates and averaged power spectrum
+Usage:
+fftavg  <apix> <image file>
+
+ <apix> <Image 1> <Image 2> etc

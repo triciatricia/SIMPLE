@@ -1,0 +1,19 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/clsregen.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>clsregen</h1>
+<p><h3>This program uses particle.log to regenerate cls files for a particular iteration.</h3>
+clsregen  &lt;iteration>
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;iteration></td><td>The 'refine' iteration number to extract.</td></tr>
+</table><br><h3>Usage:</h3>
+<p>clsregen 1
+<h3>Description</h3>
+<P>This program will take the 'particle.log' file, and extract information on
+the particle classification for a particular iteration of the refine
+command and regenerate 'cls' files. This can be useful if you wish to run
+a t-test on a previously completed iteration.
+<P>Note: This will NOT regenrate the appropriate projections, though it will put in
+references to proj.hed which will work if it IS generated appropriately. That is,
+you need to rerun proc3d on the appropriate threed.?a.mrc file.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

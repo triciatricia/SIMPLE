@@ -1,0 +1,19 @@
+#!/usr/bin/csh
+# DATE: 3/13/09
+# Using Intel ifort compiler (evaluation)
+
+setenv F90 /usr/bin/ifort
+setenv F77 /usr/bin/ifort
+setenv CC  /usr/bin/icc
+
+# Started with: /net/bali/usr1/spider/fftw/fftw3-osx
+# make distclean
+# ./configure --enable-threads --enable-float --with-openmp --with-combined-threads --enable-type-prefix
+  make  FAILED:  with icc errors
+
+Downloaded: FFTW 3.2.1 
+# ./configure --enable-threads --enable-float --with-openmp --with-combined-threads --enable-type-prefix
+FAILED: did not recognize: --with-openmp  --enable-type-prefix
+
+./configure CC="icc" F77="ifort" F90="ifort" --enable-openmp --enable-float 
+

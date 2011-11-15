@@ -1,0 +1,46 @@
+Tcenvol_xcode
+v7
+r0
+t342400861.143528
+cCheck dependencies
+
+N/Developer/SDKs/MacOSX10.6.sdk
+c000000004A769DAB00000000000000EE
+t1249287595
+s238
+
+N/Developer/SDKs/MacOSX10.6.sdk/usr/include/stdio.h
+c000000004A5C14A70000000000004174
+t1247548583
+s16756
+
+N/Users/hael/src/fortran/lib/simple/Debug/cenvol_xcode
+c00000000000000000000000000000000
+t2
+s0
+
+N/Users/hael/src/fortran/lib/simple/cenvol_xcode.build/Debug/cenvol_xcode.build/Objects-normal/x86_64/cenvol_xcode.LinkFileList
+c00000000000000000000000000000000
+t2
+s0
+
+N/Users/hael/src/fortran/lib/simple/cenvol_xcode.build/Debug/cenvol_xcode.build/Objects-normal/x86_64/main.o
+t2
+s0
+
+N/Users/hael/src/fortran/lib/simple/cenvol_xcode/main.c
+c000000004EB867AA0000000000000089
+t1320708010
+s137
+i<stdio.h>
+
+CCheck dependencies
+r0
+lSLF07#2@18"Check dependencies342400861#342400861#0(0"0(0#1#0"17213981184#0"0#
+
+CCompileC /Users/hael/src/fortran/lib/simple/cenvol_xcode.build/Debug/cenvol_xcode.build/Objects-normal/x86_64/main.o /Users/hael/src/fortran/lib/simple/cenvol_xcode/main.c normal x86_64 c com.apple.compilers.gcc.4_2
+r0
+
+CLd /Users/hael/src/fortran/lib/simple/Debug/cenvol_xcode normal x86_64
+r0
+

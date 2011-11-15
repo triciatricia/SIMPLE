@@ -1,0 +1,3 @@
+Generate projections of a 3D model
+Usage:
+project3d  <input file> [out=<file>] [prop=<dtheta>] [perturb] [4point[=<az>]] [euler=<alt>,<az>,<phi>] [list=<euler file>] [spiral=<angles>] [grid=<steps>] [reproj=<class file>] [mask=<radius>] [text] [sym=<c4,icos,etc>] [icos5fhalfmap] [pad=<newsize>] [mode=<1-6>] [phitoo[=<ang>]] [smear] [phicomp] [randomphi] [randomall[=<altmin>,<altmax>,<azmin>,<azmax>,<phimin>,<phimax>]] [frac=<0 to d-1>/<d>] [minalt=<ang>] [makemask] [mrc2voltable]

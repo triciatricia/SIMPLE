@@ -1,0 +1,27 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/align3d.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>align3d</h1>
+<p><h3>Rotational and translational alignment of 3d models</h3>
+align3d  &lt;fixed input> &lt;input> &lt;output> [checkflip] [trans] [refine] [slow] [noshrink] [p3d] [saveref] [precen]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;fixed input></td><td>The reference to align to</td></tr>
+<tr><td>&lt;input></td><td>Volume to be aligned</td></tr>
+<tr><td>&lt;output></td><td>Aligned output</td></tr>
+<tr><td>[checkflip]</td><td>Allow for possible handedness difference between models</td></tr>
+<tr><td>[trans]</td><td>Do a translational alignment at the end. Works better if models are precentered</td></tr>
+<tr><td>[refine]</td><td>Assumes the models are already within a few degrees of proper alignment</td></tr>
+<tr><td>[slow]</td><td>For models that seem to be difficult to align, this will search with a finer angular step</td></tr>
+<tr><td>[noshrink]</td><td>Normally the models are scaled down by a factor of 2 for faster alignment. This causes the full sized model to be used.</td></tr>
+<tr><td>[p3d]</td><td>Generate a 3d dataset containing the correlations vs the 3 euler angles</td></tr>
+<tr><td>[saveref]</td><td>Experimental</td></tr>
+<tr><td>[precen]</td><td>Experimental</td></tr>
+</table><br><h3>Usage:</h3>
+<p>align3d &lt;fixed input> &lt;free input> &lt;output> [p3d] [refine] [checkflip] [saveref] [slow] [precen]
+<h3>Description</h3>
+<P>This program will take one 3d model and optimally align it to another 'reference' model.
+Rotational alignment is performed by testing all possible angles at progressively smaller
+angular increments. If the initial increment is too large, it may fail for some models.
+The slow option will reduce the initial increment to try to take care of this problem.
+Eventually this routine will be rewritten to use rotational cross-correlation. 
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

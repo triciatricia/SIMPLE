@@ -1,0 +1,37 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/segment3d.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>segment3d</h1>
+<p><h3>Split a 3d map into several pieces.</h3>
+segment3d  &lt;input file> &lt;output file> [watershed[=&lt;lp>[,&lt;hp>]] [nseg=&lt;n seg>] [morph=&lt;vector file>] [ampw] [thr=&lt;val>] [split] [maxit=&lt;n>] [itxp=&lt;n>] [vector=&lt;outfile>] [apix=&lt;apix>] [chimeraout=&lt;outfile.cmm>] [pdb=&lt;outfile>] [gaussmod=&lt;mrc out>] [randomize] [stats] [segmaxv] [resegbystats=&lt;thr>] [sym=&lt;sym>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>Source file</td></tr>
+<tr><td>&lt;output file></td><td>Destination file</td></tr>
+<tr><td>[watershed[=&lt;lp>[,&lt;hp>]]</td><td>Apply simplistic watershed segmentation instead of the default (k-means), with an optional pre-filter</td></tr>
+<tr><td>[nseg=&lt;n seg>]</td><td>Number of segments to split map into</td></tr>
+<tr><td>[morph=&lt;vector file>]</td><td>Takes the result of a previous segmentation and uses it to seed a new segmentation</td></tr>
+<tr><td>[ampw]</td><td>Apply a straight line integral amplitude weight to the distance parameter</td></tr>
+<tr><td>[thr=&lt;val>]</td><td>Only segment voxels above the given threshold, neg values use sigma multipliers</td></tr>
+<tr><td>[split]</td><td>Separate out the individual segments </td></tr>
+<tr><td>[maxit=&lt;n>]</td><td>Specify maximum iterations before giving up on convergence</td></tr>
+<tr><td>[itxp=&lt;n>]</td><td>After the segmentation, iteratively extend the segments into regions below threshold, n is the number of voxels of expansion</td></tr>
+<tr><td>[vector=&lt;outfile>]</td><td>Write segment centers to a text file  x,y,z,dx,dy,dz</td></tr>
+<tr><td>[apix=&lt;apix>]</td><td>A/pix for chimera output</td></tr>
+<tr><td>[chimeraout=&lt;outfile.cmm>]</td><td>Write segment centers to a chimera marker file</td></tr>
+<tr><td>[pdb=&lt;outfile>]</td><td>Write segment centers to a PDB file</td></tr>
+<tr><td>[gaussmod=&lt;mrc out>]</td><td>Construct a 3d model from Gaussians centered at the group centers.</td></tr>
+<tr><td>[randomize]</td><td>This will randomize the gaussians by rotating them randomly with a fixed radius</td></tr>
+<tr><td>[stats]</td><td>Produce a file containing mean density values in each segment</td></tr>
+<tr><td>[segmaxv]</td><td>Instead of an integer segmap, writes the 'max' value for the segment</td></tr>
+<tr><td>[resegbystats=&lt;thr>]</td><td>Merge segments with mean densities above or below the threshold value</td></tr>
+<tr><td>[sym=&lt;sym>]</td><td>Insure a symmetric segmentation</td></tr>
+</table><br><h3>Usage:</h3>
+<p>segment3d threed.1a.mrc seg.mrc 12 thr=1
+<h3>Description</h3>
+<P>This program will take a 3D map and that map into 'segments'.
+That is, every voxel in the map will be assigned to one of <n seg> segments. The assignment
+is performed in such a way that high density regions will be grouped together.
+<P>Note that using the 'watershed' option combined with 'nseg=' will not produce
+a true 'watershed' segmentation of the image. Instead, it will produce nseg segments
+then will 'flood fill' the remaining areas above the threshold.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

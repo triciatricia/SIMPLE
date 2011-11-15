@@ -1,0 +1,22 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/seteulers.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>seteulers</h1>
+<p><h3>Will assign Eulers from a text file or modify existing assignments (IMAGIC only)</h3>
+seteulers  &lt;images> [dump=&lt;listfile>] [spiderout] [imagicout] [mrcout] [sgiout] [fromfile=&lt;listfile>] [collapse=&lt;angle>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;images></td><td>File to assign to or modify</td></tr>
+<tr><td>[dump=&lt;listfile>]</td><td>Dumps the (processed) Eulers to a textfile. If used, Eulers are NOT written to &lt;images></td></tr>
+<tr><td>[spiderout]</td><td>Used with 'dump' to produce Spider style Eulers (phi,theta,gamma)</td></tr>
+<tr><td>[imagicout]</td><td>Used with 'dump' to produce Imagic style Eulers (alpha,beta,gamma)</td></tr>
+<tr><td>[mrcout]</td><td>Used with 'dump' to produce MRC style Eulers (theta,phi,omega)</td></tr>
+<tr><td>[sgiout]</td><td>Used with 'dump' to produce IRIX Explorer angles (Q,n1,n2,n3)</td></tr>
+<tr><td>[fromfile=&lt;listfile>]</td><td>Listfile contains 'N alt az phi' in degrees</td></tr>
+<tr><td>[collapse=&lt;angle>]</td><td>If alt>angle -> 90, alt&lt;angle expanded to reach 90</td></tr>
+<h3>Description</h3>
+<P>This program is used to work with Euler angles present in the image header.
+It can be used to set angles from a text file, dump existing angles to a text file,
+or modify the angles in one of several specific ways.
+<P>'collapse' allows compensation for the problem that sometimes the equatorial Eulers (alt=90)
+get pushed up towards the pole (alt=0). This will linearly 'collapse' the angles back towards the equator.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

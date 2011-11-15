@@ -1,0 +1,3 @@
+This will determine a set of orthogonal basis images from a set of projections
+Usage:
+powdcmp  <images> <basis> [n=<n basis>] [mask=<radius>]

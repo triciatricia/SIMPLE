@@ -1,0 +1,2 @@
+rdoc-f95 --diagram --one-file 
+rdoc-f95 --all --inline-source --main=evol_align

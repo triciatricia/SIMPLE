@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="StarOffice/5.0 (Unix)">
+	<META NAME="AUTHOR" CONTENT="Steve Ludtke">
+	<META NAME="CREATED" CONTENT="19990122;22331500">
+	<META NAME="CHANGEDBY" CONTENT="Steve Ludtke">
+	<META NAME="CHANGED" CONTENT="19990122;23095500">
+	<STYLE>
+	<!--
+	-->
+	</STYLE>
+</HEAD>
+<BODY>
+<H2>EMAN</H2>
+<H3>Preliminary Model Generation</H3>
+<H4>Self Symmetry Search</H4>
+<P>The second step in generating a preliminary model is a
+self-symmetry search. This, and all of the remaining steps in
+generating a preliminary model are performed automatically by
+<A HREF="progs/startcsym.html">startcsym</A> or <A HREF="progs/starticos.html">starticos</A>.</P>
+<P>In this stage, each particle is assigned a quality factor based on
+its symmetry. Then the best particles with each required symmetry are
+pulled out and stored in a separate files. For icosahedral symmetry,
+5-fold, 3-fold and 2-fold rotational symmetries are searched for. For
+particles with a single n-fold rotational symmetry, 2 views are
+searched for. The top view will contain the Cn symmetry. The side
+view will contain particles with a mirror symmetry (when n is even)
+or a near-mirror symmetry (when n is odd). In this case particles are
+also ranked based on how <I>poorly</I> the particle matches the Cn
+symmetry.</P>
+<P><A HREF="flowchart.html">Back to the flowchart</A></P>
+<P><A HREF="flow1.align.html">On to the next step</A></P>
+<HR>
+<P><I>Last Modified:&nbsp;</I><SCRIPT LANGUAGE="JavaScript">
+document.write(document.lastModified)
+</SCRIPT>
+ 
+</BODY>
+</HTML>

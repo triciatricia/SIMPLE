@@ -1,0 +1,24 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/align2d.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>align2d</h1>
+<p><h3>This program will align a set of images to a reference</h3>
+align2d  &lt;fixed input> &lt;input> &lt;output> [fixn=&lt;n>] [noflip] [precen] [seqali] [eulali] [pgm] [log] [edgenorm] [keepeulers]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;fixed input></td><td>Reference image</td></tr>
+<tr><td>&lt;input></td><td>Images to be aligned</td></tr>
+<tr><td>&lt;output></td><td>Output filename</td></tr>
+<tr><td>[fixn=&lt;n>]</td><td>Image number to use in fixed input stack</td></tr>
+<tr><td>[noflip]</td><td>Rotational/translational alignment without flips</td></tr>
+<tr><td>[precen]</td><td>No translational alignment</td></tr>
+<tr><td>[seqali]</td><td>Align 1st image to ref, 2nd to 1st, 3rd to 2nd, etc.</td></tr>
+<tr><td>[eulali]</td><td>Align each image to images with similar Eulers, referring to the 1st image in the file.</td></tr>
+<tr><td>[pgm]</td><td>Output in pgm format, note there should only be one input in this case</td></tr>
+<tr><td>[log]</td><td>Logs rotations/translations to align.log</td></tr>
+<tr><td>[edgenorm]</td><td>Perform an edgenormalization of both images before alignment</td></tr>
+<tr><td>[keepeulers]</td><td>Indicates that the input images have accurate Eulers which need to be preserved.</td></tr>
+</table><br><h3>Usage:</h3>
+<p>align2d proj.hed cls000.hed tst.hed
+<h3>Description</h3>
+<P>Pretty self explanatory. If the input is a stack, the first image is used.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

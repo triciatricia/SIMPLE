@@ -1,0 +1,14 @@
+#!/bin/csh
+# DATE: 3/13/09
+# Using PGI pgf95  compiler 
+
+#Downloaded: FFTW 3.2.1 
+# make distclean
+
+#which pgf95
+#/opt/pgi/osx86-64/8.0/bin/pgf95
+
+./configure  F77="/opt/pgi/osx86-64/8.0/bin/pgf77" CC="/opt/pgi/osx86-64/8.0/bin/pgcc" FFLAGS="-tp p7-64" CFLAGS="-tp p7-64" --enable-openmp --enable-float 
+
+#mkdir lib
+#cp .libs/*.a  threads/.libs/libfftw3f_threads.a lib

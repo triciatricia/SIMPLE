@@ -1,0 +1,24 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/tiltseries.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>tiltseries</h1>
+<p><h3>Aligns a set of images from a tilt series and assigns Eulers</h3>
+tiltseries  &lt;input file> &lt;output file> &lt;dang> [indccl] [fixang=&lt;ang>] [mask=&lt;pixel radius>] [skip=&lt;image0[,imageN]>] [maxshift=&lt;pixels] [vertical]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>Images to be processed</td></tr>
+<tr><td>&lt;output file></td><td>Processed output</td></tr>
+<tr><td>&lt;dang></td><td>Angular step between images</td></tr>
+<tr><td>[indccl]</td><td>Writes individual CCL images to ccl.hed</td></tr>
+<tr><td>[fixang=&lt;ang>]</td><td>If the common-line orientation is known, specify it here</td></tr>
+<tr><td>[mask=&lt;pixel radius>]</td><td>Mask type 4 (step cut off to zero), defaults to xSize()/3</td></tr>
+<tr><td>[skip=&lt;image0[,imageN]>]</td><td>The image index in the input file to skip for alignment.</td></tr>
+<tr><td>[maxshift=&lt;pixels]</td><td>Maximum shift in translational alignment, defaults to xSize()/4</td></tr>
+<tr><td>[vertical]</td><td>Align images so that tilt axis is vertical.</td></tr>
+</table><br><h3>Usage:</h3>
+<p>tiltseries particle.hed particle.tilt.hed 10
+<h3>Description</h3>
+<P>This program is still somewhat experimental
+<P>This proram is used for analysis of tilt-series, ie - tomography.
+This program will take a tilt series of a single particle, mutually align them,
+determine the tilt axis, and write the aligned images to a new file with Eulers.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

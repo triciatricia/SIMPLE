@@ -1,0 +1,3 @@
+This program performs a 2 way even/odd test to determine the resolution of a reconstruction.
+Usage:
+eotest  [proc=<min proc>,<maxproc>] [hard=<maxpr>] [ctfc=<res in A>] [ctfcw=<SF file>] [median] [sym=<c2,c4,etc>] [mask=<rad>] [pad=<size>] [classkeep=<sigma coef>] [classiter=<iter>] [precen] [imask=<rad>] [xfiles=<a/pix>,<mass in kd>,<ali to>] [amask=<r>,<thr>,<n iter>] [3dit=<n it>] [3dit2=<n it>] [euler2] [fscmp] [refine] [dfilt] [dfilt2] [frm2d[=<rad>,<samp>]] [refmaskali] [iter=<n>]

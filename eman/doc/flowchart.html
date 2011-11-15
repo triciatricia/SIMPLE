@@ -1,0 +1,44 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (X11; I; Linux 2.2.1 i686) [Netscape]">
+   <meta name="AUTHOR" content="Steve Ludtke">
+   <meta name="CREATED" content="19990121;23303700">
+   <meta name="CHANGEDBY" content="Steve Ludtke">
+   <meta name="CHANGED" content="19990121;23311700">
+<style>
+	<!--
+	-->
+	</style>
+</head>
+<body background="paper01.jpg">
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=EMAN.logo.png></a>
+
+<h2>
+Reconstruction Flowchart</h2>
+<i>Note: This flowchart is designed to show you how EMAN processes data,
+not to teach you how to use it. If you'd like to learn how to do a reconstruction,
+follow the customized 4 step reconstruction process provided by <a href="./progs/eman.html">eman</a></i>
+<p>
+<hr WIDTH="100%">
+<p>Click on a flowchart element for details.
+<br>&nbsp;
+<h4>
+Generate Initial Model</h4>
+(particles with at least 3-fold rotational symmetry)
+<p><map NAME="flowchart1"><area SHAPE=RECT COORDS="8,7,93,64" HREF="flow1.ptcl.html" ALT="The process begins with boxed particles"><area SHAPE=RECT COORDS="128,7,212,64" HREF="flow1.sym.html" ALT="The particles with the best symmetry are selected"><area SHAPE=RECT COORDS="248,3,333,69" HREF="flow1.align.html" ALT="Align and average these symmetric particles"><area SHAPE=RECT COORDS="238,103,342,170" HREF="flow1.euler.html" ALT="One euler angle still needs to be determined"><area SHAPE=RECT COORDS="109,103,203,170" HREF="flow1.make3d.html" ALT="Use the class averages to build a rough 3D model"></map><img SRC="flow1.gif" NAME="Graphic1" BORDER=0 USEMAP="#flowchart1" height=175 width=350 align=BOTTOM>
+<br>&nbsp;
+<br>&nbsp;
+<h4>
+Refine 3D model</h4>
+<map NAME="flowchart2"><area SHAPE=RECT COORDS="19,9,113,72" HREF="flow2.ctf.html" ALT="Determine the CTF parameters for particles from each micrograph"><area SHAPE=RECT COORDS="24,101,108,158" HREF="flow2.ptcl.html" ALT="Start with boxed particles"><area SHAPE=RECT COORDS="24,177,108,235" HREF="flow2.init.html" ALT="We also have a preliminary 3D model"><area SHAPE=RECT COORDS="149,178,233,234" HREF="flow2.proj.html" ALT="Generate projections from 3d model"><area SHAPE=RECT COORDS="274,177,357,235" HREF="flow2.class.html" ALT="Classify particles by projection matching"><area SHAPE=RECT COORDS="101,273,223,341" HREF="flow2.make3d.html" ALT="Use class averages to build 3D model"><area SHAPE=RECT COORDS="273,273,358,341" HREF="flow2.align.html" ALT="Align and average particles within each class"><area SHAPE=RECT COORDS="278,375,353,436" HREF="flow2.ctfc.html" ALT="Class averages are CTF corrected when CTF parameters are present"></map><img SRC="flow2.gif" NAME="Graphic2" BORDER=0 USEMAP="#flowchart2" height=444 width=369 align=BOTTOM>
+<br>&nbsp;
+<p>
+<hr>
+<p><i>Last Modified:&nbsp;</i><script LANGUAGE="JavaScript">
+document.write(document.lastModified)
+</script>
+
+</body>
+</html>

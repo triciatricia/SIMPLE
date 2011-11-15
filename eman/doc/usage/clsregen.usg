@@ -1,0 +1,3 @@
+This program uses particle.log to regenerate cls files for a particular iteration.
+Usage:
+clsregen  <iteration>

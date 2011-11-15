@@ -1,0 +1,21 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/lstcat.py.html</TITLE></HEAD><BODY background=../paper01.jpg>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>lstcat.py</h1>
+<p><h3>Generates a 'lst' file from a set of input image stacks</h3>
+lstcat.py  &lt;output> &lt;input>...
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;output></td><td>Output file, MUST BE SPECIFIED FIRST</td></tr>
+<tr><td>&lt;input>...</td><td>Input file(s), may be images of any type</td></tr>
+</table><br><h3>Usage:</h3>
+<p>lstcat.py start.lst orig.1.hed orig.2.hed orig.3.hed
+<h3>Description</h3>
+<P>This is a simple program which will generate a 'lst' file which
+concatenates a set of image files. A 'lst' file is a text file
+containing pointers to images in other files. This allows you
+to generate files with subsets of other files without making
+an actual copy of the data. This mechanism is used by 'refine'
+in generating the 'cls' files, for example. The 'lst' files are
+text files that can be edited by the user. EMAN will treat them
+as if they actually contained the referenced images.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

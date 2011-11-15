@@ -1,0 +1,10 @@
+#!/bin/tcsh
+setenv LD_LIBRARY_PATH
+setenv EMANDIR <SIMPLEPATH>/eman
+setenv LD_LIBRARY_PATH ${EMANDIR}/lib:${LD_LIBRARY_PATH}
+setenv PATH ${EMANDIR}/bin:${PATH}
+setenv PYTHONPATH ${EMANDIR}/lib
+setenv PYTHONPATH /usr/lib/python2.4:${PYTHONPATH}
+set path = ($path <SIMPLEPATH>/apps)
+set path = ($path <SIMPLEPATH>/bin)
+

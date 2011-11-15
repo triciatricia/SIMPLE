@@ -1,0 +1,3 @@
+Aligns a set of images iteratively to generate a class-average.
+Usage:
+classalign2  <input file> <iterations> [ref1] [ign1] [finalref] [saveali] [savecen] [savesteps] [badfile] [stat] [saverefs] [mask=<rad>] [refmask] [refmaskali] [maxshift=<rad>] [keep=<sigmamult>] [locfromfile] [median] [nweight] [ctfc=<res>] [ctfcw=<SF file>] [phaseopt] [ctfcw] [fixac=<0 to 1>] [imask=<rad>] [sigfilt] [even|odd] [sigmaimg] [logit=<label>] [refine] [usefilt] [slow] [phase] [fsc] [frm2d[=<rad>,<samp>]] [classalign2log]

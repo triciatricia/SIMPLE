@@ -1,0 +1,3 @@
+Rotational and translational alignment of 3d models
+Usage:
+align3d  <fixed input> <input> <output> [checkflip] [trans] [refine] [slow] [noshrink] [p3d] [saveref] [precen]

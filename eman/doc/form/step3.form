@@ -1,0 +1,24 @@
+
+T2###You've finished the hard part now. Most of what remains
+is waiting. You should now have a starting model in threed.0a.mrc and
+a bunch of particle data in start.hed/img. This step will help
+you get a refinement running.# #
+
+Fres##
+#Reconstruction Resolution (Angstroms)
+#This is the resolution you are trying to achieve. From the previous
+step, you should have a better estimate of this value now. If you
+aren't doing CTF correction, this is the resolution of the 1st zero of
+the CTF. If you ARE doing CTF correction you should have determined
+this number from the envelope functions of your data while using ctfit
+in step 1. In both cases it's usually a good idea to start with a 
+lower resolution than you hope to eventually achieve, then increase
+it once you've got a good low resolution model. A good rule of thumb
+is to start with about 1.5x worse resolution than you hope to achieve.#
+
+Ibsize#0,5000
+##Box Size (pixels)
+#You may have reduced the box size in an earlier step. Enter the
+current size of the particles in start.hed#
+
+BDONE###Click here when done##

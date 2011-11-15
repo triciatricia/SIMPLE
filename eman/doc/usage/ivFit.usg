@@ -1,0 +1,3 @@
+This program fits the matched paires of helices returned by COSEC
+Usage:
+ivFit  <input to-be-transformed IV file> <input ref IV file> <out IV file> [matched=<n1,n2,n3,..>] [step=<angle>] [int] [verbose]

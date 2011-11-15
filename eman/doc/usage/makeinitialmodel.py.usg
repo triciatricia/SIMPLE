@@ -1,0 +1,3 @@
+Interactively allows the user to make an initial model for iterative reconstruction
+Usage:
+makeinitialmodel.py 

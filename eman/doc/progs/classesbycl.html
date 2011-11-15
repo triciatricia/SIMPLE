@@ -1,0 +1,23 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/classesbycl.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>classesbycl</h1>
+<p><h3>This classifies a set of centered particles using self common lines.</h3>
+classesbycl  &lt;particles> &lt;refrences> [assigneuler] [eulerinref] [frac=&lt;num>/&lt;denom>] [verbose[=&lt;n>]] [matrix] [logit=&lt;label>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;particles></td><td>Raw particle filespec (must have a .cl. version)</td></tr>
+<tr><td>&lt;refrences></td><td>Reference image filespec (must have a .cl. version)</td></tr>
+<tr><td>[assigneuler]</td><td>Assigns Eulers to each raw image</td></tr>
+<tr><td>[eulerinref]</td><td>Euler angles should be taken from &lt;references> not common-lines file</td></tr>
+<tr><td>[frac=&lt;num>/&lt;denom>]</td><td>Operate only on a fraction of the raw images</td></tr>
+<tr><td>[verbose[=&lt;n>]]</td><td>More verbose output</td></tr>
+<tr><td>[matrix]</td><td>Generates similarity matrix for entire data set in matrix.dat</td></tr>
+<tr><td>[logit=&lt;label>]</td><td>This specifies a label to use in the particle.log file. This records particle number classification throughout a refinement.</td></tr>
+</table><br><h3>Usage:</h3>
+<p> classesbycl start.hed proj.hed
+<h3>Description</h3>
+<P>This classifies a set of raw particles based on a set of reference projections.
+The output is a set of cls*.img files, one file for each reference image. This
+program differs from classesbymra in the use of self common-lines maps for
+performing the actual comparisons. 
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

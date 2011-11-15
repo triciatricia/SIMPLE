@@ -1,0 +1,374 @@
+<html>
+<head>
+<title>Segment Volume - Segment Mask</title>
+<style type="text/css">
+<!-- 
+body 				{ width: 640px; margin: auto; padding: 24px;
+							font: Verdana, Arial, Helvetica, sans-serif; }
+p 					{	text-align: justify; padding-left: 16px; }
+.highlight 	{ color: #006699; }
+.code 			{ color: #666666; }
+-->
+</style>
+</head>
+
+<body>
+<h2>Segment Mask</h2>
+
+<img src="segmentmask.gif"> <!-- icon -->
+
+<h3>Introduction</h3>
+
+<p>The <span class="highlight">Segment Mask</span> module
+is available as a part of the 
+<a href="../SegmentHelp/index.html">Segment Volume</a> package. The module 
+is a <span class="highlight">Chimera</span> extension module. 
+To use this module, the <span class="highlight">Segment Menu</span> 
+module of the <span class="highlight">Segment Volume</span> package 
+is required. You will need the 
+<a href="http://www.cgl.ucsf.edu/chimera/">Chimera</a> and
+<a href="http://ncmi.bcm.tmc.edu/~steve/EMAN/doc/">EMAN</a> software 
+packages to use this module. 
+</p>
+
+<p>The module helps you to generate simple 3D shapes such 
+as cuboids, ellipsoids, cylinders, 3 and 4 sided pyramids, 
+and cones. 
+You can specify arbitrary sizes and orientations for these
+shapes and generate volume data in MRC format. The module
+is also useful to apply (add, multiply, etc.) a mask data 
+file to the input data.
+</p>
+
+<p><b>Note:</b> This version of the Segment Volume package is
+a pre-release version.</p>
+
+<h3>More:</h3>
+
+<ul>
+	<li><a href="#startup">Startup</a>
+		<ul>
+			<li><a href="#list">Listing the module</a></li>
+			<li><a href="#start">Starting the module</a></li>
+		</ul>
+	</li>
+	<li><a href="#dialog">Dialog</a>
+		<ul>
+			<li><a href="#datasec">Input data section</a></li>
+			<li><a href="#apply">Apply mask</a></li>
+			<li><a href="#create">Create mask</a></li>
+			<li><a href="#outsec">Output data section</a></li>
+			<li><a href="#buttons">Other buttons</a></li>
+		</ul>
+	</li>
+	<li><a href="#example">Example</a></li>
+<!--	<li><a href="#command">Command line options</a> (for advanced users)
+		<ul>
+			<li><a href="#commandget">Get transform of a model</a></li>
+			<li><a href="#commandapply">Apply a transform to a model</a></li>
+		</ul>
+	</li> -->
+	<li><a href="#notes">Notes</a>
+		<ul>
+			<li><a href="#angles">Euler angles</a></li>
+			<li><a href="#combine">Combinations</a></li>
+		</ul>
+	</li>
+</ul>
+
+<hr>
+
+<a name="startup"></a>
+<h3>Startup</h3>
+
+<a name="list"></a>
+<h4>Listing the module</h4>
+
+<p>The module files are stored in the directory 
+<span class="highlight">SegmentMask</span>. To list the module under 
+Chimera's <span class="highlight">Tools</span> menu, add the directory 
+-&nbsp;containing&nbsp;- the <span class="highlight">SegmentMask</span> 
+directory to Chimera's list of Tools.</p>
+
+<p>To do so, open Chimera's main window, choose 
+<span class="highlight">Perferences</span> under 
+<span class="highlight">Favorites</span> menu, then choose the 
+<span class="highlight">Tools</span> category and then 
+<span class="highlight">Add</span> the directory -&nbsp;containing&nbsp;- 
+the <span class="highlight">SegmentMask</span> directory. This will 
+list the tool under <span class="highlight">AIRS</span> on the 
+<span class="highlight">Tools</span> menu.</p>
+
+<a name="start"></a>
+<h4>Starting the module</h4>
+
+<p>To start the module from the Chimera menu, first you will need to ensure 
+that the module is <a href="#list">listed</a> under Chimera's 
+<span class="highlight">Tools</span> menu. Then, click on 
+<span class="highlight">Segment Mask</span> in the 
+<span class="highlight">AIRS</span> menu, under Chimera's 
+<span class="highlight">Tools</span> menu.</p>
+
+<p>Alternatively, you can use the command line tool in Chimera's 
+<span class="highlight">IDLE</span> tool (under Programming tools 
+on the Tools menu), and type: </p>
+
+<p>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; import SegmentMask<br>
+&nbsp;&nbsp;&gt;&gt;&gt; SegmentMask.maskmain.show_seg_mask_dialog() 
+</span>
+</p> 
+
+<hr>
+
+<a name="dialog"></a>
+<h3>Dialog</h3>
+
+<p><img src="maskmain.png" align="right" 
+style="margin-left:16px; margin-bottom:8px "></p>
+
+<a name="datasec"></a>
+<h4>Input data section</h4>
+
+<p>The Segment Mask dialog panel has four main sections. The first section 
+is the Input data section. The <span class="highlight">Data file menu</span> 
+and the <span class="highlight">Mask data file menu</span>
+automatically lists available data regions in Chimera's 
+<span class="highlight">Volume Viewer</span>. To select a data set, 
+simply pick an entry from this menu. The size of the data set in pixels 
+is automatically displayed on the dialog, below the menu. If the data set 
+is displayed in Chimera, then the <span class="highlight">Displayed</span> 
+value is set to <span class="highlight">Yes</span>.</p>
+
+<p>To open new models, click the <span class="highlight">Open</span> 
+button below either menu. This will open Chimera's 
+<span class="highlight">Volume Viewer</span> dialog and an 
+<span class="highlight">Open file browser</span> dialog. After adding 
+the models, if the models are not listed on the data menu, click the 
+<span class="highlight">Refresh menu</span> button, next to the 
+<span class="highlight">Open button</span> on the 
+<span class="highlight">Segment Mask</span> dialog.</p>
+
+<p>Alternatively, you can directly open new models using Chimera's 
+<span class="highlight">Volume Viewer</span>. Once again, if the newly 
+opened models are not displayed on the data menu, hit the 
+<span class="highlight">Refresh menu</span> button.</p>
+
+<a name="apply"></a>
+<h4>Apply mask</h4>
+
+<p><img src="maskmainapply.png" align="right" 
+style="margin-left:16px; margin-bottom:8px "></p>
+
+<p>
+To view the <span class="highlight">Apply mask</span> section,
+check the <span class="highlight">Apply Mask</span> checkbox
+at the top of the dialog.
+</p>
+
+<p>
+You can select an input data file from the 
+<span class="highlight">Input data file</span> menu and then 
+<span class="highlight">apply</span> a mask to the input data,
+and save the output in a file specified by 
+<span class="highlight">File MRC</span> entry. 
+</p>
+
+<p>
+You can perform simple operations such as multiply the data
+in the input data file with the mask data, or adding the data
+in the input data file to the mask data. You can also perform
+binary operations such as binary addition and binary subtraction.
+For the binary operations, a simple threshold of 0.5 is used. 
+Anything above 0.5 is set to 1 and anything below 0.5 is set to 0.
+</p>
+
+<a name="create"></a>
+<h4>Create mask</h4>
+
+<p><img src="maskmaincreate.png" align='right'
+style="margin-left:16px; margin-bottom:8px;"> </p>
+
+<p>
+To view the <span class="highlight">Create mask</span> section,
+check the <span class="highlight">Create Mask</span> checkbox
+at the top of the dialog. This section will allow you to 
+create simple shapes of arbitrary size and orientation.
+</p>
+
+<p>
+From the <span class="highlight">Mask Type</span> menu, you
+can select the shape that you are interested. Shapes supported
+include cuboid, ellipsoid, cylinder, cone, 3 and 4 sided pyramid.
+</p>
+
+<p>
+The diemnsions of the shape are specified in pixel units. 
+Depending on the shape, two or all three parameters 
+are required. The description of each parameter is
+specified for the shape selected on the 
+<span class="highlight">Mask Type</span> menu. For example,
+the cylinder is specified with just the first two parameters
+<span class="highlight">p0 - diameter</span> and
+<span class="highlight">p1 - length</span>. These 
+parameters are specified in pixels.
+</p>
+
+<p>
+In the Mask parameters section, 
+the size of the volume data, the origin, and the step size
+can all be specified or inherited from the data on
+the <span class="highlight">Input data menu</span>. 
+To inherit the values, check the 
+<span class="highlight">Inherit from Input Data</span> checkbox.
+</p>
+
+<p>
+The size is specified in pixels, the origin in Angstroms,
+and the step size in Angstroms per pixel. For a volume 
+data model open in Chimera, you can view these parameters
+in Chimera's <span class="highlight">Volume Viewer</span>
+dialog.
+</p>
+
+<p>
+You can now specify the rotation and translation to be applied
+to the mask object. The translation is specified in pixels,
+and the rotation is specified in degrees using EMAN's Euler angle
+convention. You can use the 
+<a href="../DockManual/dockmanual.html">Dock Manual</a> to get an
+idea of the rotation and translation parameters that you might
+need in your case.
+</p>
+
+<p>
+Within the shape, you can choose the pixel (voxel) values to be 
+all 1 or to set it proporational to the radial distance from a 
+central axis or a center point. To choose the former, select the
+<span class="highlight">Step</span> option. To make the pixel
+(voxel) values vary radially, select the <span class="highlight">Radial</span>
+option.
+</p>
+
+<p>
+A new mask file is created when the <span class="highlight">Create Mask</span>
+button is pressed. The file name is specified by the 
+<span class="highlight">Mask MRC File</span> entry before the button.
+</p>
+
+<a name="outsec"></a>
+<h4>Output data section</h4>
+
+<p>The output data section has an 
+<span class="highlight">Output data menu</span> that lists the 
+current segmented output files. To open or display the file in Chimera, 
+click on the <span class="highlight">Show</span> button. If more 
+than one output file was created, then you can click on 
+<span class="highlight">Show All</span> button to open and display 
+all the files on the menu. </p>
+
+<p>The <span class="highlight">Hide</span> button closes the model 
+(associated with the file on the 
+<span class="highlight">Output data menu</span>) in Chimera, but 
+leaves the entry on the <span class="highlight">Volume Viewer</span> 
+data menu unchanged. The <span class="highlight">Hide All</span> 
+button applies the <span class="highlight">Hide</span> button to all 
+the files on the output data menu.</p>
+
+<p>The <span class="highlight">Remove All</span> button removes all the 
+entries on the <span class="highlight">Output data menu</span>, but 
+leaves the corresponding entries (if any) on the 
+<span class="highlight">Volume Viewer</span> data menu unchanged.</p>
+
+<a name="buttons"></a>
+<h4>Other buttons</h4>
+
+<p>The <span class="highlight">Close</span> button closes the 
+<span class="highlight">Segment Mask</span> dialog. The 
+<span class="highlight">Help</span> button opens this help page.</p>
+
+<hr>
+
+<a name="example"></a>
+<h3>Example</h3>
+
+<p><img src="maskmainpyramid.png"></p>
+
+<p>Here, we have created a pyramid mask of size 
+96 x 96 x 96 pixels. The side length of the base of the
+pyramid is 32 pixels, and the height of the pyramid is 54 pixels.
+The pyramid is then translated by the vector (10,10,0) in
+pixel units and rotated along the azimuth by 20 degrees. The
+parameters are shown below.
+</p>
+
+<p><img src="maskmainegcreate.png"></p>
+
+<hr>
+
+<!-- <a name="command"></a>
+<h3>Command-line options (for advanced users)</h3>
+
+<a name="commandget"></a>
+<h4>Get a Chimera transform</h4>
+
+<p>To get the transform object of a Chimera model, simply type:<br>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; import SegmentTrack<br>
+&nbsp;&nbsp;&gt;&gt;&gt; SegmentTrack.trackxform.get_xform(model)
+</span>
+</p>
+
+<p>To get help, type:<br>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; help(TrackXform.get_xform)
+</span></p>
+
+<a name="commandapply"></a>
+<h4>Apply a Chimera transform</h4>
+
+<p>To apply the transform object to a Chimera model, simply type:<br>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; import SegmentTrack<br>
+&nbsp;&nbsp;&gt;&gt;&gt; SegmentTrack.trackxform.update_xform(model, xform)
+</span>
+</p>
+
+<p>To get help, type:<br>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; help(SegmentTrack.trackxform.update_xform)
+</span></p>
+
+<hr> -->
+
+<a name="notes"></a>
+<h3>Notes</h3>
+
+<a name="angles"></a>
+<h4>Euler angles</h4>
+
+<p>If you are not familiar with the EMAN Euler angles, you could
+use the <a href="../DockManual/dockmanual.html">Dock Manual</a> tool to
+figure out the right parameters for translation and rotation.</p>
+
+<a name="combine"></a>
+<h4>Combinations</h4>
+
+<p>You can create the simple shapes (cuboids, ellipsoids, etc.) and
+combine them to form more complex shapes. To do so, first, 
+load two masks on the <span class="highlight">Input data menu</span>
+and the <span class="highlight">Mask file menu</span> respectively, and
+then under <span class="highlight">Apply mask</span> section,
+use the <span class="highlight">Binary add</span> button.</p>
+
+<hr>
+
+<span class="highlight">
+<i>Segment Volume package (pre-release) - Segment Mask module<br>
+2005 April, Lavu Sridhar, Baylor College of Medicine</i>
+</span>
+
+</body>
+
+</html>

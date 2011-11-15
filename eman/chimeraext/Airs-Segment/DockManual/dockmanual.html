@@ -1,0 +1,444 @@
+<html>
+<head>
+<title>Segment Volume - Dock Manually</title>
+<style type="text/css">
+<!-- 
+body 				{ width: 640px; margin: auto; padding: 24px;
+							font: Verdana, Arial, Helvetica, sans-serif; }
+p 					{	text-align: justify; padding-left: 16px; }
+.highlight 	{ color: #006699; }
+.code 			{ color: #666666; }
+-->
+</style>
+</head>
+
+<body>
+<h2>Dock Manual</h2>
+
+<img src="dockmanual.gif"> <!-- icon -->
+
+<h3>Introduction</h3>
+
+<p>The <span class="highlight">Dock Manual</span> module
+is available as a part of the 
+<a href="../SegmentHelp/index.html">Segment Volume</a> package. The module 
+is a <span class="highlight">Chimera</span> extension module. 
+To use this module, the <span class="highlight">Segment Menu</span> 
+module of the <span class="highlight">Segment Volume</span> package 
+is required. You will need the 
+<a href="http://www.cgl.ucsf.edu/chimera/">Chimera</a> and
+<a href="http://ncmi.bcm.tmc.edu/~steve/EMAN/doc/">EMAN</a> software 
+packages to use this module. 
+</p>
+
+<p>The module helps dock two 3D density maps displayed in 
+Chimera (using rigid body transformations). You can use the
+mouse to drag and rotate the model or use the GUI to 
+incerement the location and orientation. The GUI also keeps
+track of the transformation of the model from the starting
+orientation and position of the model.</p>
+
+<p><b>Note:</b> This version of the Segment Volume package is
+a pre-release version.</p>
+
+<h3>More:</h3>
+
+<ul>
+	<li><a href="#startup">Startup</a>
+		<ul>
+			<li><a href="#list">Listing the module</a></li>
+			<li><a href="#start">Starting the module</a></li>
+		</ul>
+	</li>
+	<li><a href="#dialog">Dialog</a>
+		<ul>
+			<li><a href="#datasec">Input data section</a></li>
+			<li><a href="#param">Density parameters</a></li>
+			<li><a href="#units">Parameters units</a></li>
+			<li><a href="#xform">Probe transform</a></li>
+			<li><a href="#optimize">Optimize section</a></li>
+			<li><a href="#outsec">Output data section</a></li>
+			<li><a href="#buttons">Other buttons</a></li>
+		</ul>
+	</li>
+	<li><a href="#example">Example</a></li>
+<!--	<li><a href="#command">Command line options</a> (for advanced users)
+		<ul>
+			<li><a href="#commandget">Get transform of a model</a></li>
+			<li><a href="#commandapply">Apply a transform to a model</a></li>
+		</ul>
+	</li> -->
+	<li><a href="#notes">Notes</a>
+		<ul>
+			<li><a href="#inactive">Inactive models</a></li>
+		</ul>
+	</li>
+</ul>
+
+<hr>
+
+<a name="startup"></a>
+<h3>Startup</h3>
+
+<a name="list"></a>
+<h4>Listing the module</h4>
+
+<p>The module files are stored in the directory 
+<span class="highlight">DockManual</span>. To list the module under 
+Chimera's <span class="highlight">Tools</span> menu, add the directory 
+-&nbsp;containing&nbsp;- the <span class="highlight">DockManual</span> 
+directory to Chimera's list of Tools.</p>
+
+<p>To do so, open Chimera's main window, choose 
+<span class="highlight">Perferences</span> under 
+<span class="highlight">Favorites</span> menu, then choose the 
+<span class="highlight">Tools</span> category and then 
+<span class="highlight">Add</span> the directory -&nbsp;containing&nbsp;- 
+the <span class="highlight">DockManual</span> directory. This will 
+list the tool under <span class="highlight">AIRS</span> on the 
+<span class="highlight">Tools</span> menu.</p>
+
+<a name="start"></a>
+<h4>Starting the module</h4>
+
+<p>To start the module from the Chimera menu, first you will need to ensure 
+that the module is <a href="#list">listed</a> under Chimera's 
+<span class="highlight">Tools</span> menu. Then, click on 
+<span class="highlight">Dock Manually</span> in the 
+<span class="highlight">AIRS</span> menu, under Chimera's 
+<span class="highlight">Tools</span> menu.</p>
+
+<p>Alternatively, you can use the command line tool in Chimera's 
+<span class="highlight">IDLE</span> tool (under Programming tools 
+on the Tools menu), and type: </p>
+
+<p>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; import DockManual<br>
+&nbsp;&nbsp;&gt;&gt;&gt; DockManual.dockmanual.show_dock_manual_dialog() 
+</span>
+</p> 
+
+<hr>
+
+<a name="dialog"></a>
+<h3>Dialog</h3>
+
+<p><img src="dockmanual.png" align="right" 
+style="margin-left:16px; margin-bottom:8px "></p>
+
+<a name="datasec"></a>
+<h4>Input data section</h4>
+
+<p>The Dock Manual dialog panel has six main sections. The first section 
+is the Input data section. The <span class="highlight">Data file menu</span> 
+automatically lists available data regions in Chimera's 
+<span class="highlight">Volume Viewer</span>. The 
+<span class="highlight">Probe model menu</span> lists all Chimera open
+models including volume data regions in Chimera's 
+<span class="highlight">Volume Viewer</span>.</p>
+
+<p>
+To select an input (volume) data set, 
+simply pick an entry from the <span class="highlight">Data file</span> menu. 
+The size of the input data set in pixels 
+is automatically displayed on the dialog, below the menu. If the data set 
+is displayed in Chimera, then the <span class="highlight">Displayed</span> 
+value is set to <span class="highlight">Yes</span>.</p>
+
+<p>To open new models, click the <span class="highlight">Open</span> 
+button below the menu. This will open Chimera's 
+<span class="highlight">Volume Viewer</span> dialog and an 
+<span class="highlight">Open file browser</span> dialog. After adding 
+the models, if the models are not listed on the data menu, click the 
+<span class="highlight">Refresh menu</span> button, next to the 
+<span class="highlight">Open button</span> on the 
+<span class="highlight">Dock Manual</span> dialog.</p>
+
+<p>Alternatively, you can directly open new models using Chimera's 
+<span class="highlight">Volume Viewer</span>. Once again, if the newly 
+opened models are not displayed on the data menu, hit the 
+<span class="highlight">Refresh menu</span> button.</p>
+
+<p>
+To select an input probe model, simply pick an entry from the 
+<span class="highlight">Probe model menu</span>. This model is
+transformed (rigid-body rotation and translation) to fit into
+the input data.
+</p>
+
+<p>
+To open new models, use Chimera's <span class="highlight">File menu</span>
+on the Chimera main window to open models (volume data or PDB structures).
+</p>
+
+<a name="param"></a>
+<h4>Density parameters</h4>
+
+<p>
+You can specify the density parameters of the input data,
+in terms of the <span class="highlight">Angstroms per pixel</span>
+and <span class="highlight">Resolution</span>. The default values are
+set to 1.0 for both the parameters.
+</p>
+
+<p>
+The <span class="highlight">Angstroms per pixel</span> value 
+specifies the number of Angstroms per pixel along any given
+dimension. It is assumed that this value along all the 
+three dimensions (x, y, and z).
+</p>
+
+<p>
+The <span class="highlight">Resolution</span> value 
+specifies the resolution of the structure generated from
+raw data.
+</p>
+
+<a name="units"></a>
+<h4>Parameters units</h4>
+
+<p><img src="dockmanualunits.png" align='right'
+style="margin-left:16px; margin-bottom:8px;"> </p>
+
+<p>
+To change the units used to specify translation and rotation, you
+can check the <span class="highlight">Units</span> checbox at the 
+top of the dialog. You can choose the units for translation
+as <span class="highlight">Angstroms</span> or <span class="highlight">Pixels</span>
+and the units for rotation as <span class="highlight">Degrees</span> or
+<span class="highlight">Radians</span>. You can also choose the angle convention to
+be either EMAN's <span class="highlight">euler</span> angle convention or 
+Chimera's <span class="highlight">spin</span> axis convention.
+</p>
+
+<a name="xform"></a>
+<h4>Probe transform</h4>
+
+<p><img src="dockmanualxf.png" align='right'
+style="margin-left:16px; margin-bottom:8px;"> </p>
+
+<p>
+You can specify the transformation to be applied to the probe model
+using the <span class="highlight">Probe Transform</span> section. 
+To view the <span class="highlight">Probe Transform</span> section, 
+check the <span class="highlight">Transform</span> checkbox at 
+the top of the dialog.
+</p>
+
+<p>
+You can choose the angle conventions and the translation and angle
+units in the <a href="#units">Parameter Units</a> section.
+</p>
+
+<p>
+The <span class="highlight">Apply Xform</span> button applies
+the transform to the probe model. 
+The <span class="highlight">Set Xform</span> button sets the 
+global transform of the probe model to the specified transform 
+parameters.
+The <span class="highlight">Get Xform</span> button gets the
+current global transform parameters of the probe model.
+</p>
+
+<p>
+To move the probe model, you can also use the mouse buttons.
+</p>
+
+<p>
+To move the probe model in inceremental steps, you can pick
+the parameters that you want to change. Here, dx, dy, dz correspond
+to x, y, z directions respectively, and da0, da1, da2 correspond
+to the EMAN Euler angles, ds0 corresponds to the spin axis angle.
+</p>
+
+<p>
+You can specify the distance/angle you want to change the parmeters
+by specifying the values in the two boxes next to 
+<span class="highlight">Step</span>
+button. The <span class="highlight">Step</span> button steps the probe
+model in the chosen directions by the chose amounts.
+</p>
+
+<a name="optimize"></a>
+<h4>Optimize section</h4>
+
+<p><img src="dockmanualoptimize.png" align='right'
+style="margin-left:16px; margin-bottom:8px;"> </p>
+
+<p>
+To view the <span class="highlight">Optimize parameters</span> 
+and the <span class="highlight">Optimize options</span>sections,
+check the <span class="highlight">Optimize</span> checkbox at the top.
+To automatically optimize the docking you can use the 
+<span class="highlight">Optimize options</span> section.
+There are two options available in the current release. 
+</p>
+
+<p>
+The first one, <span class="highlight">Mean density at C-A</span>,
+optimizes the density at the Carbon-alpha atoms in the probe atomic 
+structure. This would work <span class="highlight">ONLY IF</span> 
+the probe model is an atomic model with Carbon-alpha atoms. 
+This method optimizes the density 
+values at all the Carbon-alpha atoms. The search space is specified
+in the <span class="highlight">Optimize parmeters</span> section.
+The units correspond to <a href="#units">Parameter units</a> section.
+</p>
+
+<p>
+The <span class="highlight">Get</span> button computes the 
+mean density at all the Carbon-alpha atoms. 
+The <span class="highlight">Optimize</span> button uses the
+angle range and angle step size in the 
+<span class="highlight">Optimize parameters</span> section,
+and the current position and angles as the starting orientation.
+The <span class="highlight">Save</span> button saves the probe 
+model with its orientation relative to the starting orientation
+of the input probe model. 
+</p>
+
+<p>
+The second method, <span class="highlight">Foldhunter</span>,
+simply calls EMAN's <span class="highlight">foldhunter</span> 
+program. The search space is specified in the
+<span class="highlight">Optimize parmaters</span> section.
+The units correspond to <a href="#units">Paramter units</a> section.
+</p>
+
+<p>
+Note that the foldhunter program uses only the current angle 
+parameters as the starting angle parameters of the probe model 
+and the angle step size and angle range. 
+It does NOT use the current position of the probe model as
+the starting position.
+</p>
+
+<a name="outsec"></a>
+<h4>Output data section</h4>
+
+<p>The output data section has an 
+<span class="highlight">Output data menu</span> that lists the 
+current segmented output files. To open or display the file in Chimera, 
+click on the <span class="highlight">Show</span> button. If more 
+than one output file was created, then you can click on 
+<span class="highlight">Show All</span> button to open and display 
+all the files on the menu. </p>
+
+<p>The <span class="highlight">Hide</span> button closes the model 
+(associated with the file on the 
+<span class="highlight">Output data menu</span>) in Chimera, but 
+leaves the entry on the <span class="highlight">Volume Viewer</span> 
+data menu unchanged. The <span class="highlight">Hide All</span> 
+button applies the <span class="highlight">Hide</span> button to all 
+the files on the output data menu.</p>
+
+<p>The <span class="highlight">Remove All</span> button removes all the 
+entries on the <span class="highlight">Output data menu</span>, but 
+leaves the corresponding entries (if any) on the 
+<span class="highlight">Volume Viewer</span> data menu unchanged.</p>
+
+<a name="buttons"></a>
+<h4>Other buttons</h4>
+
+<p>The <span class="highlight">Close</span> button closes the 
+<span class="highlight">Dock Manual</span> dialog. The 
+<span class="highlight">Help</span> button opens this help page.</p>
+
+<hr>
+
+<a name="example"></a>
+<h3>Example</h3>
+
+<p><img src="dockmanualegentry.png"></p>
+
+<p><img src="dockmanualegbefore.png" align="left">&nbsp;<img src="dockmanualegafter.png"></p>
+
+<p>In the first figure, we have the input model (volume density) and 
+a probe model (atomic structure). We make the input model inactive
+(see Chimera's <span class="highlight">Model Panel</span> under 
+<span class="highlight">Favorites</span>). In this case, the input
+density map has an Angstroms per pixel value of 1.6 and a Resolution
+of 6.5 Angstroms.
+</p>
+
+<p><img src="dockmanualegxf.png"></p>
+
+<p>
+Now, we use the mouse to align the probe model into the input model.
+Once we have aligned, we can save the probe model with a new orientation
+relative to the original probe model orientation by clicking on
+<span class="highlight">Save</span> button in the 
+<a href="#optimize">Optimize section</a>.
+</p>
+
+<p>
+To get even better results, we use the Foldhunter program. We re-load the
+modified probe model from the previous step and select it on the
+<span class="highlight">Probe model menu</span>. We specify an 
+angle range and an angle step size and then call EMAN's foldhunter
+program by clicking on <span class="highlight">Apply</span> button
+next to <span class="highlight">Foldhunter</span> in the
+<span class="highlight">Optimize options</span> section.
+</p>
+
+<hr>
+
+<!-- <a name="command"></a>
+<h3>Command-line options (for advanced users)</h3>
+
+<a name="commandget"></a>
+<h4>Get a Chimera transform</h4>
+
+<p>To get the transform object of a Chimera model, simply type:<br>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; import SegmentTrack<br>
+&nbsp;&nbsp;&gt;&gt;&gt; SegmentTrack.trackxform.get_xform(model)
+</span>
+</p>
+
+<p>To get help, type:<br>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; help(TrackXform.get_xform)
+</span></p>
+
+<a name="commandapply"></a>
+<h4>Apply a Chimera transform</h4>
+
+<p>To apply the transform object to a Chimera model, simply type:<br>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; import SegmentTrack<br>
+&nbsp;&nbsp;&gt;&gt;&gt; SegmentTrack.trackxform.update_xform(model, xform)
+</span>
+</p>
+
+<p>To get help, type:<br>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; help(SegmentTrack.trackxform.update_xform)
+</span></p>
+
+<hr> -->
+
+<a name="notes"></a>
+<h3>Notes</h3>
+
+<a name="inactive"></a>
+<h4>Inactive models</h4>
+
+<p>To align using the mouse or the dialog, it is best to make
+the input data inactive. To do so, see
+see Chimera's <span class="highlight">Model Panel</span>. After
+making the input data inactive, you can apply the transformations
+to the probe model and note the transformation relative to 
+the input data.</p>
+
+<hr>
+
+<span class="highlight">
+<i>Segment Volume package (pre-release) - Dock Manual module<br>
+2005 April, Lavu Sridhar, Baylor College of Medicine</i>
+</span>
+
+</body>
+
+</html>

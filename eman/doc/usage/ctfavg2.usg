@@ -1,0 +1,3 @@
+Averages a set of 2D images with ctf correction
+Usage:
+ctfavg2  <infile> <outfile> [res=<in A>] [ctfcw=<file>] [ctfc=<lp res>] [keepsig=<sig>] [keepval=<thr>] [mask=<rad>] [fileali] [refali] [copyeuler] [refmask] [ref0] [copyrefs] [even|odd] [snrmult=<val>] [nolog] [comment=<str>] Sets the comment string in the output file (if supported

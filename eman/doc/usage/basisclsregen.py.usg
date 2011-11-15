@@ -1,0 +1,3 @@
+Regenerates cls files for a particular iteration produced with 'basisrefine'
+Usage:
+basisclsregen.py  <iteration> <class #> [clsgen] [keep=<% to keep>] [verbose]

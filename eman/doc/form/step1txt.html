@@ -1,0 +1,413 @@
+$0
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Steve Ludtke">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+</head>
+<body>
+$1
+<h1>EMAN Reconstruction - Phase 1</h1>
+<p>Welcome to EMAN. This tutorial interface is beginning to show its age. While it
+has been updated several times over the years, it no longer adequately covers everything
+involved in doing the highest possible resolution reconstruction. For the time being, this still serves as a good
+starting point for learning how to do refinements. Nothing said here is wrong, it is
+simply that better methods for performing certain tasks have been found over the last
+couple of years.  While you should be able to achieve
+a reasonably good initial reconstruction by following these instructions, there
+are many subtleties involved in single particle reconstructions, and most of
+the refinement commands have a wide variety of options for a variety of specific situations.
+If you run into problems, don't be shy about emailing for help (sludtke@bcm.tmc.edu), or attending
+one of our free workshops (http://ncmi.bcm.tmc.edu).
+User feedback is how we improve the software.
+<p>By way of introduction for beginners, a few EMAN basics:
+<ul>
+<li>If you want to print out these instructions, they will apear in the local directory as 'step1.html'
+and can be opened with your favorite browser</li>
+<li>File formats: EMAN handles most EM file formats automatically. Virtually any program in EMAN
+can read any supported file format, including MRC, Spider, Imagic, and about a dozen others. Each
+program writes to a default format, generally Imagic or MRC. 'proc2d' or 'proc3d' can be used
+to convert to other formats if there is no appropriate option in the command you are using. Normal
+EMAN refinements will produce 2D images in Imagic format and 3D volume data in MRC format, though
+this may change in the future</li>
+<li>Press the 'HELP' button on the main 'eman' gui for a view of the main documentation.</li>
+<li>For individual commands with required parameters, type the name of the command
+by itself for usage information, or the name of the command followed by 'help' for detailed
+help. For example 'proc2d help'.</li>
+<li>Useful commands for generic image processing include 'proc2d', 'proc3d' and 'iminfo'.</li>
+<li>Useful graphical commands include 'v2' for generic image viewing, and the browser in
+'eman'.</li>
+<li>When using the GUI to view an image or a plot (in any EMAN program),
+try pressing the middle mouse button on the view to bring up a control panel with a variety
+of options.</li>
+<li>When viewing a 3D file in an image window, the right mouse button can be used to rotate
+the molecule (projection view). However, if the volume is too large, the EMAN browser
+may display it as a series of slices instead.</li>
+<li>EMAN itself doesn't have a program for isosurface rendering of 3D models. Historically
+we've suggested (and sometimes included binaries for) vis5d. Recently we have begun
+integration of a number of EMAN features with Chimera (http://www.cgl.ucsf.edu/chimera/)
+which provides native support for MRC files.</li>
+<li>The Imagic file format consists of 2 files for each 'file'. This file format splits the headers
+and image data into 2 separate files, so each file will have a '.hed' and a '.img' file. The
+EMAN browser will show only the '.img' files in its list. However, most EMAN commands will
+take EITHER the .hed or .img file as an argument. The 2 choices are equivalent. If you rename
+or delete an imagic file, be SURE to get both files.</li>
+</ul>
+<h2>
+Analysis of computing resources (very rough estimates)</h2>
+$2
+<h2>Preparing particles for reconstruction</h2>
+
+<h3>1. Box out particles</h3>
+$2.1
+<p>The individual particles must be located in each micrograph. In EMAN,
+the program for doing this is called 'boxer'. Note that this program uses a
+lot of memory (it loads the entire image into memory). To determine how
+much memory an image will require, type:
+<pre>iminfo <i>imagefile</i></pre>
+Your machine should have about 1.5-2 times this much memory. If your machine
+has less than this much memory, do NOT run the following command, or your machine
+will begin to swap heavily, and will generally become very slow. If you DO have
+enough memory, run the following command:
+
+<pre>boxer <i>imagefile</i></pre>
+
+On an SGI, you can find out how much memory your machine
+has with the 'hinv' command. On linux machines
+just 'cat /proc/meminfo'. If your machine
+doesn't have enough memory, boxer may allow you to split the image in pieces.
+See the <a href="@E/doc/progs/boxer.html">boxer documentation</a> for more
+info on this, and for detailed instructions on using boxer. In many cases particles
+can be selected semiautomatically, using programs like 'batchboxer', or internal
+features in 'boxer'. At this point we'll stick to manual particle selection.
+<p>Select the particles from each micrograph using boxer. When you save the
+particles, use a different file for the particles from each micrograph. They
+will be combined later. At this point, you also want
+to use a box size that's about 25-50%
+larger than your particles. That is, if the smallest box that you could
+possibly use is 80 pixels, you should start with a box size of 100-120
+pixels. Technically, any box size can be used, but things will run faster if the box
+size is a multiple of 8, or at least 4. Some good sizes are: 32, 40 ,48 , 56, 64, 72, 80, 96,
+ 112,128,  and160. Do not use a box size smaller than 32 pixels.
+<h3>1a. Normalization</h3>
+<p>While EMAN does not strictly demand a particular normalization in the image data, problems can occur if, for example,
+you use the typical values from a CCD image, with very large amplitudes and the mean very far from zero. It is 
+a very good idea to always edgenormalize your particles. If doing CTF correction in a later stage, 
+renormalizing after phase flipping is also a good idea.</p>
+<pre>
+proc2d <i>ptcl file ptcl file</i> edgenorm inplace
+</pre>
+$3n
+<h3>
+2. Determine defocus for each micrograph</h3>
+$3.1n
+<p>When CTF correction is not being performed, only micrographs with similar
+defocuses should be used in the reconstruction. This technique is really suitable
+only for preliminary analysis of new particles to get a rough indication of their
+overall structure, or for processing negative stain data where the high
+percentage amplitude contrast reduces CTF artifacts. The data from each micrograph
+is typically filtered at the first zero of the CTF, which should be at
+roughly the same position in each micrograph.
+<p>Run <i>ctfit</i> and first make sure the microscope and image parameters
+at the bottom of the control panel are correct. Then, using the 'Open Particle
+Set' item 'file' menu, read the particles from each micrograph into ctfit.
+Each file you read will appear as a separate item in the list in the upper
+left of the control panel. Determine the defocus of each micrograph as
+described in the
+<a href="@E/doc/progs/ctfit.html">ctfit manual</a>. Any
+micrograph that varies by more than ~10% from the desired defocus should
+not be used in the reconstruction. In addition, any micrographs with a
+significant amount of drift or astigmatism should be discarded and not
+used in any reconstruction.
+<p>Now is a good time to determine the low-pass filter radius you will
+use. Drag the left mouse button in the plot window to determine the
+radius in pixels of the 1st zero (dark ring) of the CTF. Make a note of this
+value. Then drag with the left button in the plot window and determine the
+location of the first zero in A (the 'X=' number in the upper
+right corner). This is the best resolution you can
+hope to get from this type of reconstruction. To go to higher resolutions, you
+will need to perform CTF correction.
+<p>Make sure all of the data you use is at a similar defocus. The resolution
+of your reconstruction will be limited by the farthest from focus image
+you use in the reconstruction. Do not include any data farther from focus
+than usable for your target resolution. Closer to focus images are all
+right to an extent, but if the defocus range is too great, it will be impossibile
+to perform trivial low resolution CTF correction on the final 3D model.
+$3c
+<h3>
+2. Determine CTF parameters for particles in each micrograph</h3>
+$3.1c
+<p>This is currently the most difficult part of performing a reconstruction
+in EMAN, largely because it is one of the most important when a high resolution
+reconstruction is the goal. You should probably
+read the manual section on <a href="@E/doc/ctfc/ctfc.html">CTF
+Correction</a> to get the proper background before trying to proceed.
+<p>There are two methods for determining CTF parameters in EMAN. The 'classic'
+method is to use 'ctfit' to manually determine the parameters of each micrograph.
+The other method is fully automatic, but requires that you have a 1D structure
+factor file for your molecule.
+
+<p>The trick, of course, is where to get a 1D structure factor. Unfortunately this isn't
+a trivial question. The first and best option is to perform an x-ray solution scattering
+experiment at a small-angle x-ray scattering beamline. Of course, this requires a substantial
+amount of protein at fairly high concentrations, as well as time on an appropriate
+beamline. Since this won't be an option in most cases we need to look for alternative
+methods.
+
+<p>As it happens, if you take a sampling of different structures from the PDB, generate 1D
+structure factors from each, and plot them all on a semilog scale, you immediately notice
+that at resolutions higher than ~15 A, all proteins have a very similar structure factor. There
+will be subtle variations depending on the secondary structure distribution of the protein,
+but the overall shape of the curves at high resolution is remarkably consistent. The low
+resolution section of the curve, however, varies considerably with the tertiary and quaternary
+structures of the protein. However, it is possible, using CTFIT, to (manually) simultaneously
+fit the power spectra of several curves collected at different defocuses. The FAQ in the EMAN 
+documentation has a section explaining this.
+
+<p>Run <a href="@E/doc/progs/ctfit.html"><i>ctfit</i></a> and make sure
+the microscope voltage, C<sub>s</sub> and A/pix values are correct.
+Then, using the 'Read Clip Set' item 'file' menu,
+read the particles from each micrograph into ctfit. Alternatively, you can invoke
+<i>ctfit</i> with a list of image files to open when you run the program.
+Each file you read will appear as a separate item in the list in the upper left of the control
+panel. For each file displayed in this list, 2 lines will be drawn in the
+plot window. One line will be smooth, and one line will be somewhat jagged.
+The smooth line represents the current CTF model based on the parameters
+set with the top 9 sliders in the control panel. The 'jagged' line represents
+the power spectrum of the images you read in. You will probably want to
+read the manual section on ctf parameter determination in
+<a href="@E/doc/progs/ctfit.html">ctfit</a>
+before proceeding.
+<p>You will now need to determine the 8 CTF parameters for each micrograph.
+This is a nontrivial process, and is difficult to describe. The best
+description currently exists in the ctfit documentation mentioned above.
+The suggested method is to use
+x-ray scattering data for your specimen if you have it. Of course, you probably
+don't, in which case, for optimal results, you'll need to generate a predicted
+structure factor from your data. We used to suggest preparing a structure factor
+from a PDB file (and this technique may still be suitable for some uses). However, in the
+current EMAN version we now suggest making more 'aggressive' use of the structure
+factor file, and PDB -> structure factor problems suffer from significant solvation
+artifacts. We are not currently aware of any software that can solve this problem.
+The best current technique is to perform simultaneous fitting of 3-5 micrographs to
+produce a reasonable low-resolution structure factor, then combine this with a
+canonical solution scattering curve using <i>sfmerge.py</i>. Again, the details
+of this process are beyond the scope of this document. You might consider looking
+through the material from the <a href=http://ncmi.bcm.tmc.edu/ncmi/events/workshops/workshops_19/index_html>
+Dec 2002 EMAN workshop</a> as well.
+<p>EMAN does not currently do astigmatism correction, so if some images are
+astigmatic or have a significant amount of drift, they should be
+excluded from the reconstruction.
+<p>Once the parameters have been determined, highlight the first data set,
+and use the 'Phase Correct' item on the 'Process' menu. Repeat this process
+for the other data sets. This will generate a new file for each data set
+with '.fix' inserted in the name. All of the data in these files has now
+been phase corrected, and the CTF parameters you determined have been stored
+in the headers of each particle image. You will now use these '.fix' images
+for the remainder of the processing.
+<p><b>Note:</b> there is an alternative to using 'Phase Correct' one each image manually.
+A command called <i>applyctf</i> can perform the same function. Just invoke <i>applyctf</i>
+with the 'flipphase setparm' options, along with one method of specifying the CTF
+parameters. Please read the program documentation before attempting this.
+<p>At this point, you should also make a note of the maximum resolution
+of your images. One of the 8 parameters you determined for each image is
+the envelope function width (which can also be displayed as a B factor).
+When displayed as 'Envelope', this number represents approximately the
+highest resolution you are likely to achieve in a reconstruction
+using this data set. Record the average value of this number
+for a few of the close to focus images for use in step 2.
+$4
+<h3>
+3. Combine all particles into start.hed</h3>
+$4.1c
+<p>This is a simple step. Take all of the image files you are going to
+use in your reconstruction and combine them into a file called 'start.hed'.
+For example, if you have data files: 2345.fix.hed, 2346.fix.hed and 2347.fix.hed,
+you would do (proc2d appends to output files):
+<pre>rm start.hed start.img
+proc2d 2345.fix.hed start.hed
+proc2d 2346.fix.hed start.hed
+proc2d 2347.fix.hed start.hed</pre>
+Just to keep things neat, at this point, you might want to make a subirectory
+for all of the raw data. eg :
+<pre>mkdir raw-data
+mv * raw-data &nbsp;&nbsp;&nbsp;&nbsp;(ignore the warning message this produces)
+mv raw-data/start.* .</pre>
+<p><b>Note:</b> There is a widespread problem with single files larger than 2 Gb
+in size. While EMAN contains the necessary code to deal with such files, in
+many cases the operating system may have problems. So, if you suspect that your
+image data may exceed this value, it is a good idea to use the workaround described
+in the <a href="@E/doc/progs/ctfit.html">ctfit</a>EMAN FAQ.
+$4.1n
+<p>This is a simple step. Take all of the image files you are going to
+use in your reconstruction and combine them into a file called 'start.hed'.
+For example, if you have data files: 2345.hed, 2346.hed and 2347.hed, you
+would do (proc2d appends to output files):
+<pre>rm start.hed start.img
+proc2d 2345.hed start.hed
+proc2d 2346.hed start.hed
+proc2d 2347.hed start.hed</pre>
+Just to keep things neat, at this point, you might want to make a subirectory
+for all of the raw data. eg :
+<pre>mkdir raw-data
+mv *.hed *.img *.mrc raw-data
+mv raw-data/start.* .</pre>
+<p><b>Note:</b> There is a widespread problem with single files larger than 2 Gb
+in size. While EMAN contains the necessary code to deal with such files, in
+many cases the operating system may have problems. So, if you suspect that your
+image data may exceed this value, it is a good idea to use the workaround described
+in the <a href="@E/doc/progs/ctfit.html">ctfit</a>EMAN FAQ.
+$5n
+<h3>
+4. Filter the particles at the first zero, invert if necessary</h3>
+$5.1n
+<p>Now we need to filter the particles at the first zero. Keep in mind
+that this is NOT CTF correction, it simply prevents phase errors from causing
+distortions at high resolution. There are still low resolution amplitude
+effects due to the CTF which are NOT compensated for. This will cause certain
+features in your map to be expanded or reduced. This method is fine for
+generating a first model for a new protein, or generating a preliminary
+model to use for a later CTF corrected reconstruction.
+<p>You may also wish to perform a slight high-pass filter to eliminate
+the strong incoherent scattering very close to the origin in Fourier space.
+There is really no clear-cut rule on when this is and isn't appropriate
+to do. In most cases the effect will be negligible. If you do decide
+to high-pass filter, typically a 1 pixel radius is sufficient, but for small particles
+(box size &lt;64 pixels) even this may be too much. To do the filtering
+(with the low pass radius you determined above for the 1st zero):
+<pre>proc2d start.hed start.hed hp=1 lp=<i>radius in pixels</i> inplace [invert]</pre>
+The <i>hp</i> option does high-pass filtering, the <i>lp</i> option does
+low pass filtering, and the <i>inplace</i> option tells proc2d not to append
+to the output file, but to overwrite the input images in the same location
+in the file. If necessary, add the invert option to reverse the density
+of your particles. EMAN assumes that positive values (white) indicate high
+density. For cryo images, that means the protein should appear white against
+the water background. Use invert if your protein looks darker than the
+background.
+<p>At the end of the reconstruction, the <i>unhp=</i> option in <i>proc3d</i>
+can be used to undo the highpass filter. In some cases this has a noticable
+effect. In other cases virtually none.
+$5c
+<h3>
+4. Optionally high pass filter the particles, invert if necessary</h3>
+$5.1c
+<p>Near the origin in Fourier space, there is a very strong component due
+to the structure factor and incoherent scattering. This term is so strong
+that interpolation errors here could potentially interfere with
+alignment in the reconstruction process. However, EMAN now contains
+built in factors that largely compensate for this effect. Nonetheless,
+some people may like to apply a small high-pass filter
+to the particles before reconstruction. Usually 1 pixel is sufficient:
+<pre>proc2d start.hed start.hed hp=1 inplace [invert]</pre>
+The <i>hp</i> option does high-pass filtering, and the <i>inplace</i> option
+tells proc2d not to append to the output file, but to overwrite the input
+images in the same location in the file. If necessary, add the invert option
+to reverse the density of your particles. EMAN assumes that positive values
+(white) indicate high density. For cryo images, that means the protein
+should appear white against the water background. Use invert if your protein
+looks darker than the background.
+<p>At the end of the reconstruction, the <i>unhp=</i> option in <i>proc3d</i>
+can be used to undo the highpass filter.
+$6
+<h3>
+5. Center the particles with cenalignint</h3>
+$6.1 This step is not necessary for refinement, and may be harmful. However
+it is necessary before running startcsym, startnrclasses, or similar programs.
+So, you may consider making a copy of start.hed/img in a subdirectory where
+you will run initial model generation programs, and run cenalignint only here.
+The particles you've boxed out will generally be pretty well centered
+in the box, but some may be considerably off-center. <i>cenalignint</i>
+will average all of the particles together, then align each particle to
+this average. This process is iterated until the particles stop moving.
+The particles are only allowed to shift by an integral number of pixels.
+This prevents interpolation errors. During this process, any particles
+which cannot be unambiguously cenetered will be discarded. While this iterative
+centering method works well on most particles, it may not work in all cases. Generally
+it works exceptionally well on highly symmetric particles (like icosahedral
+viruses), but there are exceptions. This technique actually destroys the centering
+on particles like GroEL (round in the top view
+but rectangular with striations in the side view). You'll have to look at your particle
+and decide whether this step should be completed.
+<p>An alternative to this centering technique is to use the new
+multireference-based automatic boxing routine in 'boxer', which does a pretty
+good job of centering. Unfortunately, generating the appropriate references
+requires a preliminary 3D model. If you have a preliminary model, you can use makeboxref.py
+to generate the necessary references.
+If you decide to use cenalignint, run:
+<pre>cenalignint start.hed mask=&lt;mask&gt; [frac=&lt;num&gt;/&lt;denom&gt;]</pre>
+This program will read ALL of the particles into memory, and effectively
+make 2 copies of each. That means if you do an 'iminfo start.hed', your
+computer should have 3 times this much physical memory. If this is not
+the case, you should use the <i>frac=&lt;n&gt;/&lt;d&gt;</i> option. This
+causes only a fraction of of the data to be processed. For example,
+if you have 1/3 as much memory as you need, you'd do:
+<pre>cenalignint start.hed maxshift=&lt;max&gt; frac=0/3
+cenalignint start.hed maxshift=&lt;max&gt; frac=1/3
+cenalignint start.hed maxshift=&lt;max&gt; frac=2/3</pre>
+Replace &lt;max&gt; with the maximum shift, in pixels, that should be used to center
+the particles. If you don't specify one, 1/4 of the box size will be used. If the
+particles are already fairly well centered, using a small value here will prevent
+erroneous centering with large translations.
+
+<p>This program will generate 3 new image files: <i>ali.img</i> contains the
+centered particles after processing. <i>bad.img</i> contains the particles
+that were rejected because of ambiguous alignment. Finally, <i>avg.img</i>
+contains the average images after each iteration of the alignment. This
+third file can be examined to determine the size of your particle. Find
+the radius a pixel or two outside the outermost whitish ring in the last
+image in avg.hed. This is the mask radius you should use from here on.
+Go back to 'step 1' in
+<i>eman</i> and enter the correct value if you haven't
+already.
+<p>Once you're satisfied with the results of the centering, copy <i>ali.hed/img</i>
+over <i>start.hed/img</i>. If you're concerned about being able to retrace
+your steps, you may wish to make a copy of <i>start</i> first. The main
+reason for this step is to get the centering good enough that you can reduce
+the box size somewhat. You probably still want to leave about 15% padding
+around your particle. So, if your maximum particle dimension is 64 pixels,
+and you used a 100 pixel box, you might reduce this to 80 pixels now (remember
+this number should be divisible by 8), like so:
+<pre>proc2d ali.hed start.hed clip=80
+rm ali* avg* bad*</pre>
+Note that it's not necessary to get perfect centering, just good enough
+so the particles don't get chopped off at the edge of the box. The smaller
+box size is very important for speed. A 20% box size reduction may mean
+as much as a factor of 2 increase in reconstruction speed. 
+$7
+<h3>6. Run 2D refinement to get a first impression of your data quality</h3>
+This step is not mandatory, and the results will not be used again (unless you
+have a C1 model and opt to use startAny in the next step). The refine2d.py
+program has been extensively improved over the last 18 months, and is now
+used routinely to evaluate new particle sets. refine2d.py does something
+similar to 3-D reconstruction, but without any 3-D models. It takes a large
+set of raw particles and iteratively produces a set of higher contrast
+class-averages representative of the views present in the raw images. You might
+also consider shrinking the particles before running refine2d:
+<pre>
+mkdir r2d
+cd r2d
+proc2d ../start.hed start.hed shrink=2
+</pre>
+If you have more than 2000 particles, run:
+<pre>
+refine2d.py start.hed --iter=9 --ninitcls=50 --minptcl=8
+</pre>
+if you have fewer than 2000 particles:
+<pre>
+refine2d.py start.hed --iter=9 --ninitcls=20 --minptcl=8
+</pre>
+<p>When it's done look at iter.final.hed and/or iter.final.sort.hed. You should see some
+nice looking class-averages. If you see a substantial number of 'bad' class-averages, ie-
+contamination blobs, bad particles, etc., then you may need to consider reboxing your
+images, or collecting new data. While the 3-D refinement proceedure can remove bad particles
+to some extent, it will have an impact on your reconstruction if a substantial fraction of
+your data is bad. Note also that there are techniques for removing bad particles associated
+with the class-averages you just generated, but this process is also imperfect.</p>
+<p>If you see almost completely nice looking class-averages, then you're ready to proceed
+to 3-D refinement.</p>
+<h3>
+7. Move on to step 2 of the reconstruction.</h3>
+Just press the step 2 button in <i>eman</i>.
+</body>
+</html>

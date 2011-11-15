@@ -1,0 +1,154 @@
+**Overview of Fortran interface
+
+FFTW provides a file fftw3.f03 that defines Fortran 2003 interfaces for all of its C routines, except for the MPI routines 
+described elsewhere, which can be found in the same directory as fftw3.h (the C header file). In any Fortran subroutine 
+where you want to use FFTW functions, you should begin with:
+
+       use, intrinsic :: iso_c_binding
+       include 'fftw3.f03'
+
+This includes the interface definitions and the standard iso_c_binding module (which defines the equivalents of C types).
+You can also put the FFTW functions into a module if you prefer (see Defining an FFTW module).
+
+At this point, you can now call anything in the FFTW C interface directly, almost exactly as in C other than minor changes 
+in syntax. For example:
+
+       type(C_PTR) :: plan
+       complex(C_DOUBLE_COMPLEX), dimension(1024,1000) :: in, out
+       plan = fftw_plan_dft_2d(1000,1024, in,out, FFTW_FORWARD,FFTW_ESTIMATE)
+       ...
+       call fftw_execute_dft(plan, in, out)
+       ...
+       
+** Defining an FFTW module
+
+Rather than using the include statement to include the fftw3.f03 interface file in any subroutine where you want to use FFTW, 
+you might prefer to define an FFTW Fortran module. FFTW does not install itself as a module, primarily because fftw3.f03 can be
+shared between different Fortran compilers while modules (in general) cannot. However, it is trivial to define your own FFTW 
+module if you want. Just create a file containing:
+
+       module FFTW3
+         use, intrinsic :: iso_c_binding
+         include 'fftw3.f03'
+       end module
+
+Compile this file into a module as usual for your compiler (e.g. with gfortran -c you will get a file fftw3.mod). Now, 
+instead of include 'fftw3.f03', whenever you want to use FFTW routines you can just do:
+
+       use FFTW3
+
+as usual for Fortran modules. (You still need to link to the FFTW library, of course.)
+
+ifort -o test.x -g -C -openmp main.o -L/scratch/liu19/research/
+fftw-3.1.2/lib -lfftw3
+
+**To transform a two-dimensional real array, out of place, you might use the following:
+
+             double precision in
+             dimension in(M,N)
+             double complex out
+             dimension out(M/2 + 1, N)
+             integer*8 plan
+     
+             call dfftw_plan_dft_r2c_2d(plan,M,N,in,out,FFTW_ESTIMATE)
+             call dfftw_execute_dft_r2c(plan, in, out)
+             call dfftw_destroy_plan(plan)
+             
+Notice that it is the first dimension of the complex output array that is cut in half
+
+**To transform a three-dimensional array in-place
+
+ double complex arr
+             dimension arr(L,M,N)
+             integer*8 plan
+     
+             call dfftw_plan_dft_3d(plan, L,M,N, arr,arr,
+            &                       FFTW_FORWARD, FFTW_ESTIMATE)
+             call dfftw_execute_dft(plan, arr, arr)
+             call dfftw_destroy_plan(plan)
+             
+The Fortran equivalents of the FFTW constant definitions in the file fftw3.f, which can be found in the same directory as fftw3.h.
+If your Fortran compiler supports a preprocessor of some sort, you should be able to include or #include this file; otherwise,
+you can paste it directly into your code.
+
+**Allocating aligned memory in Fortran
+
+For example, here is how we would allocate an L × M 2d real array:
+
+       real(C_DOUBLE), pointer :: arr(:,:)
+       type(C_PTR) :: p
+       p = fftw_alloc_real(int(L * M, C_SIZE_T))
+       call c_f_pointer(p, arr, [L,M])
+       ...use arr and arr(i,j) as usual...
+       call fftw_free(p)
+
+and here is an L × M × N 3d complex array:
+
+       complex(C_DOUBLE_COMPLEX), pointer :: arr(:,:,:)
+       type(C_PTR) :: p
+       p = fftw_alloc_complex(int(L * M * N, C_SIZE_T))
+       call c_f_pointer(p, arr, [L,M,N])
+       ...use arr and arr(i,j,k) as usual...
+       call fftw_free(p)
+       
+** Reversing array dimensions
+
+A minor annoyance in calling FFTW from Fortran is that FFTW's array dimensions are defined in the C convention (row-major order), 
+while Fortran's array dimensions are the opposite convention (column-major order). See Multi-dimensional Array Format. 
+This is just a bookkeeping difference, with no effect on performance. The only consequence of this is that, whenever you create
+ an FFTW plan for a multi-dimensional transform, you must always reverse the ordering of the dimensions.
+
+For example, consider the three-dimensional (L × M × N) arrays:
+
+       complex(C_DOUBLE_COMPLEX), dimension(L,M,N) :: in, out
+
+To plan a DFT for these arrays using fftw_plan_dft_3d, you could do:
+
+       plan = fftw_plan_dft_3d(N,M,L, in,out, FFTW_FORWARD,FFTW_ESTIMATE)
+
+That is, from FFTW's perspective this is a N × M × L array. No data transposition need occur, as this is only notation.
+Similarly, to use the more generic routine fftw_plan_dft with the same arrays, you could do:
+
+       integer(C_INT), dimension(3) :: n = [N,M,L]
+       plan = fftw_plan_dft_3d(3, n, in,out, FFTW_FORWARD,FFTW_ESTIMATE)
+
+Note, by the way, that this is different from the legacy Fortran interface (see Fortran-interface routines), which automatically
+reverses the order of the array dimension for you. Here, you are calling the C interface directly, so there is no “translation” layer.
+
+An important thing to keep in mind is the implication of this for multidimensional real-to-complex transforms 
+(see Multi-Dimensional DFTs of Real Data). In C, a multidimensional real-to-complex DFT chops the last dimension roughly in half
+ (N × M × L real input goes to N × M × L/2+1 complex output). In Fortran, because the array dimension notation is reversed, the first 
+ dimension of the complex data is chopped roughly in half. For example consider the ‘r2c’ transform of L × M × N real input in Fortran:
+
+       type(C_PTR) :: plan
+       real(C_DOUBLE), dimension(L,M,N) :: in
+       complex(C_DOUBLE_COMPLEX), dimension(L/2+1,M,N) :: out
+       plan = fftw_plan_dft_r2c_3d(N,M,L, in,out, FFTW_ESTIMATE)
+       ...
+       call fftw_execute_dft_r2c(plan, in, out)
+
+Alternatively, for an in-place r2c transform, as described in the C documentation we must pad the first dimension of the real input with 
+an extra two entries (which are ignored by FFTW) so as to leave enough space for the complex output. The input is allocated as a 
+2[L/2+1] × M × N array, even though only L × M × N of it is actually used. In this example, we will allocate the array as a pointer type, 
+using ‘fftw_alloc’ to ensure aligned memory for maximum performance (see Allocating aligned memory in Fortran); this also makes it easy 
+to reference the same memory as both a real array and a complex array.
+
+       real(C_DOUBLE), pointer :: in(:,:,:)
+       complex(C_DOUBLE_COMPLEX), pointer :: out(:,:,:)
+       type(C_PTR) :: plan, data
+       data = fftw_alloc_complex(int((L/2+1) * M * N, C_SIZE_T))
+       call c_f_pointer(data, in, [2*(L/2+1),M,N])
+       call c_f_pointer(data, out, [L/2+1,M,N])
+       plan = fftw_plan_dft_r2c_3d(N,M,L, in,out, FFTW_ESTIMATE)
+       ...
+       call fftw_execute_dft_r2c(plan, in, out)
+       ...
+       call fftw_destroy_plan(plan)
+       call fftw_free(data)
+       
+As described in the manual, on 64-bit machines you must store the plans in variables large enough to hold a pointer, for example integer*8. 
+We recommend using integer*8 on 32-bit machines as well, to simplify porting.
+
+The libraries must be listed in the correct order (-lfftw3 -lm for FFTW 3.x) and after your program sources/objects.
+(The general rule is that if A uses B, then A must be listed before B in the link command.). 
+

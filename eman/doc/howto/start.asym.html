@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.07 [en] (X11; I; Linux 2.0.36 i686) [Netscape]">
+   <META NAME="AUTHOR" CONTENT="Steve Ludtke">
+   <META NAME="CREATED" CONTENT="19990123;22124100">
+   <META NAME="CHANGEDBY" CONTENT="Steve Ludtke">
+   <META NAME="CHANGED" CONTENT="19990123;22124100">
+<STYLE>
+	<!--
+	-->
+	</STYLE>
+</HEAD>
+<BODY>
+
+<H1>
+EMAN Tutorial</H1>
+
+<H2>
+How to do a Reconstruction</H2>
+
+<H3>
+Particle with no symmetry</H3>
+This is the most difficult type of reconstruction to perform. The refinement
+procedure is quite robust and capable of working with asymmetrical data.
+The difficulty lies in generating a preliminary model to bootstrap the
+refinement procedure. Generally it is sufficient to examine a set of particles,
+then build a model from 'balls and sticks' which looks like it might be
+similar to the actual structure. In reality this model can be quite different
+from the true molecule and the refinement procedure will still function.
+The problem is, currently EMAN doesn't contain a GUI program for building
+such a model. We are working on a program to generate preliminary models
+automatically, but it isn't completely functional yet. Currently you'll
+have to modify a program to generate an initial model. In the main EMAN
+source directory, there is a subdirectory called 'test'. In that directory
+are 3 sample programs which create simple 3d models: 'ryr3d.C', 'tri3dg.C'
+and 'mk3dgaus.C'. Modify one of these programs to create the model you
+wish to start with, then copy it to the name 'tst.c' in the main source
+directory. At this point, doing a 'make' will compile this new program.
+<P>In the next version, this should be replaced with an automatic procedure.
+<OL>Generate an initial model as described above. (tst)
+<P><A HREF="startasym.2.html" TARGET="detail">Now you should decide if
+you want to do CTF correction or not</A>:</OL>
+
+<DIV STYLE="margin-left: 1.27cm"><A HREF="asym.ctf.html">Yes, I want to
+make a CTF corrected structure.</A></DIV>
+
+
+<P STYLE="margin-left: 1.27cm"><A HREF="asym.noctf.html">No, I'll try the
+uncorrected structure first.</A>
+<BR>
+<HR>
+<P><I><TT>Last Modified:</TT></I><SCRIPT LANGUAGE="JavaScript">
+document.write(document.lastModified)
+</SCRIPT>
+
+<BR><I><TT></TT></I>&nbsp;
+</BODY>
+</HTML>

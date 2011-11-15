@@ -1,0 +1,3 @@
+This program generates a preliminary 3d model for objects with Cn or Dn symmetry
+Usage:
+startcsym  <centered particles> <# to keep> [sym=<c?>] [imask=<rad>] [nosym] [fixrot=<side angle>]

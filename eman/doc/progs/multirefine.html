@@ -1,0 +1,30 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/multirefine.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>multirefine</h1>
+<p><h3>This performs refinement on a set of 3D models simultaneously</h3>
+multirefine  &lt;total iter> &lt;# models> [sym=&lt;sym0>,&lt;sym1>,etc. []
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;total iter></td><td>As in refine</td></tr>
+<tr><td>&lt;# models></td><td>The number of 3D models being refined</td></tr>
+<tr><td>[sym=&lt;sym0>,&lt;sym1>,etc.</td><td>[sym=&lt;sym0>,&lt;sym1>,etc.]</td></tr>
+<tr><td>[]</td><td>see refine for other options</td></tr>
+<h3>Description</h3>
+<P><I>NOTE: This program is still experimental</i>
+<P>This program operates almost identically to <a href=refine.html>refine</a>. The difference
+is, this program will simultaneously refine several models from a single set of raw
+images. That is, each particle will be grouped with one of the N models. In this way,
+a heterogeneous data set can be separated into multiple models simultaneously. This can also
+be used in some cases to filter out partially denatured proteins, etc. The options for this 
+program are almost the same as those for refine, with the addition of the 2nd parameter
+which specifies the number of models being refined.
+<P>Rather than putting a single threed.0a.mrc file in the run directory, a subdirectory should
+be made for each starting model, called '1', '2', etc. Each directory should then contain
+a different threed.0a.mrc file.
+<P>You may specify a (different) enforced symmetry for each of the models to be refined
+this can help in a situation where the exact symmetry is unknown. It is a poor idea to
+refine one model with some symmetry and another model with no (C1) symmetry at all. However
+2 different symmetries, like c8 and c9 would be fine. That is, the completely asymmetric model
+is a special case which may cause odd behavior in a multiple refinement unless ALL models
+have no symmetry (and in certain cases even then).
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

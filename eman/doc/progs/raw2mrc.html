@@ -1,0 +1,19 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/raw2mrc.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>raw2mrc</h1>
+<p><h3>This program will import raw binary data and write a MRC file</h3>
+raw2mrc  &lt;input> &lt;output> size=&lt;x>,&lt;y>[,&lt;z>] type=&lt;datatype> [skip=&lt;bytes>] [swap] [byteout]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input></td><td>Raw input file</td></tr>
+<tr><td>&lt;output></td><td>MRC output file</td></tr>
+<tr><td>size=&lt;x>,&lt;y>[,&lt;z>]</td><td>Image size, scans in x first</td></tr>
+<tr><td>type=&lt;datatype></td><td>Type of data: byte, short, long or float</td></tr>
+<tr><td>[skip=&lt;bytes>]</td><td>Used to skip a header if present</td></tr>
+<tr><td>[swap]</td><td>If file was created on machine with opposite byte-ordering</td></tr>
+<tr><td>[byteout]</td><td>Normally the MRC file will be floating point, this will write a 16-bit file.</td></tr>
+</table><br><h3>Usage:</h3>
+<p>raw2mrc tst.dat tst.mrc size=1024,1024 type=short
+<h3>Description</h3>
+<P>Pretty self explanatory.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

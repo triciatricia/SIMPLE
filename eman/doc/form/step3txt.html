@@ -1,0 +1,201 @@
+$0
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Steve Ludtke">
+</head>
+<body>
+<h1>EMAN Reconstruction - Phase 3</h1>
+<hr>
+<p>In this step we seek to refine our preliminary model to generate a final,
+(hopefully) high resolution, structure.
+<p>Now, time for a quick discussion of some new features in EMAN. Previously
+these instructions would give you a simple <i>refine</i> command to run
+and pretty much leave things at that. The current version of EMAN contains a
+number of new options which can be used to push the resolution limits
+of your reconstruction slightly further than the single canonical refine
+command. However, it might take a little experimentation to achieve optimal
+results. These options are discussed towards the end of this page.
+They are not included in the default refine command presented below.
+Also, if your job requires a lot of CPU time, consider just running
+a few refinement cycles with these basic options, then considering the options
+presented in phase 4 (which may slow the refinement down, and aren't all that
+useful in early stages of refinement).
+<h3>1. Run the 'refine' command.</h3>
+$1c
+<p>At this point you only need 2 files your working directory (start.hed/img are considered
+one file). If you'd like
+you can remove the others, but it's not really necessary. One exception, if you used
+a 1D structure factor file when fitting your CTF curves (which hopefully you did), you
+also need the structure factor file in this directory. <i>start.hed/img</i>
+contains the raw particle data (preprocessed with ctfit), and <i>threed.0a.mrc</i>
+contains the preliminary 3d model you generated in the last step. The
+<a href=@E/doc/progs/refine.html>refine</a>
+command is fairly complecated and has a lot of options. For now, we'll start
+with a basic refine command which should work well to get you started. Generally it's
+a good idea to run this command from a
+<a href=http://www.gnu.org/software/screen/screen.html>screen</a> window, or submit
+it as a background job with nohup and '&' (see man page). You can monitor the
+progress of the run with <i>eman</i>, by looking at the command history.
+<i>refine</i> will run numerous other eman programs, much like a script, while
+it executes. Each of these individual programs will appear in the program history.
+The end of one refinement iteration is marked by the completion of a <i>proc3d</i>
+command. If you have a linux cluster or several workstations to use for parallel
+processing, please read the EMAN manual for how to set this up properly.
+<p>Here's the refine command to run for your particle:
+
+$1n
+<p>At this point you only need 2 files your working directory. If you'd like
+you can remove the others, but it's not really necessary. <i>start.hed/img</i>
+contains the raw particle data (filtered earlier), and <i>threed.0a.mrc</i>
+contains the preliminary 3d model you generated in the last step. The
+<a href=@E/doc/progs/refine.html>refine</a>
+command is fairly complecated and has a lot of options. For now, we'll start
+with a basic refine command which should work well in most cases. Generally it's
+a good idea to run this command from a
+<a href=//www.gnu.org/software/screen/screen.html>screen</a> window, or submit
+it as a background job with nohup and '&' (see man page). You can monitor the
+progress of the run with <i>eman</i>, by looking at the command history.
+<i>refine</i> will run numerous other eman programs, much like a script, while
+it executes. Each of these individual programs will appear in the program history.
+The end of one refinement iteration is marked by the completion of a <i>proc3d</i>
+command.
+<p>Here's the refine command to run for your particle:
+$2
+<p>The mask= value should accurately reflect the maximum <i>radius</i> (in pixels) of your particle.
+In previous versions a value of -1 indicated 1/2 the box
+size, but now you <b>must</b> specify the actual radius to use. Obviously it is better for
+this number to be too large rather than too small.
+<p>Look at the <a href=@E/doc/progs/refine.html>refine</a> documentation for info
+on all of the parameters, but there are a few options you should be aware of:
+<ul>
+<li>The 'refine' option will increase the precision of the 2D alignments during classification.
+This can have a substantial impact for final high-resolution refinements, and in some cases
+can correct problems with misclassification. There is some speed penalty, but aside from this,
+this option can only help. ie - aside from speed, there is never a reason NOT to use it.
+<li>The 'phasecls, fscls and dfilt' options control the algorithm used for similarity comparisons
+during classification and particle pruning. This is quite important. The default routine used by EMAN
+if none of these options is specified is sensitive to resolution mismatches between the 3D model and
+the raw particles. This can lead to deterministic misclassification of particles. You are strongly
+encouraged to use one of these 3 options to prevent this (only one of these 3 may be used at a time).
+dfilt seems to produce the best overall results, but can only be used with ctfcw=. phasecls and fscls
+can be used at any time. phasecls uses the mean phase error as a criteria, meaning Fourier amplitudes
+are ignored. fscls uses Fourier Ring Correlation as a criteria, so amplitude information is included
+to an extent. In theory fscls should be better than phasecls, your mileage may vary.
+<li>Note that ctfcw= performs much better than ctfc=, but requires the additional work of creating
+a structure factor file. This is STRONGLY recommended. See the FAQ for details.
+<li>the 'setsf=<lp>,[<hp>]' option allows you to impose the 1D structure factor file
+on your 3D model after each iteration (if you have one). If you are really pushing
+for a final, optimal structure, this option may be useful. Clearly this can only be used
+in conjunction with 'ctfcw='. While
+EMAN's CTF correction routine is quite good, there are limits to how well it can
+perform. This option basically performs a final 'perfect' 1D filter on your 3D model
+to make sure the 1D structure factor is accurate. If you are using an estimated
+structure factor rather than a solution scattering result, this option may or may
+not be a good idea. <lp> specifies the resolution of the low-pass filter applied
+to the structure factor before applying it to the model. This should be set to
+the final convergence resolution. You may also perform an optional Gaussian high-pass
+filter. Naturally this option replaces the Wiener filter that EMAN applies with the
+ctfcw option. Note that if this option is used too early in a reconstruction, or when
+the resolution of the reconstruction is substantially nonisotropic, this option
+may induce significant artifacts. It should always be used with some caution.
+<li>The 'sep=2' option will cause each particle to be included in the <b>2</b> best
+matching classes. This can help to handle the problem of uncertainty in particle
+classification. Since nearly 1/2 of the data will be thrown out during alignment/averaging,
+this shouldn't pose any real problem. If you disapprove of this, remove 'sep=2' and
+increase classkeep to ~1.
+<li>The 'tree=2' or 'tree=3' options are
+used to help classification run faster. See the <i>refine</i> man page for details.
+They are generally used only when 'ang=' is quite small.
+<li>The '3dit' and '3dit2' options are deprecated, and should no longer be used.
+<li>The single number following <i>refine</i> tells the command how many refinement
+iterations to run. For each iteration, a <i>classes.n.hed/img</i>, a
+<i>threed.n.mrc</i>, a <i>threed.na.mrc</i>, and sometimes an <i>x.n.mrc</i>
+file will be generated (as well as a bunch of temporary files which are
+overwritten each iteration). If you kill the refine job while it's running, you
+can restart it roughly where it left off just by running the same command again.
+The number of iterations is the TOTAL number of iterations to run, not the
+number of additional iterations. That is, if your run <i>refine 5 ...</i> for 3
+iterations, then kill it and run <i>refine 5 ...</i> again, it will only do
+2 more iterations. If you run a couple of iterations, and decide to change
+some of the parameters, it's ok to kill the job, then run it again with the
+new parameters. At most, you will loose 1/2 an iteration of processing time. If
+you want to restart the refinement from scratch, you MUST delete all of the
+<i>classes.*.hed/img</i> files AND all of the <i>threed.*.mrc</i> files (EXCEPT
+<i>threed.0a.mrc</i>).
+</ul>
+<p>Next we need to discuss some critical issues with respect to refinement. The 'standard' similarity
+measure used by EMAN to compare noisy particles to projections is a optimized real-space variance.
+This approach has one significant problem. If the model used to generate projections has a higher
+or lower resolution than the particles themselves, there is a possibility that the particles will
+be biased slightly away from their true orientations. This effect is most noticable for cylindrical
+particles, such as GroEL. If you have a large number of side views of the particle, you may find
+that their orientation actually 'drifts' to an orientation a little away from the side view. This normally
+will be a subtle effect that won't be visible unless you are refining to very high resolution. However,
+clearly it isn't desirable. There are several alternate similarity measures that can be used that
+aren't susceptible to this problem. My current recommendation for a final high resolution refinement
+would be to use 'refine', 'setsf=' and 'dfilt', but this may be a highly biased opinion.
+You may have to experiment to find which works best for any given particle (these are all options to the refine command):
+<ul>
+<li>phasecls - This option will use SNR weighted phase residual as a similarity measure. Since it
+ignores amplitudes, it isn't susceptible to any resolution/filtration dependencies. However, since
+it makes no real use of amplitudes, it doesn't fully use the available information.
+<li>fscls - This is a novel use of the Fourier shell correlation function (actually Fourier ring correlation
+in this case) used normally as a
+resolution measure. In a sense, this is just a refinement of the phase residual option. It calculates
+a correlation coefficient for each Fourier ring, then produces a SNR weighted average. In this way,
+it makes use of both phases and amplitudes, but since each shell is independently normalized, it
+is not susceptible to differences in resolution between the 2 models as real-space method are. Since this
+is a novel approach with no history (that I am aware of) in the field, this option should be considered
+experimental. It has, however, behaved well in tests on real data.
+<li>dfilt - This option is really a modifier for the default similarity measure (optimized variance). It
+calculates the 1D structure factor of each individual particle, then applies it to each projection before
+alignment/comparison. While this may seem like an odd thing to do, it has shown very promising results
+in initial testing. In fact, so far, this option has produced the best results for GroEL. There
+are a number of possible future improvements to this method, such as a noise correction to make it
+more of a true 'matched filter'. We will try to characterize this method better in future versions,
+but even now it is worth a try.
+<li>refine - Normally the EMAN 2D alignment is accurate only to +- 1 pixel. This option makes the refinement
+accurate to a small fraction of a pixel. This can have a significant impact on classification when the
+noise level is high, but there is a significant speed penalty. For initial low resolution refinements it
+is probably a waste, but when going for that final high resolution refinement it should be used. This
+option may be combined with any of the above criteria.
+<li>slow - As the name implies, this performs a very slow and accurate 2D alignment. It should be combined with
+the refine option above. It is not completely clear if this option always produces better results than the
+refine option alone, but it is certainly slower.
+</ul>
+<p>There are also a number of additional refine options, some of which are still somewhat experimental.
+Once you have a good feel for doing basic refinements, you can experiment with these other parameters.
+<ul>
+<li>ctfcw=<SF file>   If you had a structure factor file when determining CTF parameters, you should
+use the ctfcw option <i>instead</i> of the ctfc option. Rather than a resolution, you specify the
+filespec containing the structure factor. This will perform a true Wiener filter on the data using
+the accurate contrast estimate possible when the structure factor is known. This will produce
+<i>much</i> better results than ctfc=.
+<li>shrink=<n>	This option will perform classification and alignment on scaled down versions of
+the particles/projections. This can produce a dramatic speedup in refinement, and, in cases of high
+resolution refinement (A/pix < ~3), it can actually improve classification accuracy. Generally 'shrink=2'
+will be adequate. You can experiment with larger numbers, but we make no guarentees. </li>
+<li>tree=<2 or 3>   This option will speed up a refinement, but doesn't actually improve the results.
+This option will perform classification in 2 steps. First it will determine the Euler angles roughly,
+then it will 'fine-tune' them. This can produce up to a factor of 10 speed increase in classification.
+One warning, however, not all particles are well-suited to this sort of speed-up. In some cases, it
+will cause some incorrect classifications. '3' will increase the speed more than 2, but should only
+be used for small angular increments (ang=).
+<li>amask=<r>,<thr>,<n iter>  This option can eliminate virtually all artifacts outside the 3D model,
+although there can be some risk of chopping off any very low density features that might exist near the
+periphery of the model. This option uses the 'automask2' option in proc3d to generate a custom mask
+around the 3D model. This also enables projection specific masking of class-averages. This option can
+dramatically improve the convergence and resolution of a model, and can prevent the build-up of noise
+based iterative artifacts. Note that to use this option, you MUST also use the 'xfiles=' option. We
+strongly encourage the use of this option in most cases.
+<li>usefilt  This is a new option in refine. Normally, the raw particles are used for
+classification and alignment. However, for optimal results, actually these tasks should be performed
+on filtered images (Wiener filters are one good choice). This option will assume you have generated
+a file called 'start.filt.img' which contains filtered versions of the images in 'start.hed'. You
+may use any filter you wish, but 'proc2d start.hed start.filt.hed wiener=<SF file> hp=3' seems to
+work well. Note that this type of filter requires a structure factor file as discussed above.
+</ul>
+$3
+</body>
+</html>

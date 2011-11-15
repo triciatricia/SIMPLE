@@ -1,0 +1,10 @@
+#!/bin/bash
+export SIMPLEDIR=<SIMPLEPATH>
+export EMANDIR=<SIMPLEPATH>/eman
+export LD_LIBRARY_PATH=${EMANDIR}/lib:${LD_LIBRARY_PATH}
+export PATH=${EMANDIR}/bin:${PATH}
+export PYTHONPATH=${EMANDIR}/lib
+export PYTHONPATH=/usr/lib/python2.4:${PYTHONPATH}
+export PATH=$PATH:${SIMPLEDIR}/apps
+export PATH=$PATH:${SIMPLEDIR}/bin
+export PATH=$PATH:${EMANDIR}/bin

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="StarOffice/5.0 (Unix)">
+	<META NAME="AUTHOR" CONTENT="Steve Ludtke">
+	<META NAME="CREATED" CONTENT="19990124;23485100">
+	<META NAME="CHANGEDBY" CONTENT="Steve Ludtke">
+	<META NAME="CHANGED" CONTENT="19990124;23522100">
+	<STYLE>
+	<!--
+	-->
+	</STYLE>
+</HEAD>
+<BODY>
+<H1>EMAN Tutorial</H1>
+<H2>How to do a Reconstruction</H2>
+<H3>Particle with rotational symmetry</H3>
+<P STYLE="font-style: normal">The first step in performing a
+low-symmetry reconstruction is generating a preliminary model. This
+is accomplished by searching for particles with rotational symmetry
+and particles with mirror or near-mirror symmetry. These 2 views are
+then used to generate a very rough initial model. No CTF correction
+is done in this part of the procedure. The model generated at this
+stage is generally very poor. This is expected and is not a problem.
+Don't expect this model to look anything like your final
+reconstruction (except, perhaps for the view along the symmetric
+axis).</P>
+<OL>
+	<LI><P><A HREF="startcsym.1.html" TARGET="detail">Determine defocus
+	of particles from each micrograph.</A> (<A HREF="../progs/ctfit.html">ctfit</A>)</P>
+	<LI><P><A HREF="startcsym.2.html" TARGET="detail">Combine particles
+	from micrographs with similar defocus and filter at the first zero.</A>
+	(<A HREF="../progs/proc2d.html">proc2d</A>)</P>
+	<LI><P><A HREF="startcsym.3.html" TARGET="detail">Center the
+	particles within their boxes.</A> (<A HREF="../progs/cenalignint.html">cenalignint</A>)</P>
+	<LI><P><A HREF="startcsym.4.html" TARGET="detail">Use starticos to
+	generate a preliminary model.</A> (<A HREF="../progs/starticos.html">starticos</A>)</P>
+	<LI><P><A HREF="startcsym.5.html" TARGET="detail">You can optionally
+	remove the intermediate files.</A></P>
+	<LI><P><A HREF="startcsym.6.html" TARGET="detail">Now you should
+	decide if you want to do CTF correction or not</A>:</P>
+</OL>
+<P STYLE="margin-left: 1.27cm"><A HREF="csym.ctf.html">Yes, I want to
+make a CTF corrected structure.</A></P>
+<P STYLE="margin-left: 1.27cm"><A HREF="csym.noctf.html">No, I'll try
+the uncorrected structure first.</A></P>
+<HR>
+<P><TT><I>Last Modified:</I> 
+<SCRIPT LANGUAGE="JavaScript">
+document.write(document.lastModified)
+</SCRIPT>
+</TT></P>
+</BODY>
+</HTML>

@@ -1,0 +1,861 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="Author" CONTENT="Steve Ludtke">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.06 [en] (X11; I; Linux 2.0.35 i686) [Netscape]">
+</HEAD>
+<BODY>
+
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=EMAN.logo.png></a>
+<h2>
+EMData</H2>
+<P>Each instance of this object will contain a single 'image'.&nbsp; This
+is in quotes because the data may be 1, 2 or 3 dimensional.
+<P>Supported file formats include Imagic, MRC, Spider, HDF5, DM3, ICOS, EMIM and standard 8 bit
+formats like GIF, TIFF, PNG etc. (through the netpbm package). Note that 12
+bit TIFFs are not currently supported. The EMAN object will automatically
+compensate for byte-order differences. Files can be read in either byte-order
+and are always written in the byte-order of the native machine.
+<P>Note:
+<UL>
+<LI>
+Many of the routines in the object will assume that the object is square.
+Most will produce an error if this condition is not met, some will just
+act unexpectedly.</LI>
+
+<LI>
+The FFT routine is radix 19. Factors of the image size may NOT include
+primes larger than 19, and must ALWAYS include 2.</LI>
+
+<LI>
+Image rotation and translation is a little tricky. Be sure to read the
+sections on setRAlign, setTAlign and RotateAnd Translate before trying
+this.</LI>
+</UL>
+
+<HR WIDTH="100%">
+<H3>
+EMData Functions</H3>
+&nbsp;
+<P>&nbsp;
+<BR>&nbsp;
+<BR>&nbsp;
+<TABLE BORDER WIDTH="100%" NOSAVE >
+<TR NOSAVE>
+<TD><B><FONT SIZE=+2>File IO</FONT></B></TD>
+
+<TD NOSAVE></TD>
+</TR>
+
+<TR>
+<TD>int readImage(char *filespec, int n,int nodata=0)</TD>
+
+<TD>Reads a single image from a file (any format)</TD>
+</TR>
+
+<TR>
+<TD>int fileCount(char *filespec, int *type=NULL)</TD>
+
+<TD>NOT a member function. Counts # images in a file.</TD>
+</TR>
+
+<TR>
+<TD>List *readImages(char *filespec,int n0,int n1,int nodata=0)</TD>
+
+<TD>NOT a member function. Reads multiple images. Returns a List of EMData
+objects (which may be empty in case of error)</TD>
+</TR>
+
+<TR NOSAVE>
+<TD>int readIMAGIC(char *filespec, int n,int nodata=0)
+<BR>int writeIMAGIC(char *filespec, int n)</TD>
+
+<TD ROWSPAN="10" NOSAVE>These routines are responsible for reading &amp;
+writing the individual image formats. They are usually called indirectly
+by readImage() or readImages(). The PGM reading routine reads GIFs, TIFFs,
+etc. as well as PBMs.</TD>
+</TR>
+
+<TR>
+<TD>int readIMAGIC3d(char *filespec,int nodata=0)</TD>
+</TR>
+
+<TR>
+<TD>int readMRC(char *filespec,int nodata=0)
+<BR>int writeMRC(char *filespec)</TD>
+</TR>
+
+<TR>
+<TD>int readSPIDER(char *filespec,int nodata=0)
+<BR>int writeSPIDER(char *filespec)</TD>
+</TR>
+
+<TR>
+<TD>int readSAL(char *filespec,int nodata=0)</TD>
+</TR>
+
+<TR>
+<TD>int readPGM(char *filespec,int nodata=0)
+<BR>int writePGM(char *filespec,float gmin,float gmax)</TD>
+</TR>
+
+<TR>
+<TD>int readHDF2(const char *filespec, int n = 0, int nodata=0)
+<BR>int writeHDF2(const char* filename, int n, int headonly=0)</TD>
+</TR>
+
+<TR>
+<TD>int readICOS(const char *filespec,int nodata=0)
+<BR>int writeICOS(const char *filespec)</TD>
+</TR>
+
+<TR>
+<TD>int readDM3(const char* filespec, int nodata = 0)
+</TR>
+
+<TR>
+<TD>int readEMIM(char *filespec, int n,int nodata=0)
+<BR>int writeEMIM(char *filespec, int n)</TD>
+</TR>
+
+<TR>
+<TD><B><FONT SIZE=+2>Information</FONT></B></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD>char *Name()
+<BR>void setName(char *name)</TD>
+
+<TD>Returns/sets the name of the image</TD>
+</TR>
+
+<TR>
+<TD>EMData *Parent()
+<BR>void setParent(EMData *data)</TD>
+
+<TD>Returns/sets the name of the image</TD>
+</TR>
+
+<TR>
+<TD>char *Path()
+<BR>void setPath(char *path)</TD>
+
+<TD>Returns/sets the path the image was read from</TD>
+</TR>
+
+<TR>
+<TD>int xSize()
+<BR>int ySize()
+<BR>int zSize()
+<BR>int setSize(int x,int y, int z)</TD>
+
+<TD>Returns/sets the size of the image in pixels</TD>
+</TR>
+
+<TR>
+<TD>float Dx()
+<BR>float Dy()
+<BR>float Dz()
+<BR>void setTAlign(float dx,float dy,float dz)</TD>
+
+<TD>Returns/sets the translation of the current image</TD>
+</TR>
+
+<TR>
+<TD>float alt()
+<BR>float az()
+<BR>float phi()
+<BR>void setRAlign(float alt,float az,float phi)</TD>
+
+<TD>Returns/sets the orientation of the current image. Use alt for in-plane
+rotation of images</TD>
+</TR>
+
+<TR>
+<TD>Euler *getEuler()</TD>
+
+<TD>Returns a pointer to the Euler object which stores orientation</TD>
+</TR>
+
+<TR>
+<TD>int NImg()
+<BR>void setNImg(int n)</TD>
+
+<TD>Returns/sets the number of images used to generate this image</TD>
+</TR>
+
+<TR>
+<TD>int getFlags()</TD>
+
+<TD>Raw access to the image flags. See EMData.h</TD>
+</TR>
+
+<TR>
+<TD>int isComplex()</TD>
+
+<TD>Returns true if the image is complex</TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD>int hasCTF()
+<BR>float *getCTF()
+<BR>void setCTF(float *c)
+<BR>float *ctfCurve(int type=0)</TD>
+
+<TD>Functions dealing with the Contrast Transfer Function parameters. Used
+to perform corrections</TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD><B><FONT SIZE=+2>Statistical</FONT></B></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD>void update()</TD>
+
+<TD>Called when something in the image changes. getData/doneData automatically
+calls this.</TD>
+</TR>
+
+<TR>
+<TD>float Min()
+<BR>float Max()
+<BR>float Mean()
+<BR>float Sigma()</TD>
+
+<TD>Standard statistical functions</TD>
+</TR>
+
+<TR>
+<TD>float edgeMean()</TD>
+
+<TD>Returns the mean value around the edge of the image</TD>
+</TR>
+
+<TR>
+<TD><B><FONT SIZE=+2>Simple Image Processing</FONT></B></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD>EMData *copy()</TD>
+
+<TD>Returns a copy of an image</TD>
+</TR>
+
+<TR>
+<TD>EMData *copyHead()</TD>
+
+<TD>Returns a new image with the same header as the current image</TD>
+</TR>
+
+<TR>
+<TD>EMData *clip(int x0,int y0,int w,int h)
+<BR>EMData *clip(int x0,int y0,int z0,int w,int h,int d)</TD>
+
+<TD>Returns a new image which contains a portion of the current image.
+New image will be zero padded if larger than original</TD>
+</TR>
+
+<TR>
+<TD>void zero()
+<BR>void one()</TD>
+
+<TD>Fills the entire image with 0 or 1</TD>
+</TR>
+
+<TR>
+<TD>void rotateAndTranslate(float scale=1.0,float dxc=0,float dyc=0,float
+dzc=0)</TD>
+
+<TD>This routine performs actual rotation/translation after shift/rotation
+has been set with setTAlign/setRAlign. NOTE: If this image has a 'parent',
+the parent is rotated/translated instead of the current image. Used to
+prevent multiple interpolations.</TD>
+</TR>
+
+<TR>
+<TD>float transAlign(EMData *with,int useparent=0,int intonly=0)
+<BR>float transAlign3d(EMData *with,int useparent=0,int intonly=0)</TD>
+
+<TD>Calculates translational alignment of 2 images. Result is set in dx
+and dy, but rotateAndTranslate is not called.</TD>
+</TR>
+
+<TR>
+<TD>float rotAlign(EMData *with)
+<BR>float rotAlignTI(EMData *with,int usedot=0)</TD>
+
+<TD>Calculates rotational alignment of 2 images. rotAlignTI calculates
+translationally independant rotational alignment with 180 degree ambiguity.
+Result stored to Euler of current image.</TD>
+</TR>
+
+<TR>
+<TD>EMData *RTAlign(EMData *with,int usedot=0)
+<BR>EMData *RTFAlign(EMData *with,EMData *flip=NULL,int usedot=0)
+<BR>void refineAlign(EMData *with,int usedot)</TD>
+
+<TD>Returns a new image which is rotationally/translationally aligned to
+'with'. RTFAlign also allows flips. refineAlign may be called immediately
+after this to 'fine tune' the alignment.</TD>
+</TR>
+
+<TR>
+<TD>void cmCenter()</TD>
+
+<TD>Set dx/dy to center the image (center of mass, positive values only)</TD>
+</TR>
+
+<TR>
+<TD>void applyMask(int r,int type)</TD>
+
+<TD>Masks the image at a given radius. Several different modes, see EMData.C
+for details</TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD><B><FONT SIZE=+2>Fourier Processing</FONT></B></TD>
+</TR>
+
+<TR>
+<TD>EMData *doFFT()
+<BR>EMData *doIFT()
+<BR>void gimmeFFT()</TD>
+
+<TD>Returns a new image which is the FFT or IFT of the current image. New
+image is 'owned' by current image unless gimmeFFT() is called after this
+call. Radix 19 FFTs.</TD>
+</TR>
+
+<TR>
+<TD>void ri2ap()
+<BR>void ap2ri()</TD>
+
+<TD>Changes the representation of a complex image from real/imaginary to/from
+amplitude/phase. Ok to call even if representation would be unchanged</TD>
+</TR>
+
+<TR>
+<TD>EMData *calcCCF(EMData *with)</TD>
+
+<TD>Returns a new image which is the cross correlation of the current image
+and 'with'. Source images may be real or complex.</TD>
+</TR>
+
+<TR>
+<TD>void calcRCF(EMData *with,float *sum,int NS)</TD>
+
+<TD>Calculates an azimuthal cross correlation function between 2 images.
+Used for rotational alignments</TD>
+</TR>
+
+<TR>
+<TD>EMData *makeRFP()</TD>
+
+<TD>Generates a 'rotational footprint' for the current image. This is a
+new image wh</TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD><B><FONT SIZE=+2>2d &lt;-> 3d</FONT></B></TD>
+</TR>
+
+<TR>
+<TD>EMData *project3d(float alt,float az, float phi, int mode)</TD>
+
+<TD>Generates a projection of a 3d volume</TD>
+</TR>
+
+<TR>
+<TD>void setup4Slice(int redo=1)
+<BR>EMData *fftSlice(float alt,float az,float phi,int mode=5)</TD>
+
+<TD>Cuts a slice from a 3d Fourier volume. Call setup4Slice once before
+cutting slices.</TD>
+</TR>
+
+<TR>
+<TD>void setup4IS(int size)
+<BR>float normSlice(EMData *slice,float alt,float az,float phi,float *phaseresid=NULL)
+<BR>void insertSlice(EMData *slice,&nbsp; float alt,float az,float phi,int
+mode=5,float weight=1.0)
+<BR>void doneSlice()</TD>
+
+<TD>These routines allow a 3d volume to be reconstructed from a set of
+slices. See make3d.C for details.</TD>
+</TR>
+
+<TR>
+<TD>float Pixel()
+<BR>void setPixel(float pix)</TD>
+
+<TD>Returns/sets angstroms/pixel</TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD><B><FONT SIZE=+2>Parallelization &amp; Raw Data Access</FONT></B></TD>
+</TR>
+
+<TR>
+<TD>long getATime()</TD>
+
+<TD>Last time the data set was accessed</TD>
+</TR>
+
+<TR>
+<TD>float *getDataRO()</TD>
+
+<TD>Gets a pointer to the raw data for shared read-only access. Read only
+is NOT enforced, but should be observed. Waits if image is busy.</TD>
+</TR>
+
+<TR>
+<TD>float *getData()</TD>
+
+<TD>Gets a pointer to the raw data for exclusive read/write access. update()
+called automatically when released.</TD>
+</TR>
+
+<TR>
+<TD>void doneData()</TD>
+
+<TD>ALWAYS call once for each getData() or getDataRO()</TD>
+</TR>
+
+<TR>
+<TD>int Busy()
+<BR>int waitReady(int ro)
+<BR>void Wait()</TD>
+
+<TD>Used by the above to ensure legal access</TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD><B><FONT SIZE=+2>Undocumented</FONT></B></TD>
+</TR>
+
+<TR>
+<TD>void interpFT3d(float x,float y,float z,float *ret,int mode)</TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD>void setComplex(int i)
+<BR>void setRI(int i)</TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD>void calcHist(float hmin,float hmax)
+<BR>float *getHist()
+<BR>float histMin()
+<BR>float histMax()
+<BR>void realCalcHist()</TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD>void setFlipped(int f)</TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD>void setPathN(int n)</TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD>int swapout()
+<BR>int swapin()</TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD>void doDWT(int basis, int level)
+<BR>void doIWT(int basis, int level)
+<BR>void DWTFilt(int basis, int level, float thresh)</TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD>void rotateAndTranslateFast(float scale=1.0)</TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD></TD>
+</TR>
+</TABLE>
+
+<BR>&nbsp;
+<H5>
+Statistical</H5>
+&nbsp;
+<H5>
+Image processing</H5>
+&nbsp;
+<H5>
+3d&nbsp; &lt;-> 2d</H5>
+
+<HR WIDTH="100%">
+<BR>int readImage(char *filespec, int n,int nodata=0);&nbsp;&nbsp; // reads
+a single image, 0 on sucess
+<BR>EMData *copy();&nbsp; // returns an exact copy of itself
+<BR>EMData *copyHead(); // copies descriptive info, but not data
+<BR>EMData *clip(int x0,int y0,int w,int h);&nbsp; // inclusive clip. Pads
+if larger than data
+<BR>EMData *clip(int x0,int y0,int z0,int w,int h,int d);
+<P>// read routines for specific formats
+<BR>int readSAL(char *filespec,int nodata=0); //scans-a-lot
+<BR>int readPGM(char *filespec,int nodata=0); //portable greymap (and other
+pix formats)
+<BR>int readMRC(char *filespec,int nodata=0);
+<BR>int readIMAGIC(char *filespec, int n,int nodata=0);
+<BR>int readIMAGIC3d(char *filespec,int nodata=0);
+<BR>int readEMIM(char *filespec, int n,int nodata=0);
+<BR>int readSPIDER(char *filespec,int nodata=0);
+<P>// write routines for specific formats
+<BR>int writeIMAGIC(char *filespec, int n); // n=-1 appends
+<BR>int writeMRC(char *filespec);
+<BR>int writePGM(char *filespec,float gmin,float gmax);
+<BR>int writeSPIDER(char *filespec);
+<BR>int writeEMIM(char *filespec, int n); // n=-1 appends
+<P>// update statistics
+<BR>void calcHist(float hmin,float hmax);
+<BR>void realCalcHist();
+<BR>float *getHist();
+<BR>void update();
+<P>// general parameter set/gets
+<BR>void setPixel(float pix);
+<BR>float Pixel();
+<BR>float Min();
+<BR>float Max();
+<BR>float Mean();
+<BR>float Sigma();
+<BR>float edgeMean();
+<BR>float histMin();
+<BR>float histMax();
+<BR>void setParent(EMData *data);
+<BR>EMData *Parent();
+<BR>void setName(char *name);
+<BR>char *Name();
+<BR>void setPath(char *path);
+<BR>char *Path();
+<BR>void setPathN(int n);
+<BR>int xSize();
+<BR>int ySize();
+<BR>int zSize();
+<BR>int setSize(int x,int y, int z);
+<BR>void setRI(int i);&nbsp; // sets/resets the RI flag, does not modify
+data
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // use ap2ri() for conversion
+<BR>void setComplex(int i);
+<BR>int isComplex();
+<BR>int hasCTF();
+<BR>int getFlags();
+<BR>void setFlipped(int f); // !!!! DOESN'T FLIP IMAGE !!!!
+<BR>float Dx();
+<BR>float Dy();
+<BR>float Dz();
+<BR>float alt();
+<BR>float az();
+<BR>float phi();
+<BR>Euler *getEuler();
+<BR>void setTAlign(float x,float y,float z);
+<BR>void setRAlign(float Alt,float Az,float Phi);
+<BR>void setNImg(int n);
+<BR>int NImg();
+<BR>long getATime();
+<P>// Access to raw data, swapping
+<BR>float *getData(); // This returns a pointer to the raw float data
+<BR>float *getDataRO(); // Returns data pointer for reading only
+<BR>void doneData(); // MUST be called when the data is no longer being
+<BR>&nbsp;&nbsp;&nbsp;&nbsp; // modified. Another getData while the data
+is
+<BR>&nbsp;&nbsp;&nbsp;&nbsp; // out will return NULL
+<BR>int Busy();&nbsp;&nbsp; // Returns 1 if data is checked out
+<BR>int waitReady(int ro); // waits for data to be available
+<BR>void Wait();&nbsp; // Why 2 ?&nbsp;&nbsp;&nbsp; don't recall...
+<BR>int swapout();&nbsp; // offloads the data to disk when mem is tight
+<BR>int swapin();&nbsp; // reloads the data when necessary
+<P>void zero();&nbsp; // clears the image to zero
+<BR>void one();&nbsp;&nbsp; // makes a 'unit' image
+<P>// Rendering
+<BR>int renderAmp8( unsigned char * data , int x , int y, int xsize, int
+ysize,
+<BR>&nbsp;int bpl, float scale, int mingray, int maxgray,float renMin,
+float renMax);
+<BR>int renderPha24( unsigned char * data , int x , int y , int xsize ,
+int ysize ,
+<BR>&nbsp;int bpl , float scale, float renMin, float renMax);
+<P>// for complex images
+<BR>void ri2ap();&nbsp;&nbsp; // converts real/imaginary to amp/pha (complex
+only)
+<BR>void ap2ri();&nbsp;&nbsp; // the opposite
+<P>// fourier ops
+<BR>EMData *doFFT();&nbsp; // obvious, note that result is initially R,I
+not A,P
+<BR>EMData *doIFT();&nbsp; // obvious
+<BR>void gimmeFFT();&nbsp; // This gives the caller ownership of the
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // recently obtained fft so it won't
+be freed automatically
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // this means a new fft will be calculated
+next time
+<P>// wavelet ops
+<BR>void doDWT(int basis, int level); // in place DWT, basis/level defined
+elsewhere
+<BR>void doIWT(int basis, int level); // inverse wavelet x-form
+<BR>void DWTFilt(int basis, int level, float thresh);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // in place nonlinear threshold wavelet
+filter
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // thresh is with respect to the 'ideal'
+threshold
+<P>EMData *calcCCF(EMData *with); // cross correlation between 2 images
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // mirror ACF if with=NULL
+<P>// if parent is set, each new interpolation will be done from the
+<BR>// original parent's data, and additional calls to *Align will modify
+<BR>// dx,dy,daz cumulatively. With no parent dx,dy,daz are reset each
+time
+<P>float transAlign(EMData *with,int useparent=0,int intonly=0); // translational
+alignment using CCF
+<P>float transAlign3d(EMData *with,int useparent=0,int intonly=0); // translational
+alignment using CCF
+<P>float rotAlign(EMData *with); // rotational alignment using angular
+correlation
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // pretranslates by dx,dy
+<P>float rotAlignTI(EMData *with,int usedot=0); // rotation alignment with
+translational
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // independance, +180 degree
+ambiguity
+<P>void refineAlign(EMData *with,int usedot);
+<P>EMData *makeRFP();
+<P>void calcRCF(EMData *with,float *sum,int NS);
+<P>EMData *RTFAlign(EMData *with,EMData *flip=NULL,int usedot=0);
+<BR>&nbsp;&nbsp;&nbsp; // rotational, translational and flip alignment
+<BR>EMData *RTAlign(EMData *with,int usedot=0);
+<BR>&nbsp;&nbsp;&nbsp; // rotational, translational alignment used by RTF
+<P>void rotateAndTranslate(float scale=1.0,float dxc=0,float dyc=0,float
+dzc=0);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // rotate and translate
+using current settings
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // behavior changes if parent
+is/not set
+<P>void rotateAndTranslateFast(float scale=1.0);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // rotate and translate
+using current settings
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // behavior changes if parent
+is/not set
+<P>void cmCenter();&nbsp;&nbsp;&nbsp; // center at center of mass, ignores
+old dx,dy
+<P>// other maniuplations
+<BR>void applyMask(int r,int type); // applies a circular mask to the data
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // type=0 is a step cutoff
+to the mean value
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // type=1 fills in with
+flatband random noise
+<P>void applyRadFn(int n,float x0,float dx,float *y,int interp=1);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // multiplies by a radial
+function in
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // fourier space
+<P>void addRadNoise(int n,float x0,float dx,float *y,int interp);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // adds random noise with
+sigma defined
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // by the radial function
+<P>void subtract(EMData *data); // subtracts 'data' from the current set
+<P>void vFlip();&nbsp;&nbsp;&nbsp;&nbsp; // flips image vertically
+<P>void normalize();&nbsp; // mean -> 0, std dev -> 1
+<P>void normalizeMax();&nbsp; // mean -> 0, std dev -> 1
+<P>void invert();&nbsp;&nbsp; // multiply by -1
+<P>void edgeNormalize(); // same, but uses 1 pixel rectangle border
+<P>void calcRadDist(int n,float x0,float dx,float *y);
+<BR>void calcRadDist(int n,float x0,float dx,float *y,float acen,float
+amwid);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // calculates radial distribution, works
+for real
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // and imaginary images. x must be defined
+on input
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // and y must be allocated. amin,amax
+are in radians
+<P>void calcAzDist(int n,float a0,float da,float *d,float rmin,float rmax);
+<P>void radialAverage(); // makes image circularly symmetric
+<P>void toCorner(); // Translates a centered image to the corner
+<P>float dot(EMData *data,int evenonly=0); // dot product of 2 images (same
+size !)
+<P>float lcmp(EMData *data); // linear comparison of 2 data sets (smaller
+better)
+<P>void filter(float highpass,float lowpass,int type);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // fourier filters an image, real or
+imaginary
+<BR>void makeAverage(List *in,EMData *sigma=NULL);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // averages the images in the list,
+result in 'this'
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // optionally makes a sigma image as
+well
+<P>void makeAverageIter(List *in);
+<P>void makeAverageCTFC(List *in,float filtr);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // averages the images in the list with
+CTF correction
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // filtr is in angstroms,
+<P>void makeMedian(List *in);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Median of the images in the list,
+result in 'this'
+<P>void add(EMData *in); // adds 'in' to 'this'
+<P>void addIncoherent(EMData *in); // adds 'in' to 'this'
+<P>void mult(EMData *in); // multiplies 'in' by 'this'
+<P>void multConst(float const); // multiply by constant
+<P>void medianShrink(int i); // reduces the size of the image by a factor
+of i
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // using a local median filter
+<P>void commonLines(EMData *d1,EMData *d2,int mode=0);
+<BR>&nbsp;&nbsp;&nbsp; // finds common lines between 2 complex images
+<BR>&nbsp;&nbsp;&nbsp; // mode 0 is a summed dot-product
+<BR>&nbsp;&nbsp;&nbsp; // mode 1 is weighted phase residual
+<P>EMData *project3d(float alt,float az, float phi, int mode);
+<BR>&nbsp;&nbsp;&nbsp; // makes a 3d projection of a volume, mode=-1 does
+real space
+<BR>&nbsp;&nbsp;&nbsp; // projection, 1-5 use fftslice for fourier projection
+<BR>&nbsp;&nbsp;&nbsp; // see EMData.h for other important notes
+<P>EMData *fftSlice(float alt,float az,float phi,int mode=5);
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// takes a slice from a 3d complex image
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// for generating projections
+<BR>// Supplementary functions for fftSlice
+<BR>void setup4Slice(int redo=1);
+<BR>void interpFT3d(float x,float y,float z,float *ret,int mode);
+<P>// this initializes a new image to receive 'insertSlice' operations
+<BR>// for fourier volume inversion. If the image has a parent, it will
+also
+<BR>// be affected. WARNING: will use 8*size^3 bytes of memory.
+<BR>void setup4IS(int size);
+<P>// This will try to make sure the slice is normalized properly
+<BR>float normSlice(EMData *slice,float alt,float az,float phi,float *phaseresid=NULL);
+<P>// this inserts a complex slice into an image that has been setup4IS()
+<BR>void insertSlice(EMData *slice,&nbsp; float alt,float az,float phi,int
+mode=5,float weight=1.0);
+<P>// once all of the slices have been added with insertSlice(), this routine
+<BR>// does a normalization and returns a real 3d volume
+<BR>void doneSlice();
+<P>float *ctfCurve(int type=0); // calculates a CTF curve
+<BR>float *getCTF();
+<BR>void setCTF(float *c);
+<P>void subNoise();
+<P>// This does an IFT of a volume reconstructed from slices. Includes
+a
+<BR>// real-space correction for the linear interpolation in Fourier space
+<BR>EMData *iftSlice();
+<BR>&nbsp;
+<P>
+<HR WIDTH="100%">
+<BR>Last modified 9/28/98
+<BR>&nbsp;
+<BR>&nbsp;
+</BODY>
+</HTML>

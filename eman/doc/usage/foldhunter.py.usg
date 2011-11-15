@@ -1,0 +1,3 @@
+Python script for quickly running foldhunterP in chimera
+Usage:
+foldhunter.py  <target> <probe> <res=> <apix=>

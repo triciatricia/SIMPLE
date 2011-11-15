@@ -1,0 +1,71 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/runpar.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>runpar</h1>
+<p><h3>Run a list of programs in parallel on one or several machines</h3>
+runpar  [proc=&lt;min>[,&lt;max>]] [file=&lt;command file>] [nofs] [test]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>[proc=&lt;min>[,&lt;max>]]</td><td>Number of processors to use</td></tr>
+<tr><td>[file=&lt;command file>]</td><td>File containing list of programs to run</td></tr>
+<tr><td>[nofs]</td><td>Used to run programs that weren't designed to run with runpar.</td></tr>
+<tr><td>[test]</td><td>This will test all of the listed processors</td></tr>
+</table><br><h3>Usage:</h3>
+<p>runpar test
+<p>runpar file=script proc=6,12
+<h3>Description</h3>
+<P>This program is for coarse grained parallelization on virtually any
+platform. It permits parallel execution on a network of workstations or
+a single multiprocessor machine. This was specifically done in a way 
+to ensure maximum portability,
+without requiring the installation of a large parallel processing package
+(like MPI). For this to work, the user must have his account(s) set up so
+rsh can execute programs on all of the referenced machines. Each machine
+must also have remote access to the run directory (typically through NFS),
+although this may be a different location on each machine.
+<P>The machine parameters are specified in a file called .mparm located in
+the directory runpar is run from. If this file does not exist, all jobs
+will run on the local host. This is fine for large shared memory machines. 
+<P>The .mparm file is 5 tab separated columns, with one machine specified per line.
+This is a sample entry for one machine:
+<P>rsh 2 1 localhost /homes/stevel/tst
+<P>The first column is currently always 'rsh'. Column 2 specifies the total number of procssors
+on the machine/node. Column 3 is a relative speed factor (currently unused). Column
+4 is the machine name. 'localhost' is a special machine name, and should
+almost always be present. The final column is the path to the run directory on that
+machine.
+<P>For example, when running on a single 8 processor machine, the file would contain
+one line:
+<P>rsh 8 1 localhost /homes/stevel/tst
+<P>If there are 4, 2 processor workstations named alpha, beta, gamma and delta, each with one
+processor, with the job being submitted on alpha, the file might contain:
+<P>rsh 2 1 localhost /homes/stevel/test
+<P>rsh 2 1 beta /hosts/alpha/disk1/stevel/test
+<P>rsh 2 1 gamma /hosts/alpha/disk1/stevel/test
+<P>rsh 2 1 delta /hosts/alpha/disk1/stevel/test
+<P><B>Note</B> that this program can be used for parallel submission of any jobs, but it supports
+only simple coarse grained parallelization with no inter-process communication.
+<P>runpar is now compiled in several different versions for different circumstances.
+<P><h3>Linux clusters</h3>
+The version compiled for linux clusters does not perform any load balancing, and simply
+makes sure that processors are used in order. It doesn't currently take into account
+load levels on each node.
+<P>In addition, this version runs a local fileserver. There are currently bugs in the
+Linux NFS implementation which causes file corruption when multiple processors try
+to write to the same file at almost the same time. This problem is separate from the
+file locking problem. To avoid this, all file writes performed by an EMAN program
+run by runpar are transparently piped through a fileserver process running on the host
+node. File read operations are still performed through NFS.
+<P><h3>SGI/shared memory version</h3>
+<P>When the job is submitted, the least loaded machines will be chosen to run the
+specified jobs. The 'min' number of processors will be used at all times, regardless
+of load. If enough unloaded processors are available, runpar will slowly begin to use more
+processors until 'max' are used. Periodically, the usage is reduced back to 'min', to
+allow other users jobs to take precedence. If the machine becomes loaded during
+this time, the load will shift to another processor if available.
+<P>'runpar test' can be used to test the .mparm file, and the configuration of the individual
+machines. This will also give an indication of the current load levels on each machine
+as determined by runpar.
+<P><h3>Single workstation version</h3>
+<P>This version is the same as the linux cluster version, but the fileserver is not
+present. To the user this appears as slightly better disk write performance.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

@@ -1,0 +1,3 @@
+This program calculates the volume/mass of a 3D map
+Usage:
+volume  <input file> <A/pix> [thr=<thresh>] [calc=<mass>] [set=<mass>] [plot]

@@ -1,0 +1,108 @@
+#!/bin/sh
+
+# Purpose: To install eman binary release.
+#          Set up necessary environmental variables automatically.
+# Usage: eman-installer
+# Date: 9/1/2004, by Liwei Peng
+# Date: 7/3/2007, by Grant Tang
+
+MYSHELL=`basename ${SHELL}`
+
+if test ${MYSHELL} = "tcsh" || test ${MYSHELL} = "csh"; then
+    RCFILE=".cshrc"
+	
+    OUT=${PWD}/eman${RCFILE}
+    echo "setenv EMANDIR ${PWD}" > ${OUT}
+    echo 'setenv PATH ${EMANDIR}/bin:${PATH}' >> ${OUT}
+	
+	if test "X${LD_LIBRARY_PATH}" = "X"; then
+		echo 'setenv LD_LIBRARY_PATH ${EMANDIR}/lib' >> ${OUT}
+	else
+		echo 'setenv LD_LIBRARY_PATH ${EMANDIR}/lib:${LD_LIBRARY_PATH}' >> ${OUT}
+	fi
+
+	if test "X${PYTHONPATH}" = "X"; then
+		echo 'setenv PYTHONPATH ${EMANDIR}/lib'  >> ${OUT}
+	else
+		echo 'setenv PYTHONPATH ${EMANDIR}/lib:${PYTHONPATH}'  >> ${OUT}
+	fi		
+	
+elif test ${MYSHELL} = "bash" || test ${MYSHELL} = "sh" || test ${MYSHELL} = "zsh"; then
+	if test ${MYSHELL} = "zsh"; then
+		RCFILE=".zshrc"
+	else
+		RCFILE=".bashrc"
+	fi
+	
+    OUT=${PWD}/eman${RCFILE}    
+    echo "export EMANDIR=${PWD}" > ${OUT}
+    echo 'export PATH=${EMANDIR}/bin:${PATH}' >> ${OUT}
+
+	if test "X${LD_LIBRARY_PATH}" = "X"; then
+		echo 'export LD_LIBRARY_PATH=${EMANDIR}/lib' >> ${OUT}
+	else
+		echo 'export LD_LIBRARY_PATH=${EMANDIR}/lib:${LD_LIBRARY_PATH}' >> ${OUT}
+	fi
+
+	if test "X${PYTHONPATH}" = "X"; then
+		echo 'export PYTHONPATH=${EMANDIR}/lib'  >> ${OUT}
+	else
+		echo 'export PYTHONPATH=${EMANDIR}/lib:${PYTHONPATH}'  >> ${OUT}
+	fi
+	
+else
+	echo "Error: unsupported shell ${SHELL}. Please set it up manually."
+fi
+
+if test "X${OUT}" != "X"; then
+    echo "Please add the following line to the end of your ${HOME}/${RCFILE}:"
+    echo "source ${OUT}"
+fi
+
+
+which python 2>/dev/null >/dev/null
+if test $? != 0; then
+    exit 0
+fi
+
+PYVER=`python -c 'import sys; print sys.version' | head -1 | cut -c -3`
+PYUCS=`python -c 'import sys; print sys.maxunicode>65536 and "ucs4" or "ucs2"'`
+
+cd lib
+rm -f libpyEM.so
+if test $PYUCS = "ucs4"; then
+	if test $PYVER = "2.6"; then
+	    ln -s libpyEM.so.ucs4.py2.6 libpyEM.so
+	elif test $PYVER = "2.5"; then
+	    ln -s libpyEM.so.ucs4.py2.5 libpyEM.so
+	elif test $PYVER = "2.4"; then
+	    ln -s libpyEM.so.ucs4.py2.4 libpyEM.so
+	elif test $PYVER = "2.3"; then
+	    ln -s libpyEM.so.ucs4.py2.3 libpyEM.so
+	elif test $PYVER = "2.2"; then
+	    ln -s libpyEM.so.ucs4.py2.2 libpyEM.so
+	else
+	    echo "\nWarning: unsupported python version '${PYVER}'. Only python 2.2, 2.3, 2.4, 2.5, 2.6 are supported.\n".
+	fi
+elif test $PYUCS = "ucs2"; then
+	if test $PYVER = "2.6"; then
+	    ln -s libpyEM.so.ucs2.py2.6 libpyEM.so
+	elif test $PYVER = "2.5"; then
+	    ln -s libpyEM.so.ucs2.py2.5 libpyEM.so
+	elif test $PYVER = "2.4"; then
+	    ln -s libpyEM.so.ucs2.py2.4 libpyEM.so
+	elif test $PYVER = "2.3"; then
+	    ln -s libpyEM.so.ucs2.py2.3 libpyEM.so
+	elif test $PYVER = "2.2"; then
+	    ln -s libpyEM.so.ucs2.py2.2 libpyEM.so
+	else
+	    echo "\nWarning: unsupported python version '${PYVER}'. Only python 2.2, 2.3, 2.4, 2.5, 2.6 are supported.\n".
+	fi
+fi
+
+#this is for Fedora Linux's SELinux limitation on shared libraries
+if [ -x /usr/bin/chcon ]; then
+	chcon -t texrel_shlib_t *.so 2>/dev/null >/dev/null
+fi
+
+cd ..

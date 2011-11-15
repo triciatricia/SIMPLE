@@ -1,0 +1,24 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/avg3d.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>avg3d</h1>
+<p><h3>This program will average a set of aligned 3d images together</h3>
+avg3d  [keep=&lt;sigma mul>] [min] &lt;output file> &lt;input 1> &lt;input 2> etc
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>[keep=&lt;sigma mul>]</td><td>Optionally use only a subset of the images which are the most similar</td></tr>
+<tr><td>[min]</td><td>Use the minimum value per voxel instead of the mean</td></tr>
+<tr><td>&lt;output file></td><td>Output MRC file</td></tr>
+<tr><td>&lt;input 1></td><td>First input</td></tr>
+<tr><td>&lt;input 2></td><td>Second input</td></tr>
+<tr><td>etc</td><td>etc.</td></tr>
+</table><br><h3>Usage:</h3>
+<p>avg3d keep=.2 out.mrc in1.mrc in2.mrc in3.mrc in4.mrc
+<h3>Description</h3>
+<P>This averages a set of already aligned 3D images. It can optionally
+use only the most self-similar subset of the input images. If keep
+is specified, the images will be compared to the average, and only
+those that match best will be used for the final average written
+to the file. keep is specified as a multiplier on the standard
+deviation of the the individual image matching factors. keep=0 will
+use 1/2 of the images.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

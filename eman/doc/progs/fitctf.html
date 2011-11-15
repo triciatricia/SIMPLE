@@ -1,0 +1,33 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/fitctf.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>fitctf</h1>
+<p><h3>This program estimates CTF parameters in batch. The results should be checked in CTFIT.</h3>
+fitctf  &lt;input file> [sf=&lt;SF File>] [apix=&lt;a/pix>] [V=&lt;voltage>] [Cs=&lt;spher aber>] [over=&lt;oversampling>] [acmax=&lt;max AC>] [acfix=&lt;max AC>] [Bhint=&lt;B factor] [Bfix=&lt;B factor>] [Bexp] [debug]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>File containing boxed particles to be evaluated</td></tr>
+<tr><td>[sf=&lt;SF File>]</td><td>File containing estimated 1D structure factor for this specimen</td></tr>
+<tr><td>[apix=&lt;a/pix>]</td><td>Angstroms/pixel in the image</td></tr>
+<tr><td>[V=&lt;voltage>]</td><td>Voltage in KV</td></tr>
+<tr><td>[Cs=&lt;spher aber>]</td><td>Spherical aberation in mm</td></tr>
+<tr><td>[over=&lt;oversampling>]</td><td>eg - 2 -> 2x oversampling</td></tr>
+<tr><td>[acmax=&lt;max AC>]</td><td>eg - .1 is max 10% ac, default is .14</td></tr>
+<tr><td>[acfix=&lt;max AC>]</td><td>fixed amplitude contrast</td></tr>
+<tr><td>[Bhint=&lt;B factor]</td><td>A strong hint for the B-factor, strictly optional</td></tr>
+<tr><td>[Bfix=&lt;B factor>]</td><td>Force the B factor to a specific value</td></tr>
+<tr><td>[Bexp]</td><td>Use an exponential 'B-factor' rather than a Gaussian</td></tr>
+<tr><td>[debug]</td><td>Verbose debugging output</td></tr>
+</table><br><h3>Usage:</h3>
+<p>fitctf jj1023.hed groel.sm
+<h3>Description</h3>
+<P>This program will attempt to determine the CTF parameters of a a set of
+particles. It will write the result into a .tnf file, which can then be 
+read into ctfit. The results of this program should always be manually
+verified in ctfit. This program is just designed to save the user a
+little manual effort.
+<P>If you have a fairly small model (size in pixels<128) or are very far from focus, 
+you might consider using the oversampling option with a value of 2 or 3.
+<P>Please note that this program uses an exceptionally inefficient algorithm. However,
+there is a lot of embedded 'magic' in this routine. It is designed to be functional,
+not fast.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

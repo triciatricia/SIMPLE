@@ -1,0 +1,24 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/volume.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>volume</h1>
+<p><h3>This program calculates the volume/mass of a 3D map</h3>
+volume  &lt;input file> &lt;A/pix> [thr=&lt;thresh>] [calc=&lt;mass>] [set=&lt;mass>] [plot]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>3D map to work with</td></tr>
+<tr><td>&lt;A/pix></td><td>Angstroms/voxel in the map</td></tr>
+<tr><td>[thr=&lt;thresh>]</td><td>Calculate the volume/mass at a given threshold</td></tr>
+<tr><td>[calc=&lt;mass>]</td><td>Determine the threshold for a given mass</td></tr>
+<tr><td>[set=&lt;mass>]</td><td>Rescale the map densities so a threshold of 1 gives the specified mass</td></tr>
+<tr><td>[plot]</td><td>Output a x/y file containing a plot of threshold vs mass</td></tr>
+</table><br><h3>Usage:</h3>
+<p>volume threed.1a.mrc 4.667 set=2500
+<h3>Description</h3>
+<P>This routine calculates volumes enclosed by isosurfaces. The algorithm used is
+approximate. It doesn't calculate subvoxel volumes. It is fairly accurate as 
+long as a substantial fraction of the voxels are 'inside' the volume.
+<P>For convenience, mass is specified rather than volume. Volume/mass
+conversions assume a density of 1.35 g/ml (0.81 Da/A^3). 
+<P>Please note that an earlier version of the docs cited 1.35 Da/A^3. This 
+was an error in the documentation only. The program was using the correct value.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

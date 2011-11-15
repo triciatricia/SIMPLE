@@ -1,0 +1,3 @@
+This program performs MSA based filtering of a set of particles
+Usage:
+cloud  <input> <output> <elements> [1 writes eigenims.img]

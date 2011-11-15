@@ -1,0 +1,87 @@
+<HTML>
+<HEAD>
+<title>EMAN - Parallel procssing</title>
+</HEAD>
+<body bgcolor="#f0c0c0">
+
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=EMAN.logo.png></a>
+<h2>Parallel Processing in EMAN</H2>
+<p><i><b>Important note:</b></i> If you plan to run on a linux cluster, make SURE you
+download the cluster binary, or compile from source with the cluster option. If
+you do not, you will have numerous problems.
+<p>EMAN uses a very portable and very coarse-grained type of parallelism. It
+can function on virtually any multiple processor supercomputer (shared or
+distributed memory), and can even run on clusters of connected workstations
+(with certain restrictions). Many of the EMAN command line
+programs accept the 'proc=' argument. You
+can discover if an individual command accepts this argument by typing its
+name followed by 'help', eg 'refine help'. Any command which takes this
+argument impliments parallelism in the same way (with 2 specific experimental exceptions).
+<p>The form for specifying the number of processors to use is 
+[proc=&lt;num&gt;]. That is, 'proc=5' will run the job on 5 processors. Never specify
+more processors than you have configured. This will cause multiple processes to run
+on a single processor and slow down the entire job.
+<h3>Configuration for clusters</h3>
+There are 3 primary situations for running in parallel:
+<ul><li>SMP Supercomputers (like SGI Origin, or similar)</li>
+<li>Linux clusters or other distributed supercomputers</li>
+<li>A set of disconnected workstations</li></ul>
+
+<p>Running on SMP computers doesn't require any special configuration. Any command
+that takes the 'proc=' option (like refine), will automatically run in parallel
+on these machines. Simply specify the number of processors. Dual/quad processor
+desktop workstations also fall into this category</p>
+<p>If you are running on a distributed supercomputer/cluster with a batch queuing
+system (OpenPBS or LoadLeveller for example), you may simply be able to run your
+job through the BQS. You should specify the same number of processors to the EMAN
+command through proc= as you specify in the batch script. EMAN will automatically
+interrogate either OpenPBS or LoadLeveller in most cases to get a list of nodes
+to run on.</p>
+<p>If you are running on a set of workstations, or a cluster without a BQS, you will
+need a configuration file. This may either be called .mparm and be placed in the
+local directory (where the EMAN commands will be run), or be called $HOME/.eman/mparm,
+in which case it will apply to any directory not containing a local .mparm file.</p>
+<p>The format of this file is quite simple. Each line contains the
+specification for 1 computer/node. Here is an example for a cluster of 4 computers,
+2 single processor and 2 dual processor:
+<pre>
+ssh	1	1	node1	/
+ssh	1	1	node2	/
+ssh	2	1	node3	/
+ssh	2	1	node4	/
+</pre>
+<p>This file would be placed in $HOME/.eman/mparm. The first column is either
+'ssh' or 'rsh' depending on which program is configured for logging in from one machine
+to another. Note that for this to work, the individual machines MUST be configured
+to allow the same user to log in from one machine to another with NO password
+entry. Read the man pages for 'ssh' or 'rsh' to learn how to do this. You can test
+to see if this is configured properly by setting up the configuration file then
+typing 'runpar test'. This will run a simple command on each processor. If it fails,
+an error message should be reported. If you see a 'password:' prompt, then the machines
+are not configured properly. On some machines it may be necessary to configure ssh-agent.
+<p> The second column is the number of processors on that particular node. The third column
+is always 1. The fourth column is the network name of the computer. The fifth column
+is not used in the '$HOME/.eman/mparm' file, but IS used if the file is placed in the
+run directory.
+<p>To use EMAN on clusters of computers, the directory where processing is being
+done should be cross-mounted on all of the computers being used. EMAN 1.7+ no
+longer cares about this requirement in most cases, but it is still a good idea
+to follow this proceedure. On some machines, the directories aren't mounted in the same place.
+In most workstation setups, the 5th column will be the same on all lines, but
+if your local configuration has the directory mounted in different places
+on different machines, you can use this column to specify the path to the
+run directory on each node.
+<p>One other note. It is not possible to run a single job across mixed platforms. If you
+have 2 SGIs and 2 PC's, you cannot run a single job on all 4 machines.
+<p>Current distributions of linux have some known problems with their NFS implementations.
+Specifically, if two nodes append to the same file within a few seconds of each other,
+the file will be corrupted. Lacking a better solution, the rather extreme measure of writing
+a custom fileserver for EMAN was undertaken. When the cluster version of EMAN is run,
+virtually all file I/O operations are passed through a single-threaded fileserver running within
+runpar on the host machine. Not only does this avoid NFS bugs, but it seems to run
+faster than NFS. This feature is disabled in the single processor and shared memory
+binary versions EMAN.
+
+<hr>
+<i>EMAN 1.9, last modified 05/05/2005</i>
+</body>

@@ -1,0 +1,165 @@
+<html>
+<head>
+<title>Segment Volume - Measure Stick</title>
+<style type="text/css">
+<!-- 
+body 				{ width: 640px; margin: auto; padding: 24px;
+							font: Verdana, Arial, Helvetica, sans-serif; }
+p 					{	text-align: justify; padding-left: 16px; }
+.highlight 	{ color: #006699; }
+.code 			{ color: #666666; }
+-->
+</style>
+</head>
+
+<body>
+<h2>Measure Stick</h2>
+
+<img src="measurestick.gif">  <!-- icon -->
+
+<h3>Introduction</h3>
+
+<p>The <span class="highlight">Measure Stick</span> module is available 
+as a part of <a href="../SegmentHelp/index.html">Segment Volume</a> package. The 
+module is a <span class="highlight">Chimera</span> extension module. 
+You will need the 
+<a href="http://www.cgl.ucsf.edu/chimera/">Chimera</a> software 
+package to use this module. The module interacts with 
+<span class="highlight">Volume Path</span>, a Chimera module for 
+marker sets in Chimera.</p>
+
+<p><span class="highlight">Measure Stick</span> uses Chimera's 
+<span class="highlight">VolumePath</span> marker sets (see 
+<span class="highlight">Volume Path</span> module in Chimera) and 
+measures the distance of a link between two markers, and the 
+location of the markers itself. </p>
+
+<p><b>Note:</b> This version of the Segment Volume package is
+a pre-release version.</p>
+
+<h3>More:</h3>
+
+<ul>
+	<li><a href="#startup">Startup</a>
+		<ul>
+			<li><a href="#list">Listing the module</a>
+			<li><a href="#start">Starting the module</a></li>
+		</ul>
+	</li>
+	<li><a href="#dialog">Dialog panel</a>
+		<ul>
+			<li><a href="#param">Parameters section</a>
+			<li><a href="#relative">Relative model section</a></li>
+			<li><a href="#buttons">Other buttons</a></li>
+		</ul>
+	</li>
+	<li><a href="#notes">Notes</a>
+		<ul>
+			<li><a href="#notelinks">Selected links</a></li>
+		</ul>
+	</li>	
+</ul>
+
+<hr>
+
+<a name="startup"></a>
+<h3>Startup</h3>
+
+<a name="list"></a>
+<h4>Listing the module</h4>
+
+<p>The module files are stored in the directory 
+<span class="highlight">MeasureStick</span>. To list the module under 
+Chimera's <span class="highlight">Tools</span> menu, add the directory 
+-&nbsp;containing&nbsp;- the <span class="highlight">MeasureStick</span> 
+directory to Chimera's list of Tools.</p>
+
+<p>To do so, open Chimera's main window, choose 
+<span class="highlight">Perferences</span> under 
+<span class="highlight">Favorites</span> menu, then choose the 
+<span class="highlight">Tools</span> category and then 
+<span class="highlight">Add</span> the directory -&nbsp;containing&nbsp;- 
+the <span class="highlight">MeasureStick</span> directory. This will 
+list the tool under <span class="highlight">AIRS</span> on the 
+<span class="highlight">Tools</span> menu.</p>
+
+<a name="start"></a>
+<h4>Starting the module</h4>
+
+<p>To start the module from the Chimera menu, first you will need to ensure 
+that the module is <a href="#list">listed</a> under Chimera's 
+<span class="highlight">Tools</span> menu. Then, click on 
+<span class="highlight">Measure Stick</span> in the 
+<span class="highlight">AIRS</span> menu, under Chimera's 
+<span class="highlight">Tools</span> menu.</p>
+
+<p>Alternatively, you can use the command line tool in Chimera's 
+<span class="highlight">IDLE</span> tool (under Programming tools 
+on the Tools menu), and type: </p>
+
+<p>
+<span class="code">
+&nbsp;&nbsp;&gt;&gt;&gt; import MeasureStick <br>
+&nbsp;&nbsp;&gt;&gt;&gt; MeasureStick.show_simple_distance_dialog() 
+</span>
+</p> 
+
+<hr>
+
+<a name="dialog"></a>
+<h3>Dialog panel</h3>
+
+<p><img src="init.png" align="right" 
+style="margin-left:16px; margin-bottom:8px;"> </p>
+
+<a name="input"></a>
+<h4>Parameters section</h4>
+
+<p>The Measure Stick dialog gives the parameters of the marker set link:
+
+<span class="highlight">distance</span>,
+<span class="highlight">location of marker 1</span>, and 
+<span class="highlight">locaiton of marker 2</span>.</p>
+
+<a name="save"></a>
+<h4>Relative model section</h4>
+
+<p>The coordinates of the markers of the link can be measured 
+relative to the marker set model or to any open model on the 
+<span class="highlight">Models</span> menu. To measure relative to a model
+check the box for <span class="highlight">Show coord relative to open model</span>,
+and then pick the open model on the menu.
+</p>
+
+<p>To compute the distance, press the 
+<span class="highlight">Compute</span> button.</p>
+
+<a name="buttons"></a>
+<h4>Other buttons</h4>
+
+<p>The <span class="highlight">Close</span> button closes the 
+<span class="highlight">Measure Stick</span> dialog. The 
+<span class="highlight">Help</span> button opens this help page.</p>
+
+<hr>
+
+<a name="notes"></a>
+<h3>Notes</h3>
+
+<a name="notelinks"></a>
+<h4>Selected Links</h4>
+<p>If more than one link from the marker set(s) is selected,
+then the parmeters are computed for the first selected link. 
+The markers that form the link are labelled 1 and 2. These 
+labels appear ONLY IF there are no pre-exisitng labels. </p>
+
+<hr>
+
+<span class="highlight">
+<i>Segment Volume package (pre-release) - Measure Stick module<br>
+2005 July, Lavu Sridhar, Baylor College of Medicine</i>
+</span>
+
+</body>
+
+</html>

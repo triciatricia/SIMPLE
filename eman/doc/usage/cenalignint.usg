@@ -1,0 +1,3 @@
+This iteratively centers a set of particles, using only integer shifts to avoid interpolation artifacts.
+Usage:
+cenalignint  <input file> [frac=<0 to d-1>/<d>] [mask=<rad>] [maxshift=<pixels>] [usefilt]

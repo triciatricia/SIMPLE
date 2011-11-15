@@ -1,0 +1,3 @@
+This program is for performing simple operations on PDB files
+Usage:
+procpdb.py  <infile> [<outfile>] [rot=<alt,az,phi>] [trans=<dx,dy,dz>] [posttrans=<dx,dy,dz>] [centeratoms] [centerelec] [centermass] [animorph=<n>,<apix>,<vecfile>] [apix=<A/pix>] [split] [include=[helix,sheet,other] [chains=<chainltr>]

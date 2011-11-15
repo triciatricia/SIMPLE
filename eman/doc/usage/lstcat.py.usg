@@ -1,0 +1,3 @@
+Generates a 'lst' file from a set of input image stacks
+Usage:
+lstcat.py  <output> <input>...

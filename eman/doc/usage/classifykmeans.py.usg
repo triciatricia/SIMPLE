@@ -1,0 +1,3 @@
+This program will classify pre-aligned 2D or 3D images
+Usage:
+classifykmeans.py  [stack=<input images>] [list=<input images>] [classes=<#>] [average=<prefix>] [clsfiles] [listout=<file>] [nosingle]

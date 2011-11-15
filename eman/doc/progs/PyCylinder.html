@@ -1,0 +1,48 @@
+<html>
+<head><title>EMAN Reference: Cylinder Class</title></head>
+<body bgcolor="#f0f0f0">
+<h1> <center>EMAN Reference: Cylinder Class</center> </h1>
+<br>
+<table border=1 cellpadding=3 cellspacing=3>
+  <tr><td><font color=blue>Alt</font></td><td>float Alt()</td></tr>
+  <tr><td><font color=blue>Angle2Center</font></td><td>float Angle2Center(Cylinder next)<br>  difference in orientation between line passing both centers and axis of this</td></tr>
+  <tr><td><font color=blue>Angle2Point</font></td><td>float Angle2Point(Vect p)<br>  difference in orientation between line passing both P and this center and axis of this</td></tr>
+  <tr><td><font color=blue>Angle2Vect</font></td><td>float Angle2Vect(Vect v)<br>  difference in orientation axis of this and the direction vector </td></tr>
+  <tr><td><font color=blue>AxisAngleDiff</font></td><td>float AxisAngleDiff(Cylinder next)<br>  difference in orientation (axises)</td></tr>
+  <tr><td><font color=blue>Axis</font></td><td>Vect Axis()</td></tr>
+  <tr><td><font color=blue>Az</font></td><td>float Az()</td></tr>
+  <tr><td><font color=blue>CenterDistance</font></td><td>float	CenterDistance(Cylinder next)<br>  distance of the center of next cylinder to the center of this</td></tr>
+  <tr><td><font color=blue>Center</font></td><td>Vect Center()</td></tr>
+  <tr><td><font color=blue>Cylinder</font></td><td>Cylinder()<br> construct an empty Cylinder instance<br><br>Cylinder(Vect center, Vect axisdir, len = 5.4, r = 2.5, w = 0.9)</td></tr>
+  <tr><td><font color=blue>Distance2Point</font></td><td>float	Distance2Point(x, y, z)<br>  distance of the Point to the center of this cylinder</td></tr>
+  <tr><td><font color=blue>EndID</font></td><td>int EndID()</td></tr>
+  <tr><td><font color=blue>if_merge</font></td><td>bool if_merge(Cylinder next, da_limit = 30*PI/180., distance_limit = 3.2)<br>  if next is ok to merge with this</td></tr>
+  <tr><td><font color=blue>Label</font></td><td>string	Label()</td></tr>
+  <tr><td><font color=blue>Length</font></td><td>float Length()</td></tr>
+  <tr><td><font color=blue>merge</font></td><td>bool merge(Cylinder next)<br>  actually merge both into this</td></tr>
+  <tr><td><font color=blue>mirror</font></td><td>mirror()<br>  mirror the cylinders</td></tr>
+  <tr><td><font color=blue>NormDistance</font></td><td>float NormDistance(Cylinder next)<br>  shortest distance of the two axes </td></tr>
+  <tr><td><font color=blue>PlaneAngleDiff</font></td><td>float PlaneAngleDiff(Cylinder next)<br>  dihedral angle of planes formed by the two axes and center connection vector</td></tr>
+  <tr><td><font color=blue>Print</font></td><td>Print(int id = -1, FILE out = stdout)</td></tr>
+  <tr><td><font color=blue>QuaterForAxis</font></td><td>Quater QuaterForAxis()</td></tr>
+  <tr><td><font color=blue>Radius</font></td><td>float Radius()</td></tr>
+  <tr><td><font color=blue>setAxis</font></td><td>setAxis(Vect axisdir)<br>setAxis(Euler axisdir)</td></tr>
+  <tr><td><font color=blue>setCenter</font></td><td>setCenter(float x, float y, float z)</td></tr>
+  <tr><td><font color=blue>setEndID</font></td><td>setEndID(int i)</td></tr>
+  <tr><td><font color=blue>setLabel</font></td><td>setLabel(string l)</td></tr>
+  <tr><td><font color=blue>setLength</font></td><td>setLength(float l)</td></tr>
+  <tr><td><font color=blue>setRadius</font></td><td>setRadius(float r)</td></tr>
+  <tr><td><font color=blue>setStartID</font></td><td>setStartID(int i)</td></tr>
+  <tr><td><font color=blue>setWeight</font></td><td>setWeight(float w)</td></tr>
+  <tr><td><font color=blue>StartID</font></td><td>int StartID()</td></tr>
+  <tr><td><font color=blue>toCosec</font></td><td>toCosec(FILE out = stdout, id = 0)</td></tr>
+  <tr><td><font color=blue>toDejaVu</font></td><td>toDejaVu(FILE out = stdout, id = 0)</td></tr>
+  <tr><td><font color=blue>toInventor</font></td><td>toInventor(FILE out = stdout, id = 0, indent = 1, with_head = false)</td></tr>
+  <tr><td><font color=blue>Transform</font></td><td>Transform(Quater rot, Vect trans, Vect center)<br>  transform: rotate then translate<br><br>Transform(Euler rot, Vect trans, Vect center)<br>  transform: rotate then translate</td></tr>
+  <tr><td><font color=blue>Weight</font></td><td>float Weight()</td></tr>
+  <tr><td><font color=blue>Xc</font></td><td>float Xc()</td></tr>
+  <tr><td><font color=blue>Yc</font></td><td>float Yc()</td></tr>
+  <tr><td><font color=blue>Zc</font></td><td>float Zc()</td></tr>
+</table>
+</body>
+</html>

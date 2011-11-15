@@ -1,0 +1,3 @@
+This program will align and classify helical segments vs a set of reference projections
+Usage:
+classeshelix.py  <segments> <ref> [maxbend=<deg>]

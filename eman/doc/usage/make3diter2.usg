@@ -1,0 +1,3 @@
+Iteratively improves 3D models using real-space methods.
+Usage:
+make3diter2  <3d map in> <class averages> <3d map deriv> [sym=<c4,icos,etc>] [minpart=<n ptcl>]

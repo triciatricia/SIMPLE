@@ -1,0 +1,61 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/classesbymra.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>classesbymra</h1>
+<p><h3>This program classifies a set of particles based on a set of references (usually projections).</h3>
+classesbymra  &lt;particles> &lt;refrences> [split] [frac=&lt;num>/&lt;denom>] [projbatches=&lt;num>] [verbose[=&lt;n>]] [mask=&lt;rad>] [refmask] [imask=&lt;rad>] [maxshift=&lt;rad>] [precen] [sigfilt] [tree1=&lt;treefile>] [tree2=&lt;treefile>] [ctfc[=&lt;SF file>]] [applyb2] [matrix] [sep=&lt;nspl>] [logit=&lt;label>] [touch=&lt;filename>] [rfp] [norot] [usefilt] [refine] [slow] [updateheader] [flipphase] [phase] [wtphase] [fscmp] [wtfscmp] [dfilt] [frm2d[=&lt;rad>,&lt;samp>]] [quiet]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;particles></td><td>Raw particle filespec	</td></tr>
+<tr><td>&lt;refrences></td><td>Reference image filespec</td></tr>
+<tr><td>[split]</td><td>Always use this</td></tr>
+<tr><td>[frac=&lt;num>/&lt;denom>]</td><td>Operate only on a fraction of the raw images</td></tr>
+<tr><td>[projbatches=&lt;num>]</td><td>Split the projections into multiple subsets to minimize total memory requirement</td></tr>
+<tr><td>[verbose[=&lt;n>]]</td><td>More verbose output</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>Mask the classified particles, also reduces noise for better classification</td></tr>
+<tr><td>[refmask]</td><td>This will use a mask generated from the reference image. Assumes the 3D model has been sensibly masked.</td></tr>
+<tr><td>[imask=&lt;rad>]</td><td>Inside mask, classified particles are masked for classification, but not in the cls files.</td></tr>
+<tr><td>[maxshift=&lt;rad>]</td><td>Maximum translation during image alignment</td></tr>
+<tr><td>[precen]</td><td>Particles are assumed to be accurately precentered </td></tr>
+<tr><td>[sigfilt]</td><td>Apply a real space filter so only high amplitude data is used for classification</td></tr>
+<tr><td>[tree1=&lt;treefile>]</td><td>First stage high speed classification, see &lt;a href=projtree.html>projtree&lt;/a>. NOTE : limited parallel support</td></tr>
+<tr><td>[tree2=&lt;treefile>]</td><td>Second stage high speed classification</td></tr>
+<tr><td>[ctfc[=&lt;SF file>]]</td><td>Projections are CTF corrected before comparison, SF file required for dfilt2 (see ctfcw in refine)</td></tr>
+<tr><td>[applyb2]</td><td>This will apply B-factors to the projections before comparison. Typically the projections are already filtered, and this may not be desirable.</td></tr>
+<tr><td>[matrix]</td><td>Generates similarity matrix for entire data set in matrix.dat</td></tr>
+<tr><td>[sep=&lt;nspl>]</td><td>Puts each raw particle in 'nspl' different classes.</td></tr>
+<tr><td>[logit=&lt;label>]</td><td>This specifies a label to use in the particle.log file. This records particle number classification throughout a refinement.</td></tr>
+<tr><td>[touch=&lt;filename>]</td><td>Generate an empty file to flag the run completed successfully</td></tr>
+<tr><td>[rfp]</td><td>This will classify using 'rotational footprints' instead of the images themselves. Much faster and quite accruate.</td></tr>
+<tr><td>[norot]</td><td>This will not do any rotational alignment in classification. Primarily used with projections and the matrix option, but may have other uses.</td></tr>
+<tr><td>[usefilt]</td><td>Experimental. Use the 'filt' version of the input file for classification.</td></tr>
+<tr><td>[refine]</td><td>Refines 2D alignment done with fast algorithm. Slower, but not 'slow'.</td></tr>
+<tr><td>[slow]</td><td>Uses a very slow, exhaustive search algorithm for alignment</td></tr>
+<tr><td>[updateheader]</td><td>Save the orientation/center parameters to the image header</td></tr>
+<tr><td>[flipphase]</td><td>Flip phase in addtion to amplitude only when apply CTF or matching amplitude of projections to raw particles</td></tr>
+<tr><td>[phase]</td><td>Experimental. Uses pcmp(), a weighted mean phase-error to compare images for classification</td></tr>
+<tr><td>[wtphase]</td><td>Experimental. Uses pcmp with a SNR weight.</td></tr>
+<tr><td>[fscmp]</td><td>Experimental. Uses fscmp(), a weighted mean phase-error to compare images for classification</td></tr>
+<tr><td>[wtfscmp]</td><td>Experimental. Uses fscmp with a SNR weight.</td></tr>
+<tr><td>[dfilt]</td><td>This will make the rot. avg structure factor of the particle the same as the projection (highly experimental)</td></tr>
+<tr><td>[frm2d[=&lt;rad>,&lt;samp>]]</td><td>This will classify using Fast Rotational Matching 2D. rad is the maximum radius of particles; samp is the number of angular sampling points at each radius circle  </td></tr>
+<tr><td>[quiet]</td><td>Turn off the log.</td></tr>
+</table><br><h3>Usage:</h3>
+<p> classesbymra start.hed proj.hed split mask=28 ctfc sep=2 tree1=proj.tree
+<h3>Description</h3>
+<P>NOTE: While classified as experimental, the phase and fscmp options are very useful
+in most cases these options will produce substantially better results than the default.
+<P>This classifies a set of raw particles based on a set of reference projections.
+The output is a set of cls*.img files, one file for each reference image. If the
+projections were generated from a CTF corrected model, specify the 'ctfc' option
+so the projections will be 'decorrected' before classification.
+<P>The 'tree' options implement 2 part classification for higher speed. Check <a href=projtree.html>projtree</a>
+details on this.
+<P>The 'sep' option allows each particle to be placed into several different classes. If the
+images are very noisy, or if the angular spacing is small, misclassification of some
+particles will inevitably occur. The sep option makes it very likely that one of the
+classes each particle ends up in will be the correct one. The classalignall procedure
+can then be used to obtain sufficient consistency within the set of images actually
+used in each class average.
+<P>'frm2d' better used in combination with maxshift, which indicates the 
+center of mass uncertainty. 
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

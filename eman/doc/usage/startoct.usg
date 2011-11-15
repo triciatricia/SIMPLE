@@ -1,0 +1,3 @@
+This program generates a preliminary 3d model for objects with octahedral symmetry
+Usage:
+startoct  <centered particles> <# to keep> [nosym]

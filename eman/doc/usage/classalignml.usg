@@ -1,0 +1,3 @@
+Aligns a set of images using maximum likelihood
+Usage:
+classalignml  <input file> <iterations> [ref1] [finalref] [savesteps] [saverefs] [mask=<rad>] [locfromfile] [ctfc=<res>] [ctfcw=<SF file>] [even|odd] [maxtran=<dist>] [verbose]

@@ -1,0 +1,11 @@
+#!/bin/csh
+# DATE: 3/13/09
+# Using Intel ifort compiler (evaluation)
+
+#Downloaded: FFTW 3.2.1 
+# make distclean
+
+./configure  F77="/opt/intel/Compiler/11.0/059/bin/ia32/ifort" CC="/opt/intel/Compiler/11.0/059/bin/ia32/icc" --enable-openmp --enable-float 
+
+#mkdir lib
+#cp .libs/*.a  threads/.libs/libfftw3f_threads.a lib

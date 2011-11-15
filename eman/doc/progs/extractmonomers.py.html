@@ -1,0 +1,18 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/extractmonomers.py.html</TITLE></HEAD><BODY background=../paper01.jpg>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>extractmonomers.py</h1>
+<p><h3>This program will extract individual monomers from individual symmetric particles using masks after normal refinement</h3>
+extractmonomers.py  &lt;cls file>
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;cls file></td><td>Path to a .cls file to extract particles from</td></tr>
+</table><br><h3>Usage:</h3>
+<p>extractmonomers.py &lt;cls file> &lt;3d model> &lt;monomer mask> &lt;particle-monomer mask> &lt;symmetry> &lt;sf file> [dump] [mask]
+<h3>Description</h3>
+<P>After running a normal refinement with symmetry imposed, it may be interesting to investigate
+dynamics of individual monomers. This program will take a refined .cls file and extract
+all of the monomers from each particle by subtracting away the unwanted density (with
+CTF taken into account).  The result will be a stack of monomer images which can be used for
+further processing.
+<P>This program is HIGHLY EXPERIMENTAL !  Contact Steve Ludtke before using.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

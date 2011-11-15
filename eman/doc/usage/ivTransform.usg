@@ -1,0 +1,3 @@
+This program transforms the helices in Open Inventor format: rotate, translate, center, mirror
+Usage:
+ivTransform  <input IV file> <output IV file> [rot=<alt,az,phi>|<qx,qy,qz,qa>] [trans=<dx,dy,dz>] [center=<xc,yc,zc>] [mirror] [verbose]

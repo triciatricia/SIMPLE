@@ -1,0 +1,150 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/classalign2.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>classalign2</h1>
+<p><h3>Aligns a set of images iteratively to generate a class-average.</h3>
+classalign2  &lt;input file> &lt;iterations> [ref1] [ign1] [finalref] [saveali] [savecen] [savesteps] [badfile] [stat] [saverefs] [mask=&lt;rad>] [refmask] [refmaskali] [maxshift=&lt;rad>] [keep=&lt;sigmamult>] [locfromfile] [median] [nweight] [ctfc=&lt;res>] [ctfcw=&lt;SF file>] [phaseopt] [ctfcw] [fixac=&lt;0 to 1>] [imask=&lt;rad>] [sigfilt] [even|odd] [sigmaimg] [logit=&lt;label>] [refine] [usefilt] [slow] [phase] [fsc] [frm2d[=&lt;rad>,&lt;samp>]] [classalign2log]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>Input file, usually a cls*img file</td></tr>
+<tr><td>&lt;iterations></td><td>Number of iterative loops</td></tr>
+<tr><td>[ref1]</td><td>Indicates that the first image in the file is a reference</td></tr>
+<tr><td>[ign1]</td><td>Indicates that the first image is a dummy which should be ignored</td></tr>
+<tr><td>[finalref]</td><td>Once the average has been generated, a final alignment to the reference is performed</td></tr>
+<tr><td>[saveali]</td><td>Saves the individual aligned images in a separate file</td></tr>
+<tr><td>[savecen]</td><td>Save the translationally (but not rotationally) aligned images</td></tr>
+<tr><td>[savesteps]</td><td>Save the class average after each iterative step to monitor convergence</td></tr>
+<tr><td>[badfile]</td><td>Save all excluded images in 'bad' files.</td></tr>
+<tr><td>[stat]</td><td>Writes individual image statistics to 'class.stat'</td></tr>
+<tr><td>[saverefs]</td><td>Write the reference image as well as the class average to the output file</td></tr>
+<tr><td>[mask=&lt;rad>]</td><td>Circular mask radius for the class average</td></tr>
+<tr><td>[refmask]</td><td>This will use a mask generated from the reference image. Assumes the 3D model has been sensibly masked.</td></tr>
+<tr><td>[refmaskali]</td><td>This will use a mask generated from the reference image during alignment, but will not apply it to the final model.</td></tr>
+<tr><td>[maxshift=&lt;rad>]</td><td>Maximum translation allowed in alignment. If not specified, implied value from mask is used.</td></tr>
+<tr><td>[keep=&lt;sigmamult>]</td><td>The threshold value for keeping images. Standard deviation multiplier	</td></tr>
+<tr><td>[locfromfile]</td><td>Determine the output file image position from the input filename.</td></tr>
+<tr><td>[median]</td><td>When CTF correction is NOT used, this produces better statistics.</td></tr>
+<tr><td>[nweight]</td><td>Individual images are actually averages and NImg should be used in weighting. No effect with CTF correction or median.</td></tr>
+<tr><td>[ctfc=&lt;res>]</td><td>Enables CTF correction, thru resolution &lt;res> in angstroms.</td></tr>
+<tr><td>[ctfcw=&lt;SF file>]</td><td>Enables CTF correction, with Wiener filtration, requires s vs inten struct. factor file.</td></tr>
+<tr><td>[phaseopt]</td><td>In conjunction with ctfcw=, this will perform experimental per-pixel optimal phase-flipped averaging (experimental!)</td></tr>
+<tr><td>[ctfcw]</td><td>Enables CTF correction, with Wiener filtration, SNR is estimated from the data (DOESN'T WORK)</td></tr>
+<tr><td>[fixac=&lt;0 to 1>]</td><td>This allows you to set the %AC value in the image headers to a fixed value. Note that this will NOT compensate defocus for change in %AC.</td></tr>
+<tr><td>[imask=&lt;rad>]</td><td>Inside mask radius.</td></tr>
+<tr><td>[sigfilt]</td><td>Filters the class averages so only intense values are used in alignment</td></tr>
+<tr><td>[even|odd]</td><td>Only use the even or odd images in the final average</td></tr>
+<tr><td>[sigmaimg]</td><td>Generate a standard deviation image</td></tr>
+<tr><td>[logit=&lt;label>]</td><td>This specifies a label to use in the particle.log file. This records particle number classification throughout a refinement.</td></tr>
+<tr><td>[refine]</td><td>This enables 1/2 pixel accuracy in alignment, slows alignment down quite a bit.</td></tr>
+<tr><td>[usefilt]</td><td>This will use a filtered dataset for alignment, but uses the real data for averaging.</td></tr>
+<tr><td>[slow]</td><td>This will do alignment via exhaustive search. It is VERY slow.</td></tr>
+<tr><td>[phase]</td><td>This will use phase error as a similarity criteria</td></tr>
+<tr><td>[fsc]</td><td>This will use weighted FSC as a similarity criteria</td></tr>
+<tr><td>[frm2d[=&lt;rad>,&lt;samp>]]</td><td>This will classify using Fast Rotational Matching 2D. rad is the maximum radius of particles; samp is the number of angular sampling points at each radius circle</td></tr>
+<tr><td>[classalign2log]</td><td>Together with logit, save the particles that were used in the class average to classalign2.log. [A particle# image_file alt,az,Dx,Dy logit]</td></tr>
+</table><br><h3>Usage:</h3>
+<p>classalign2 cls000.hed 8 ref1 finalref saverefs mask=32 keep=.8 locfromfile ctfc=15
+<h3>Description</h3>
+<P>This is one of the most important programs in EMAN. It is responsible for taking a set
+of particles within a single class, that is, they are supposed to be in the same 
+orientation, and performing a mutual alignement to generate a class-average. This 
+program is largely responsible for the model independance of EMAN, ie - why EMAN can 
+converge in so few iterations. This program is also where CTF amplitude correction occurs. 
+<P>There are quite a few options for this program. It is typically called from classalignall,
+which has almost identical options. The few options that are present here, but not in 
+classalignall, are intended for occasional use when checking robustness of the proceedures. 
+<P>There are 3 manditory options which are specified in all cases. First, is the
+&lt;input file>. This file contains the images which are to be used to generate a class
+average. Optionally, the first image in this file may be a reference image with
+assigned euler angles. The reference will be used only during the first iteration
+of the alignment process, so the final class average is nearly independent of this
+reference. It also provides a final rotational orientation for the class average. 
+<P>The number of iterations (with no prefixed text) and the
+'keep=&lt;sigmamult>' values must also be specified. This program functions
+by: first, aligning all of the images to a common reference, then
+averaging the aligned images together to generate a new reference. This
+reference is then used for another round of alignment, etc. The number
+of iterations specifies how many times this process should repeat.
+Each time, the images should generate a class average more consitent
+with the data. In addition, after each loop, each aligned image is
+compared with the class average from the previous iteration. If the
+quality of the match is worse than a certain threshold value, the image
+is discarded. Each iteration this threshold is made more stringent
+until &lt;sigmamult> is reached in the final iteration. The cutoff value
+is determined by calculating the standard deviation of all of the match
+qualities and multiplying by &lt;sigmamult>. The smaller &lt;sigmamult> is,
+the more consistent the images in the final class average will be, but
+as more images are excluded, the class average will also become more
+noisy. Similarly, increasing the number of iterations will increase the
+consistency of the final class average, but will also typically cause
+more data to be discarded. There are no 'correct' values to use. There
+is always a tradeoff between data homogeneity and noise level.  Typical
+starting values are 8 iterations with &lt;sigmamult>=1.2. &lt;sigmamult> is
+usually >= 1.0, but may be lower when data homogenity is very poor. More
+iterations can always be used, but 8 is usually sufficient to converge
+quite well.
+<P>When the program runs, it displays some useful information on the
+screen. First you will see 1 or more rows of '.'s appear. Each '.'
+represents an image being aligned. If a '*' appears instead of a '.',
+that means that particular image was below the threshold and discarded.
+Note that '*' images are only excluded from the average during a
+particular cycle. They may be included again in later cycles if the
+class average 'wanders' in their direction.
+<P>If your input file contains a reference image (which the other images
+are expected to look at least vaguely similar to), then 'ref1' should be
+specified. 'finalref' implies ref1, and both should not be specified. Normally the initial
+reference is used only during the first iteration, however, during
+several iterations the orientation of the class average in the plane
+can drift. 'finalref' insures that the final class average is oriented
+as closely as possible to the orientation of the initial reference. It
+does not change the appearance of the class average, only its orientation.
+<P>'saverefs' is also usually specified with 'ref1'. This causes the
+reference images to be saved along with the class averages in the output
+file.  This is used to compare each reference with the corresponding class
+average. When the refinement cycle begins to converge, the reference
+images should be nearly identical to the class averages, although the
+class averages will always be noisier.
+<P>'saveali', 'savesteps', 'badfile' and 'stat' are all used primarily when
+something seems to be going wrong. They cause various output files to be
+generated, which can then be used to see exactly what's happening. They
+are rarely used in a normal refinement cycle.
+<P>The default output image from classalign2 is a class average. This means,
+each pixel is equal to the average of that pixel's value in each of the
+aligned images. However, very often the median value will have better
+properties than the mean value (less affected by outliers). Median
+images can be generated instead of averages by specifying the 'median'
+option. Note that this option is incompatible with CTF correction (see
+'ctfc' below).
+<P>Usually, classalign2 will simply append each output class average to the
+end of 'classes.hed'. However, if the program is being run in parallel,
+it is usually desirable to preserve the ordering of the images in the
+output file. 'locfromfile' will cause the output images to be put in
+specific 'slots' in the output file, overwriting any image already in that
+location in the file. This is used by default when classalignall is run.
+<P>'sigfilt' is used when a refinement is failing to produce consistent
+results in the early rounds of refinement. This applies a non-linear
+noise reducing filter to the reference image to try to get better
+initial alignment. It is generally only used when necessary, and then,
+only for early refinement rounds. It should not be used when the final
+few refinement iterations are performed.
+<P>'ctfc' and 'ctfcw' are provided to enable CTF correction when
+generating class averages. For this to work properly all of the images
+in the input file must be pretreated by the ctfit program, so the
+phases are flipped and the CTF parameters are stored in the individual
+image headers. See the documentation for that program 
+and <a href=../ctfc/ctfc.html> the CTF correction primer</a>
+for a discussion of how CTF correction
+is performed. ctfc is specified with a filter resolution for the final
+image. Otherwise high resolution noise will dominate. eg - 'ctfc=12' will
+apply a 12A filter to the final image. NOTE: This IS specified in Angstroms,
+not pixels like most other filter options.
+<P>'ctfcw' is the preferred variant, but requires an x-ray scattering curve
+or a simulated x-ray scattering curve. This curve MUST be used directly
+with ctfit when the data is pretreated, or the class average will be 
+improperly filtered. This option applies a true Wiener filter to the
+data based on the SNR (signal to noise ratio) estimated from the data
+combined with the scattering curve. eg- 'ctfcw=groel.sm' would ctf-correct
+the data with an applied wiener filter. groel.sm would be the 2-column
+data file defining the x-ray scattering curve.
+<P>'frm2d' better used in combination with maxshift, which indicates the 
+center of mass uncertainty. 
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

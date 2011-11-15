@@ -1,0 +1,541 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>EMAN History</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 3.0  (Unix)">
+	<META NAME="AUTHOR" CONTENT="Steve Ludtke">
+	<META NAME="CREATED" CONTENT="0;0">
+	<META NAME="CHANGEDBY" CONTENT="Steve Ludtke">
+	<META NAME="CHANGED" CONTENT="20090107;20222400">
+	<META NAME="Info 1" CONTENT="">
+	<META NAME="Info 2" CONTENT="">
+	<META NAME="Info 3" CONTENT="">
+	<META NAME="Info 4" CONTENT="">
+</HEAD>
+<BODY LANG="en-US" BGCOLOR="#e0e0e0" DIR="LTR">
+<P><A HREF="http://ncmi.bcm.tmc.edu/%7Estevel/EMAN/doc"><FONT COLOR="#000080"><IMG SRC="EMAN.logo.png" NAME="graphics1" ALIGN=BOTTOM WIDTH=300 HEIGHT=200 BORDER=1></FONT></A><A HREF="http://ncmi.bcm.tmc.edu/%7Estevel/EMAN/doc">
+</A>
+</P>
+<H2>History of Changes and Known Bugs</H2>
+<P><BR>If you find a bug or have a suggestion not on the list, please
+<A HREF="mailto:sludtke@bcm.tmc.edu?subject=I%20found%20a%20bug%20%21">let
+me know</A> . 
+</P>
+<H2>EMAN Release Notes (1.9)</H2>
+<P>EMAN1.9 is a bugfix release, intended as a final release of EMAN1
+as it is gradually deprecated in favor of EMAN2. There were no
+'major' changes in this release, strictly a large number of bugfixes
+and small improvements made over the last 2 years. The fixes are
+substantial enough that EMAN1.8 users should definitely upgrade to
+this version.s</P>
+<HR>
+<H3>Major changes in v1.8 :</H3>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Substantial improvements in
+	refine2d.py. Strongly suggest using refine2d.py on all new data sets
+	before moving on to 3D reconstruction. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Some programs use the EMAN2 style
+	arguments ie - 'program &lt;file&gt; --option=value'&nbsp; rather
+	than the old style 'program &lt;file&gt; option=value' 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New HDF5 format compatible with
+	EMAN2. Data can be stored in HDF5 files in many different ways. EMAN
+	1.9 will read both old (EMAN 1.7) HDF5 format files as well as new
+	EMAN2 style HDF5 files. HDF5 writes are always in 'new' HDF5 format.
+	Note that the current HDF I/O methods have poor performance on files
+	with large numbers (~10,000 or more) of images in a single file.
+	We're working on it...</P>
+	<LI><P STYLE="margin-bottom: 0in">New AIRS programs, such as
+	'skeleton' 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Initial support for
+	tetrahedral/cubic symmetry (thx to David Woolford and Phil Baldwin).
+	Not well tested yet.</P>
+	<LI><P STYLE="margin-bottom: 0in">New options to make refinement
+	work better on large icosahedral objects. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Improvements in parallelism
+	infrastructure, though network-related problems may still exist on
+	some linux clusters (please report problems) 
+	</P>
+	<LI><P>Fixed random model generation in makeinitialmodel.py 
+	</P>
+</UL>
+<H3>Known bugs in the current version 
+</H3>
+<UL>
+	<LI><P>Some linux clusters seem to have ssh-related problems. The
+	symptom is either the refine command unreproducibly 'freezing'
+	during the 'classalignall' process. If this happens, you can run
+	'killall ssh' on the node where refine is running, and the job will
+	resume, though a few particles may be lost from the current
+	reconstruction. The other problem is that you may observe some small
+	fraction of the particles being missing from each iteration of the
+	reconstruction. Both problems are relatively harmless, though
+	annoying. Please report specific problems so we can try to establish
+	what the unifying factor is...</P>
+</UL>
+<H3>Major changes in v1.70 :</H3>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">dfilt option in refine works now.
+	<B>This is the major cause for the 1.7 release</B>. This option was
+	used for our recent 6 A reconstruction of GroEL, and we have been
+	touting it as the best current approach for doing EMAN
+	reconstructions (which it is). Unfortunately, due to an unfortunate
+	error on my part, a critical change never got updated in the EMAN
+	source repository. So, essentially, this option worked very well for
+	me, but not for anyone else. Anyone who was experimenting with the
+	dfilt option should give it another try. On the bright side, the bug
+	wasn't causing any harm, specifying dfilt in the buggy version was
+	almost equivalent to not specifying it at all. I apologize for this
+	nasty snafu. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Better support for icosahedral
+	reconstructions and for reconstructions of large models (contact
+	wjiang@bcm.tmc.edu for more info) 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Some programs didn't like EMAN's
+	MRC files. They should now be properly CCP4 compliant. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">EM file format support was minimal
+	in last version, now properly handles stack files and byte-ordering 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New program <I>qplot</I> utility
+	for plotting 2 column text files. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">EMAN can now compile and run on
+	Macs (again). OS 10.3 only, with appropriate fink packages
+	installed. This is still not officially supported. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">The &gt;2G file support was
+	apparently broken in v1.5. This has been fixed. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Improved 64-bit support for use on
+	Athlon-64's and Opterons. This is currently the fastest platform
+	available for EMAN refinements (and the most cost-effective) 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Support for KDE 3.2/Mandrake 10.0 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Fixed funny narrow display in some
+	cases in asymmetric triangle viewer 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in"><I>fitctf</I> improved to work on
+	a wider range of images, including particles from CCD frames 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">usefilt support in <I>multirefine</I>
+		</P>
+	<LI><P>MRC file i/o improved for use with chimera 
+	</P>
+</UL>
+<H3>v1.5 - released 11/2003</H3>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">New refinement options, phasecls,
+	fscls, dfilt and refine for much more accurate image classification 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Prototype animation module for
+	Chimera (undocumented) 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Bugfixes/improvements to PNG &amp;
+	PGM writing 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">MRC output now more comapatible
+	with Chimera scaling 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Fixed major alignment bug when
+	box-size was not divisible by 4 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Realfilters 110 and 111 for
+	iterative expansion of masks 
+	</P>
+	<LI><P>More binary releases</P>
+</UL>
+<P><BR><BR>
+</P>
+<H3>v1.4 - released 06/2003</H3>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Substantial improvements were made
+	to EMAN's parallelism. When used on small particles on a large
+	number of processors, the previous versions of EMAN would run at
+	less than 100% capacity on each processor. The new version should
+	run at 100% on fairly large numbers of CPUs. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Python support - EMAN now
+	officially supports Python scripting. Some very powerful operations
+	can be performed with some very simple (and easy) scripts. Just to
+	give you the flavor, here's a quick example which will compare
+	class-averages to projections: 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">qindex - a program for very basic
+	indexing of 2D crystal images was added. This program may be
+	enhanced in future, depending on community response. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">fitctf - improvements in fitting
+	quality and accuracy. May still have problems with some CCD data. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">procpdb.py - a script for basic
+	manipulation of PDB files, designed largely for use with <I>foldhunter</I>
+		</P>
+	<LI><P STYLE="margin-bottom: 0in">foldhunter - new option added to
+	generate rotated/translated PDB files corresponding to the best fits
+		</P>
+	<LI><P STYLE="margin-bottom: 0in">multirefine - now permits a
+	different symmetry to be specified for each model. This is still an
+	experimental option. 
+	</P>
+	<LI><P>GNU configure -&gt; CMake 
+	</P>
+</UL>
+<P><BR><BR>
+</P>
+<H3>v1.21 (43) - released 07/19/02</H3>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Major documentation updates 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Support for reading 8 and 16 bit
+	tiffs (not tiled) 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Support for image files/stacks
+	larger than 2GB</P>
+	<LI><P STYLE="margin-bottom: 0in">Fixed some automatic boxing
+	problems from (42)</P>
+	<LI><P STYLE="margin-bottom: 0in">Gnu 'configure' support for
+	building EMAN 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Better support for boxing helical
+	'filaments' 
+	</P>
+	<LI><P>Many minor bugfixes</P>
+</UL>
+<P><BR><BR>
+</P>
+<H3>v1.2 (42) - released 5/13/2002</H3>
+<P><BR><I>This page wasn't updated for over 2 years. All major
+changes since compile (3) will be listed here now. Most of these
+happened long ago. Hopefully I'll keep this up to date now</I> 
+</P>
+<P><B>Changes</B> 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Gatan DM3 file format supported
+	(read only) 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Preliminary support for calling
+	the EMAN library from Python using BOOST python. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Wider variety of 'standard' image
+	formats (GIF, BMP, etc.) are supported now through the use of
+	ImageMagick. NETPBM is no longer used. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'seteulers' command for reading
+	and writing Euler angles to/from the image headers in various
+	conventions. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New program 'qsegment' allows for
+	interactive segmentation of 3D volumes. Very fast, but currently
+	lacks isosurface display. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New SVD/MSA based refinement
+	techniques embodied in svdrefine, svdmultirefine. Still quite
+	experimental. Look for an upcoming publication. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">proc2d no longer normalizes by
+	default. Must be explicitly requested with 'norm', 'edgenorm', etc. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New MSA program 'svdcmp' 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Bugfix in classalign2, now
+	B-factors are only applied once 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'meanshrink' option applies
+	average filter rather than median in proc2d 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'euler2=' was broken. Now it works
+	again 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Program 'raw2mrc' for conversion
+	of raw binary data into an EM format. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New GUI for memories in CTFIT.
+	Preparing for database interface. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Boxing of helices as a sequence of
+	particles now supported in boxer. Will be improved in future. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Major bugfix in align3dsym 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Focal pair merging program
+	'focalpair' and experimental mods so merged particles can be used in
+	a reconstruction. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Resolution definition changed in
+	pdb2mrc. Now uses standard EM definition (1/2 width of Gaussian in
+	Fourier space) 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'slow' option added in refine.
+	Uses exhaustive search in alignment. Very slow, experimental. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'Detach' button in EMAN browser
+	allows large images to be viewed. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Probe option in image control
+	panel allows pixel values in an image to be probed, with a histogram
+	display. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">QHelp command provides simple
+	documentation browser. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Multirefine works with fileserver
+	for cluster parallelism 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New normalization used in image
+	comparison, now calculates proper normalized variance. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'selfcl' option in proc2d 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'usefilt' option in refine allows
+	arbitrarily filtered particles to be used for
+	orientation/comparison, while the real data is still used for
+	reconstruction. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'start.exclude' file allows
+	specific particles to be excluded from reconstruction. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'ptcltrace' command allows
+	analysis of self-consistency of particle Euler assignments over
+	several refinement iterations 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'alignhelix' command does
+	primitive 2D alignments of helical 'particles' 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Fileserver added to 'runpar'. This
+	allows EMAN to be used on Linux clusters. Bypasses NFS for file
+	writes as a workaround for several bugs in NFS. Support must be
+	COMPILED in. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Tomographic in-plane alignment
+	program. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Spider file writing fixed. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'glmatrix' and associated changes
+	to provided dimensional reduction capabilities. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Particle tracking (through
+	refinement iterations) added to several programs. Stored in
+	'particle.log'. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'reproj' option in project3d
+	allows for quantitative comparison of projections and class-averages
+		</P>
+	<LI><P STYLE="margin-bottom: 0in">'make3dreal' provides simple
+	filtered back-projection based reconstruction. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'lst' filetype added. Simple text
+	files that reference images in other files. Now used for 'cls'
+	files, etc. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'align3dvec' a 3d alignment
+	program using vectorization of volumes 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">better support for 'D' and 'oct'
+	symmetries 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Automasking in proc3d and refine
+	(refine uses automask2= in proc3d) 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'segment3d' k-means based
+	automatic volume segmentation 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Improved equation editing in ctfit
+		</P>
+	<LI><P>CTF correction now incorporates Wiener filter based on 1D
+	structure factor of protein. 
+	</P>
+</UL>
+<HR>
+<H3>v1.0 beta1 (3) - released 1/10/2000</H3>
+<P><B>Changes</B> 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">Documentation updated, much more
+	complete. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New 'tree' option produces 2-5x
+	speedup in refinements. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Redid parallelism, now supports
+	workstation clusters as well as shared/distributed memory
+	supercomputers. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New '3dit' and '3dit2' options for
+	better 3D models from class averages. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New ctfit interface with database
+	features for tracking changes in microscope/sample quality. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Median filters in boxer to aid in
+	locating particles. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Fixed bug in t-test, previously
+	used 1/4 data rather than 1/2. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Added print button to image
+	windows. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Fixed masking/padding problems so
+	edgemean is used rather than mean. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Fixed bug requiring initial drag
+	in astigmatism slider on some SGIs. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New filefilt option in proc3d
+	allows generic filtering. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Fixed bug in r/w certain MRC
+	files. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Fixed display of angles in Euler
+	view in eman. Selected point in asym tri was updated incorrectly. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Inconsistencies in step 1 and step
+	3 in use of CTF correction. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Classalign2 used to require median
+	option when CTF correction was disabled. No longer. 
+	</P>
+	<LI><P>Basic write support for VTK file format. 
+	</P>
+</UL>
+<P><B>Known deficiencies/planned improvements</B> 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">This is a BETA release. That is,
+	it still has a few bugs, and there are still a few holes in the
+	documentation. If you find a bug, PLEASE report it. If you're
+	looking for missing documention, let me know. Requested items
+	receive higher priority. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Optional Wiener filtration in CTF
+	correction 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Structure factors from PDB for
+	Wiener filtration and CTF parameter determination. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Image drag/drop not finished yet. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">More lowpass filter types neeeded.
+		</P>
+	<LI><P STYLE="margin-bottom: 0in">Spider file support doesn't handel
+	Euler angle conversion yet. 
+	</P>
+	<LI><P>Support for 12 bit tiffs. 
+	</P>
+</UL>
+<HR>
+<H3>v1.0 alpha3 - released 8/30/99</H3>
+<P><B>Changes</B> 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">A serious bug in automatic boxing
+	has been fixed 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New option in boxer allows
+	automatic box alignment for focal pairs 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Fixed single image display in
+	ctfit 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Switched from QT1.44 -&gt; QT2.0.1
+		</P>
+	<LI><P STYLE="margin-bottom: 0in">Easier directory navigation in
+	'eman' file browser 
+	</P>
+	<LI><P>Middle mouse button on plots brings up an inspector with
+	picture saving 
+	</P>
+</UL>
+<HR>
+<H3>v1.0 alpha2 - released 8/8/99</H3>
+<P><B>Changes</B> 
+</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in"><B>Many</B> bug fixes in boxer. 
+	</P>
+	<UL>
+		<LI><P STYLE="margin-bottom: 0in">particle view is now scalable 
+		</P>
+		<LI><P STYLE="margin-bottom: 0in">clicking on a particle to center
+		it in the image view now works when the image view is scaled 
+		</P>
+		<LI><P STYLE="margin-bottom: 0in">Autoboxing thresholds work
+		properly 
+		</P>
+		<LI><P STYLE="margin-bottom: 0in">When the particle view is more
+		than 32768 pixels high, the display works now 
+		</P>
+	</UL>
+	<LI><P STYLE="margin-bottom: 0in">All programs can now read Spider
+	files, proc2d can write Spider files 
+	</P>
+	<UL>
+		<LI><P STYLE="margin-bottom: 0in">Support for 'stack' files seems
+		ok, single images may or may not work 
+		</P>
+		<LI><P STYLE="margin-bottom: 0in">Euler angles are not read
+		properly from the Spider file headers yet. 
+		</P>
+		<LI><P STYLE="margin-bottom: 0in">When writing Spider files, all
+		files will be 'stacks' 
+		</P>
+	</UL>
+	<LI><P STYLE="margin-bottom: 0in">New option in <I>refine</I>: sep=
+	allows particles to be put in multiple classes. This can make a BIG
+	improvement, and only takes about 5-10% longer to run. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">New 'Analyze' menu in <I>eman</I>/
+		</P>
+	<LI><P STYLE="margin-bottom: 0in">Initial version of <I>multirefine</I>
+	for functional state separation. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Multiple image view control panel
+	(middle click) has many new options. drag/drop, delete, save file,
+	etc. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">cls files now have 4 digits, ie.
+	cls012 -&gt; cls0012 
+	</P>
+	<LI><P>misc bugfixes 
+	</P>
+</UL>
+<HR>
+<H3>v1.0 alpha1 - released 6/20/99</H3>
+<UL>
+	<LI><P STYLE="margin-bottom: 0in">boxer crashes if you run it
+	without specifying an image file to box. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Documentation is in a sorry state.
+	Some links are missing. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">Can only read single image Spider
+	files. Stacks are broken. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">The tutorial doesn't use the user
+	parameters as much as it should. 
+	</P>
+	<LI><P STYLE="margin-bottom: 0in">'D' symmetry support isn't perfect
+	yet. 
+	</P>
+	<LI><P>Bug with reading 3D models in ctfit. Power spect. looks
+	wrong. 
+	</P>
+</UL>
+<HR>
+<P><I>Last Modified:&nbsp;</I> 
+<SCRIPT LANGUAGE="JavaScript">
+document.write(document.lastModified)
+</SCRIPT>
+</P>
+</BODY>
+</HTML>

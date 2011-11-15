@@ -1,0 +1,3 @@
+This will apply the given symmetry to a mask, and optionally extend the mask
+Usage:
+masksym.py  <mask in> <mask out> sym=<symmetry> [xtend=<n shells>] [maskdata=<volume in>]

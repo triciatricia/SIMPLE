@@ -1,0 +1,34 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/applyctf.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>applyctf</h1>
+<p><h3>Applies/corrects CTF to sets of particle images</h3>
+applyctf  &lt;input file> &lt;output file> [setparm] [fixnoise] [parmimg=&lt;input>] [memfile=&lt;name>] [parmmem=&lt;name>] [parm=&lt;parmlist>] [sffile=&lt;file>] [applyctf] [flipphase] [invert] [applyB[=&lt;B factor>]] [addnoise[=&lt;scale>]] [wiener] [mrc] [inplace]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>Source file</td></tr>
+<tr><td>&lt;output file></td><td>Destination file, output overwrites existing images</td></tr>
+<tr><td>[setparm]</td><td>Includes the CTF parameters in the header in the output images</td></tr>
+<tr><td>[fixnoise]</td><td>n4 -> 0</td></tr>
+<tr><td>[parmimg=&lt;input>]</td><td>Extract CTF parameters from the first image in &lt;input></td></tr>
+<tr><td>[memfile=&lt;name>]</td><td>The file containing the CTF parameters, specify before "parmmem" option. default to ctfparm.txt in current directory, </td></tr>
+<tr><td>[parmmem=&lt;name>]</td><td>Extract CTF parameters from ctfparm.txt with label &lt;name></td></tr>
+<tr><td>[parm=&lt;parmlist>]</td><td>Specify comma separated CTF parameters as specified in ctfparm.txt</td></tr>
+<tr><td>[sffile=&lt;file>]</td><td>File containing the structure factor associated with the fit parameters. Overrides value already specified.</td></tr>
+<tr><td>[applyctf]</td><td>Applies absolute value of CTF as filter</td></tr>
+<tr><td>[flipphase]</td><td>Flips phases </td></tr>
+<tr><td>[invert]</td><td>Inverts the densities (ie - mult by -1)</td></tr>
+<tr><td>[applyB[=&lt;B factor>]]</td><td>Applies envelope function, optionally specify override for B factor</td></tr>
+<tr><td>[addnoise[=&lt;scale>]]</td><td>Adds defined noise level to image. Optional &lt;scale> scales overall noise amplitude.</td></tr>
+<tr><td>[wiener]</td><td>Apply a Wiener filter</td></tr>
+<tr><td>[mrc]</td><td>Output image(s) in MRC format</td></tr>
+<tr><td>[inplace]</td><td>Ouput image numbers same as input numbers, otherwise appends</td></tr>
+</table><br><h3>Usage:</h3>
+<p>applyctf proj.hed proj.ctf.hed parmimg=start.hed applyctf
+<h3>Description</h3>
+<P>This program is used to apply or partially correct for the CTF in a set
+of particle images. Parameters may come from several sources, and each part
+of the correction may be individually enabled.
+<P>To fairly realistically simulate a micrograph use 'applyctf flipphase addnoise'. This
+assumes that the images are already filtered to an appropriate resolution.
+Note that the scale of added noise may be off and need adjustment.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

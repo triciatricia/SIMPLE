@@ -1,0 +1,3 @@
+This program generates a preliminary 3d model for objects with icosahedral symmetry
+Usage:
+starticos  <centered particles> <# to keep> [imask=<rad>] [nosym]

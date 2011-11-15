@@ -1,0 +1,3 @@
+This will rotate a 3D model so its symmetric axes are aligned on the predefined axes
+Usage:
+align3dsymslow  <input file> <output file> sym=<Cn,Dn> [mask=<rad>] [imask=<rad>]

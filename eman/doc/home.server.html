@@ -1,0 +1,98 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.78 [en] (X11; U; Linux 2.4.16 i686) [Netscape]">
+   <title>EMAN Home</title>
+</head>
+<body background="paper01.jpg">
+
+<center><img SRC="EMAN.jpg" NAME="Graphic1" ALT="EMAN icon" BORDER=0 height=200 width=300 align=BOTTOM>
+<br><b>v1.1</b></center>
+
+<p><br>
+<p>
+<hr>
+<h2>
+EMAN 1.1 snapshots are now available !</h2>
+
+<hr>
+<center>
+<h3>
+Software for Single Particle Analysis and Electron Micrograph Analysis</h3></center>
+
+<center>by Steve Ludtke, Phil Baldwin
+<br><a href="http://ncmi.bcm.tmc.edu" TARGET="_blank">National Center for
+Macromolecular Imaging</a></center>
+
+<p><br>
+
+<p STYLE="margin-bottom: 0.00cm">This page has been accessed&nbsp;<img SRC="http://ncmi.bcm.tmc.edu/cgi-bin/Count.cgi?ft=0|md=7|pad=N|dd=B|df=eman.dat" NAME="Graphic2" BORDER=0  align=BOTTOM>
+unique times since June 12, 1999.
+<table BORDER CELLSPACING=0 CELLPADDING=0 WIDTH="50%" >
+<tr>
+<td ALIGN=CENTER COLSPAN="2"><a href="http://ncmi.bcm.tmc.edu/~stevel/spintro/index.htm" target="_blank"><blink>NEW!</blink>
+Single particle reconstruction tutorial/introduction presentatation</a></td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER><a href="doctoc.html"><img SRC="pageturn.gif" ALT="Documentation" BORDER=0 ></a>
+<br>Documentation</td>
+
+<td ALIGN=CENTER><a href="bugs.html"><img SRC="devil.gif" ALT="Bugs/History" BORDER=0 ></a>
+<br>Bugs/History</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER><a href="usage.html"><img SRC="free01.gif" ALT="License" BORDER=0 ></a>
+<br>License/Usage</td>
+
+<td ALIGN=CENTER><a href="download.html"><img SRC="floppy2.gif" ALT="Download" BORDER=0 ></a>
+<br>Download</td>
+</tr>
+
+<tr>
+<td ALIGN=CENTER COLSPAN="2"><a href="mailto:stevel@alumni.caltech.edu?Subject=Comments on EMAN"><img SRC="email02.gif" ALT="Mailing List" BORDER=0 ></a>
+<br>Email Comments/Questions</td>
+</tr>
+</table>
+
+<hr>
+<p>EMAN is a complete software package for reconstructing 3d models from
+a set of randomly oriented projections. This is primarily aimed at the
+electron cryomicroscopy / single particle analysis community, but many
+of the utilities and (for programmers) objects can be applied to other
+image processing problems.
+<p>EMAN is provided free of charge as a service to the scientific community.
+One of it's biggest advantages is ease of use. An inexperienced image processor
+should be able to download the EMAN package, and begin a 3d reconstruction
+almost immediately. An entire 3d model refinement can be run with a single
+shell command. Understanding the details will obviously take a bit of time,
+but the user can start producing useful results almost immediately.
+<p>EMAN is designed with a 3-tier structure. At the highest level is a
+set of GUI (graphical user interface) programs which should allow anyone,
+even an image processing/EM novice, to perform a 3d reconstruction from
+scratch. The GUI includes utilities for CTF fitting and correction, browsing
+image files, examining the EMAN command history, etc.
+<p>The middle tier consists of a set of command line utilites which perform
+most of the actual processing in the package. Individual programs will
+do operations like reproject 3d models, classify particles, align particles,
+etc.
+<p>The lowest tier is a set of C++ objects which handle all of the most
+common low level image processing operations necessary for cryo-EM work.
+These objects can read/write images and 3d models in a variety of formats,
+do FFTs, DWTs, filter, mask, align, etc. Most of the second tier programs
+are just a few dozen lines of code. The real work is done in the underlying
+objects which could easily be adapted to other tasks. FFT support is provided
+by the (excellent)
+<a href="http://theory.lcs.mit.edu/~fftw/">FFTW library</a>
+written at MIT.
+<br>
+<hr>
+<hr>
+<p><i>Last Modified:&nbsp;</i><script LANGUAGE="JavaScript">
+document.write(document.lastModified)
+</script>
+
+</body>
+</html>

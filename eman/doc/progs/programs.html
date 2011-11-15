@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+  <meta name="GENERATOR" content="Mozilla/4.6 [en] (X11; U; Linux 2.2.10 i686) [Netscape]">
+
+  <meta name="CREATED" content="19990107;23291000">
+
+  <meta name="CHANGEDBY" content="Steve Ludtke">
+
+  <meta name="CHANGED" content="19990107;23350600">
+
+  <style>
+  <!--
+  -->
+  </style>
+</head>
+  <body background="../paper01.jpg" nosave="">
+  <a href="http://ncmi.bcm.tmc.edu/%7Estevel/EMAN/doc"><img src="../EMAN.logo.png">
+</a>
+
+<h2> Individual Programs</h2>
+
+<p><b>Graphical:</b> </p>
+<ul>
+ <li><a href="eman.html">eman</a>
+ </li>
+  <li><a href="boxer.html">boxer</a>
+ </li>
+  <li><a href="ctfit.html">ctfit</a>
+  </li>
+  <li><a href="qsegment.html">qsegment</a>
+    <br>
+ </li>
+  <li><a href="v4.html">v4</a>
+ </li>
+</ul>
+  <br>
+
+<p><b>High level commands:</b> </p>
+<ul>
+</ul>
+</body>
+</html>
+<li><b><a href=eotest.html>eotest</a></b>  This program performs a 2 way even/odd test to determine the resolution of a reconstruction.</li>
+<li><b><a href=multirefine.html>multirefine</a></b>  This performs refinement on a set of 3D models simultaneously</li>
+<li><b><a href=refine.html>refine</a></b>  This is the main refinement loop in EMAN. It has a tremendous number of options.</li>
+<li><b><a href=refine2d.py.html>refine2d.py</a></b>  This is a program for iterative MSA-based particle classification and averaging</li>
+</ul><br><p><b>Low level commands</b><ul><li>Classification<ul>
+<li><b><a href=classes.html>classes</a></b>  This implements reference-free k-means classification based on a set of footprint files</li>
+<li><b><a href=classesbycl.html>classesbycl</a></b>  This classifies a set of centered particles using self common lines.</li>
+<li><b><a href=classesbymra.html>classesbymra</a></b>  This program classifies a set of particles based on a set of references (usually projections).</li>
+<li><b><a href=classesbymra2.html>classesbymra2</a></b>  This program classifies a set of particles based on multiple sets of references and splits the results between 2 directories.</li>
+<li><b><a href=classesrefs.html>classesrefs</a></b>  Classifies particles using a set of invariants</li>
+<li><b><a href=clsregen.html>clsregen</a></b>  This program uses particle.log to regenerate cls files for a particular iteration.</li>
+<li><b><a href=imgdump.html>imgdump</a></b>  Dump an image's dimensions and raw data into a file.</li>
+<li><b><a href=startnrclasses.html>startnrclasses</a></b>  This program takes a set of particle images and generates reference free class averages</li>
+<li><b><a href=basisclsregen.py.html>basisclsregen.py</a></b>  Regenerates cls files for a particular iteration produced with 'basisrefine'</li>
+</ul></li><li>Alignment<ul>
+<li><b><a href=align2d.html>align2d</a></b>  This program will align a set of images to a reference</li>
+<li><b><a href=align3d.html>align3d</a></b>  Rotational and translational alignment of 3d models</li>
+<li><b><a href=align3dsym.html>align3dsym</a></b>  This will rotate a 3D model so its symmetric axes are aligned on the predefined axes</li>
+<li><b><a href=align3dsymslow.html>align3dsymslow</a></b>  This will rotate a 3D model so its symmetric axes are aligned on the predefined axes</li>
+<li><b><a href=cenalignacf.html>cenalignacf</a></b>  This program will center a set of particles using an autocorrelation function</li>
+<li><b><a href=cenalignint.html>cenalignint</a></b>  This iteratively centers a set of particles, using only integer shifts to avoid interpolation artifacts.</li>
+<li><b><a href=classalign2.html>classalign2</a></b>  Aligns a set of images iteratively to generate a class-average.</li>
+<li><b><a href=classalignall.html>classalignall</a></b>  This will align the images in all of the cls*img files in the current directory</li>
+<li><b><a href=geodcmp.html>geodcmp</a></b>  This will determine a set of orthogonal basis images from a set of aligned particles</li>
+<li><b><a href=raw2mrc.html>raw2mrc</a></b>  This program will import raw binary data and write a MRC file</li>
+<li><b><a href=svdcmp.html>svdcmp</a></b>  This will determine a set of orthogonal basis images from a set of aligned particles</li>
+<li><b><a href=powdcmp.html>powdcmp</a></b>  This will determine a set of orthogonal basis images from a set of projections</li>
+</ul></li><li>Reconstruction<ul>
+<li><b><a href=c1startup.html>c1startup</a></b>  This program uses cross-common lines to generate a 3D model from a set of projections</li>
+<li><b><a href=clean3d.html>clean3d</a></b>  This program uses make3diter and proc3d to iteratively make models match class averages</li>
+<li><b><a href=make3d.html>make3d</a></b>  This program builds 3D models from a set of class averages using Fourier techniques</li>
+<li><b><a href=make3diter.html>make3diter</a></b>  Iteratively improves 3D models using real-space methods.</li>
+<li><b><a href=make3diter2.html>make3diter2</a></b>  Iteratively improves 3D models using real-space methods.</li>
+<li><b><a href=make3dreal.html>make3dreal</a></b>  This program builds a 3d model from a set of projections (class averages) using unfiltered back-projection</li>
+<li><b><a href=make3dnonorm.html>make3dnonorm</a></b>  This program builds 3D models from a set of class averages using Fourier techniques</li>
+<li><b><a href=startAny.html>startAny</a></b>  This program will generate a 3D model from a set of class averages, using cross common lines.</li>
+<li><b><a href=startcsym.html>startcsym</a></b>  This program generates a preliminary 3d model for objects with Cn or Dn symmetry</li>
+<li><b><a href=starticos.html>starticos</a></b>  This program generates a preliminary 3d model for objects with icosahedral symmetry</li>
+<li><b><a href=startoct.html>startoct</a></b>  This program generates a preliminary 3d model for objects with octahedral symmetry</li>
+</ul></li><li>Transformation/Analysis<ul>
+<li><b><a href=avg3d.html>avg3d</a></b>  This program will average a set of aligned 3d images together</li>
+<li><b><a href=cloud.html>cloud</a></b>  This program performs MSA based filtering of a set of particles</li>
+<li><b><a href=ctfavg.html>ctfavg</a></b>  Averages a set of 2D images with ctf correction</li>
+<li><b><a href=ctfavg2.html>ctfavg2</a></b>  Averages a set of 2D images with ctf correction</li>
+<li><b><a href=euler.html>euler</a></b>  This program calculates a cross common lines image between 2 source images</li>
+<li><b><a href=eulerclassrefine.html>eulerclassrefine</a></b>  This program will try to refine the Euler angles for a set of class-averages using the concept of common-lines</li>
+<li><b><a href=eulerproj.html>eulerproj</a></b>  This program reassigns Euler angles to a set of class averages by projection matching</li>
+<li><b><a href=eulerrefine.html>eulerrefine</a></b>  This program is used internally by startAny</li>
+<li><b><a href=fftavg.html>fftavg</a></b>  This program reads a set of images, transforms them, and generates and averaged power spectrum</li>
+<li><b><a href=footprint.html>footprint</a></b>  This program generates a set of rotational and translational invariants for use in classification</li>
+<li><b><a href=footprint2.html>footprint2</a></b>  This program generates a set of rotational and translational invariants for use in classification</li>
+<li><b><a href=footprint3.html>footprint3</a></b>  This program generates a set of rotational and translational invariants for use in classification</li>
+<li><b><a href=footprintr.html>footprintr</a></b>  This program generates a set of rotational and translational invariants for use in classification</li>
+<li><b><a href=fpweight.html>fpweight</a></b>  This program assigns weights to the various axes in a footprint file</li>
+<li><b><a href=msa.html>msa</a></b>  This performs multivariate statistical analysis on a set of invariants</li>
+<li><b><a href=msa2.html>msa2</a></b>  This performs multivariate statistical analysis on 2 sets of invariants</li>
+<li><b><a href=project3d.html>project3d</a></b>  Generate projections of a 3D model</li>
+<li><b><a href=ptcltrace.html>ptcltrace</a></b>  Trace how classification of a single particle changes</li>
+<li><b><a href=segment3d.html>segment3d</a></b>  Split a 3d map into several pieces.</li>
+<li><b><a href=symbest.html>symbest</a></b>  This program searches a large set of particles for those with the best symmetry.</li>
+<li><b><a href=symsort.html>symsort</a></b>  Sorts a set of images in order of symmetry quality</li>
+<li><b><a href=tiltseries.html>tiltseries</a></b>  Aligns a set of images from a tilt series and assigns Eulers</li>
+<li><b><a href=volume.html>volume</a></b>  This program calculates the volume/mass of a 3D map</li>
+</ul></li><li>Misc.<ul>
+<li><b><a href=applyctf.html>applyctf</a></b>  Applies/corrects CTF to sets of particle images</li>
+<li><b><a href=basisfilter.html>basisfilter</a></b>  This takes an orthogonal basis set as created by svdcmp and uses it to operate on a set of images</li>
+<li><b><a href=batchboxer.html>batchboxer</a></b>  This program is used for offline boxing of micrographs (MRC format ONLY!)</li>
+<li><b><a href=circleboxer.html>circleboxer</a></b>  This program is used for offline boxing of micrographs using circular contrast regions</li>
+<li><b><a href=classesbybasis.html>classesbybasis</a></b>  This will classify and align a set of particles based on an orthogonal basis as produced by svdcmp or geodcmp</li>
+<li><b><a href=fitctf.html>fitctf</a></b>  This program estimates CTF parameters in batch. The results should be checked in CTFIT.</li>
+<li><b><a href=helixbatchboxer.html>helixbatchboxer</a></b>  This program is used for offline helixboxing of micrographs</li>
+<li><b><a href=iminfo.html>iminfo</a></b>  This program provides basic information about image files</li>
+<li><b><a href=make3dsirt .html>make3dsirt </a></b>  Misc. 3d image processing</li>
+<li><b><a href=mx2img.html>mx2img</a></b>  This program converts a distance matrix to an MRC image</li>
+<li><b><a href=pdb2mrc.html>pdb2mrc</a></b>  This program will generate a 3D electron density map from PDB files</li>
+<li><b><a href=proc2d.html>proc2d</a></b>  This program performs various processing operations on images and sets of images (WARNING: auto normalization removed)</li>
+<li><b><a href=proc3d.html>proc3d</a></b>  Misc. 3d image processing</li>
+<li><b><a href=projtree.html>projtree</a></b>  Generates a list of projections used for high speed particle classification</li>
+<li><b><a href=runpar.html>runpar</a></b>  Run a list of programs in parallel on one or several machines</li>
+<li><b><a href=snrboxer.html>snrboxer</a></b>  This program is used for offline boxing of micrographs (MRC format ONLY!)</li>
+<li><b><a href=speedtest.html>speedtest</a></b>  This program runs a set of speed tests on the current machine.</li>
+<li><b><a href=xtalcen.html>xtalcen</a></b>  This program will take a diffraction pattern, locate the center, remove the beamstop and do a background subtraction</li>
+<li><b><a href=dejavu2pdb.html>dejavu2pdb</a></b>  This program generates a pdb backbone for dejaVu helices</li>
+<li><b><a href=foldhunter.py.html>foldhunter.py</a></b>  Python script for quickly running foldhunterP in chimera</li>
+<li><b><a href=helix.py.html>helix.py</a></b>  This program generates a Ca trace of dejaVu helices</li>
+<li><b><a href=helixhunter.py.html>helixhunter.py</a></b>  Python script for quickly running helixhunter in chimera</li>
+<li><b><a href=sheethunter2.py.html>sheethunter2.py</a></b>  Beta sheet identification</li>
+<li><b><a href=lstcat.py.html>lstcat.py</a></b>  Generates a 'lst' file from a set of input image stacks</li>
+<li><b><a href=makeboxref.py.html>makeboxref.py</a></b>  Generates an optimal set of reference projections from a 3D model for use in automatic particle selection</li>
+<li><b><a href=procpdb.py.html>procpdb.py</a></b>  This program is for performing simple operations on PDB files</li>
+<li><b><a href=sheethunter2.py.html>sheethunter2.py</a></b>  Beta sheet identification</li>
+</ul></ul><p><b>Experimental</b>
+<li><b><a href=align3dvec.html>align3dvec</a></b>  Rotational and translational alignment of 3d models via vectorization</li>
+<li><b><a href=alignhuge.html>alignhuge</a></b>  Determines the rotation and transformation between images in a focal pair</li>
+<li><b><a href=classalignml.html>classalignml</a></b>  Aligns a set of images using maximum likelihood</li>
+<li><b><a href=classesbymra3.html>classesbymra3</a></b>  An experimental version of classesbymra</li>
+<li><b><a href=classesbymrafast.html>classesbymrafast</a></b>  This is an experimental classification program</li>
+<li><b><a href=cosec2iv.html>cosec2iv</a></b>  This program converts helices in COSEC secondary structure elements file format to Open Inventor format </li>
+<li><b><a href=dejavu2iv.html>dejavu2iv</a></b>  This program converts helices in DejaVu secondary structure elements file format to Open Inventor format </li>
+<li><b><a href=focalpair.html>focalpair</a></b>  Merges focal pairs into a single image with partial CTF correction</li>
+<li><b><a href=foldhunter.html>foldhunter</a></b>  This program is used to quantitatively fit a subunit/domain into a large structure density map at intermediate resolution.</li>
+<li><b><a href=foldhunterP.html>foldhunterP</a></b>  This program is used to quantitatively fit a subunit/domain into a large structure density map at intermediate resolution.</li>
+<li><b><a href=helixhunter.html>helixhunter</a></b>  This program is used to locate possible helices in intermediate resolution maps.</li>
+<li><b><a href=helixhunter2.html>helixhunter2</a></b>  This program is used to find possible alpha-helices region in medium resolution (8Angstrom) density map</li>
+<li><b><a href=helixhunter2OMP.html>helixhunter2OMP</a></b>  This program is used to find possible alpha-helices region in medium resolution (8Angstrom) density map</li>
+<li><b><a href=helixhunter3.html>helixhunter3</a></b>  This program is used to find possible alpha-helices region in medium resolution (8Angstrom) density map</li>
+<li><b><a href=helixhunterP.html>helixhunterP</a></b>  This program is used to locate possible helices in intermediate resolution maps. Parallelized.</li>
+<li><b><a href=iv2cosec.html>iv2cosec</a></b>  This program converts helices in Open Inventor format to COSEC secondary structure elements file format</li>
+<li><b><a href=iv2dejavu.html>iv2dejavu</a></b>  This program converts helices in Open Inventor format to DejaVu secondary structure elements file format</li>
+<li><b><a href=ivFit.html>ivFit</a></b>  This program fits the matched paires of helices returned by COSEC</li>
+<li><b><a href=make3dicos.html>make3dicos</a></b>  This program builds 3D models from a set of particles with icosahedral symmetry</li>
+<li><b><a href=make3dicos2.html>make3dicos2</a></b>  Do not use this program directly. It is called from make3dicos.</li>
+<li><b><a href=matrixembed.html>matrixembed</a></b>  This program will embed a mutual distance matrix generated by the 'matrix' option of classesbymra</li>
+<li><b><a href=matrixclass.html>matrixclass</a></b>  This program will take a distance matrix and a pre-embedded space</li>
+<li><b><a href=skeleton.html>skeleton</a></b>  This program is used to produce a skeleton representation of a 3D map. The skeleton preserves the topology (i.e., connectivity) of the input map, yet with a reduced structure consisting only of curves (corresponding to tubular shapes in the map, such as helices) and surfaces (corresponding to platelike shapes in the map, such as beta-sheets). The skeleton can also be used to generate helix/sheet scores for given points in the map.</li>
+<li><b><a href=symAxisSearch.html>symAxisSearch</a></b>  This program is used to iteratively search for the local rotation symmtry axis</li>
+<li><b><a href=symeval.html>symeval</a></b>  Experimental - not documented yet</li>
+<li><b><a href=basiseotest.py.html>basiseotest.py</a></b>  This is the basisrefine equivalent to eotest</li>
+<li><b><a href=basismultirefine.py.html>basismultirefine.py</a></b>  This is a highly experimental refinement procedure using a novel alignment/classification procedure</li>
+<li><b><a href=basisrefine.py.html>basisrefine.py</a></b>  This is a highly experimental refinement procedure using a novel alignment/classification procedure</li>
+<li><b><a href=classalignhelix.py.html>classalignhelix.py</a></b>  This program will take helical cls files and make class-averages</li>
+<li><b><a href=classesbymradfilt.py.html>classesbymradfilt.py</a></b>  This program is a new version of classesbymra using the dfilt option</li>
+<li><b><a href=classeshelix.py.html>classeshelix.py</a></b>  This program will align and classify helical segments vs a set of reference projections</li>
+<li><b><a href=classifykmeans.py.html>classifykmeans.py</a></b>  This program will classify pre-aligned 2D or 3D images</li>
+<li><b><a href=evalsim3d.py.html>evalsim3d.py</a></b>  A simple script that generates projections of a map and uses glmatrix to visually make a similarity comparison</li>
+<li><b><a href=extractmonomers.py.html>extractmonomers.py</a></b>  This program will extract individual monomers from individual symmetric particles using masks after normal refinement</li>
+<li><b><a href=makeinitialmodel.py.html>makeinitialmodel.py</a></b>  Interactively allows the user to make an initial model for iterative reconstruction</li>
+<li><b><a href=masksym.py.html>masksym.py</a></b>  This will apply the given symmetry to a mask, and optionally extend the mask</li>
+<li><b><a href=project3dhelix.py.html>project3dhelix.py</a></b>  This program will make axial and near-axial projections of 3D volumes</li>
+<li><b><a href=sfmerge.py.html>sfmerge.py</a></b>  Combines a structure factor from CTFIT with a simulated curve for use in CTF correction</li>
+</body></html>

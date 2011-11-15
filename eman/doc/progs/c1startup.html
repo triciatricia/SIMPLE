@@ -1,0 +1,24 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/c1startup.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>c1startup</h1>
+<p><h3>This program uses cross-common lines to generate a 3D model from a set of projections</h3>
+c1startup  &lt;input file> &lt;max [fixed=&lt;int gt 0> [output=&lt;file of numbers>
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input file></td><td>Source file with class averages</td></tr>
+<tr><td>&lt;max</td><td>&lt;max></td></tr>
+<tr><td>[fixed=&lt;int gt 0></td><td>[fixed=&lt;int gt 0>]</td></tr>
+<tr><td>[output=&lt;file of numbers></td><td>[output=&lt;file of numbers>]</td></tr>
+</table><br><h3>Usage:</h3>
+<p>c1startup good.img
+<h3>Description</h3>
+<P>This program is used to generate and initial 3D model for refinement
+in cases where there is no symmetry, or the symmetry specific routines
+don't work very well. Generally you just specify the input file
+containing a variety of good class averages (usually 10-20). The
+model will be written to threed.0a.mrc.
+<P>This routine will work only on some models. It is very sensitive to correct
+particle centering and similarities between views in different orientations.
+If you have a model with symmetry or pseudosymmetry, one of the symmetry-
+specific routines should be used.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

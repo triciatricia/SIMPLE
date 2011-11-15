@@ -1,0 +1,3 @@
+This program is used to quantitatively fit a subunit/domain into a large structure density map at intermediate resolution.
+Usage:
+foldhunterP  <map> <model> <outputmap> [cpu=<number of CPU>] [da=<angle>] [startangle=<alt,az,phi>] [range=<angle range>|<r1,r2,r3>] [smart] [mcf] [flcf=<radius>] [sphere_region=<x0,y0,z0,r>] [cyl_region=<x0,y0,z0,rmin,rmax,h>] [keep=<solution_num>] [mask=<x0,y0,z0,r>] [apix=<angstrom_per_pixel>] [res=<angstrom>] [peakwidth=<pixels>] [finestda=<finest angle stepsize>] [int=<file>] [relorig=<x,y,z>] [explorer=<binary file>] [log=<filename>] [bat=<batch file>] [genpdb=<pdb file>] [verbose]

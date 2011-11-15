@@ -1,0 +1,3 @@
+This takes an orthogonal basis set as created by svdcmp and uses it to operate on a set of images
+Usage:
+basisfilter  <input> <basis set> [mask=<rad>] [frac=<num>/<denom>] [nbasis=<n>] [nbasiscls=<n>] [clsbylcmp] [filter=<output>] [classify=<ref set>] [logit=<label>] [align=<ref set>] [multiali=<n>] [groups=<ngrp>] [poweralign[=<max dx>]] [footprint=<fp out>] [bias=<image>] [precen] [adaptive] [basis0+] [saveali=<output>] [origrt] [scalebasis] [verbose] [quiet]

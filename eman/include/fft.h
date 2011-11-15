@@ -1,0 +1,25 @@
+typedef int integer;
+typedef float real;
+typedef struct { real r, i; } complex;
+typedef long int logical;
+
+int threedfft_(real *array,integer *nx,integer *ny,integer *nz, integer *idir);
+int odfft_(real *array,integer *nx,integer *ny,integer *idir);
+int todfft_(real *array,integer *nx,integer *ny,integer *idir);
+int invcarr_(real *array,integer *nx,integer *ny);
+int fft1d_(complex *a,integer *n, integer *idir);
+int hermft_(real *x,real *y,integer *n,integer *dim);
+int realft_(real *even,real *odd,integer *n,integer *dim);
+int rsymft_(real *x,integer *n,integer *dim);
+int sdiad_(real *x,real *y,integer *n,integer *dim);
+int inv21_(real *x,real *y,integer *n,integer *d);
+int cmplft_(real *x,real *y,integer *n,integer *d);
+int srfp_(integer *pts, integer *pmax, integer *twogrp, integer *factor, integer *sym, integer *psym, integer *unsym, logical *error);
+int diprp_(integer *pts, integer *sym, integer *psym, integer *unsym, integer *dim, real *x, real *y);
+int mdftkd_(integer *n, integer *factor, integer *dim, real *x, real *y);
+int r2cftk_(integer *n, integer *m, real *x0, real *y0, real *x1, real *y1, integer *dim);
+int r3cftk_(integer *n, integer *m, real *x0, real *y0, real *x1, real *y1, real *x2, real *y2, integer *dim);
+int r4cftk_(integer *n, integer *m, real *x0, real *y0, real *x1, real *y1, real *x2, real *y2, real *x3, real *y3, integer *dim);
+int r5cftk_(integer *n, integer *m, real *x0, real *y0, real *x1, real *y1, real *x2, real *y2, real *x3, real *y3, real *x4, real *y4, integer *dim);
+int r8cftk_(integer *n, integer *m, real *x0, real *y0, real *x1, real *y1, real *x2, real *y2, real *x3, real *y3, real *x4, real *y4, real *x5, real *y5, real *x6, real *y6, real *x7, real *y7, integer *dim); 
+int rpcftk_(integer *n, integer *m, integer *p, integer *r, real *x, real *y, integer *dim);

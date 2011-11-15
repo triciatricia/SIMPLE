@@ -1,0 +1,3 @@
+This program generates a set of rotational and translational invariants for use in classification
+Usage:
+footprint2  <input file> <output file> [euler]

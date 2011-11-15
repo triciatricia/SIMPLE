@@ -1,0 +1,3 @@
+This program estimates CTF parameters in batch. The results should be checked in CTFIT.
+Usage:
+fitctf  <input file> [sf=<SF File>] [apix=<a/pix>] [V=<voltage>] [Cs=<spher aber>] [over=<oversampling>] [acmax=<max AC>] [acfix=<max AC>] [Bhint=<B factor] [Bfix=<B factor>] [Bexp] [debug]

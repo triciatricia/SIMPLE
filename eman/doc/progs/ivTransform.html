@@ -1,0 +1,22 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/ivTransform.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>ivTransform</h1>
+<p><h3>This program transforms the helices in Open Inventor format: rotate, translate, center, mirror</h3>
+ivTransform  &lt;input IV file> &lt;output IV file> [rot=&lt;alt,az,phi>|&lt;qx,qy,qz,qa>] [trans=&lt;dx,dy,dz>] [center=&lt;xc,yc,zc>] [mirror] [verbose]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;input IV file></td><td>The input Open Inventor format file</td></tr>
+<tr><td>&lt;output IV file></td><td>The output Open Inventor format file</td></tr>
+<tr><td>[rot=&lt;alt,az,phi>|&lt;qx,qy,qz,qa>]</td><td>set rotation paramters, 3 numbers (in degree) for Euler angle, 4 numbers for quaternion</td></tr>
+<tr><td>[trans=&lt;dx,dy,dz>]</td><td>set tranalation parameters in Angstrom</td></tr>
+<tr><td>[center=&lt;xc,yc,zc>]</td><td>set the center to point(xc,yc,zc), in Angstrom</td></tr>
+<tr><td>[mirror]</td><td>mirror the helices, e.g. flip the handness</td></tr>
+<tr><td>[verbose]</td><td>will output some intermediate information</td></tr>
+</table><br><h3>Usage:</h3>
+<p>ivTransform in.iv out.iv rot=30,40,50 trans=12,23,34 mirror center=4,6,9 verbose
+<p>ivTransform in.iv out.iv rot=0.5,0.4,0.7,270 trans=12,23,34 center=4,6,9 verbose
+<h3>Description</h3>
+<P>This program works correctly only for the special Inventor file containing only cylinders (helices).
+When rotation is set using quaternion, the vector part does not need to be a unit vector, the angle part
+is set in degree
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

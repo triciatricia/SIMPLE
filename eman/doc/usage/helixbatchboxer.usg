@@ -1,0 +1,3 @@
+This program is used for offline helixboxing of micrographs
+Usage:
+helixbatchboxer  [input=<filespec>] [output=<filespec>] [length=<length>] lengt [width=<width>] widt [dbbox=<filespec>] [nointerp] No interpolatio [sep] Output boxed out particle in seperate file

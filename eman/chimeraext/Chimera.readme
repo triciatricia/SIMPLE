@@ -1,0 +1,12 @@
+VolumeViewer.volume_list()[0].models()
+VolumeViewer.volume_list()[0].surface_levels
+
+VolumeViewer.volume_list()[0].surface_levels[1]=.6
+>>> dr=VolumeViewer.volume_list()[0]
+>>> dr.update_surface(0,dr.rendering_options)
+>>>
+VolumeViewer.volume_list()[0].surface_levels[1]=.2
+>>> dr.update_surface(0,dr.rendering_options)
+>>>
+
+VolumeViewer.volume_list()[0].surface.surfaces

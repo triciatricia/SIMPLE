@@ -1,0 +1,27 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/basisclsregen.py.html</TITLE></HEAD><BODY background=../paper01.jpg>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>basisclsregen.py</h1>
+<p><h3>Regenerates cls files for a particular iteration produced with 'basisrefine'</h3>
+basisclsregen.py  &lt;iteration> &lt;class #> [clsgen] [keep=&lt;% to keep>] [verbose]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;iteration></td><td>The 'basisrefine' iteration to regenerate</td></tr>
+<tr><td>&lt;class #></td><td>Specify a single class number, a range or 'ALL'</td></tr>
+<tr><td>[clsgen]</td><td>	Generate 'cls' files</td></tr>
+<tr><td>[keep=&lt;% to keep>]</td><td>Specify percentage of particles to include (0-100)</td></tr>
+<tr><td>[verbose]</td><td>Verbose text output</td></tr>
+</table><br><h3>Usage:</h3>
+<p>basisclsregen.py 2 ALL clsgen keep=90
+<h3>Description</h3>
+<P>This program is used to regenerate the cls*.lst files for a particular iteration
+of 'basisrefine' by extracting information from particle.log. Note that this will
+NOT regenerate classes from iterations run with 'refine'. This program will
+also allow a subset of the particles to be excluded based on the quality
+factor determined during classification/alignment. 
+<P>The cls files contain the individual particles in each class, which are then averaged
+to produce classes.?.hed.
+<P>Note that this is a more
+intelligent routine than the one used in 'refine'. This routine actually
+examines how the quality factor varies with defocus and takes this into
+account when deciding which particles to exclude.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

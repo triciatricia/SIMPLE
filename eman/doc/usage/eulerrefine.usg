@@ -1,0 +1,3 @@
+This program is used internally by startAny
+Usage:
+eulerrefine  <imagefile> <csymnum> <NumProcs> <Number of Rounds> [file=<eulers file,if new>]

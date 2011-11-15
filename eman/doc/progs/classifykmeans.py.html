@@ -1,0 +1,20 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/classifykmeans.py.html</TITLE></HEAD><BODY background=../paper01.jpg>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>classifykmeans.py</h1>
+<p><h3>This program will classify pre-aligned 2D or 3D images</h3>
+classifykmeans.py  [stack=&lt;input images>] [list=&lt;input images>] [classes=&lt;#>] [average=&lt;prefix>] [clsfiles] [listout=&lt;file>] [nosingle]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>[stack=&lt;input images>]</td><td>An image file containing all images to be classified</td></tr>
+<tr><td>[list=&lt;input images>]</td><td>A text file with a list of single image filenames</td></tr>
+<tr><td>[classes=&lt;#>]</td><td>Number of classes to generate. Default is 4.</td></tr>
+<tr><td>[average=&lt;prefix>]</td><td>Make averages of each class and save them to prefix.#.mrc</td></tr>
+<tr><td>[clsfiles]</td><td>Generate cls* files</td></tr>
+<tr><td>[listout=&lt;file>]</td><td>Outputs a text file containing a list: &lt;class> &lt;ptcl #> &lt;compare to mean></td></tr>
+<tr><td>[nosingle]</td><td>This will try to reject classes with only one member at each step</td></tr>
+<h3>Description</h3>
+<P>Simple k-means classifier for 2D or 3D images. Images must be prealigned.
+This doesn't use MSA or any other data reduction technique. It's just a
+simple classifier.
+<P>WARNING: The entire set to be classified must fit into memory
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

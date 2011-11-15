@@ -1,0 +1,19 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/circleboxer.html</TITLE></HEAD><BODY>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>circleboxer</h1>
+<p><h3>This program is used for offline boxing of micrographs using circular contrast regions</h3>
+circleboxer  input=&lt;filespec> ptclsize=&lt;diameter> [boxsize=&lt;size>] [output=&lt;filespec>] [dbout=&lt;filespec>]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>input=&lt;filespec></td><td>Image to be boxed	(MRC format only!!!)</td></tr>
+<tr><td>ptclsize=&lt;diameter></td><td>Max diameter of the particles in pixels</td></tr>
+<tr><td>[boxsize=&lt;size>]</td><td>	Final box size in pixels (edge length)</td></tr>
+<tr><td>[output=&lt;filespec>]</td><td>Output file for boxed images</td></tr>
+<tr><td>[dbout=&lt;filespec>]</td><td>Output box database file</td></tr>
+</table><br><h3>Usage:</h3>
+<p>circleboxer input=jj1232.mrc ptclsize=250 boxsize=274 output=jj1232.hed dbout=jj1232.box
+<h3>Description</h3>
+<P>This program performs offline boxing of micrographs by comparing the density
+inside a circle with the density immediately outside the circle, and using the
+standard deviation just outside the particle as an additional exclusion criteria
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>

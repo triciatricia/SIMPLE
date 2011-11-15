@@ -1,0 +1,3 @@
+Aligns a set of images from a tilt series and assigns Eulers
+Usage:
+tiltseries  <input file> <output file> <dang> [indccl] [fixang=<ang>] [mask=<pixel radius>] [skip=<image0[,imageN]>] [maxshift=<pixels] [vertical]

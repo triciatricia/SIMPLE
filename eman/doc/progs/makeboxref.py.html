@@ -1,0 +1,26 @@
+<HTML><HEAD><TITLE>/home/eman64/EMAN/src/eman/src/makeboxref.py.html</TITLE></HEAD><BODY background=../paper01.jpg>
+<a href=http://ncmi.bcm.tmc.edu/~stevel/EMAN/doc><img src=../EMAN2.logo.png></a><h1>makeboxref.py</h1>
+<p><h3>Generates an optimal set of reference projections from a 3D model for use in automatic particle selection</h3>
+makeboxref.py  &lt;threed file> [sym=&lt;sym>] [ang=&lt;dalt>] [phi=&lt;dphi>] [nref=&lt;# to gen>] [invert]
+
+
+<h3>Parameters:</h3>
+<br><table border=3><tr><td>&lt;threed file></td><td>Input 3D model</td></tr>
+<tr><td>[sym=&lt;sym>]</td><td>Faster results if specified</td></tr>
+<tr><td>[ang=&lt;dalt>]</td><td>Angular increment for initial projection generation. Generally the default is adequate</td></tr>
+<tr><td>[phi=&lt;dphi>]</td><td>Angular increment for in-plane rotation. Generally default is adequate.</td></tr>
+<tr><td>[nref=&lt;# to gen>]</td><td>Number of references to generate, ok to specify more than you need</td></tr>
+<tr><td>[invert]</td><td>Invert the contrast of the output projections (contrast must match micrograph being boxed)</td></tr>
+</table><br><h3>Usage:</h3>
+<p>makeboxref.py threed.4a.mrc invert
+<h3>Description</h3>
+<P>This program will generate a set of projections from a 3D model optimally sorted
+for use as references in particle autoboxing in 'boxer'. The output file (best.hed)
+contains an ordered list of projections sorted based on their mutual dissimilarity.
+That is, you may generate 50 or more references, but use only the first 10 or 20. 
+<P>This file IS sorted, however, so you should ALWAYS use the first N particles in this file.
+The only decision to make is how large N should be. That is, how many references to use. Most
+particles will need at least 10 references for adequate boxing, and in many cases 30 or 40
+is not unreasonable. To an extent this will depend on how much patience you have during
+the automatic selection process. See the 'boxer' manual for more information.
+<hr><font size=2>EMAN Manual page, generated Wed Feb 18 10:10:08 2009</font></BODY></HTML>
