@@ -5,7 +5,7 @@
 ! and composition of rotations. The code is distributed with the hope that it will be useful, but 
 ! _WITHOUT_ _ANY_ _WARRANTY_. Redistribution or modification is regulated by the GNU General Public 
 ! License. *Author:* Hans Elmlund, 2009-05-26
-! 
+!
 !==Changes are documented below
 !
 !* restructured, deugged, documented and incorporated in the _SIMPLE_ library, HE 2009-06-25
