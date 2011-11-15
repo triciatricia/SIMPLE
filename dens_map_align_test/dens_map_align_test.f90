@@ -11,12 +11,12 @@ implicit none
 
 logical                         :: result(1000)
 type(dens_map)                  :: dmaps(4)
-!integer                         :: box
+integer                         :: bx
 
 ! Initialize
 result = .TRUE.
 
-box = 24
+bx = 24
 
 dmaps(1) = new_dens_map((/1, 1, 1, 1/), (/4,8,16,18/), (/10,4,14,3/), 4)
 dmaps(2) = new_dens_map((/1, 1, 1, 1/), (/4,8,16,18/), (/10,4,14,3/), 4)
@@ -44,13 +44,13 @@ dmaps(4) = new_dens_map((/1, 1, 1, 1/), (/4,6,15,17/), (/7, 4, 7, 14/), 4)
 !     real, intent(in)                :: param(param_size)
 
 ! cost of two identical dens_maps. 
-call init_dmap_align((/dmaps(1:2)/), 2, box)
+call init_dmap_align((/dmaps(1:2)/), 2, bx)
 result(10) = fuzzy_compare(cost_dmap((/0./),1), 0., 0.)
 
 ! rotate one dens_map
-call center_dens_map(dmaps(1), box)
-call rotate_dens_map(dmaps(1), -.6, box)
-call init_dmap_align(dmaps(1:2), 2, box)
+call center_dens_map(dmaps(1), bx)
+call rotate_dens_map(dmaps(1), -.6, bx)
+call init_dmap_align(dmaps(1:2), 2, bx)
 result(11) = fuzzy_compare(cost_dmap((/0.6/),1), 0., 0.01)
 
 
@@ -60,15 +60,15 @@ dmaps(3) = new_dens_map((/1, 1, 1, 1/), (/3,4,15,18/), (/4,10,11,3/), 4)
 dmaps(4) = new_dens_map((/1, 1, 1, 1/), (/3,4,15,18/), (/4,10,11,3/), 4)
 
 ! test distance measure
-call init_dmap_align(dmaps(2:3), 2, box)
+call init_dmap_align(dmaps(2:3), 2, bx)
 result(12) = fuzzy_compare(cost_dmap((/0./),1), 23.269, 0.01)
 
 ! rotations again
-call center_dens_map(dmaps(1), box)
-call rotate_dens_map(dmaps(1), -.6, box)
-call center_dens_map(dmaps(3), box)
-call rotate_dens_map(dmaps(3), -.4, box)
- call init_dmap_align(dmaps, size(dmaps), box)
+call center_dens_map(dmaps(1), bx)
+call rotate_dens_map(dmaps(1), -.6, bx)
+call center_dens_map(dmaps(3), bx)
+call rotate_dens_map(dmaps(3), -.4, bx)
+ call init_dmap_align(dmaps, size(dmaps), bx)
  result(13) = fuzzy_compare(cost_dmap((/0.6,0.,0.4/),3), 93.075, 0.01)
 ! write(*,*) cost_dmap((/0.6,0.,0.4/),3)
 
@@ -76,19 +76,19 @@ call rotate_dens_map(dmaps(3), -.4, box)
 ! identical
 dmaps(1) = new_dens_map((/1, 1, 1/), (/2,4,16/), (/4,7,7/), 3)
 dmaps(2) = new_dens_map((/1, 1, 1/), (/2,4,16/), (/4,7,7/), 3)
-call init_dmap_align(dmaps(1:2), 2, box)
+call init_dmap_align(dmaps(1:2), 2, bx)
 result(14) = fuzzy_compare(cost_dmap((/0./),1), 0., 0.)
 
 ! rotate
-call center_dens_map(dmaps(1), box)
-call rotate_dens_map(dmaps(1), -.35, box)
-call init_dmap_align(dmaps(1:2), 2, box)
+call center_dens_map(dmaps(1), bx)
+call rotate_dens_map(dmaps(1), -.35, bx)
+call init_dmap_align(dmaps(1:2), 2, bx)
 result(15) = fuzzy_compare(cost_dmap((/0.35/),1), 0., 0.001)
 
 ! distance measure
 dmaps(1) = new_dens_map((/1, 1, 1/), (/2,5,8/), (/3,5,7/), 3)
 dmaps(2) = new_dens_map((/1, 1, 1/), (/1,5,9/), (/2,5,8/), 3)
-call init_dmap_align(dmaps(1:2), 2, box)
+call init_dmap_align(dmaps(1:2), 2, bx)
 result(16) = fuzzy_compare(cost_dmap((/0./),1), 5.6568, 0.001)
 
 ! -------------------------------------------------------------------------------------

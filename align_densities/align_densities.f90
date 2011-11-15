@@ -51,6 +51,15 @@ real, allocatable                       :: angles(:), limits(:,:), r(:), angles_
 real, allocatable                       :: dist_table(:,:), dist_sum(:), all_angles_init(:)
 character(len=14)                       :: angles_file_name
 
+! Check cyclic and other params
+if( command_argument_count() < 5 )then
+    write(*,*) './cluster_densities  box=200 nptcls=10329 neigh=0.05 cyclic=.TRUE. GENMAX=200  [debug=<yes|no>]'
+    stop
+endif
+
+! parse command line args
+call make_params(2) ! Mode 2 = unsupervised agglomerative hierachical 2D classification with greedy adaptive refinement
+
 ! Change the values of the parameters below:
 ! ------------------------------------------
 

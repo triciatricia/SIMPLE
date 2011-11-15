@@ -56,7 +56,7 @@ if( command_argument_count() < 5 )then
 endif
 
 ! parse command line args
-call make_params
+call make_params(2) ! Mode 2 = unsupervised agglomerative hierachical 2D classification with greedy adaptive refinement
 
 ! allocate
 allocate(dens_maps(nptcls), rmsd(nptcls,nptcls), hac_sll(nptcls), cls(nptcls), stat=alloc_stat)
@@ -103,10 +103,12 @@ do i=1,nptcls
     call add_sll_node( hac_sll(i), i )
 end do
 ! Heirarchical clustering
-call hac_cls( rmsd_pwtab, nptcls, ncls, maxp, hac_sll) ! Change values later; 60 = max # particles in a  class
+call hac_cls( rmsd_pwtab, nptcls, ncls, maxp, hac_sll) 
 num_clusters = 0
-call sll_to_arr_cls( hac_sll, nptcls, cls, num_clusters ) ! clsnr = num_clusters?
+call sll_to_arr_cls( hac_sll, nptcls, cls, num_clusters ) 
 call refine_hac_cls( rmsd_pwtab, nptcls, num_clusters, nint(.3*nptcls), cls, maxp )
+! Convert array to sll and back again so they are synced up and there are 
+! no empty classes. 
 call arr_to_sll_cls( cls, nptcls, hac_sll)
 num_clusters = 0
 call sll_to_arr_cls( hac_sll, nptcls, cls, num_clusters )
@@ -131,7 +133,7 @@ close(17)
 ! cls_dist_table is a table of the distances between clusters
 allocate(cls_dist_table(num_clusters,num_clusters), sil_cls(num_clusters), stat=alloc_stat)
 call alloc_err('In program: cluster_densities', alloc_stat)
-  cls_dist_table = avg_dist_table( rmsd, num_clusters, nptcls, cls )
+cls_dist_table = avg_dist_table( rmsd, num_clusters, nptcls, cls )
 
 ! Use silhouette width to find "best" clusters.
 sil_cls = sil_width_cls( cls, cls_dist_table, nptcls, num_clusters, rmsd, 5 )
