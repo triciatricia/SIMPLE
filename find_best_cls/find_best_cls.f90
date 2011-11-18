@@ -8,6 +8,8 @@
 !   - nptcls = number of particles
 !   - smpd = sampling distance of image (Angstroms/pixel)
 !   - ncls = the number of clusters to plot and export
+!   - minp = the minimum number of particles per cluster (clusters smaller than this
+!     won't be considered)
 !
 ! Requires the following files to be present: 
 !   - dens_maps.txt
@@ -62,8 +64,8 @@ type(sll_list), allocatable             :: hac_sll(:)
 type(heapsort)                          :: sil_cls_heap
 character(len=256)                      :: stkconv
 
-if( command_argument_count() < 5 )then
-    write(*,*) './find_best_cls stk=inputstk.spi box=100 nptcls=10000 smpd=1.85 ncls=7 [debug=<yes|no>]'
+if( command_argument_count() < 6 )then
+    write(*,*) './find_best_cls stk=inputstk.spi box=100 nptcls=10000 smpd=1.85 ncls=7 minp=10 [debug=<yes|no>]'
     stop
 endif
 
@@ -187,9 +189,7 @@ write(*,*) 'Silhouette Width:', silhouette
 nplot = min(num_clusters,ncls)
 
 ! Try to use silhouette width to find best clusters.
-sil_cls = sil_width_cls( cls, cls_dist_table, nptcls, num_clusters, rmsd, 5 )
- best_cls = maxloc(sil_cls,1)
-write(*,*) sil_cls(best_cls)
+sil_cls = sil_width_cls( cls, cls_dist_table, nptcls, num_clusters, rmsd, minp )
 sil_cls_heap = new_heapsort(num_clusters)
 do i=1,num_clusters
     call set_heapsort(sil_cls_heap, i, -sil_cls(i), i) ! These values are negative because the heapsort sorts the max values first. 
@@ -221,7 +221,7 @@ do i=1,size(top_sil_cls)
         allocate(imgs(num_imgs), stat=alloc_stat)
         call alloc_err('In program: find_best_cls', alloc_stat)
         n = 1
-        write(*,'(A, I6)', advance='no') 'Cluster', current_cls, 'Members:'
+        write(*,'(A, I6, A, F5.2)', advance='no') 'Cluster', current_cls, ' Silhouette Width:', sil_cls(top_sil_cls(i)), 'Members:'
         do k=1,nptcls
             if (cls(k) == current_cls) then
                 write(*,'(I6)',advance='no') k

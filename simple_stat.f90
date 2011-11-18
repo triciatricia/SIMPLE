@@ -588,7 +588,7 @@ contains
     end function sil_width
     
     function sil_width_cls( cls, cluster_dist_table, n_obj, n_cls, obj_dist_table, min_n )
-    ! returns the silhouette widths of clusters with more than min_n members. cluster = cls. cls = array indicating which cluster each object is in. cluster_dist_table is the distance table of distances between clusters. n_obj = number of objects. n_cls = number of clusters. 
+    ! returns the silhouette widths of clusters with at least min_n members. cluster = cls. cls = array indicating which cluster each object is in. cluster_dist_table is the distance table of distances between clusters. n_obj = number of objects. n_cls = number of clusters. 
         integer, intent(in)             :: n_obj, n_cls, cls(n_obj), min_n
         real, intent(in)                :: cluster_dist_table(n_cls,n_cls)
         real, intent(in)                :: obj_dist_table(n_obj,n_obj)
@@ -607,10 +607,12 @@ contains
         ! Calculate the sil. width for each object, and sum up for each cluster. 
         do n=1,n_obj
             cls_n = cls(n)
-            if (cls_size(cls_n) > min_n) then
+            if (cls_size(cls_n) >= min_n) then
                 dist_self = avg_dist_to_cluster(obj_dist_table, n_obj, cls, n, cls_n)
                 dist_other = avg_dist_to_cluster(obj_dist_table, n_obj, cls, n, closest_cluster(cls_n))
                 sil_width_cls(cls_n) = sil_width_cls(cls_n) + ((dist_other - dist_self) / max(dist_other, dist_self)) / cls_size(cls_n)
+	    else 
+		sil_width_cls(cls_n) = -1.
             end if
         end do
         return

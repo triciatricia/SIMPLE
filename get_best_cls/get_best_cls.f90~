@@ -70,7 +70,7 @@ type(pair_wtab)                         :: rmsd_pwtab
 type(heapsort)                          :: sil_cls_heap
 character(len=256)                      :: stkconv
 
-if( command_argument_count() < 5 )then
+if( command_argument_count() < 4 )then
     write(*,*) './get_best_cls stk=inputstk.spi box=200 nptcls=10329 clsnr=3 minp=10 [debug=<yes|no>]'
     stop
 endif
