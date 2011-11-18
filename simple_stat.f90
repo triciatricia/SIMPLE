@@ -589,7 +589,6 @@ contains
     
     function sil_width_cls( cls, cluster_dist_table, n_obj, n_cls, obj_dist_table, min_n )
     ! returns the silhouette widths of clusters with more than min_n members. cluster = cls. cls = array indicating which cluster each object is in. cluster_dist_table is the distance table of distances between clusters. n_obj = number of objects. n_cls = number of clusters. 
-    ! need to test
         integer, intent(in)             :: n_obj, n_cls, cls(n_obj), min_n
         real, intent(in)                :: cluster_dist_table(n_cls,n_cls)
         real, intent(in)                :: obj_dist_table(n_obj,n_obj)
@@ -619,7 +618,6 @@ contains
     
     function dist_self( cls, cluster_dist_table, n_obj, n_cls, obj_dist_table )
     ! returns the silhouette width of individual objects. cluster cls. cls = array indicating which cluster each object is in. cluster_dist_table is the distance table of distances between clusters. n_obj = number of objects. n_cls = number of clusters. 
-    ! need to test
         integer, intent(in)             :: n_obj, n_cls, cls(n_obj)
         real, intent(in)                :: cluster_dist_table(n_cls,n_cls)
         real, intent(in)                :: obj_dist_table(n_obj,n_obj)

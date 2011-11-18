@@ -1,9 +1,8 @@
-program dens_map_align_test
 ! -------------------------------------------------------------------------------------
 ! The purpose is to test functions and subroutines in dens_map_align.
 ! List of things not tested here: 
 ! -------------------------------------------------------------------------------------
-
+program dens_map_align_test
 use simple_dens_map
 use simple_dens_map_align
 use tester_mod

@@ -3,6 +3,14 @@
 ! clustering. Run this after extract_densities to cluster images based 
 ! on rmsd. At the end, this plots roughly aligned averages of the "best" 5 of these 
 ! clusters. 
+!
+! Command Arguments
+!   - stk = stack of binarized images that you are analyzing (will be used for plotting 
+!     a few clusters to show whether clustering worked). 
+!   - maxp = maximum number of particles in a class
+!   - box = length of a side of the image in pixels (image is square shaped)
+!   - nptcls = number of particles
+!   - ncls = maximum number of clusters
 ! 
 ! Requires the following files to be present: 
 !   - dens_maps.txt
@@ -27,6 +35,7 @@ program cluster_densities
 use simple_stkspi
 use simple_imgspi
 use simple_math
+use simple_cmdline
 use simple_params
 use simple_jiffys
 use simple_dens_map
@@ -37,7 +46,7 @@ use simple_heapsort
 implicit none
 
 integer                                 :: i, j, k, n, current_cls, num_clusters, num_imgs
-integer                                 :: file_stat, alloc_stat
+integer                                 :: file_stat, alloc_stat, nplot
 real, allocatable                       :: rmsd(:,:), cls_dist_table(:,:)
 real, allocatable                       :: closest_clust(:,:), sil_cls(:), top_sil(:)
 integer, allocatable                    :: top_sil_cls(:)
@@ -56,10 +65,11 @@ if( command_argument_count() < 5 )then
 endif
 
 ! parse command line args
+call parse_cmdline
 call make_params(2) ! Mode 2 = unsupervised agglomerative hierachical 2D classification with greedy adaptive refinement
 
 ! allocate
-allocate(dens_maps(nptcls), rmsd(nptcls,nptcls), hac_sll(nptcls), cls(nptcls), stat=alloc_stat)
+allocate(dens_maps(nptcls), rmsd(nptcls,nptcls), hac_sll(nptcls), stat=alloc_stat)
 call alloc_err('In program: cluster_densities', alloc_stat)
 
 ! -------------------------------------------------------------------------------------
@@ -97,20 +107,21 @@ call recover_pair_wtab( rmsd_pwtab, 'rmsd_pwtab.bin' )
 ! Heirarchical Clustering
 ! -------------------------------------------------------------------------------------
 
-! make the simple linked list
+! Make the simple linked list for hac_cls to use
 do i=1,nptcls
     hac_sll(i) = new_sll_list()
     call add_sll_node( hac_sll(i), i )
 end do
 ! Heirarchical clustering
 call hac_cls( rmsd_pwtab, nptcls, ncls, maxp, hac_sll) 
-num_clusters = 0
+num_clusters = 1
 call sll_to_arr_cls( hac_sll, nptcls, cls, num_clusters ) 
+! Recluster ~30% of particles. 
 call refine_hac_cls( rmsd_pwtab, nptcls, num_clusters, nint(.3*nptcls), cls, maxp )
 ! Convert array to sll and back again so they are synced up and there are 
 ! no empty classes. 
 call arr_to_sll_cls( cls, nptcls, hac_sll)
-num_clusters = 0
+num_clusters = 1
 call sll_to_arr_cls( hac_sll, nptcls, cls, num_clusters )
 
 ! Output cls to file
@@ -129,13 +140,16 @@ close(17)
 ! -------------------------------------------------------------------------------------
 ! Plot 5 "Best" Clusters
 ! -------------------------------------------------------------------------------------
+! Number to plot
+nplot = min(num_clusters,5)
 
 ! cls_dist_table is a table of the distances between clusters
 allocate(cls_dist_table(num_clusters,num_clusters), sil_cls(num_clusters), stat=alloc_stat)
 call alloc_err('In program: cluster_densities', alloc_stat)
-cls_dist_table = avg_dist_table( rmsd, num_clusters, nptcls, cls )
+ cls_dist_table = avg_dist_table( rmsd, num_clusters, nptcls, cls )
 
-! Use silhouette width to find "best" clusters.
+! Use silhouette width to find "best" clusters. Don't bother calculating the 
+! silhouette width for clusters with 5 or fewer particles (value will be 0). 
 sil_cls = sil_width_cls( cls, cls_dist_table, nptcls, num_clusters, rmsd, 5 )
 sil_cls_heap = new_heapsort(num_clusters)
 do i=1,num_clusters
@@ -143,7 +157,7 @@ do i=1,num_clusters
     call set_heapsort(sil_cls_heap, i, -sil_cls(i), i)
 end do
 call sort_heapsort(sil_cls_heap)
-allocate(top_sil_cls(5), top_sil(5), stat=alloc_stat)
+allocate(top_sil_cls(nplot), top_sil(nplot), stat=alloc_stat)
 call alloc_err('In program: cluster_densities', alloc_stat)
 ! top_sil holds the silhouette widths for the top clusters
 ! top_sil_cls holds the cluster number corresponding to the silhouette widths in top_sil

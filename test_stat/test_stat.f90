@@ -1,7 +1,7 @@
+! -------------------------------------------------------------------------------------
+! I am using this to test modifications to simple_stat -Tricia
+! -------------------------------------------------------------------------------------
 program test_stat
-! -------------------------------------------------------------------------------------
-! I am using this to test modifications to simple_stat
-! -------------------------------------------------------------------------------------
 use simple_stat
 use tester_mod
 implicit none
@@ -10,7 +10,7 @@ save
 logical                         :: result(1000)
 integer                         :: alloc_stat
 integer                         :: i, j, k, n
-!integer, allocatable            :: cls_test(:)
+integer, allocatable            :: cls_test(:)
 real                            :: r, s, t
 real, allocatable               :: cls_table(:,:), obj_table(:,:), cls_table2(:,:), obj_table2(:,:)
 

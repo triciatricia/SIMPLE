@@ -1,5 +1,12 @@
 ! -------------------------------------------------------------------------------------
 ! Find best cluster(s) from the results from cluster_densities. 
+! 
+! Command Arguments
+!   - stk = stack of images that you are analyzing (will be used for plotting 
+!     a few clusters to show whether clustering worked). 
+!   - box = length of a side of the image in pixels (image is square shaped)
+!   - nptcls = number of particles
+!   - smpd = sampling distance of image (Angstroms/pixel)
 !
 ! Requires the following files to be present: 
 !   - dens_maps.txt
@@ -30,6 +37,7 @@ program find_best_cls
 use simple_stkspi
 use simple_imgspi
 use simple_math
+use simple_cmdline
 use simple_params
 use simple_dens_map
 use simple_pair_wtab
@@ -38,7 +46,7 @@ use simple_heapsort
 implicit none
 
 integer                                 :: i, j, k, n, current_cls, num_clusters, num_imgs
-integer                                 :: file_stat, alloc_stat, best_cls
+integer                                 :: file_stat, alloc_stat, best_cls, nplot
 real                                    :: silhouette
 real, allocatable                       :: closest_img(:,:), rmsd(:,:), cls_dist_table(:,:)
 real, allocatable                       :: closest_clust(:,:), dist_owncls(:), sil_cls(:), top_sil(:)
@@ -53,12 +61,13 @@ type(sll_list), allocatable             :: hac_sll(:)
 type(heapsort)                          :: sil_cls_heap
 character(len=256)                      :: stkconv
 
-if( command_argument_count() < 5 )then
+if( command_argument_count() < 4 )then
     write(*,*) './find_best_cls stk=inputstk.spi box=100 nptcls=10000 smpd=1.85 [debug=<yes|no>]'
     stop
 endif
 
 ! parse command line args
+call parse_cmdline
 call make_params
 
 ! allocate
@@ -173,6 +182,8 @@ call alloc_err('In program: find_best_cls', alloc_stat)
 ! -------------------------------------------------------------------------------------
 ! Roughly Align, Plot, and Write Spider Stacks to File for 7 "Best" Clusters
 ! -------------------------------------------------------------------------------------
+! Number to plot
+nplot = min(num_clusters,7)
 
 ! Try to use silhouette width to find best clusters.
 sil_cls = sil_width_cls( cls, cls_dist_table, nptcls, num_clusters, rmsd, 5 )
@@ -184,7 +195,7 @@ do i=1,num_clusters
 end do
 call sort_heapsort(sil_cls_heap)
 ! Change the numbers in the allocate command below to get fewer or more clusters.
-allocate(top_sil_cls(7), top_sil(7), stat=alloc_stat)
+allocate(top_sil_cls(nplot), top_sil(nplot), stat=alloc_stat)
 call alloc_err('In program: find_best_cls', alloc_stat)
 ! top_sil holds the silhouette widths for the top clusters
 ! top_sil_cls holds the cluster number corresponding to the silhouette widths in top_sil
@@ -196,13 +207,16 @@ top_sil = -top_sil
 ! Plot the "best" avg cluster imgs, output to spider stack files
 img = new_imgspi(box)
 stack = new_stkspi( name=stk )
-! determine how to convert the stack
+! Determine how to convert the stack
 call find_stkconv( stack, stk, stkconv )
 do i=1,size(top_sil_cls)
     current_cls=top_sil_cls(i) 
     if (any(cls==current_cls)) then
         num_imgs = count(cls == current_cls)
         stack_out = new_stkspi(box,num_imgs)
+        write(chari,'(I10)') i
+        chari = adjustl(chari)
+        call write_stk_hed( stack_out, 'cls'//trim(chari)//'.spi' )
         allocate(imgs(num_imgs), stat=alloc_stat)
         call alloc_err('In program: find_best_cls', alloc_stat)
         n = 1
@@ -212,9 +226,6 @@ do i=1,size(top_sil_cls)
                 write(*,'(I6)',advance='no') k
                 call read_imgspi(stack, stk, k, img, stkconv) 
                 imgs(n) = img
-                write(chari,'(I10)') i
-                chari = adjustl(chari)
-                call write_stk_hed( stack_out, 'cls'//trim(chari)//'.spi' ) 
                 call write_imgspi( stack_out, 'cls'//trim(chari)//'.spi', n, img )
                 n = n + 1
             end if
