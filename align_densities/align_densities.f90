@@ -63,7 +63,7 @@ real, allocatable                       :: dist_table(:,:), dist_sum(:), all_ang
 character(len=32)                       :: clsnr_char, angles_file_name
 
 if( command_argument_count() < 5 )then
-    write(*,*) './cluster_densities  box=200 nptcls=10329 neigh=0.05 GENMAX=200 clsnr=67  [debug=<yes|no>]'
+    write(*,*) './align_densities  box=200 nptcls=10329 neigh=0.05 GENMAX=200 clsnr=67  [debug=<yes|no>]'
     stop
 endif
 
@@ -168,7 +168,8 @@ do i=1,size(angles_init)
     if (angles_init(i) < 0.) angles_init(i) = angles_init(i) + 2.*pie
 end do
 
-write(*,*) 'Initial angles:', angles_init
+write(*,*) 'Initial angles:'
+write(*,*) angles_init
 write(*,*) 'Cost init:', cost_dmap(angles_init, size(angles_init))
 
 ! Generate initial population of solutions
@@ -185,7 +186,7 @@ init_sol(size_pop,:) = angles_init
 
 ! Differential evolution:
 ! -----------------------
-write(*,*) 'Differential evolution'
+write(*,'(A)') '>>> Differential evolution'
 ! Initialize
  cls_de_opt = new_de_opt( size(angles), limits, size_pop, neigh, cyclic, init_sol)
 ! Run differential evolution
@@ -195,7 +196,8 @@ call de_cont_min( cls_de_opt, cost_dmap, GENMAX, cost_error, angles, cost_fittes
 ! Output Results
 ! --------------
 
-write(*,*) 'Angles:', angles
+write(*,*) 'Angles:'
+write(*,*) angles
 write(*,*) 'Final cost:', cost_fittest
 
 ! Output angles to the file <anglesfilename>
