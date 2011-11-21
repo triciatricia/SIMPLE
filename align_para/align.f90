@@ -30,7 +30,7 @@ integer                   :: i, file_stat
 integer, parameter        :: fhandle=23
 logical                   :: cmderr(7)
 if( command_argument_count() < 4 )then
-    write(*,*) './align mode=<mode nr> fstk=fstk.fim vol1=<refvol_1.spi> [vol2=<refvol_2.spi> etc.] lp=<low-pass limit (in A)> trs=<origin shift(in pixels){5}> outfile=algndoc_roundX.dat nthr=<nr of openMP threads> [oritab=<previous rounds alignment doc>] [fromp=<start ptcl> top=<stop ptcl>] [pgrp=<cn|dn>] [hp=<high-pass limit (in A)>] [debug=<yes|no>]'
+    write(*,*) './align mode=<mode nr> fstk=fstk.fim vol1=<refvol_1.spi> [vol2=<refvol_2.spi> etc.] lp=<low-pass limit (in A)> trs=<origin shift(in pixels){3}> outfile=algndoc_roundX.dat nthr=<nr of openMP threads> [oritab=<previous rounds alignment doc>] [fromp=<start ptcl> top=<stop ptcl>] [pgrp=<cn|dn>] [hp=<high-pass limit (in A)>] [debug=<yes|no>]'
     write(*,*) ''
     write(*,*) 'Available modes are:'
     write(*,*) '20: EvolAlign with fixed lowpass limit'

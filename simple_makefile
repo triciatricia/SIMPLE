@@ -1,0 +1,166 @@
+# ------------------Macro-Defs---------------------
+F90=ifort 
+
+# -------------------End-macro-Defs---------------------------
+
+# Here is the link step 
+binarize:simple_jiffys.o simple_cmdline.o simple_params.o simple_def_precision.o simple_syscalls.o simple_math.o gnufor2.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_random_nrs.o simple_stat.o dens_map_mod.o simple_imgspi.o simple_stkspi.o simple_fftw3.o simple_ffts.o binarize.o 
+	 $(F90) -o binarize simple_jiffys.o simple_cmdline.o simple_params.o simple_def_precision.o simple_syscalls.o simple_math.o gnufor2.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_random_nrs.o simple_stat.o dens_map_mod.o simple_imgspi.o simple_stkspi.o simple_fftw3.o simple_ffts.o binarize.o   -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
+
+# Here are the compile steps
+simple_aligndata.o:./simple_aligndata.f90  
+	 $(F90) -c ../simple_aligndata.f90 -implicitnone 
+
+simple_build.o:./simple_build.f90  
+	 $(F90) -c ../simple_build.f90 -implicitnone
+
+simple_cmdline.o:./simple_cmdline.f90  
+	 $(F90) -c ../simple_cmdline.f90 -implicitnone
+
+simple_comlin.o:./simple_comlin.f90  
+	 $(F90) -c ../simple_comlin.f90 -implicitnone
+
+simple_comlin_corr.o:./simple_comlin_corr.f90  
+	 $(F90) -c ../simple_comlin_corr.f90 -implicitnone
+
+simple_d_array.o:./simple_d_array.f90  
+	 $(F90) -c ../simple_d_array.f90 -implicitnone
+
+simple_d_scalar.o:./simple_d_scalar.f90  
+	 $(F90) -c ../simple_d_scalar.f90 -implicitnone
+
+simple_de_opt.o:./simple_de_opt.f90  
+	 $(F90) -c ../simple_de_opt.f90 -implicitnone
+
+simple_def_precision.o:./simple_def_precision.f90  
+	 $(F90) -c ../simple_def_precision.f90 -implicitnone
+
+simple_dock.o:./simple_dock.f90  
+	 $(F90) -c ../simple_dock.f90 -implicitnone
+
+simple_eulers.o:./simple_eulers.f90  
+	 $(F90) -c ../simple_eulers.f90 -implicitnone
+
+simple_extrfplane.o:./simple_extrfplane.f90  
+	 $(F90) -c ../simple_extrfplane.f90 -implicitnone
+
+simple_ffts.o:./simple_ffts.f90  
+	 $(F90) -c ../simple_ffts.f90 -implicitnone
+
+simple_fftw3.o:./simple_fftw3.f90  
+	 $(F90) -c ../simple_fftw3.f90 -implicitnone
+
+simple_fgridvol.o:./simple_fgridvol.f90  
+	 $(F90) -c ../simple_fgridvol.f90 -implicitnone
+
+simple_fplane.o:./simple_fplane.f90  
+	 $(F90) -c ../simple_fplane.f90 -implicitnone
+
+simple_fplanes_corr.o:./simple_fplanes_corr.f90  
+	 $(F90) -c ../simple_fplanes_corr.f90 -implicitnone
+
+simple_fstk.o:./simple_fstk.f90  
+	 $(F90) -c ../simple_fstk.f90 -implicitnone
+
+simple_fstk.o:./simple_fstk.f90  
+	 $(F90) -c ../simple_fstk.f90 -implicitnone
+
+simple_fvols_corr.o:./simple_fvols_corr.f90  
+	 $(F90) -c ../simple_fvols_corr.f90 -implicitnone
+
+simple_heapsort.o:./simple_heapsort.f90  
+	 $(F90) -c ../simple_heapsort.f90 -implicitnone
+
+simple_i_array.o:./simple_i_array.f90  
+	 $(F90) -c ../simple_i_array.f90 -implicitnone
+
+simple_i_scalar.o:./simple_i_scalar.f90  
+	 $(F90) -c ../simple_i_scalar.f90 -implicitnone
+
+simple_imgspi.o:./simple_imgspi.f90  
+	 $(F90) -c ../simple_imgspi.f90 -implicitnone
+
+simple_jiffys.o:./simple_jiffys.f90  
+	 $(F90) -c ../simple_jiffys.f90 -implicitnone
+
+simple_list_object.o:./simple_list_object.f90  
+	 $(F90) -c ../simple_list_object.f90 -implicitnone
+
+simple_math.o:./simple_math.f90  
+	 $(F90) -c ../simple_math.f90 -implicitnone
+
+simple_mgaus.o:./simple_mgaus.f90  
+	 $(F90) -c ../simple_mgaus.f90 -implicitnone
+
+simple_mgaus_mix.o:./simple_mgaus_mix.f90  
+	 $(F90) -c ../simple_mgaus_mix.f90 -implicitnone
+
+simple_pair_wtab.o:./simple_pair_wtab.f90  
+	 $(F90) -c ../simple_pair_wtab.f90 -implicitnone
+
+simple_params.o:./simple_params.f90  
+	 $(F90) -c ../simple_params.f90 -implicitnone
+
+simple_pmatch.o:./simple_pmatch.f90  
+	 $(F90) -c ../simple_pmatch.f90 -implicitnone
+
+simple_ppca.o:./simple_ppca.f90  
+	 $(F90) -c ../simple_ppca.f90 -implicitnone
+
+simple_pair_wtab.o:./simple_pair_wtab.f90  
+	 $(F90) -c ../simple_pair_wtab.f90 -implicitnone
+
+simple_r_array.o:./simple_r_array.f90  
+	 $(F90) -c ../simple_r_array.f90 -implicitnone
+
+simple_r_scalar.o:./simple_r_scalar.f90  
+	 $(F90) -c ../simple_r_scalar.f90 -implicitnone
+
+simple_ran_tabu.o:./simple_ran_tabu.f90  
+	 $(F90) -c ../simple_ran_tabu.f90 -implicitnone
+
+simple_rbased_search.o:./simple_rbased_search.f90  
+	 $(F90) -c ../simple_rbased_search.f90 -implicitnone
+
+simple_rfree_search.o:./simple_rfree_search.f90  
+	 $(F90) -c ../simple_rfree_search.f90 -implicitnone
+
+simple_rnd.o:./simple_rnd.f90  
+	 $(F90) -c ../simple_rnd.f90 -implicitnone
+
+simple_sa_opt.o:./simple_sa_opt.f90  
+	 $(F90) -c ../simple_sa_opt.f90 -implicitnone
+
+simple_sll_list.o:./simple_sll_list.f90  
+	 $(F90) -c ../simple_sll_list.f90 -implicitnone
+
+simple_spidoc.o:./simple_spidoc.f90  
+	 $(F90) -c ../simple_spidoc.f90 -implicitnone
+
+simple_stat.o:./simple_stat.f90  
+	 $(F90) -c ../simple_stat.f90 -implicitnone
+
+simple_stkspi.o:./simple_stkspi.f90  
+	 $(F90) -c ../simple_stkspi.f90 -implicitnone
+
+simple_syscalls.o:./simple_syscalls.f90  
+	 $(F90) -c ../simple_syscalls.f90 -implicitnone
+
+simple_tabu_end.o:./simple_tabu_end.f90  
+	 $(F90) -c ../simple_tabu_end.f90 -implicitnone
+
+simple_ts_opt.o:./simple_ts_opt.f90  
+	 $(F90) -c ../simple_ts_opt.f90 -implicitnone
+
+simple_tslist.o:./simple_tslist.f90  
+	 $(F90) -c ../simple_tslist.f90 -implicitnone
+
+simple_volspi.o:./simple_volspi.f90  
+	 $(F90) -c ../simple_volspi.f90 -implicitnone
+
+# This entry allows you to type " make clean " to get rid of
+# all object and module files 
+clean:
+	rm -f -r f_{files,modd}* *~ *.g90 *.o *.mod *.M *.d V*.inc *.vo \
+	V*.f *.dbg album F.err
+  

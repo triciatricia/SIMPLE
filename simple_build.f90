@@ -144,7 +144,7 @@ contains
                       num%s3d(i)%kernel(-xdim:xdim,-xdim:xdim,-xdim:xdim), stat=alloc_stat )
             call alloc_err( 'In: new_build, module: simple_build.f90, allocation 8', alloc_stat )
             num%s3d(i)%vspi = new_volspi(num%s3d(i)%rvol, box)
-            if( vols(i) /= '' )then
+            if( vols(i) /= '' .and. mode /= 30 )then
                 ! read reference volumes
                 call read_volspi( num%s3d(i)%vspi, vols(i) )
                 ! normalize reference volumes

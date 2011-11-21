@@ -269,8 +269,9 @@ contains
         !$omp end parallel do
     end subroutine rot_fvol
         
-    subroutine fgrid
+    subroutine fgrid( nincl )
     ! for gridding Fourier volumes according to the orientations and states in oris
+        integer, intent(in) :: nincl
         integer :: i, s
         do s=1,nstates
             ! zero the Fourier volumes
@@ -280,12 +281,13 @@ contains
         end do
         ! loop over particles
         write(*,'(A)') '>>> GRIDDING FOURIER PLANES'
-        do i=1,nptcls
-            call print_bar(i, nptcls, '=')
+        do i=1,nincl
+            call print_bar(i, nincl, '=')
             ! read the Fourier plane from stack
-            call read_fplane(bp%f(ptcl)%arr, fstk, i)
+            call read_fplane(bp%f(ptcl)%arr, fstk, pinds(i))
             ! grid it
-            call grid_fplane(oris(i,1), oris(i,2), oris(i,3), oris(i,4), oris(i,5), int(oris(i,6)))
+            call grid_fplane(oris(pinds(i),1), oris(pinds(i),2), oris(pinds(i),3),&
+            oris(pinds(i),4), oris(pinds(i),5), int(oris(pinds(i),6)))
         end do
         call kernel_div
     end subroutine fgrid

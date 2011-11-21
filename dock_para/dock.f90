@@ -29,7 +29,7 @@ integer            :: i
 character(len=120) :: dig
 character(len=256) :: fnam
 if( command_argument_count() < 9 )then
-    write(*,*) './dock vol1=invol1.spi vol2=invol2.spi box=100 smpd=2.33 lp=<low-pass limit(in A){15-30}> mw=<molecular weight(in kD)> msk=<mask radius(in pixels)> nthr=<nr of openMP threads> nrnds=<nr of rounds> [nspace=<nr of projection directions>] [angtres=<angular resolution in the plane>] [debug=<yes|no>]'
+    write(*,*) './dock vol1=invol1.spi vol2=invol2.spi box=100 smpd=2.33 lp=<low-pass limit(in A){15-30}> mw=<molecular weight(in kD)> msk=<mask radius(in pixels)> nthr=<nr of openMP threads> nrnds=<nr of rounds> [nspace=<nr of projection directions>] [angres=<angular resolution in the plane>] [debug=<yes|no>]'
     stop
 endif
 ! parse command line

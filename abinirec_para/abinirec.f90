@@ -73,9 +73,13 @@ if( vols(1) == '' )then
     rt = new_ran_tabu(nspace)
     do i=1,nptcls
         call print_bar( i, nptcls, '=' )
+        ! read the Fourier plane from stack
+        call read_fplane( b%f(ptcl)%arr, fstk, i )
+        ! pick a random projection direction
         b%statearr(i) = irnd_uni_tabu(rt)
         call insert_ran_tabu(rt, b%statearr(i))
         call get_euler(b%e, b%statearr(i), e1, e2, e3)
+        ! generate weights for the neighboring directions 
         closest = find_closest_eulers(b%e, e1, e2, nbest)
         call gen_wvec(weights)
         ! grid 

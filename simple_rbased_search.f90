@@ -45,7 +45,6 @@ private
 interface de_ori_refinement
     module procedure de_ori_refinement_1
     module procedure de_ori_refinement_2
-!    module procedure de_ori_refinement_3
 end interface
 
 type(build), pointer :: bp=>null() ! pointer to builder
@@ -115,31 +114,31 @@ contains
         lpmed = get_lowpass_median(bp%a) ! The median lowpass limit
     end subroutine calc_lowpass_lims
     
-    subroutine exhaustive_euler_search( x, y )
-    ! is for exhaustive angular search
-        real, intent(in) :: x, y
-        real             :: e1, e2, e3, corr, rsol(6)
-        integer          :: j, k, cnt
-        cnt = 0
-        do j=1,nspace! projection direction loop
-            call get_euler( bp%e, j, e1, e2, e3 )
-            do k=1,ninpl ! inplane angle loop
-                e3 = real(k-1)*angtres
-                rsol(1) = e1
-                rsol(2) = e2
-                rsol(3) = e3
-                rsol(4) = x
-                rsol(5) = y
-                rsol(6) = 1 
-                corr = corr_fplanes( e1, e2, e3, x, y )
-                cnt = cnt+1
-                call set_heapsort( bp%hso, cnt, corr, rarr=rsol )
-            end do
-        end do
-        call sort_heapsort( bp%hso )
-    end subroutine exhaustive_euler_search
+!    subroutine exhaustive_euler_search( x, y )
+!    ! is for exhaustive angular search
+!        real, intent(in) :: x, y
+!        real             :: e1, e2, e3, corr, rsol(6)
+!        integer          :: j, k, cnt
+!        cnt = 0
+!        do j=1,nspace! projection direction loop
+!            call get_euler( bp%e, j, e1, e2, e3 )
+!            do k=1,ninpl ! inplane angle loop
+!                e3 = real(k-1)*angres
+!                rsol(1) = e1
+!                rsol(2) = e2
+!                rsol(3) = e3
+!                rsol(4) = x
+!                rsol(5) = y
+!                rsol(6) = 1 
+!                corr = corr_fplanes( e1, e2, e3, x, y )
+!                cnt = cnt+1
+!                call set_heapsort( bp%hso, cnt, corr, rarr=rsol )
+!            end do
+!        end do
+!        call sort_heapsort( bp%hso )
+!    end subroutine exhaustive_euler_search
     
-    subroutine exhaustive_proj_search( e3, x, y )
+    subroutine exhaustive_proj_search_1( e3, x, y )
     ! is for exhaustive projection direction search
         real, intent(in) :: e3, x, y
         real             :: e1, e2, corr, rsol(6), rslask
@@ -151,8 +150,8 @@ contains
             rsol(3) = e3
             rsol(4) = x
             rsol(5) = y
+            rsol(6) = 1
             corr = corr_fplanes( e1, e2, e3, x, y )
-            rsol(6) = 1     
             call set_heapsort( bp%hso, j, corr, rarr=rsol )
         end do
         rsol = 0.
@@ -160,7 +159,33 @@ contains
             call set_heapsort( bp%hso, j, -1., rarr=rsol )
         end do
         call sort_heapsort( bp%hso )
-    end subroutine exhaustive_proj_search
+    end subroutine exhaustive_proj_search_1
+    
+    subroutine exhaustive_proj_search_2( e3, x, y )
+    ! is for exhaustive projection direction search
+        real, intent(in) :: e3, x, y
+        real             :: e1, e2, corr, rsol(6), rslask
+        integer          :: j, s
+        do j=1,nspace! projection direction loop
+            call get_euler( bp%e, j, e1, e2, rslask )
+            do s=1,nstates ! state loop
+                state = s
+                rsol(1) = e1
+                rsol(2) = e2
+                rsol(3) = e3
+                rsol(4) = x
+                rsol(5) = y
+                rsol(6) = real(s)   
+                corr = corr_fplanes( e1, e2, e3, x, y )
+                call set_heapsort( bp%hso, j, corr, rarr=rsol )
+            end do
+        end do
+        rsol = 0.
+        do j=nspace*nstates+1,ninpl*nspace
+            call set_heapsort( bp%hso, j, -1., rarr=rsol )
+        end do
+        call sort_heapsort( bp%hso )
+    end subroutine exhaustive_proj_search_2
     
     subroutine de_ori_refinement_1( e1, e2, e3, x, y, lowpass, init_rsols, cost )
     ! is for global template-based refinement given an input solution population 
@@ -172,12 +197,12 @@ contains
         ! set low-pass limit
         lp_dyn = lowpass
         ! re-initialize the DE-pop
-        if( present(init_rsols) )then 
+        if( present(init_rsols) )then
             call re_init_de_opt( nasty, optlims(:5,:), init_rsols(:,:5) )
         else
             call re_init_de_opt( nasty, optlims(:5,:) )
         endif
-        if( lowpass >= 25. .or. spec == 0 )then ! use the unweighted correlation
+        if( lowpass > 20. .or. spec == 0 )then ! use the unweighted correlation
             call de_cont_min( nasty, cost_fplanes, 200, 0.0001, rsol, cost_here )
         else ! use the weighted one
             call de_cont_min( nasty, wcost_fplanes, 200, 0.0001, rsol, cost_here )
@@ -204,7 +229,7 @@ contains
         call mkoptlims( e1, e2, e3, x, y, tres, optlims )
         ! re-initialize the DE-pop
         call re_init_de_opt( nasty, optlims(:5,:) )
-        if( lowpass >= 25. )then ! use the unweighted correlation
+        if( lowpass > 20. )then ! use the unweighted correlation
             call de_cont_min( nasty, cost_fplanes, 200, 0.0001, rsol(:5), cost_here )
         else ! use the weighted one
             call de_cont_min( nasty, wcost_fplanes, 200, 0.0001, rsol(:5), cost_here )
@@ -216,144 +241,17 @@ contains
         y  = rsol(5)
         cost = cost_here
     end subroutine de_ori_refinement_2
-
-!    subroutine de_ori_refinement_2( e1, e2, e3, x, y, lowpass, fnr, irec, cost )
-!    ! is for global template-based refinement given an input solution population 
-!        real, intent(out)   :: e1, e2, e3, x, y
-!        real, intent(in)    :: lowpass
-!        integer, intent(in) :: fnr, irec
-!        real, intent(out)   :: cost
-!        real                :: rsol(5), cost_here
-!        lp_dyn = lowpass
-!        ! re-initialize the DE-pop
-!        call re_init_de_opt( nasty, optlims(:5,:) )
-!        call read_de_pop( nasty, fnr, irec )
-!        if( lowpass >= 25. )then ! use the unweighted correlation
-!            call de_cont_min( nasty, cost_fplanes, 200, 0.0001, rsol(:5), cost_here )
-!        else ! use the weighted one
-!            call de_cont_min( nasty, wcost_fplanes, 200, 0.0001, rsol(:5), cost_here )
-!        endif        
-!        e1 = rsol(1) 
-!        e2 = rsol(2)
-!        e3 = rsol(3)
-!        x  = rsol(4)
-!        y  = rsol(5)
-!        cost = cost_here
-!    end subroutine de_ori_refinement_2
-    
-!    subroutine de_ori_refinement_3( e1, e2, e3, x, y, lowpass, fnr, irec, tres, cost )
-!    ! is for global template-based refinement given an input solution population 
-!        real, intent(out)   :: e1, e2, e3, x, y
-!        real, intent(in)    :: lowpass, tres
-!        integer, intent(in) :: fnr, irec
-!        real, intent(out)   :: cost
-!        real                :: opt_limits(6,2), rsol(5), cost_here
-!        ! set dynamic low-pass
-!        lp_dyn = lowpass
-!        ! determine optimization limits
-!        call mkoptlims( e1, e2, e3, x, y, tres, opt_limits )
-!        ! re-initialize the DE-pop
-!        call read_de_pop( nasty, fnr, irec )
-!        call re_init_de_opt( nasty, opt_limits(:5,:) )
-!        if( lowpass >= 25. )then ! use the unweighted correlation
-!            call de_cont_min( nasty, cost_fplanes, 200, 0.0001, rsol(:5), cost_here )
-!        else ! use the weighted one
-!            call de_cont_min( nasty, wcost_fplanes, 200, 0.0001, rsol(:5), cost_here )
-!        endif
-!        e1 = rsol(1) 
-!        e2 = rsol(2)
-!        e3 = rsol(3)
-!        x  = rsol(4)
-!        y  = rsol(5)
-!        cost = cost_here
-!    end subroutine de_ori_refinement_3
-    
-!    subroutine soft_refine( b )
-!        type(build), intent(inout) :: b
-!        integer                    :: i, j, s
-!        character(len=32)          :: dig, vnam
-!        real, parameter            :: tstart=0.1, tstop=0.01, tdiff=0.09
-!        real                       :: t
-!        write(*,'(A)') '>>> SOFT ORIENTATION REFINEMENT BY DETERMINISTIC ANNEALING'
-!        ! Re-direct pointers in fgridvol to the new Fourier volume 
-!        call set_fgridvol('new')
-!        t = tstart
-!        do j=1,maxits
-!            write(*,'(A,I2)') '  ITERATION: ', j
-!            write(dig,*) j
-!            vnam = 'softrec_'//trim(adjustl(dig))//'.spi'
-!            do s=1,nstates
-!                ! zero the Fourier volumes
-!                b%s3d(s)%fvol_new = cmplx(0.,0.)
-!                ! zero the kernels
-!                b%s3d(s)%kernel = 0.
-!            end do
-!            do i=1,nptcls
-!                call print_bar( i, nptcls, '=' )
-!                ! read the Fourier plane from stack
-!                call read_fplane( b%f(ptcl)%arr, fstk, i )
-!                ! do the weighted search
-!                call search_weighted
-!            end do
-!            ! Divide with the gridded kernel
-!            call kernel_div
-!            do s=1,nstates
-!                ! Update the Fourier references 
-!                b%s3d(s)%fvol = b%s3d(s)%fvol_new
-!            end do
-!            ! low-pass filter
-!            call lp_fvol( b, 1, lp )
-!            ! Rev FFT
-!            call fft_rev_fvol( b, 1 )
-!            ! mask
-!            if( msk > 1. ) call mask_volspi( b%s3d(1)%vspi, msk )
-!            ! write the volume file
-!            call write_volspi( b%s3d(1)%vspi, vnam )
-!            ! update the temperature
-!            t = t-tdiff/real(maxits)
-!        end do
-!        
-!        contains
-!        
-!            subroutine search_weighted
-!                integer :: k
-!                real    :: sols(5), sump, p(nbest), score
-!                ! Perfom exhaustive angular search
-!                ! set winsize to 1 and wchoice to 1 for the alignment
-!                winsz = 1
-!                wchoice = 1
-!                call exhaustive_proj_search( oris(i,3), oris(i,4), oris(i,5) )
-!                ! set winsize to 2 and wchoice to 2 for the reconstruction
-!                winsz = 2
-!                wchoice = 2 
-!                ! Calculate weights and grid the Fourier plane
-!                sump = 0.
-!                do k=1,nbest      
-!                    call get_heapsort( b%hso, ninpl*nspace-(k-1), score )
-!                    p(k) = (1./sqrt(2.*pi*t))*(exp((score-1.)/(2.*t)))
-!                    sump = sump+p(k)
-!                end do
-!                do k=1,nbest
-!                    call get_heapsort( b%hso, ninpl*nspace-(k-1), score, rarr=sols )
-!                    p(k) = p(k)/sump
-!                    call grid_fplane(sols(1), sols(2), sols(3), sols(4), sols(5), 1, p(k))
-!                end do                
-!            end subroutine search_weighted
-!            
-!    end subroutine soft_refine
     
     subroutine soft_refine( b )
         type(build), intent(inout) :: b
         integer                    :: i, j, s
-        character(len=32)          :: dig, vnam
+        character(len=32)          :: dig1, dig2, vnam
         write(*,'(A)') '>>> SOFT ORIENTATION REFINEMENT BY DETERMINISTIC ANNEALING'
         ! Re-direct pointers in fgridvol to the new Fourier volume 
         call set_fgridvol('new')
         nbest = nbest_start
         do j=1,maxits
             write(*,'(A,I2)') '  ITERATION: ', j
-            write(dig,*) j
-            vnam = 'softrec_'//trim(adjustl(dig))//'.spi'
             do s=1,nstates
                 ! zero the Fourier volumes
                 b%s3d(s)%fvol_new = cmplx(0.,0.)
@@ -370,17 +268,24 @@ contains
             ! Divide with the gridded kernel
             call kernel_div
             do s=1,nstates
+                write(dig1,*) j
+                if( nstates > 1 )then
+                    write(dig2,*) s
+                    vnam = 'softrec_'//trim(adjustl(dig1))//'_state'//trim(adjustl(dig2))//'.spi'
+                else
+                    vnam = 'softrec_'//trim(adjustl(dig1))//'.spi'
+                endif
                 ! Update the Fourier references 
                 b%s3d(s)%fvol = b%s3d(s)%fvol_new
+                ! low-pass filter
+                call lp_fvol( b, s, lp )
+                ! Rev FFT
+                call fft_rev_fvol( b, s )
+                ! mask
+                if( msk > 1. ) call mask_volspi( b%s3d(s)%vspi, msk )
+                ! write the volume file
+                call write_volspi( b%s3d(s)%vspi, vnam )
             end do
-            ! low-pass filter
-            call lp_fvol( b, 1, lp )
-            ! Rev FFT
-            call fft_rev_fvol( b, 1 )
-            ! mask
-            if( msk > 1. ) call mask_volspi( b%s3d(1)%vspi, msk )
-            ! write the volume file
-            call write_volspi( b%s3d(1)%vspi, vnam )
             ! update nbest
             nbest = nbest-nint(real(nbest_start-nbest_stop)/real(maxits))
         end do
@@ -389,12 +294,16 @@ contains
         
             subroutine search_weighted
                 integer :: k
-                real    :: sols(5), sump, p(nbest), corr
+                real    :: sols(6), sump, p(nbest), corr
                 ! Perfom exhaustive angular search
                 ! set winsize to 1 and wchoice to 1 for the alignment
                 winsz = 1
                 wchoice = 1
-                call exhaustive_proj_search(oris(i,3), oris(i,4), oris(i,5))
+                if( nstates > 1 )then
+                    call exhaustive_proj_search_2(oris(i,3), oris(i,4), oris(i,5))
+                else
+                    call exhaustive_proj_search_1(oris(i,3), oris(i,4), oris(i,5))
+                endif
                 ! set winsize to 2 and wchoice to 2 for the reconstruction
                 winsz = 2
                 wchoice = 2 
@@ -402,175 +311,28 @@ contains
                 sump = 0.
                 do k=1,nbest      
                     call get_heapsort( b%hso, ninpl*nspace-(k-1), corr )
-                    p(k) = exp(1.-corr)
+                    p(k) = exp(corr-1)
                     sump = sump+p(k)
                 end do
                 do k=1,nbest
                     call get_heapsort( b%hso, ninpl*nspace-(k-1), corr, rarr=sols )
                     p(k) = p(k)/sump
-                    call grid_fplane(sols(1), sols(2), sols(3), sols(4), sols(5), 1, p(k))
+                    if( nstates > 1 )then
+                        call grid_fplane(sols(1), sols(2), sols(3), sols(4), sols(5), int(sols(6)), p(k))
+                    else
+                        call grid_fplane(sols(1), sols(2), sols(3), sols(4), sols(5), 1, p(k))
+                    endif
                 end do                
             end subroutine search_weighted
             
     end subroutine soft_refine
-    
-!    subroutine rbased_evol_align( i, fhandle )
-!    ! template-based refinmenet by differential evolution
-!        integer, intent(in)           :: i
-!        integer, intent(in), optional :: fhandle
-!        real :: init_rsols(nbest,5), rsols(nstates,5)
-!        real :: corrs_state(nstates)
-!        real :: lowpass, e1, e2, e3, x, y, corrspec, corrspec_first, rslask
-!        real :: corr, cost, lowpass_first, corr_first, depop(nbest,6)
-!        integer :: k, state, s, loc(1), nunits(nstates), recsz, file_stat, cnt
-!        logical :: do_exhaust, stack_exists
-!        if( spec == 0 )then
-!            lowpass = lp ! input low-pass limit
-!            call set_aligndata( bp%a, i, lowpass=lowpass )
-!            x = 0. ! no previous x,y vec avail
-!            y = 0.
-!            corr_first = -1. ! no previous corr avail
-!        else
-!            call get_aligndata( bp%a, i, e1=e1, e2=e2, e3=e3, x=x, y=y, state=state,&
-!            lowpass=lowpass_first, modelq=corrspec_first, corr=corr_first )
-!            lowpass = min( lp,lowpass_first ) ! The input lowpass limit is limiting
-!        endif
-!        ! set lowpass lim
-!        lp_dyn = lowpass
-!        ! determine the rec length
-!        inquire(iolength=recsz) depop
-!        ! loop over states
-!        cnt = 67
-!        do s=1,nstates
-!           ! set global state parameter
-!           state = s
-!           ! open the de pop stacks
-!           nunits(s) = cnt
-!           cnt = cnt+1
-!           ! check existence of the stack
-!           call file_exists( depopstks(s), stack_exists )
-!           ! open the de_pop_stack
-!            if( stack_exists )then
-!                open( nunits(s), access='direct', status='old', form='unformatted',&
-!                iostat=file_stat, file=depopstks(s), recl=recsz, action='readwrite' )
-!            else
-!                open( nunits(s), access='direct', status='new', form='unformatted',&
-!                iostat=file_stat, file=depopstks(s), recl=recsz, action='readwrite' )
-!            endif
-!            call fopen_err('In: rbased_evol_align, module: simple_evol_align.f90', file_stat)
-!            ! set exhaustive search indicator true
-!            do_exhaust = .true.
-!            ! de initialized with old pop
-!            if( spec > 0 .and. stack_exists  )then
-!                ! continuous refinement
-!                if( spec == 3 )then
-!                    call de_ori_refinement( e1, e2, e3, x, y, lowpass, nunits(s), i, 7., cost )
-!                else
-!                    call de_ori_refinement( e1, e2, e3, x, y, lowpass, nunits(s), i, cost )
-!                endif
-!                ! calculate correlation
-!                corrs_state(s) = corr_fplanes( e1, e2, e3, x, y )
-!                if( corrs_state(s) > corr_first )then
-!                    do_exhaust = .false.
-!                    call get_de_pop( nasty, depop )
-!                    write( nunits(s), rec=i ) depop    
-!                endif
-!            endif
-!            ! set do_exhaust false for orientation keeping mode
-!            if( spec >= 2 ) do_exhaust = .false.
-!            ! de initialized with exhaustive search
-!            if( do_exhaust )then
-!                ! exhaustive search in discrete angular space using the old origin shifts
-!                call search_exhaust
-!                ! continuous refinement
-!                call de_ori_refinement( e1, e2, e3, x, y, lowpass, init_rsols=init_rsols, cost=cost )
-!                ! calculate correlation
-!                corrs_state(s) = corr_fplanes( e1, e2, e3, x, y )
-!                if( corrs_state(s) >= corr_first .or. spec == 0 )then
-!                    call get_de_pop( nasty, depop )
-!                    write( nunits(s), rec=i ) depop
-!                endif
-!            endif
-!            rsols(s,1) = e1
-!            rsols(s,2) = e2
-!            rsols(s,3) = e3
-!            rsols(s,4) = x
-!            rsols(s,5) = y
-!            close( nunits(s) )
-!        end do
-!        loc = maxloc(corrs_state)
-!        state = loc(1)
-!        corr = corrs_state(loc(1))
-!        e1 = rsols(loc(1),1)
-!        e2 = rsols(loc(1),2)
-!        e3 = rsols(loc(1),3)
-!        x = rsols(loc(1),4)
-!        y = rsols(loc(1),5)  
-!        if( spec == 2 )then ! orientation keeping mode
-!            call corrspec_fplanes( e1, e2, e3, x, y, bp%rescorr, corrspec, lowpass )
-!            ! compare the new orientation to the old one...
-!            if( corrspec > corrspec_first .and. lowpass <= lowpass_first )then
-!                ! the new orientation is good and should replace the old one
-!                call set_aligndata( bp%a, i, e1=e1, e2=e2, e3=e3, x=x, y=y, corr=corr, state=state )
-!            endif 
-!        else
-!            ! always replace the old orientation
-!            call set_aligndata( bp%a, i, e1=e1, e2=e2, e3=e3, x=x, y=y, corr=corr, state=state )
-!        endif
-!        if( present(fhandle) )then
-!            call print_aligndata( bp%a, i, fhandle, corr='CORR:', free_corr='FREE_CORR',&
-!            modelq='MODELQ:', alignq='ALIGNQ', lowpass='HRES:', state='STATE:' )
-!        else  
-!            call print_aligndata( bp%a, i, corr='CORR:', free_corr='FREE_CORR',&
-!            modelq='MODELQ:', alignq='ALIGNQ', lowpass='HRES:', state='STATE:' )
-!        endif
-!        ! Get the actual and relative cpu-time
-!        rslask = getabscpu( .true. )
-!        rslask = getdiffcpu( .true. )
-!        
-!        contains
-!        
-!            subroutine search_exhaust
-!                ! Perfom exhaustive search
-!                call exhaustive_euler_search( x, y )
-!                ! get the best solutions out
-!                do k=1,nbest
-!                    call get_heapsort( bp%hso, ninpl*nspace-(k-1), rslask, rarr=init_rsols(k,:) )
-!                    if( spec > 0 )then
-!                        ! randomize the translation parameters in a Gaussian distribution around
-!                        ! the previous origin shifts
-!                        init_rsols(k,4) = gasdev_lim( x, trs/1.5, (/-trs,trs/) )
-!                        init_rsols(k,5) = gasdev_lim( y, trs/1.5, (/-trs,trs/) )
-!                        if( k == nbest )then
-!                            ! include the previously established orientation in the initialization
-!                            ! (this puts a lower bound on the correlation)
-!                            init_rsols(nbest,1) = e1
-!                            init_rsols(nbest,2) = e2
-!                            init_rsols(nbest,3) = e3
-!                            init_rsols(nbest,4) = x
-!                            init_rsols(nbest,5) = y
-!                        endif
-!                    else
-!                        if( k == 1 )then ! thsi is the best, lower bound on correlation
-!                            init_rsols(k,4) = 0.
-!                            init_rsols(k,5) = 0.
-!                        else
-!                            ! randomize the translation parameters uniformly within the limits
-!                            init_rsols(k,4) = 2.*trs*ran3()-trs
-!                            init_rsols(k,5) = 2.*trs*ran3()-trs
-!                        endif
-!                    endif
-!                end do
-!            end subroutine search_exhaust
-!            
-!    end subroutine rbased_evol_align
     
     subroutine rbased_evol_align( i, fhandle )
     ! template-based refinmenet by differential evolution
         integer, intent(in)           :: i
         integer, intent(in), optional :: fhandle
         real                          :: init_rsols(nbest,5), rsols(nstates,5)
-        real                          :: corrs_state(nstates), restart_corrs(nrestart), restart_sols(nrestart,5)
+        real                          :: corrs_state(nstates)
         real                          :: lowpass, e1, e2, e3, x, y, corrspec, corrspec_first, rslask
         real                          :: corr, cost, lowpass_first, corr_first
         integer                       :: k, state, s, loc(1), j
@@ -580,12 +342,18 @@ contains
             x = 0. ! no previous x,y vec avail
             y = 0.
             corr_first = -1. ! no previous corr avail
-            ! make origin shift population
-            call gen_origsh_pop(init_rsols(:,4:))
         else
             call get_aligndata( bp%a, i, e1=e1, e2=e2, e3=e3, x=x, y=y, state=state,&
             lowpass=lowpass_first, q=corrspec_first, corr=corr_first )
             lowpass = min( lp,lowpass_first ) ! The input lowpass limit is limiting
+        endif
+        ! select interpolation method based on lowpass
+        if( lowpass <= 20. )then
+            winsz = 2
+            wchoice = 2
+        else
+            winsz = 1
+            wchoice = 1
         endif
         ! set lowpass lim
         lp_dyn = lowpass
@@ -594,27 +362,20 @@ contains
             state = s
             if( spec == 0 )then
                 ! DE restart procedure
-                do j=1,nrestart
-                    call randomize_eulers
+                do j=1,nrnds
+                    if( j == 1 )then
+                        call init_1 ! complete diversification
+                    else
+                        call init_2 ! previosu best included in pop (restart procedure)
+                    endif
                     call de_ori_refinement( e1, e2, e3, x, y, lowpass, init_rsols=init_rsols, cost=cost )
-                    restart_corrs(j)  = -cost
-                    restart_sols(j,1) = e1
-                    restart_sols(j,2) = e2
-                    restart_sols(j,3) = e3
-                    restart_sols(j,4) = x
-                    restart_sols(j,5) = y
                 end do
-                loc = maxloc(restart_corrs)
-                e1  = restart_sols(loc(1),1)
-                e2  = restart_sols(loc(1),2)
-                e3  = restart_sols(loc(1),3)
-                x   = restart_sols(loc(1),4)
-                y   = restart_sols(loc(1),5)
             else if( spec == 1 )then
-                ! exhaustive search in discrete angular space using the old origin shifts
-                call search_exhaust
-                ! continuous refinement
-                call de_ori_refinement( e1, e2, e3, x, y, lowpass, init_rsols=init_rsols, cost=cost )
+                ! DE restart procedure
+                do j=1,nrnds
+                    call init_3 ! previosu best included in pop (restart procedure)
+                    call de_ori_refinement( e1, e2, e3, x, y, lowpass, init_rsols=init_rsols, cost=cost )
+                end do
             else
                 ! continuous local refinement
                 call de_ori_refinement( e1, e2, e3, x, y, lowpass, 7., cost )
@@ -652,45 +413,81 @@ contains
             ! Get the actual and relative cpu-time
             rslask = getabscpu( .true. )
             rslask = getdiffcpu( .true. )
-        else if( spec == 0 )then
-            oris(i,1) = e1
-            oris(i,2) = e2
-            oris(i,3) = e3
-            oris(i,4) = x
-            oris(i,5) = y
         endif
         
         contains
     
-            subroutine randomize_eulers
+            subroutine init_1
+                ! make even origin shift population
+                call gen_origsh_pop(init_rsols(:,4:))
                 do k=1,nbest
+                    ! make random eulers
                     init_rsols(k,1) = eullims(1,2)*ran3()
                     init_rsols(k,2) = eullims(2,2)*ran3()
                     init_rsols(k,3) = eullims(3,2)*ran3()
                 end do
-            end subroutine randomize_eulers
-        
-            subroutine search_exhaust
-                ! Perfom exhaustive search
-                call exhaustive_euler_search( x, y )
-                ! get the best solutions out
+            end subroutine init_1
+
+            subroutine init_2
                 do k=1,nbest
-                    call get_heapsort( bp%hso, ninpl*nspace-(k-1), rslask, rarr=init_rsols(k,:) )
+                    ! make random eulers
+                    init_rsols(k,1) = eullims(1,2)*ran3()
+                    init_rsols(k,2) = eullims(2,2)*ran3()
+                    init_rsols(k,3) = eullims(3,2)*ran3()
+                    ! randomize the translation parameters uniformly
+                    init_rsols(k,4) = 2.*trs*ran3()-trs
+                    init_rsols(k,5) = 2.*trs*ran3()-trs
+                end do
+                ! replace the last one with the previous best
+                ! (this puts a lower bound on the correlation)
+                init_rsols(nbest,1) = e1
+                init_rsols(nbest,2) = e2
+                init_rsols(nbest,3) = e3
+                init_rsols(nbest,4) = x
+                init_rsols(nbest,5) = y
+            end subroutine init_2
+
+            subroutine init_3
+                do k=1,nbest
+                    ! make random eulers
+                    init_rsols(k,1) = eullims(1,2)*ran3()
+                    init_rsols(k,2) = eullims(2,2)*ran3()
+                    init_rsols(k,3) = eullims(3,2)*ran3()
                     ! randomize the translation parameters in a Gaussian distribution around
                     ! the previous origin shifts
                     init_rsols(k,4) = gasdev_lim( x, trs/1.5, (/-trs,trs/) )
                     init_rsols(k,5) = gasdev_lim( y, trs/1.5, (/-trs,trs/) )
-                    if( k == nbest )then
-                        ! include the previously established orientation in the initialization
-                        ! (this puts a lower bound on the correlation)
-                        init_rsols(nbest,1) = e1
-                        init_rsols(nbest,2) = e2
-                        init_rsols(nbest,3) = e3
-                        init_rsols(nbest,4) = x
-                        init_rsols(nbest,5) = y
-                    endif
                 end do
-            end subroutine search_exhaust
+                ! replace the last one with the previous best
+                ! (this puts a lower bound on the correlation)
+                init_rsols(nbest,1) = e1
+                init_rsols(nbest,2) = e2
+                init_rsols(nbest,3) = e3
+                init_rsols(nbest,4) = x
+                init_rsols(nbest,5) = y
+            end subroutine init_3
+
+!            subroutine search_exhaust
+!                ! Perfom exhaustive search
+!                call exhaustive_euler_search( x, y )
+!                ! get the best solutions out
+!                do k=1,nbest
+!                    call get_heapsort( bp%hso, ninpl*nspace-(k-1), rslask, rarr=init_rsols(k,:) )
+!                    ! randomize the translation parameters in a Gaussian distribution around
+!                    ! the previous origin shifts
+!                    init_rsols(k,4) = gasdev_lim( x, trs/1.5, (/-trs,trs/) )
+!                    init_rsols(k,5) = gasdev_lim( y, trs/1.5, (/-trs,trs/) )
+!                    if( k == nbest )then
+!                        ! include the previously established orientation in the initialization
+!                        ! (this puts a lower bound on the correlation)
+!                        init_rsols(nbest,1) = e1
+!                        init_rsols(nbest,2) = e2
+!                        init_rsols(nbest,3) = e3
+!                        init_rsols(nbest,4) = x
+!                        init_rsols(nbest,5) = y
+!                    endif
+!                end do
+!            end subroutine search_exhaust
             
     end subroutine rbased_evol_align
 

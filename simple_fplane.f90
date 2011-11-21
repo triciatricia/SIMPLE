@@ -29,19 +29,6 @@ contains
         close(20)
     end subroutine read_fplane
     
-    subroutine read_pcaplane( pcaplane, pcastk, stkind )
-    ! is for reading a single FT from stack
-        real, intent(inout) :: pcaplane(ncomps)
-        character(len=*)    :: pcastk
-        integer, intent(in) :: stkind
-        integer             :: file_stat
-        open( unit=20, file=pcastk, status='old', iostat=file_stat,&
-        access='direct', action='read', form='unformatted', recl=pcasz )
-        call fopen_err('In: read_pcaplane, module: simple_fplane.f90', file_stat)
-        read( unit=20, rec=stkind ) pcaplane
-        close(20)
-    end subroutine read_pcaplane
-    
     subroutine write_fplane( fplane, fstk, stkind )
     ! is for reading a single FT from stack
         complex, intent(inout) :: fplane(-xdim:xdim,-xdim:xdim)
@@ -113,6 +100,26 @@ contains
         end do
         !$omp end parallel do
     end subroutine shiftrot_fplane
+    
+    subroutine mirror_fplane( fplane, md )
+    ! is for mirroring a Fourier transform
+        complex, intent(inout) :: fplane(-xdim:xdim,-xdim:xdim)
+        character(len=*), intent(in) :: md
+        integer :: i
+        if( md == 'col' )then
+            do i=-xdim,xdim
+                call reverse_carr(fplane(:,i))
+            end do
+        else if( md == 'row' )then
+            do i=-xdim,xdim
+                call reverse_carr(fplane(i,:))
+            end do
+        else
+            write(*,*) 'Mode needs to be either col or row'
+            write(*,*) 'In: mirror_fplane, module: simple_fplane'
+            stop
+        endif
+    end subroutine mirror_fplane
     
     subroutine lp_fplane( fplane, lplim )
     ! is for low-pass filtering the Fourier plane

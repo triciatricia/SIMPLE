@@ -128,9 +128,8 @@ contains
         close(20)
     end subroutine make_empty_fstk
     
-    subroutine sh_fstk( b, newstk, xsh, ysh )
+    subroutine sh_fstk( b, newstk )
         type(build), intent(inout) :: b
-        real, intent(in), optional :: xsh, ysh
         character(len=*), optional :: newstk
         logical :: isthere
         integer :: i
@@ -144,13 +143,7 @@ contains
         endif
         do i=1,nptcls
             call read_fplane( b%f(ptcl)%arr, fstk, i )
-            if( present(xsh) )then
-                if( present(ysh) )then
-                    call shift_fplane( b%f(ptcl)%arr, -xsh, -ysh )
-                endif
-            else
-                call shift_fplane( b%f(ptcl)%arr, oris(i,4), oris(i,5) )
-            endif
+            call shift_fplane( b%f(ptcl)%arr, oris(i,4), oris(i,5) )
             if( present(newstk) ) then
                 call write_fplane( b%f(ptcl)%arr, newstk, i )    
             else

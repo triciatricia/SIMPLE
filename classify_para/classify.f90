@@ -24,28 +24,26 @@ integer                     :: file_stat
 integer                     :: i, err, alloc_stat, nreclust
 integer, parameter          :: funit=66
 real, pointer               :: ptr(:)
-logical                     :: cmderr(13)
-if( command_argument_count() < 13 )then
-    write(*,*) './classify stk=instk.spi box=100 nptcls=10000 smpd=2.33 msk=<mask radius(in pixels)> lp=<low-pass limit(in A){15-30}> doalign=<yes|no> ncls=<nr of classes> minp=<minimum nr of ptcls in a class{20}> maxp=<maximum nr of ptcls in a class{80}> nvars=<nr of eigenvectors{20-40}> maxits=<maximum nr of pca iterations{100}> nthr=<nr of openMP threads> [hp=<high-pass limit (in A)>] [debug=<yes|no>]'
+logical                     :: cmderr(11)
+if( command_argument_count() < 11 )then
+    write(*,*) './classify stk=instk.spi box=100 nptcls=10000 smpd=2.33 msk=<mask radius(in pixels)> lp=<low-pass limit(in A){30-40}>  ncls=<nr of classes> minp=<minimum nr of ptcls in a class{20}> maxp=<maximum nr of ptcls in a class{80}> nvars=<nr of eigenvectors{20-40}> nthr=<nr of openMP threads> [oritab=<alignment doc>] [doalign=<yes|no>] [hp=<high-pass limit (in A)>] [debug=<yes|no>]'
     stop
 endif
 
 ! PARSE COMMAND LINE
 call parse_cmdline
 ! check command line args
-cmderr(1) = .not. defined_cmd_carg('stk')
-cmderr(2) = .not. defined_cmd_rarg('box')
-cmderr(3) = .not. defined_cmd_rarg('nptcls')
-cmderr(4) = .not. defined_cmd_rarg('smpd')
-cmderr(5) = .not. defined_cmd_rarg('msk')
-cmderr(6) = .not. defined_cmd_rarg('lp')
-cmderr(7) = .not. defined_cmd_carg('doalign')
-cmderr(8) = .not. defined_cmd_rarg('ncls')
-cmderr(9) = .not. defined_cmd_rarg('minp')
-cmderr(10) = .not. defined_cmd_rarg('maxp')
-cmderr(11) = .not. defined_cmd_rarg('nvars')
-cmderr(12) = .not. defined_cmd_rarg('maxits')
-cmderr(13) = .not. defined_cmd_rarg('nthr')
+cmderr(1)  = .not. defined_cmd_carg('stk')
+cmderr(2)  = .not. defined_cmd_rarg('box')
+cmderr(3)  = .not. defined_cmd_rarg('nptcls')
+cmderr(4)  = .not. defined_cmd_rarg('smpd')
+cmderr(5)  = .not. defined_cmd_rarg('msk')
+cmderr(6)  = .not. defined_cmd_rarg('lp')
+cmderr(7)  = .not. defined_cmd_rarg('ncls')
+cmderr(8)  = .not. defined_cmd_rarg('minp')
+cmderr(9)  = .not. defined_cmd_rarg('maxp')
+cmderr(10) = .not. defined_cmd_rarg('nvars')
+cmderr(11) = .not. defined_cmd_rarg('nthr')
 if( any(cmderr) )then
     write(*,*) 'ERROR, not all input variables for classify defined!'
     write(*,*) 'Perhaps there are spelling errors?'
@@ -75,10 +73,23 @@ hed = 'stkclassify.hed'
 
 
 ! ROTATIONAL ALIGNMENT
-if( doalign == 'yes' )then
+winsz = 2
+wchoice = 2
+if( oritab == '' .and. doalign == 'yes' )then
     ! Rotational alignment
     call mcrotalgn( b )
     write(funit,'(A)') "WROTE ALIGNMENT REFERENCES TO SPIDER STACK: rotalgn_refs.spi"
+    ! Rotate stack
+    call shrot_fstk( b, 'inplalgnstk.fim'  )
+    call fstk_mk_stkspi( 'inplalgnstk.fim', 'inplalgnstk.spi' )
+    write(funit,'(A)') "WROTE ALIGNED IMAGES TO SPIDER STACK: inplalgnstk.spi"
+    ! Set global stack variables
+    stk =  'inplalgnstk.spi'
+    fstk = 'inplalgnstk.fim'
+    hed =  'inplalgnstk.hed'
+    write(funit,'(A)') "**** FINISHED ROTATIONAL ALIGNMENT ****"
+endif
+if( oritab /= '' )then
     ! Rotate stack
     call shrot_fstk( b, 'inplalgnstk.fim'  )
     call fstk_mk_stkspi( 'inplalgnstk.fim', 'inplalgnstk.spi' )
@@ -112,14 +123,13 @@ do i=1,nptcls
 end do
 err = -1
 do while( err == -1 )
-    call ppca_master( err )
+    call ppca_master( err, 100 )
 end do
-write(funit,'(A,F8.0)') "GLOBAL NOISE VARIANCE: ", epsilon
 ! get the amplitude feature vectors
 call get_pca_feats( feats )
 ! kill the ppca singleton
 call kill_ppca
-write(funit,'(A)') "**** FINISHED PROBABILISTIC PCA ****"
+write(funit,'(A)') "**** FINISHED ITERATIVE PCA ****"
 
 ! CLASSIFICATION
 ! do hierarchical classification
@@ -153,12 +163,18 @@ write(funit,'(A)') "WROTE FOURIER CLASS AVERAGES TO SIMPLE FOURIER STACK: cavgst
 ! make spider stack of class averages
 call fstk_mk_stkspi( 'cavgstk.fim', 'cavgstk.spi' )
 write(funit,'(A)') "WROTE CLASS AVERAGES TO SPIDER STACK: cavgstk.spi"
+! remove Fourier stack files
+call del_binfile('stkclassify.fim')
+call del_binfile('stkclassify.hed')
+
 ! end gracefully
 write(funit,'(A)') "**** CLASSIFY NORMAL STOP ****"
 close(funit)
 call haloween( 0 )
 write(0,'(A)') "HAVE A GLANCE AT THE classify.log FILE TO SEE WHAT WAS DONE"
 write(0,'(A)') "**** CLASSIFY NORMAL STOP ****"
+
+
 
 contains
 

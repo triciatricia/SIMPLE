@@ -11,29 +11,36 @@ module simple_params
 !$ use omp_lib_kinds
 use simple_jiffys
 use simple_cmdline
+use simple_math
 implicit none
 
-private :: check_file, check_carg, check_iarg, check_rarg
+private :: check_file, check_carg, check_iarg, check_rarg, make_empty_fstk, p1_gt_p2, p1_lt_p2
 public
 
 type fp
     complex, allocatable, dimension(:,:) :: arr 
 end type fp
 
-integer, parameter :: MAXS=10 ! maximum number of states
+type pq
+    real :: corr, q, lp, p
+end type pq
+
+integer, parameter           :: MAXS=10 ! maximum number of states
 integer, allocatable, target :: cls(:)
-real, allocatable  :: oris(:,:), lplims(:), mqs(:) 
+integer, allocatable         :: pinds(:)
+real, allocatable            :: oris(:,:)
+type(pq), allocatable        :: pqual(:) 
 character(len=256) :: clsfile='', cwd='', debug='no', doalign='yes', fstk='', pcastk='', pcahed='', hed=''
-character(len=256) :: inpltab='', infile='', oritab='', outfile='', outfstk='', outstk='', outbdy='', pgrp='c1'
+character(len=256) :: inpltab='', infile='', oritab='', outfile='', outfstk='', outhed='', outstk='', outbdy='', pgrp='c1'
 character(len=256) :: pwfile='', stk='', depopstks(MAXS), dapopstks(MAXS), masks(MAXS)
 character(len=256) :: vols(MAXS)='', vols_msk(MAXS)
-integer            :: box=0, clip, clsnr=1, fildim, freek, fromc=1, fromk=2, fromp=1, fromr=1, ftsz=0, GENMAX=200, hrecsz=0
-integer            :: ivsct=2, mode=0, maxits=1, maxp=0, minp=20, navgs=1, nbest=98, ncls=0, ncomps=0, nrnds
+integer            :: box=0, clip, clsnr=1, fildim, fromc=1, fromk=2, fromp=1, fromr=1, ftsz=0, GENMAX=200, hrecsz=0
+integer            :: ivsct=2, mode=0, maxits=1, maxp=0, minp=20, navgs=1, nbest=98, ncls=0, ncomps=0, nrnds=1
 integer            :: nbest_start=30, nbest_stop=10, ncsym=1, nfpl=1, nfrefs, ninpl, noris=0, notref=0, nout=0
-integer            :: nptcls, nrestart=1, nspace=100, nstates=1
+integer            :: nptcls, nspace=100, nstates=1
 integer            :: nthr=1, nvars=6, ori=1, ptcl=1, pcasz=0, sep=1, spec=0, state=1, toc, tofny, tok, top, tor
 integer            :: winsz=1, wchoice=1, xdim, ydim
-real               :: amsklp=0., angtres=7., diam=140., dstep, epsilon, eullims(3,2), fny, freesh=20.
+real               :: amsklp=0., angtres=7., diam=140., dstep, epsilon, eullims(3,2), fny, frac=0.8
 real               :: hp, lp=20., lp_dyn, lp2, lplim=200., lpmed=20., mw, msk=0., mqlim=3.5, neigh=0.2
 real               :: optlims(6,2), smpd=0., tres, trs=0.
 logical            :: cyclic(6)=.false.
@@ -42,23 +49,16 @@ contains
 
     subroutine make_params( md )
     ! *Available* *modes* *are:*
-    !* *mode* *01* reference-free 2D shift alignment
     !* *mode* *02* unsupervised agglomerative hierachical 2D classification with greedy adaptive refinement
-    !* *mode* *03* probabilistic pca
-    !* *mode* *10* RAD by simulated annealing - reference-free projection direction assignment
-    !* *mode* *11* state assignment by GRASP
-    !* *mode* *12* -"- & reference-free continuous orientation refinement by DE
-    !* *mode* *13* RAD by tabu search - reference-free projection direction assignment
-    !* *mode* *14* <empty>
-    ! *Available* *modes* *are:*
+    !* *mode* *10* ab initio 3D reconstruction from class averages
+    !* *mode* *11* ab initio 3D reconstruction and heterogeneity analysis from class averages
     !* *mode* *20* multireference EvolAlign alignment with fixed lowpass limit
     !* *mode* *21* multireference EvolAlign alignment with spectral self-adaptation
     !* *mode* *22* multireference EvolAlign alignment with spectral self-adaptation, neighborhood refinment, and orientation keeping
-    !* *mode* *23* filtering tresholding/spectral scoring
+    !* *mode* *23* for finding filtering tresholding/do spectral scoring
     !* *mode* *30* reconstruction of volumes by Fourier gridding
     !* *mode* *31* solvent flattening of a spider volume
     !* *mode* *32* center of mass centering of a spider volume (no interpolation errors)
-    !* *mode* *33* rotation of a spider volume (using gridding-based interpolation)
     !* *mode* *34* docking of spider volumes
         integer, intent(in), optional :: md
         interface
@@ -66,8 +66,7 @@ contains
                 character(len=*) :: dir
             end function getcwd
         end interface
-        character(len=32) :: cval1, cval2, cval3, cval4, cval5, cval6
-        real :: rval1, rval2, rval4
+        character(len=32) :: cval1, cval2, cval3, cval4, cval5
         integer :: alloc_stat, s, file_stat, i, pos, hrecsz
         real :: rval
         character(len=120) :: dig
@@ -238,7 +237,6 @@ contains
         endif
         call check_iarg('nout', nout)
         call check_iarg('nptcls', nptcls)
-        call check_iarg('nrestart', nrestart)
         call check_iarg('nthr', nthr)
         call check_iarg('nvars', nvars)
         call check_iarg('sep', sep)
@@ -252,7 +250,7 @@ contains
         call check_rarg('angtres', angtres)
         call check_rarg('diam', diam)
         call check_rarg('epsilon', epsilon)
-        call check_rarg('freesh', freesh)
+        call check_rarg('frac', frac)
         call check_rarg('hp', hp)
         call check_rarg('lp', lp)
         call check_rarg('lplim', lplim)
@@ -282,13 +280,23 @@ contains
         else
             xdim = box/2
         endif
+        ! fix output Fourier stack
+        if( defined_cmd_carg('outfstk') )then
+            write(*,*) 'outfstk defined'
+            ! make .hed file
+            outhed = outfstk
+            pos = index(outhed, '.fim') ! position of '.fim'
+            outhed(pos:pos+3) = '.hed'  ! replacing .fim with .hed
+            if( debug == 'yes' ) write(*,*) 'outhed: ', outhed
+            ! make empty stack
+            call make_empty_fstk( outfstk, nptcls )   
+        endif
         ! set derived Fourier related variables   
         dstep = real(box-1)*smpd                          ! first wavelength of FT
         if( .not. defined_cmd_rarg('hp') ) hp = 0.7*dstep ! high-pass limit
         fromk = max(2,int(dstep/hp))                      ! high-pass Fourier index
         fny = 2.*smpd                                     ! Nyqvist limit
         tofny = int(dstep/fny)                            ! Nyqvist Fourier index
-        freek = int(dstep/freesh)                         ! resolution band excluded (for free corr calc)
         lp = max(fny,lp)                                  ! lowpass limit
         lp_dyn = lp                                       ! dynamic lowpass limit
         lpmed = lp                                        ! median lp
@@ -335,15 +343,11 @@ contains
                 wchoice = 1 ! direct sinc
             endif
         endif
-        ! set nr of restarts
-        nrestart = 10
-        if( mode == 10 ) nrestart = 1
         ! set to particle index if not defined in cmdlin
         if( .not. defined_cmd_rarg('top') ) top = nptcls
-        if( mode == 34 ) top = nrnds
         ! set the number of input orientations
         noris = nptcls
-        if(mode == 20.or.mode == 25) noris = 0
+        if( mode == 20 ) noris = 0
         ! Take care of the space and bootstrap sample size heuristics
         if(mode < 20 .and. mode >= 10 ) then ! reference-free analysis
             ! set constants
@@ -380,19 +384,39 @@ contains
         else if(mode==22)then
             spec = 2
         endif
+        ! set nr of restart rounds
+        if( spec == 0 ) nrnds=5
+        if( spec == 1 ) nrnds=2
+        if( mode == 34 ) top = nrnds
         ! make sure that oritab is inputted for spectral > 0
         if( spec > 0 .and. oritab == '' )then
             write(*,*) 'ERROR, input orientations are required for spectrally self-adaptive refinement!'
             write(*,*) 'In: make_params, module: simple_params.f90'
             stop
         endif
+        ! make sure that lp > 30 for sepc == 0
+        if( mode == 20 .and. lp < 30. )then
+            lp =30.
+            write(*,*) 'WARNING, low-pass limit < 30 and it is being set to the maximum allowed resolution (30)'
+            write(*,*) 'In: make_params, module: simple_params.f90'
+            stop
+        endif 
         ! fix translation param
-        trs = abs(trs)
-        if( trs < 0.01 ) trs = 0.00001
+        if( spec == 0 )then
+            trs = 5.
+        else
+            trs = abs(trs)
+            if( trs < 0.01 ) trs = 0.00001
+            if( trs > 3. )then
+                trs = 3.
+                write(*,*) 'WARNING, trs exceeds the limit (3) and is being set to the maximum allowed value (3)'
+                write(*,*) 'Need more shift: do another round of mode=20 alignment and shift the stack!'
+                write(*,*) 'In: make_params, module: simple_params.f90'
+            endif
+        endif
         ! set nfrefs
         nfrefs = max(maxits*navgs,359)
         nfrefs = max(nfrefs,ncls+500)
-        if( mode == 1 ) nfrefs = max(nfrefs,(2*int(trs)+1)**2)
         ! Transform the pointgroup into euler angle limits and store the number of csym ops in ncsym
         eullims(3,1) = 0.
         eullims(3,2) = 359.9999
@@ -427,7 +451,7 @@ contains
         cyclic(3) = .true.
         ! allocate orientations array
         if( noris > 0 )then
-            allocate( oris(noris,6), lplims(noris), mqs(noris), stat=alloc_stat )
+            allocate( oris(noris,6), pqual(noris), pinds(noris), stat=alloc_stat )
             call alloc_err( 'In: make_params, module: simple_params.f90, alloc 1', alloc_stat )
             oris = 0. ! zero the Euler angles & translations
             oris(:,6) = 1. ! set the state params to one
@@ -456,20 +480,26 @@ contains
             call fopen_err( 'In: make_params, module: simple_params.f90', file_stat )
             ! fill in orientations, states, and lowpass limits
             do i=1,noris
+                pinds(i) = i
                 read(22,*) oris(i,1), oris(i,2), oris(i,3), oris(i,4), oris(i,5),&
-                cval1, rval1, cval2, rval2, cval3, mqs(i), cval4, rval4, cval5, lplims(i),&
-                cval6, oris(i,6)
+                cval1, pqual(i)%corr, cval2, pqual(i)%q, cval3, pqual(i)%lp, cval4, oris(i,6), cval5
             end do
             close(22)
+            if( mode == 30 )then
+                call hpsort( noris, pinds, p1_lt_p2 )
+                call reverse_iarr( pinds )
+                do i=1,noris
+                    write(*,*) i, pqual(pinds(i))%corr, pqual(pinds(i))%q, pqual(pinds(i))%lp
+                end do
+            endif
         endif
         write(*,'(A)') '>>> DONE PROCESSING PARAMETERS'
     end subroutine make_params
     
     subroutine kill_params
-        if( allocated(oris) )   deallocate( oris )
-        if( allocated(lplims) ) deallocate( lplims )
-        if( allocated(mqs) )    deallocate( mqs )
-        if( allocated(cls) )    deallocate( cls )
+        if( allocated(oris) )  deallocate( oris )
+        if( allocated(pqual) ) deallocate( pqual )
+        if( allocated(cls) )   deallocate( cls )
     end subroutine kill_params
     
     subroutine check_file( file, ext, var )
@@ -540,5 +570,68 @@ contains
             opt_limits(6,2) = real(nstates)+0.9999
         endif
     end subroutine mkoptlims
+
+    function p1_gt_p2( p1, p2 ) result( val )
+    ! particle 1 greater (better) than particle 2
+        integer, intent(in) :: p1, p2
+        logical             :: val
+        if( pqual(p1)%lp < pqual(p2)%lp .and. pqual(p1)%q > pqual(p2)%q )then
+            val = .true.
+        else if( int(pqual(p1)%lp) == int(pqual(p2)%lp) .and.&
+        (pqual(p1)%corr > pqual(p2)%corr .or. pqual(p1)%q > pqual(p2)%q) )then
+            val = .true.
+        else
+            val = .false.
+        endif
+    end function p1_gt_p2
+
+    function p1_lt_p2( p1, p2 ) result( val )
+    ! particle 1 less than (worse) than particle 2
+        integer, intent(in) :: p1, p2
+        logical             :: val
+        val = .not. p1_gt_p2( p1, p2 )
+    end function p1_lt_p2
+
+    subroutine make_empty_fstk( stknam, nobjs )
+        character(len=*), intent(in) :: stknam
+        integer, intent(in)          :: nobjs
+        character(len=256)           :: hednam
+        integer :: file_stat, pos
+        ! make header
+        hednam = stknam
+        pos = index(hednam, '.fim') ! position of '.fim'
+        hednam(pos:pos+3) = '.hed'  ! replacing .fim with .hed
+        call make_fstk_hed( hednam, nobjs )
+        ! make stack:
+        open( unit=20, file=stknam, status='replace', iostat=file_stat,&
+        access='direct', action='write', form='unformatted', recl=ftsz )
+        call fopen_err('In: make_empty_fstk, module: simple_params.f90', file_stat)
+        close(20)
+
+        contains
+    
+            subroutine make_fstk_hed( hednam, nobjs )
+                character(len=*), intent(in) :: hednam
+                integer, intent(in) :: nobjs
+                integer :: file_stat, hrecsize
+                real :: rval
+                inquire( iolength=hrecsize ) rval
+                ! make stack header:
+                open( unit=19, file=hednam, status='replace', iostat=file_stat,&
+                access='direct', action='write', form='unformatted', recl=hrecsize)
+                if( file_stat /= 0 )then ! cannot open file
+                    write(*,*) 'Cannot open file: ', hednam
+                    write(*,*) 'In: make_fstk_hed, module: simple_params.f90'
+                    stop
+                endif
+                write(19,rec=1) real(nobjs)    ! number of transforms
+                write(19,rec=2) real(xdim)     ! Fourier dim
+                write(19,rec=3) smpd           ! sampling distance
+                write(19,rec=4) real(ftsz)     ! 2D FT size
+                write(19,rec=5) real(hrecsize) ! header rec size
+                close(19)
+            end subroutine make_fstk_hed
+
+    end subroutine make_empty_fstk
     
 end module simple_params

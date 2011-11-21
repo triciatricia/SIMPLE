@@ -409,7 +409,7 @@ contains
                 e3 = oris_copy(i,3)
                 x = oris_copy(i,4)
                 y = oris_copy(i,5)
-                call de_ori_refinement_rfree( e1, e2, e3, x, y, s, angtres, cost )
+                call de_ori_refinement_rfree( e1, e2, e3, x, y, s, angres, cost )
                 corrs(i) = -cost
                 oris_copy(i,1) = e1
                 oris_copy(i,2) = e2

@@ -72,6 +72,7 @@ interface hpsort
     module procedure hpsort_1
     module procedure hpsort_2
     module procedure hpsort_3
+    module procedure hpsort_4
 end interface
 
 type p_i
@@ -777,6 +778,17 @@ contains
             d = d*matrix(j,j) ! this returns d as +-1
         end do
     end function det
+
+    function diag( diagvals, n ) result( mat )
+        integer, intent(in) :: n
+        real, intent(in)    :: diagvals(n)
+        real :: mat(n,n)
+        integer :: i
+        mat = 0.
+        do i=1,n
+            mat(i,i) = diagvals(i)
+        end do
+    end function diag 
     
     SUBROUTINE LUDCMP(A,N,NP,INDX,D,err)
     ! LU DECOMPOSITION, NR
@@ -1307,56 +1319,50 @@ contains
         end do
     end subroutine hpsort_3
     
-!    subroutine hpsort_6( N, iarr1, iarr2, iarr3 )
-!    ! heapsort subroutine, from numerical recepies
-!        integer, intent(in)    :: N
-!        integer, intent(inout) :: iarr1(N), iarr2(N), iarr3(N)
-!        integer                :: i, ir, j, l, ra1, ra2, ra3
-!        if( N < 2) return
-!        l  = N/2+1
-!        ir = N
-!        do
-!            if(l > 1)then
-!                l  = l-1
-!                ra1 = iarr1(l)
-!                ra2 = iarr2(l)
-!                ra3 = iarr3(l)
-!            else
-!                ra1 = iarr1(ir)
-!                ra2 = iarr2(ir)
-!                ra3 = iarr3(ir)
-!                iarr1(ir) = iarr1(1)
-!                iarr1(ir) = iarr2(1)
-!                iarr1(ir) = iarr3(1)
-!                ir = ir-1
-!                if(ir == 1)then
-!                    iarr1(1) = ra1
-!                    iarr1(2) = ra2
-!                    iarr1(3) = ra3
-!                    return
-!                endif
-!            endif
-!            i = l
-!            j = l+l
-!            do while(j <= ir)
-!                if(j < ir) then
-!                    if(iarr1(j) < iarr1(j+1)) j = j+1
-!                endif
-!                if(ra1 < iarr1(j))then
-!                    iarr1(i) = iarr1(j)
-!                    iarr2(i) = iarr2(j)
-!                    iarr3(i) = iarr3(j)
-!                    i = j
-!                    j = j+j
-!                else
-!                    j = ir+1
-!                endif
-!                iarr1(i) = ra1
-!                iarr2(i) = ra2
-!                iarr3(i) = ra3
-!            end do
-!        end do
-!    end subroutine hpsort_6
+    subroutine hpsort_4( N, iarr, p1_lt_p2 )
+    ! heapsort subroutine, from numerical recepies
+        integer, intent(in)    :: N
+        integer, intent(inout) :: iarr(N)
+        interface
+            function p1_lt_p2( p1, p2 ) result( val )
+                integer, intent(in) :: p1, p2
+                logical :: val
+            end function p1_lt_p2
+        end interface
+        integer                :: i, ir, j, l, ra
+        if( N < 2) return
+        l  = N/2+1
+        ir = N
+        do
+            if(l > 1)then
+                l  = l-1
+                ra = iarr(l)
+            else
+                ra = iarr(ir)
+                iarr(ir) = iarr(1)
+                ir = ir-1
+                if(ir == 1)then
+                    iarr(1) = ra
+                    return
+                endif
+            endif
+            i = l
+            j = l+l
+            do while(j <= ir)
+                if(j < ir) then
+                    if(p1_lt_p2(iarr(j),iarr(j+1))) j = j+1
+                endif
+                if(p1_lt_p2(ra,iarr(j)))then
+                    iarr(i) = iarr(j)
+                    i = j
+                    j = j+j
+                else
+                    j = ir+1
+                endif
+                iarr(i) = ra
+            end do
+        end do
+    end subroutine hpsort_4  
         
     ! searching
         
@@ -1712,6 +1718,29 @@ contains
             rarr(i) = rswap 
         end do
     end subroutine reverse_rarr
+    
+    subroutine reverse_carr( carr )
+    !is for reversing a complex array
+        complex, intent(inout) :: carr(:)
+        integer                :: i, j, sz, en
+        complex                :: cswap
+        sz = size(carr,1)
+        if( sz < 2 )then
+            return
+        endif
+        if( mod(sz,2) == 0 )then
+            en = sz/2+1
+        else
+            en = sz/2+2
+        endif
+        j = 0
+        do i = sz,en,-1
+            j = j+1
+            cswap   = carr(j)
+            carr(j) = carr(i)
+            carr(i) = cswap 
+        end do
+    end subroutine reverse_carr
     
     function cyci( NP, j ) result( i )
         integer, intent(in) :: j, NP

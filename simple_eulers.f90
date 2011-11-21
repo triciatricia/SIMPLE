@@ -117,6 +117,22 @@ contains
         closest = indices(loc(1))    
         call kill_eulers( e_one )
     end function find_closest_euler_2
+
+    function mirror_or_not( num, i ) result( mirror )
+        type(eulers), intent(in) :: num
+        integer, intent(in)      :: i
+        real                     :: zvec(3), ang
+        logical                  :: mirror
+        zvec(1) = 0.
+        zvec(2) = 0.
+        zvec(3) = 1.
+        ang = myacos(dot_product(num%eulers(i)%normal,zvec))
+        if( ang < pi )then
+            mirror = .false.
+        else
+            mirror = .true.
+        endif
+    end function mirror_or_not
     
     function find_closest_eulers( num, e1, e2, n ) result( closest )
     ! is for finding the projection closest matching input _e1_,_e2_

@@ -11,7 +11,7 @@ save
 public :: make_ppca, ppca_master
 
 real, allocatable :: W(:,:), W_1(:,:), W_2(:,:), W_3(:,:), Wt(:,:), M(:,:), Minv(:,:), MinvWt(:,:)
-real, allocatable :: AVG(:), tmp1(:,:), tmp2(:,:), Imat(:,:), E_znzn(:,:,:)
+real, allocatable :: AVG(:), tmp1(:,:), tmp2(:,:), Imat(:,:), E_znzn(:,:,:), alphas(:), A(:,:)
 real, allocatable, target :: X(:,:,:)
 real, allocatable, target :: E_zn(:,:,:)
 integer :: N, pca_mode
@@ -19,7 +19,7 @@ integer :: N, pca_mode
 contains
 
     subroutine make_ppca( N_in, pca_mode_in )
-    ! pca_mode_in=0 iterative PCA, pca_mode=1 probabilistic pca
+    ! pca_mode_in=0 iterative PCA, pca_mode=1 Bayesian pca
         integer, intent(in) :: N_in, pca_mode_in
         integer :: alloc_stat, i
         pca_mode = pca_mode_in
@@ -27,8 +27,8 @@ contains
         ! allocate matrices
         allocate( W(ncomps,nvars), W_1(ncomps,nvars), W_2(nvars,nvars), W_3(nvars,nvars),&
         Wt(nvars,ncomps), M(nvars,nvars), Minv(nvars,nvars), MinvWt(nvars,ncomps),&
-        AVG(ncomps), X(N,ncomps,1), Imat(nvars,nvars), E_zn(N,nvars,1),&
-        E_znzn(N,nvars,nvars), tmp1(1,ncomps), tmp2(ncomps,1), stat=alloc_stat )
+        AVG(ncomps), X(N,ncomps,1), Imat(nvars,nvars), E_zn(N,nvars,1), alphas(nvars),&
+        E_znzn(N,nvars,nvars), tmp1(1,ncomps), tmp2(ncomps,1), A(nvars,nvars), stat=alloc_stat )
         call alloc_err( 'In: make_ppca, module: simple_ppca', alloc_stat )
         ! make identity matrix
         Imat=0.; do i=1,nvars ; Imat(i,i)=1. ; end do
@@ -51,7 +51,7 @@ contains
     end subroutine get_pca_feats
     
     subroutine init_ppca
-        real :: meanv(nvars)
+        real :: meanv(nvars), tmp2mat(1,1)
         integer :: i, j
         write(*,'(A)') '>>> SUBTRACTING THE GLOBAL AVERAGE FROM THE DATA VECTORS'
         AVG = 0.
@@ -81,6 +81,12 @@ contains
         W_2 = matmul(Wt,W)
         ! set variance to 0.     
         epsilon = 0.
+        ! set alphas
+        do i=1,nvars
+            tmp2(:,1) = W(:,i)
+            tmp2mat = matmul(transpose(tmp2),tmp2)
+            alphas(i) = real(ncomps)/tmp2mat(1,1)
+        end do
     end subroutine init_ppca
     
     function eval_square_err( ) result( p )
@@ -104,13 +110,15 @@ contains
         ! loop over data
         W_1 = 0.
         W_2 = 0.
+        ! make A
+        A = epsilon*diag(alphas, nvars)
         do i=1,N
             ! Expectation step (calculate expectations using the old W)
             E_zn(i,:,:) = matmul(MinvWt,X(i,:,:))
             E_znzn(i,:,:) = epsilon*Minv+matmul(E_zn(i,:,:),transpose(E_zn(i,:,:)))
             ! Prepare for update of W (M-step)
             W_1 = W_1+matmul(X(i,:,:),transpose(E_zn(i,:,:)))
-            W_2 = W_2+E_znzn(i,:,:)
+            W_2 = W_2+E_znzn(i,:,:)+A
         end do
     end subroutine ppca_e_step
     
@@ -142,19 +150,20 @@ contains
         endif
     end subroutine ppca_m_step
     
-    subroutine ppca_master( err )
+    subroutine ppca_master( err, maxpcaits )
         integer, intent(inout) :: err
+        integer, intent(in)    :: maxpcaits
         integer :: k
         real :: p, p_prev
         call init_ppca
         if( pca_mode /= 0 )then
-            write(*,'(A)') '>>> PROBABILISTIC PCA'
+            write(*,'(A)') '>>> BAYESIAN PCA'
         else
             write(*,'(A)') '>>> ITERATIVE PCA'
         endif
         ! do the Expectation-Maximization
         p = 0.
-        do k=1,maxits
+        do k=1,maxpcaits
             p_prev = p
             p = eval_square_err()
             if( abs(p-p_prev) < 0.1 ) exit

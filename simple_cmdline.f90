@@ -36,11 +36,7 @@ contains
                     cmds(i)%carg = arg(pos1+1:)
                 else if( index(arg(pos1+1:), '.fim') /= 0 )then
                     cmds(i)%carg = arg(pos1+1:)
-                else if( index(arg(pos1+1:), '.fvo') /= 0 )then
-                    cmds(i)%carg = arg(pos1+1:)
                 else if( index(arg(pos1+1:), '.dat') /= 0 )then
-                    cmds(i)%carg = arg(pos1+1:)
-                else if( index(arg(pos1+1:), '.rfp') /= 0 )then
                     cmds(i)%carg = arg(pos1+1:)
                 else if( index(arg(pos1+1:), '.log') /= 0 )then
                     cmds(i)%carg = arg(pos1+1:)
