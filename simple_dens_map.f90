@@ -250,7 +250,7 @@ contains
     end function order_array_i
     
     function cenmass_dens_map(dmap)
-    ! finds the center of mass of the dens_map (dmap). cenmass_dens_map(1) = x-coord; caenmass_dens_map(2) = y-coord. 
+    ! finds the center of mass of the dens_map (dmap). cenmass_dens_map(1) = x-coord; cenmass_dens_map(2) = y-coord. 
         real                                    :: cenmass_dens_map(2)
         type(dens_map), intent(in)              :: dmap
         real                                    :: xsum, ysum, msum

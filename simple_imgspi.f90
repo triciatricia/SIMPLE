@@ -687,6 +687,34 @@ contains
         img%rmat = tmp
     end subroutine shift_imgspi_2
     
+    subroutine shift_imgspi_3( img, vec )
+    ! shifts an imgspi according to the vector vec. Pixels that are shifted outside of the image overflow
+    ! to the other side. (So there is no unfilled area.) 
+        type(imgspi), intent(inout) :: img
+        integer, intent(in)         :: vec(2)
+        real                        :: tmp(img%bx,img%bx)
+        integer                     :: i, j, newx, newy
+        tmp = 0.
+        do i=1, img%bx
+            do j=1, img%bx
+		newx = i+vec(1)
+		newy = j+vec(2)
+		if ( newx <= 0 ) then
+		    newx = img%bx + newx
+		else if ( newx > img%bx ) then
+		    newx = newx - img%bx
+		end if
+		if ( newy <= 0 ) then
+		    newy = img%bx + newy
+		else if ( newy > img%bx ) then
+		    newy = newy - img%bx
+		end if
+                tmp(newx,newy) = img%rmat(i,j)
+            end do
+        end do
+        img%rmat = tmp
+    end subroutine shift_imgspi_3
+    
     subroutine rotate_imgspi( img, angle )
     ! rotates binary imgspi counterclockwise by angle (in radians). The rotation is done by sampling and iterates over the source image, so it will miss some pixels, so it is only an approximation. 
         type(imgspi), intent(inout)     :: img
