@@ -96,6 +96,30 @@ contains
         if( var == 0. ) err = .true.
     end subroutine moment_1
     
+    subroutine deviation( data, point, sdev, var, err )
+    ! given a 1D real array of data, this routine returns its mean: _point_,
+    ! standard deviation: _sdev_, and variance: _var_
+        real, intent(out)    :: sdev, var
+        logical, intent(out) :: err
+        real, intent(in)     :: data(:), point
+        integer              :: n, i
+        real                 :: ep, nr, dev
+        err = .false.
+        n   = size(data,1)
+        nr  = n
+        ! calc sum of devs and sum of devs squared
+        ep = 0.        
+        var = 0.
+        do i=1,n
+            dev = data(i)-point
+            ep = ep+dev
+            var = var+dev*dev
+        end do
+        var = (var-ep**2./nr)/(nr-1.) ! corrected two-pass formula
+        sdev = sqrt(var)
+        if( var == 0. ) err = .true.
+    end subroutine deviation
+    
     subroutine moment_2( data, ave, sdev, var, err )
     ! given a 2D real array of data, this routine returns its mean: _ave_,
     ! standard deviation: _sdev_, and variance: _var_

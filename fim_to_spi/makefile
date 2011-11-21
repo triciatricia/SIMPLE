@@ -56,7 +56,8 @@
 # ../simple_imgspi.f90 Uses Module simple_jiffys
 # ../simple_imgspi.f90 Uses Module simple_stat
 # ../simple_imgspi.f90 Uses Module simple_params
-# Full list of modules in ../simple_imgspi.f90: simple_math gnufor2 simple_jiffys simple_stat simple_params 
+# ../simple_imgspi.f90 Uses Module simple_dens_map
+# Full list of modules in ../simple_imgspi.f90: simple_math gnufor2 simple_jiffys simple_stat simple_params simple_dens_map 
 # Uses simple_math which is in ../simple_math.f90
 # process_fsource called with arg ../simple_math.f90 
 # ../simple_math.f90 Uses Module simple_def_precision
@@ -157,6 +158,15 @@
 # ../simple_params.f90 already in list
 # Uses simple_params which is in ../simple_params.f90
 # ../simple_params.f90 already in list
+# Uses simple_dens_map which is in ../simple_dens_map.f90
+# process_fsource called with arg ../simple_dens_map.f90 
+# ../simple_dens_map.f90 Uses Module simple_math
+# ../simple_dens_map.f90 Uses Module simple_stat
+# Full list of modules in ../simple_dens_map.f90: simple_math simple_stat 
+# Uses simple_math which is in ../simple_math.f90
+# ../simple_math.f90 already in list
+# Uses simple_stat which is in ../simple_stat.f90
+# ../simple_stat.f90 already in list
 # Uses simple_imgspi which is in ../simple_imgspi.f90
 # ../simple_imgspi.f90 already in list
 # Uses simple_math which is in ../simple_math.f90
@@ -308,106 +318,109 @@ F90=ifort
 # -------------------End-macro-Defs---------------------------
 
 # Here is the link step 
-fim_to_spi:simple_jiffys.o simple_cmdline.o simple_params.o simple_fftw3.o simple_def_precision.o simple_syscalls.o simple_rnd.o simple_math.o gnufor2.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_stat.o simple_imgspi.o simple_stkspi.o simple_heapsort.o simple_spidoc.o simple_eulers.o simple_comlin.o simple_aligndata.o simple_volspi.o simple_ffts.o simple_fplane.o simple_build.o simple_fstk.o fim_to_spi.o 
-	 $(F90) -o fim_to_spi simple_jiffys.o simple_cmdline.o simple_params.o simple_fftw3.o simple_def_precision.o simple_syscalls.o simple_rnd.o simple_math.o gnufor2.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_stat.o simple_imgspi.o simple_stkspi.o simple_heapsort.o simple_spidoc.o simple_eulers.o simple_comlin.o simple_aligndata.o simple_volspi.o simple_ffts.o simple_fplane.o simple_build.o simple_fstk.o fim_to_spi.o   -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+fim_to_spi:simple_jiffys.o simple_cmdline.o simple_params.o simple_fftw3.o simple_def_precision.o simple_syscalls.o simple_rnd.o simple_math.o gnufor2.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_stat.o simple_dens_map.o simple_imgspi.o simple_stkspi.o simple_heapsort.o simple_spidoc.o simple_eulers.o simple_comlin.o simple_aligndata.o simple_volspi.o simple_ffts.o simple_fplane.o simple_build.o simple_fstk.o fim_to_spi.o 
+	 $(F90) -o fim_to_spi simple_jiffys.o simple_cmdline.o simple_params.o simple_fftw3.o simple_def_precision.o simple_syscalls.o simple_rnd.o simple_math.o gnufor2.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_stat.o simple_dens_map.o simple_imgspi.o simple_stkspi.o simple_heapsort.o simple_spidoc.o simple_eulers.o simple_comlin.o simple_aligndata.o simple_volspi.o simple_ffts.o simple_fplane.o simple_build.o simple_fstk.o fim_to_spi.o   -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 # Here are the compile steps
  
 simple_jiffys.o:../simple_jiffys.f90  
-	 $(F90) -c ../simple_jiffys.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_jiffys.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_cmdline.o:../simple_cmdline.f90  
-	 $(F90) -c ../simple_cmdline.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_cmdline.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_params.o:../simple_params.f90 simple_jiffys.o simple_cmdline.o 
-	 $(F90) -c ../simple_params.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_params.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_fftw3.o:../simple_fftw3.f90  
-	 $(F90) -c ../simple_fftw3.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_fftw3.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_def_precision.o:../simple_def_precision.f90  
-	 $(F90) -c ../simple_def_precision.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_def_precision.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_syscalls.o:../simple_syscalls.f90  
-	 $(F90) -c ../simple_syscalls.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_syscalls.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_rnd.o:../simple_rnd.f90  
-	 $(F90) -c ../simple_rnd.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_rnd.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_math.o:../simple_math.f90 simple_def_precision.o simple_syscalls.o simple_jiffys.o simple_rnd.o 
-	 $(F90) -c ../simple_math.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_math.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 gnufor2.o:../gnufor2.f90  
-	 $(F90) -c ../gnufor2.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../gnufor2.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_pair_wtab.o:../simple_pair_wtab.f90 simple_jiffys.o 
-	 $(F90) -c ../simple_pair_wtab.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_pair_wtab.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_i_scalar.o:../simple_i_scalar.f90  
-	 $(F90) -c ../simple_i_scalar.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_i_scalar.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_r_scalar.o:../simple_r_scalar.f90  
-	 $(F90) -c ../simple_r_scalar.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_r_scalar.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_d_scalar.o:../simple_d_scalar.f90 simple_def_precision.o 
-	 $(F90) -c ../simple_d_scalar.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_d_scalar.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_i_array.o:../simple_i_array.f90 simple_jiffys.o 
-	 $(F90) -c ../simple_i_array.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_i_array.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_r_array.o:../simple_r_array.f90 simple_jiffys.o 
-	 $(F90) -c ../simple_r_array.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_r_array.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_d_array.o:../simple_d_array.f90 simple_def_precision.o simple_jiffys.o 
-	 $(F90) -c ../simple_d_array.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_d_array.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_list_object.o:../simple_list_object.f90 simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o 
-	 $(F90) -c ../simple_list_object.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_list_object.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_sll_list.o:../simple_sll_list.f90 simple_list_object.o simple_def_precision.o 
-	 $(F90) -c ../simple_sll_list.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_sll_list.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_stat.o:../simple_stat.f90 simple_def_precision.o simple_pair_wtab.o simple_sll_list.o simple_jiffys.o simple_math.o simple_rnd.o simple_params.o 
-	 $(F90) -c ../simple_stat.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_stat.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
-simple_imgspi.o:../simple_imgspi.f90 simple_math.o gnufor2.o simple_jiffys.o simple_stat.o simple_params.o 
-	 $(F90) -c ../simple_imgspi.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+simple_dens_map.o:../simple_dens_map.f90 simple_math.o simple_stat.o 
+	 $(F90) -c ../simple_dens_map.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+
+simple_imgspi.o:../simple_imgspi.f90 simple_math.o gnufor2.o simple_jiffys.o simple_stat.o simple_params.o simple_dens_map.o 
+	 $(F90) -c ../simple_imgspi.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_stkspi.o:../simple_stkspi.f90 simple_jiffys.o simple_params.o simple_imgspi.o 
-	 $(F90) -c ../simple_stkspi.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_stkspi.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_heapsort.o:../simple_heapsort.f90 simple_sll_list.o simple_math.o simple_def_precision.o 
-	 $(F90) -c ../simple_heapsort.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_heapsort.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_spidoc.o:../simple_spidoc.f90 simple_sll_list.o simple_jiffys.o 
-	 $(F90) -c ../simple_spidoc.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_spidoc.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_eulers.o:../simple_eulers.f90 simple_heapsort.o simple_math.o simple_def_precision.o simple_spidoc.o simple_jiffys.o 
-	 $(F90) -c ../simple_eulers.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_eulers.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_comlin.o:../simple_comlin.f90 simple_eulers.o simple_math.o simple_jiffys.o simple_params.o 
-	 $(F90) -c ../simple_comlin.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_comlin.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_aligndata.o:../simple_aligndata.f90 simple_heapsort.o simple_jiffys.o 
-	 $(F90) -c ../simple_aligndata.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_aligndata.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_volspi.o:../simple_volspi.f90 simple_math.o simple_jiffys.o simple_params.o simple_stat.o 
-	 $(F90) -c ../simple_volspi.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_volspi.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_ffts.o:../simple_ffts.f90 simple_fftw3.o simple_jiffys.o 
-	 $(F90) -c ../simple_ffts.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_ffts.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_fplane.o:../simple_fplane.f90 simple_math.o simple_jiffys.o simple_params.o simple_stat.o simple_imgspi.o simple_ffts.o 
-	 $(F90) -c ../simple_fplane.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_fplane.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_build.o:../simple_build.f90 simple_params.o simple_eulers.o simple_comlin.o simple_heapsort.o simple_aligndata.o simple_volspi.o simple_jiffys.o simple_math.o simple_rnd.o simple_ffts.o simple_fplane.o 
-	 $(F90) -c ../simple_build.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_build.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_fstk.o:../simple_fstk.f90 simple_params.o simple_fftw3.o simple_stkspi.o simple_imgspi.o simple_math.o simple_stat.o simple_build.o simple_jiffys.o simple_fplane.o 
-	 $(F90) -c ../simple_fstk.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_fstk.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 
 fim_to_spi.o:fim_to_spi.f90 simple_fstk.o simple_params.o simple_jiffys.o simple_cmdline.o 
-	 $(F90) -c fim_to_spi.f90 -CB -CU -g -debug all -check all -implicitnone -warn unused -fp-stack-check -ftrapuv -check pointers -check bounds -traceback -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c fim_to_spi.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
 # This entry allows you to type " make clean " to get rid of
 # all object and module files 
 clean:

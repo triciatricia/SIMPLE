@@ -40,7 +40,7 @@ integer            :: nbest_start=30, nbest_stop=10, ncsym=1, nfpl=1, nfrefs, ni
 integer            :: nptcls, nspace=100, nstates=1
 integer            :: nthr=1, nvars=6, ori=1, ptcl=1, pcasz=0, sep=1, spec=0, state=1, toc, tofny, tok, top, tor
 integer            :: winsz=1, wchoice=1, xdim, ydim
-real               :: amsklp=0., angtres=7., diam=140., dstep, epsilon, eullims(3,2), fny, frac=0.8
+real               :: amsklp=0., angres=7., diam=140., dstep, epsilon, eullims(3,2), fny, frac=0.8
 real               :: hp, lp=20., lp_dyn, lp2, lplim=200., lpmed=20., mw, msk=0., mqlim=3.5, neigh=0.2
 real               :: optlims(6,2), smpd=0., tres, trs=0.
 logical            :: cyclic(6)=.false.
@@ -247,7 +247,7 @@ contains
         call check_iarg('winsz', winsz)
         call check_iarg('wchoice', wchoice)
         call check_rarg('amsklp', amsklp)
-        call check_rarg('angtres', angtres)
+        call check_rarg('angres', angres)
         call check_rarg('diam', diam)
         call check_rarg('epsilon', epsilon)
         call check_rarg('frac', frac)
@@ -310,7 +310,7 @@ contains
             if( ncls /= 0 ) maxp = max(maxp,nint(2.*(real(nptcls)/real(ncls))))
         endif
         ! set nr of in-plane rots
-        ninpl = int(360./angtres) ! default value of angtres is 7.
+        ninpl = int(360./angres) ! default value of angres is 7.
         ! define clipped box if not given
         if( .not. defined_cmd_rarg('clip') )then
             clip = box

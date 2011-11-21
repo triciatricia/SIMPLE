@@ -142,12 +142,12 @@ contains
         endif
     end function even
         
-    function angres( res, diam ) result( ang )
+    function get_angres( res, diam ) result( ang )
     ! get the angular resultion in degrees, given diameter and resolution
         real, intent(in)  :: res, diam 
         real :: ang
         ang = rad2deg((2.*res)/diam)
-    end function angres
+    end function get_angres
     
      function is_a_number( number ) result( is )
     ! validity check of real number (so that it is not NaN)

@@ -20,9 +20,9 @@ implicit none
 save
 type(build), target, save :: b
 logical :: cmderr(4)
-integer :: s
+integer :: s, nincl
 if( command_argument_count() < 4 )then
-    write(*,*) './reconstruct fstk=fprojs.fim vol1=recvol_1.spi [vol2=recvol_2.spi etc.] oritab=algndoc.dat nthr=<nr of openMP threads> [winsz=2] [wchoice=2] [debug=<yes|no>]'
+    write(*,*) './reconstruct fstk=fprojs.fim vol1=recvol_1.spi [vol2=recvol_2.spi etc.] oritab=algndoc.dat frac=<fraction of ptcls to include{0.8}> nthr=<nr of openMP threads> [debug=<yes|no>]'
     stop
 endif
 ! parse command line
@@ -42,8 +42,10 @@ b = new_build(30)
 ! Reconstruct Fourier volumes
 ! Associate pointer in fgridvol
 call make_fgridvol( b, 'old' )
+! determine how many ptcls to include
+nincl = nint(frac*real(nptcls))
 ! Grid
-call fgrid
+call fgrid(nincl)
 ! Write
 do s=1,nstates
     call fft_rev_fvol( b, s )

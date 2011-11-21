@@ -283,19 +283,23 @@ contains
             b%frefs(i)%arr = cmplx(0.,0.)
         end do
         do i=1,nptcls
+            write(*,*) 'READ PLANE:', i
             call read_fplane( b%f(ptcl)%arr, fstk, i )
             ! add the ptcl transform
+            write(*,*) 'ADDED TO CLASS:', cls(i)
             b%frefs(cls(i))%arr = b%frefs(cls(i))%arr+b%f(ptcl)%arr
         end do
         ! divide with the class counters to get the Fourier averages
         ncls_here = 0
         do i=1,ncls
             pop = cls_pop(cls,i)
+            write(*,*) 'CLASS:', i, 'POP:', pop
             b%frefs(i)%arr = b%frefs(i)%arr/real(pop)
             if( pop > minp )then
                 ncls_here = ncls_here+1
             endif
         end do
+        write(*,*) 'ADJUSTED NR OF CLASSES TO:', ncls_here
         ! output the Fourier class averages
         call make_empty_fstk( fstk_out, ncls_here )
         open( unit=20, file=fstk_out, status='replace', iostat=file_stat,&
@@ -306,6 +310,7 @@ contains
             if( cls_pop(cls,i) > minp )then
                 cnt = cnt+1
                 write( unit=20, rec=cnt ) b%frefs(i)%arr
+                write(*,*) 'WROTE CLASS:', i, 'TO FILE'
             endif
         end do
         close(20)

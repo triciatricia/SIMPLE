@@ -114,29 +114,29 @@ contains
         lpmed = get_lowpass_median(bp%a) ! The median lowpass limit
     end subroutine calc_lowpass_lims
     
-!    subroutine exhaustive_euler_search( x, y )
-!    ! is for exhaustive angular search
-!        real, intent(in) :: x, y
-!        real             :: e1, e2, e3, corr, rsol(6)
-!        integer          :: j, k, cnt
-!        cnt = 0
-!        do j=1,nspace! projection direction loop
-!            call get_euler( bp%e, j, e1, e2, e3 )
-!            do k=1,ninpl ! inplane angle loop
-!                e3 = real(k-1)*angres
-!                rsol(1) = e1
-!                rsol(2) = e2
-!                rsol(3) = e3
-!                rsol(4) = x
-!                rsol(5) = y
-!                rsol(6) = 1 
-!                corr = corr_fplanes( e1, e2, e3, x, y )
-!                cnt = cnt+1
-!                call set_heapsort( bp%hso, cnt, corr, rarr=rsol )
-!            end do
-!        end do
-!        call sort_heapsort( bp%hso )
-!    end subroutine exhaustive_euler_search
+    subroutine exhaustive_euler_search( x, y )
+    ! is for exhaustive angular search
+        real, intent(in) :: x, y
+        real             :: e1, e2, e3, corr, rsol(6)
+        integer          :: j, k, cnt
+        cnt = 0
+        do j=1,nspace! projection direction loop
+            call get_euler( bp%e, j, e1, e2, e3 )
+            do k=1,ninpl ! inplane angle loop
+                e3 = real(k-1)*angres
+                rsol(1) = e1
+                rsol(2) = e2
+                rsol(3) = e3
+                rsol(4) = x
+                rsol(5) = y
+                rsol(6) = 1 
+                corr = corr_fplanes( e1, e2, e3, x, y )
+                cnt = cnt+1
+                call set_heapsort( bp%hso, cnt, corr, rarr=rsol )
+            end do
+        end do
+        call sort_heapsort( bp%hso )
+    end subroutine exhaustive_euler_search
     
     subroutine exhaustive_proj_search_1( e3, x, y )
     ! is for exhaustive projection direction search
@@ -294,7 +294,8 @@ contains
         
             subroutine search_weighted
                 integer :: k
-                real    :: sols(6), sump, p(nbest), corr
+                real    :: sols(6), sump, p(nbest), corr, corrs(nbest), sdev, var, norm, corr_best
+                logical :: err
                 ! Perfom exhaustive angular search
                 ! set winsize to 1 and wchoice to 1 for the alignment
                 winsz = 1
@@ -304,16 +305,28 @@ contains
                 else
                     call exhaustive_proj_search_1(oris(i,3), oris(i,4), oris(i,5))
                 endif
-                ! set winsize to 2 and wchoice to 2 for the reconstruction
-                winsz = 2
-                wchoice = 2 
+                ! fish the correlations to an array
+                do k=1,nbest
+                    call get_heapsort( b%hso, ninpl*nspace-(k-1), corrs(k) )
+                    if( k == 1 ) corr_best = corrs(k)
+                end do
+                ! calculate the measure of variation around the best value
+                call deviation( corrs, corr_best, sdev, var, err )
+                ! calculate normalization constant for the Gaussian
+                norm = 1./(sqrt(twopi*var))
                 ! Calculate weights and grid the Fourier plane
                 sump = 0.
+                write(*,*) '**************'
                 do k=1,nbest      
-                    call get_heapsort( b%hso, ninpl*nspace-(k-1), corr )
-                    p(k) = exp(corr-1)
+!                    p(k) = exp(corr-1)
+                    p(k) = norm*exp(-((corrs(k)-corr_best)**2)/(2*var))
+                    write(*,*) 'CORR:', corr, 'P:', p(k) 
                     sump = sump+p(k)
                 end do
+                write(*,*) 'SUMP:', sump
+                ! set winsize to 2 and wchoice to 2 for the reconstruction
+                winsz = 2
+                wchoice = 2
                 do k=1,nbest
                     call get_heapsort( b%hso, ninpl*nspace-(k-1), corr, rarr=sols )
                     p(k) = p(k)/sump
