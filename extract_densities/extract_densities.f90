@@ -23,7 +23,6 @@
 ! Input:
 !   - stk = stack of binarized spider images (you can use the program binarize on them
 !     first)
-!   - stktyp = image created using spider or eman (try eman if image made in Simple)
 !   - box = length of an edge of the image in pixels
 !   - nptcls = number of images in the stack
 !   - smpd = sampling distance in Angstroms per pixel
@@ -34,8 +33,8 @@ program extract_densities
 use simple_stkspi
 use simple_imgspi
 use simple_math
+use simple_cmdline
 use simple_params
-use simple_jiffys
 use simple_dens_map
 use simple_pair_wtab
 use simple_sll_list
@@ -63,6 +62,7 @@ if( command_argument_count() < 4 )then
 endif
 
 ! parse command line args
+call parse_cmdline
 call make_params
 
 ! allocate
@@ -81,7 +81,6 @@ img = new_imgspi()
 
 ! for each image, identify densities and store information in dens_maps
 do i=1,nptcls
-!    write(*,*) 'image', i
     call read_imgspi( stack, stk, i, img, stkconv )
     call identify_densities_imgspi( img, box, 4, 4, img_dens_map )
     dens_maps(i) = img_dens_map
@@ -90,7 +89,7 @@ end do
 call flush_dens_maps(dens_maps, size(dens_maps))
 write(*,'(A)') '>>> DONE IDENTIFYING DENSITIES'
 
-! calculate best RMSD for rotations among all data ! test this
+! calculate best RMSD for rotations among all data
 allocate(rmsd(nptcls,nptcls), stat=alloc_stat)
 call alloc_err('In program: extract_densities', alloc_stat)
 rmsd_pwtab = new_pair_wtab(nptcls)

@@ -1,15 +1,17 @@
-program test_imgspi_mod
 ! -------------------------------------------------------------------------------------
-! I will use this to test the identify_densities_imgspi modifications to simple_imgspi and dens_map_mod by plotting. 
+! I will use this to test the identify_densities_imgspi modifications to simple_imgspi 
+! and dens_map_mod by plotting. 
 !
 ! Inputs:
 !   - stk = a spider stack of spider images
-!   - outstk = a spider stack of binarized spider images
-!   - stktyp = the program used to make the images (try eman if images made with Simple)
+!   - outstk = a spider stack of binarized spider images ***Note this is diffrent from
+!     the usual***
 !   - box = the length of the image in pixels
-!   - nptcls is the number of particles that you want to plot. 
+!   - nptcls = the number of particles to plot. 
 ! -------------------------------------------------------------------------------------
+program test_imgspi_mod
 
+use simple_cmdline
 use simple_params
 use simple_dens_map
 use simple_imgspi
@@ -24,17 +26,19 @@ type(dens_map)                  :: img_dens_map
 integer                         :: alloc_stat, i
 character(len=256)              :: stkconv, binstkconv
 
-if( command_argument_count() < 5 )then
-    write(*,*) './test_imgspi_mod stk=inputstk.spi outstk=binarystk.spi stktyp=<spider|eman> box=200 nptcls=5  [debug=<yes|no>]'
+if (command_argument_count() < 4) then
+    write(*,*) './test_imgspi_mod stk=inputstk.spi outstk=binarystk.spi box=200 nptcls=5  [debug=<yes|no>]'
     stop
 endif
 
 ! parse command line args
+call parse_cmdline
 call make_params
 
 ! make stacks
 stack = new_stkspi( name=stk )
 binstack = new_stkspi( name=outstk )
+
 ! determine how to convert the stacks
 call find_stkconv( stack, stk, stkconv )
 call find_stkconv( stack, stk, binstkconv )
@@ -53,6 +57,5 @@ do i=1,nptcls
     call plot_dens_map_imgspi(img, img_dens_map)
     call plot_dens_map_imgspi(imgbin, img_dens_map)
 end do
-
 
 end program test_imgspi_mod

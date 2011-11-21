@@ -159,78 +159,78 @@ F90=ifort
 
 # Here is the link step 
 dens_map_align_test:simple_def_precision.o simple_syscalls.o simple_jiffys.o simple_rnd.o simple_math.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_cmdline.o simple_params.o simple_stat.o simple_dens_map.o simple_ran_tabu.o simple_de_opt.o simple_dens_map_align.o tester_mod.o dens_map_align_test.o 
-	 $(F90) -o dens_map_align_test simple_def_precision.o simple_syscalls.o simple_jiffys.o simple_rnd.o simple_math.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_cmdline.o simple_params.o simple_stat.o simple_dens_map.o simple_ran_tabu.o simple_de_opt.o simple_dens_map_align.o tester_mod.o dens_map_align_test.o   -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -o dens_map_align_test simple_def_precision.o simple_syscalls.o simple_jiffys.o simple_rnd.o simple_math.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_cmdline.o simple_params.o simple_stat.o simple_dens_map.o simple_ran_tabu.o simple_de_opt.o simple_dens_map_align.o tester_mod.o dens_map_align_test.o   -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 # Here are the compile steps
  
 simple_def_precision.o:../simple_def_precision.f90  
-	 $(F90) -c ../simple_def_precision.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_def_precision.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_syscalls.o:../simple_syscalls.f90  
-	 $(F90) -c ../simple_syscalls.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_syscalls.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_jiffys.o:../simple_jiffys.f90  
-	 $(F90) -c ../simple_jiffys.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_jiffys.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_rnd.o:../simple_rnd.f90  
-	 $(F90) -c ../simple_rnd.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_rnd.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_math.o:../simple_math.f90 simple_def_precision.o simple_syscalls.o simple_jiffys.o simple_rnd.o 
-	 $(F90) -c ../simple_math.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_math.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_pair_wtab.o:../simple_pair_wtab.f90 simple_jiffys.o 
-	 $(F90) -c ../simple_pair_wtab.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_pair_wtab.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_i_scalar.o:../simple_i_scalar.f90  
-	 $(F90) -c ../simple_i_scalar.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_i_scalar.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_r_scalar.o:../simple_r_scalar.f90  
-	 $(F90) -c ../simple_r_scalar.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_r_scalar.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_d_scalar.o:../simple_d_scalar.f90 simple_def_precision.o 
-	 $(F90) -c ../simple_d_scalar.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_d_scalar.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_i_array.o:../simple_i_array.f90 simple_jiffys.o 
-	 $(F90) -c ../simple_i_array.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_i_array.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_r_array.o:../simple_r_array.f90 simple_jiffys.o 
-	 $(F90) -c ../simple_r_array.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_r_array.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_d_array.o:../simple_d_array.f90 simple_def_precision.o simple_jiffys.o 
-	 $(F90) -c ../simple_d_array.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_d_array.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_list_object.o:../simple_list_object.f90 simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o 
-	 $(F90) -c ../simple_list_object.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_list_object.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_sll_list.o:../simple_sll_list.f90 simple_list_object.o simple_def_precision.o 
-	 $(F90) -c ../simple_sll_list.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_sll_list.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_cmdline.o:../simple_cmdline.f90  
-	 $(F90) -c ../simple_cmdline.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_cmdline.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_params.o:../simple_params.f90 simple_jiffys.o simple_cmdline.o 
-	 $(F90) -c ../simple_params.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_params.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_stat.o:../simple_stat.f90 simple_def_precision.o simple_pair_wtab.o simple_sll_list.o simple_jiffys.o simple_math.o simple_rnd.o simple_params.o 
-	 $(F90) -c ../simple_stat.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_stat.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_dens_map.o:../simple_dens_map.f90 simple_math.o simple_stat.o 
-	 $(F90) -c ../simple_dens_map.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_dens_map.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_ran_tabu.o:../simple_ran_tabu.f90 simple_rnd.o simple_jiffys.o 
-	 $(F90) -c ../simple_ran_tabu.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_ran_tabu.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_de_opt.o:../simple_de_opt.f90 simple_rnd.o simple_ran_tabu.o simple_math.o simple_jiffys.o 
-	 $(F90) -c ../simple_de_opt.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_de_opt.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_dens_map_align.o:../simple_dens_map_align.f90 simple_dens_map.o simple_de_opt.o 
-	 $(F90) -c ../simple_dens_map_align.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_dens_map_align.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 tester_mod.o:../tester_mod.f90  
-	 $(F90) -c ../tester_mod.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../tester_mod.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 dens_map_align_test.o:dens_map_align_test.f90 simple_dens_map.o simple_dens_map_align.o tester_mod.o 
-	 $(F90) -c dens_map_align_test.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c dens_map_align_test.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 # This entry allows you to type " make clean " to get rid of
 # all object and module files 
 clean:

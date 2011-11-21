@@ -1,10 +1,10 @@
-program dens_map_mod_test
 ! -------------------------------------------------------------------------------------
 ! The purpose is to test functions and subroutines that I'm working on in dens_map_mod.
 ! *Note: running this will alter or create the file dens_maps.txt.*
 ! List of things not tested here: write_dist, write_mass_coord, pearsn_dens_map
 ! *** center_dens_map *** <- to do.
 ! -------------------------------------------------------------------------------------
+program dens_map_mod_test
 
 use simple_dens_map
 use tester_mod
