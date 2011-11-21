@@ -2,6 +2,19 @@
 ! Uses Simple's differential evolution algorithm to align the gold density images 
 ! in a cluster. Densities are represented by dens_map. 
 ! 
+! Arguments:
+!   box      - The length of the input image (a square) in pixels. 
+!   nptcls   - Total number of particles being analyzed (= number of images in the
+!              stack)
+!   neigh    - The fraction of the population in each neighborhood. A lower value
+!              results in more diversity in the search. 0 <= neigh <= 1
+!   GENMAX   - The maximum number of generations (iterations) for the differential
+!              evolution. 
+!   clsnr    - The cluster to get initial rotation angles for. (Note: this isn't the
+!              nth best cluster as in get_best_cls. Rather, this is the actual cluster
+!              number that can be found in cls.txt (and it is printed out when running
+!              get_best_cls.)
+!
 ! Requires the following files present: 
 !   - dens_maps.txt
 !     A direct access text file containing the four masses, four x-coordinates, four y-coordinates
@@ -21,21 +34,19 @@
 !
 ! If you use angles from get_best_cls, you initialize with a set of solutions, 
 ! one of which is from roughly aligning all images to a continuous avg starting with
-! the centroid, 
+! the centroid. The rest of the inital solutions are very different from the first
+! to encourage diversification in the search over converging on a local minimum. 
 ! 
-! Outputs a file (name = angles_file_name, which you can change below) of the rotation
-! angles. 
+! Outputs a file:
+!    - angles<clsnr>.txt
+!      A direct access text file containing the rotation angles. (Format: "(F8.5)")
 ! -------------------------------------------------------------------------------------
-
 program align_densities
-
+use simple_cmdline
 use simple_params
 use simple_dens_map
 use simple_dens_map_align
 use simple_de_opt
-! use simple_imgspi
-! use simple_stkspi
-
 implicit none
 save
 
@@ -49,11 +60,19 @@ real                                    :: cost_error, cost_fittest, pie
 real                                    :: dangle, best_dist, dist, init_spread
 real, allocatable                       :: angles(:), limits(:,:), r(:), angles_init(:), init_sol(:,:)
 real, allocatable                       :: dist_table(:,:), dist_sum(:), all_angles_init(:)
-character(len=14)                       :: angles_file_name
+character(len=32)                       :: clsnr_char, angles_file_name
 
-! Change the values of the parameters below:
+if( command_argument_count() < 5 )then
+    write(*,*) './align_densities  box=200 nptcls=10329 neigh=0.05 GENMAX=200 clsnr=67  [debug=<yes|no>]'
+    stop
+endif
+
+! parse command line args
+call parse_cmdline
+call make_params(2) ! Mode 2 = unsupervised agglomerative hierachical 2D classification with greedy adaptive refinement
+
+! Other parameters
 ! ------------------------------------------
-
 ! The larger this number is, the more varied the initial solutions for differential 
 ! evolution (not inluding the one supplied by angles_init.txt) are. The smaller this 
 ! number is, the more likely it is that the initial solutions will be more different 
@@ -62,8 +81,10 @@ character(len=14)                       :: angles_file_name
 ! 0 <= init_spread <= 2pi
 init_spread = 0.3
 
-! File name for the output. It must be exactly 14 characters in length. 
-angles_file_name = 'angles0067.txt'
+! File name for the output.
+write(clsnr_char,'(I10)') clsnr
+ clsnr_char = adjustl(clsnr_char)
+angles_file_name = 'angles'//trim(clsnr_char)//'.txt'
 
 ! Read information from file and allocate arrays
 ! ----------------------------------------------
@@ -147,7 +168,8 @@ do i=1,size(angles_init)
     if (angles_init(i) < 0.) angles_init(i) = angles_init(i) + 2.*pie
 end do
 
-write(*,*) 'Initial angles:', angles_init
+write(*,*) 'Initial angles:'
+write(*,*) angles_init
 write(*,*) 'Cost init:', cost_dmap(angles_init, size(angles_init))
 
 ! Generate initial population of solutions
@@ -164,7 +186,7 @@ init_sol(size_pop,:) = angles_init
 
 ! Differential evolution:
 ! -----------------------
-write(*,*) 'Differential evolution'
+write(*,'(A)') '>>> Differential evolution'
 ! Initialize
  cls_de_opt = new_de_opt( size(angles), limits, size_pop, neigh, cyclic, init_sol)
 ! Run differential evolution
@@ -174,14 +196,15 @@ call de_cont_min( cls_de_opt, cost_dmap, GENMAX, cost_error, angles, cost_fittes
 ! Output Results
 ! --------------
 
-write(*,*) 'Angles:', angles
+write(*,*) 'Angles:'
+write(*,*) angles
 write(*,*) 'Final cost:', cost_fittest
 
 ! Output angles to the file <anglesfilename>
 open(unit=17, file=angles_file_name, status='replace', iostat=file_stat,&
 access='direct', action='write', form='formatted', recl=8 )
 if( file_stat /= 0 )then ! cannot open file
-    write(*,*) 'Cannot open file: rmsd_table.txt'
+    write(*,*) 'Cannot open file: '//angles_file_name
     write(*,*) 'In program: align_densities'
     stop
 endif

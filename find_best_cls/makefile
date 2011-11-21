@@ -11,12 +11,13 @@
 # find_best_cls.f90 Uses Module simple_stkspi
 # find_best_cls.f90 Uses Module simple_imgspi
 # find_best_cls.f90 Uses Module simple_math
+# find_best_cls.f90 Uses Module simple_cmdline
 # find_best_cls.f90 Uses Module simple_params
 # find_best_cls.f90 Uses Module simple_dens_map
 # find_best_cls.f90 Uses Module simple_pair_wtab
 # find_best_cls.f90 Uses Module simple_stat
 # find_best_cls.f90 Uses Module simple_heapsort
-# Full list of modules in find_best_cls.f90: simple_stkspi simple_imgspi simple_math simple_params simple_dens_map simple_pair_wtab simple_stat simple_heapsort 
+# Full list of modules in find_best_cls.f90: simple_stkspi simple_imgspi simple_math simple_cmdline simple_params simple_dens_map simple_pair_wtab simple_stat simple_heapsort 
 # Uses simple_stkspi which is in ../simple_stkspi.f90
 # process_fsource called with arg ../simple_stkspi.f90 
 # ../simple_stkspi.f90 Uses Module simple_jiffys
@@ -158,6 +159,8 @@
 # ../simple_imgspi.f90 already in list
 # Uses simple_math which is in ../simple_math.f90
 # ../simple_math.f90 already in list
+# Uses simple_cmdline which is in ../simple_cmdline.f90
+# ../simple_cmdline.f90 already in list
 # Uses simple_params which is in ../simple_params.f90
 # ../simple_params.f90 already in list
 # Uses simple_dens_map which is in ../simple_dens_map.f90
@@ -186,78 +189,78 @@ F90=ifort
 
 # Here is the link step 
 find_best_cls:simple_jiffys.o simple_cmdline.o simple_params.o simple_def_precision.o simple_syscalls.o simple_rnd.o simple_math.o gnufor2.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_stat.o simple_dens_map.o simple_imgspi.o simple_stkspi.o simple_heapsort.o find_best_cls.o 
-	 $(F90) -o find_best_cls simple_jiffys.o simple_cmdline.o simple_params.o simple_def_precision.o simple_syscalls.o simple_rnd.o simple_math.o gnufor2.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_stat.o simple_dens_map.o simple_imgspi.o simple_stkspi.o simple_heapsort.o find_best_cls.o   -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -o find_best_cls simple_jiffys.o simple_cmdline.o simple_params.o simple_def_precision.o simple_syscalls.o simple_rnd.o simple_math.o gnufor2.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_stat.o simple_dens_map.o simple_imgspi.o simple_stkspi.o simple_heapsort.o find_best_cls.o   -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 # Here are the compile steps
  
 simple_jiffys.o:../simple_jiffys.f90  
-	 $(F90) -c ../simple_jiffys.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_jiffys.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_cmdline.o:../simple_cmdline.f90  
-	 $(F90) -c ../simple_cmdline.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_cmdline.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_params.o:../simple_params.f90 simple_jiffys.o simple_cmdline.o 
-	 $(F90) -c ../simple_params.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_params.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_def_precision.o:../simple_def_precision.f90  
-	 $(F90) -c ../simple_def_precision.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_def_precision.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_syscalls.o:../simple_syscalls.f90  
-	 $(F90) -c ../simple_syscalls.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_syscalls.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_rnd.o:../simple_rnd.f90  
-	 $(F90) -c ../simple_rnd.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_rnd.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_math.o:../simple_math.f90 simple_def_precision.o simple_syscalls.o simple_jiffys.o simple_rnd.o 
-	 $(F90) -c ../simple_math.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_math.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 gnufor2.o:../gnufor2.f90  
-	 $(F90) -c ../gnufor2.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../gnufor2.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_pair_wtab.o:../simple_pair_wtab.f90 simple_jiffys.o 
-	 $(F90) -c ../simple_pair_wtab.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_pair_wtab.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_i_scalar.o:../simple_i_scalar.f90  
-	 $(F90) -c ../simple_i_scalar.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_i_scalar.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_r_scalar.o:../simple_r_scalar.f90  
-	 $(F90) -c ../simple_r_scalar.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_r_scalar.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_d_scalar.o:../simple_d_scalar.f90 simple_def_precision.o 
-	 $(F90) -c ../simple_d_scalar.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_d_scalar.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_i_array.o:../simple_i_array.f90 simple_jiffys.o 
-	 $(F90) -c ../simple_i_array.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_i_array.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_r_array.o:../simple_r_array.f90 simple_jiffys.o 
-	 $(F90) -c ../simple_r_array.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_r_array.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_d_array.o:../simple_d_array.f90 simple_def_precision.o simple_jiffys.o 
-	 $(F90) -c ../simple_d_array.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_d_array.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_list_object.o:../simple_list_object.f90 simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o 
-	 $(F90) -c ../simple_list_object.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_list_object.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_sll_list.o:../simple_sll_list.f90 simple_list_object.o simple_def_precision.o 
-	 $(F90) -c ../simple_sll_list.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_sll_list.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_stat.o:../simple_stat.f90 simple_def_precision.o simple_pair_wtab.o simple_sll_list.o simple_jiffys.o simple_math.o simple_rnd.o simple_params.o 
-	 $(F90) -c ../simple_stat.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_stat.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_dens_map.o:../simple_dens_map.f90 simple_math.o simple_stat.o 
-	 $(F90) -c ../simple_dens_map.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_dens_map.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_imgspi.o:../simple_imgspi.f90 simple_math.o gnufor2.o simple_jiffys.o simple_stat.o simple_params.o simple_dens_map.o 
-	 $(F90) -c ../simple_imgspi.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_imgspi.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_stkspi.o:../simple_stkspi.f90 simple_jiffys.o simple_params.o simple_imgspi.o 
-	 $(F90) -c ../simple_stkspi.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_stkspi.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_heapsort.o:../simple_heapsort.f90 simple_sll_list.o simple_math.o simple_def_precision.o 
-	 $(F90) -c ../simple_heapsort.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+	 $(F90) -c ../simple_heapsort.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
-find_best_cls.o:find_best_cls.f90 simple_stkspi.o simple_imgspi.o simple_math.o simple_params.o simple_dens_map.o simple_pair_wtab.o simple_stat.o simple_heapsort.o 
-	 $(F90) -c find_best_cls.f90 -implicitnone -m64 -L../fftw/fftw3-osx-64/lib/ -lfftw3f -lfftw3f_threads -i-static
+find_best_cls.o:find_best_cls.f90 simple_stkspi.o simple_imgspi.o simple_math.o simple_cmdline.o simple_params.o simple_dens_map.o simple_pair_wtab.o simple_stat.o simple_heapsort.o 
+	 $(F90) -c find_best_cls.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 # This entry allows you to type " make clean " to get rid of
 # all object and module files 
 clean:
