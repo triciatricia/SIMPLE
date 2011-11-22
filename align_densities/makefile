@@ -13,7 +13,11 @@
 # align_densities.f90 Uses Module simple_dens_map
 # align_densities.f90 Uses Module simple_dens_map_align
 # align_densities.f90 Uses Module simple_de_opt
-# Full list of modules in align_densities.f90: simple_cmdline simple_params simple_dens_map simple_dens_map_align simple_de_opt 
+# align_densities.f90 Uses Module simple_imgspi
+# align_densities.f90 Uses Module simple_stkspi
+# align_densities.f90 Uses Module simple_ffts
+# align_densities.f90 Uses Module simple_fplane
+# Full list of modules in align_densities.f90: simple_cmdline simple_params simple_dens_map simple_dens_map_align simple_de_opt simple_imgspi simple_stkspi simple_ffts simple_fplane 
 # Uses simple_cmdline which is in ../simple_cmdline.f90
 # process_fsource called with arg ../simple_cmdline.f90 
 # Full list of modules in ../simple_cmdline.f90:  
@@ -21,17 +25,13 @@
 # process_fsource called with arg ../simple_params.f90 
 # ../simple_params.f90 Uses Module simple_jiffys
 # ../simple_params.f90 Uses Module simple_cmdline
-# Full list of modules in ../simple_params.f90: simple_jiffys simple_cmdline 
+# ../simple_params.f90 Uses Module simple_math
+# Full list of modules in ../simple_params.f90: simple_jiffys simple_cmdline simple_math 
 # Uses simple_jiffys which is in ../simple_jiffys.f90
 # process_fsource called with arg ../simple_jiffys.f90 
 # Full list of modules in ../simple_jiffys.f90:  
 # Uses simple_cmdline which is in ../simple_cmdline.f90
 # ../simple_cmdline.f90 already in list
-# Uses simple_dens_map which is in ../simple_dens_map.f90
-# process_fsource called with arg ../simple_dens_map.f90 
-# ../simple_dens_map.f90 Uses Module simple_math
-# ../simple_dens_map.f90 Uses Module simple_stat
-# Full list of modules in ../simple_dens_map.f90: simple_math simple_stat 
 # Uses simple_math which is in ../simple_math.f90
 # process_fsource called with arg ../simple_math.f90 
 # ../simple_math.f90 Uses Module simple_def_precision
@@ -50,6 +50,13 @@
 # Uses simple_rnd which is in ../simple_rnd.f90
 # process_fsource called with arg ../simple_rnd.f90 
 # Full list of modules in ../simple_rnd.f90:  
+# Uses simple_dens_map which is in ../simple_dens_map.f90
+# process_fsource called with arg ../simple_dens_map.f90 
+# ../simple_dens_map.f90 Uses Module simple_math
+# ../simple_dens_map.f90 Uses Module simple_stat
+# Full list of modules in ../simple_dens_map.f90: simple_math simple_stat 
+# Uses simple_math which is in ../simple_math.f90
+# ../simple_math.f90 already in list
 # Uses simple_stat which is in ../simple_stat.f90
 # process_fsource called with arg ../simple_stat.f90 
 # ../simple_stat.f90 Uses Module simple_def_precision
@@ -156,6 +163,71 @@
 # ../simple_jiffys.f90 already in list
 # Uses simple_de_opt which is in ../simple_de_opt.f90
 # ../simple_de_opt.f90 already in list
+# Uses simple_imgspi which is in ../simple_imgspi.f90
+# process_fsource called with arg ../simple_imgspi.f90 
+# ../simple_imgspi.f90 Uses Module simple_math
+# ../simple_imgspi.f90 Uses Module gnufor2
+# ../simple_imgspi.f90 Uses Module simple_jiffys
+# ../simple_imgspi.f90 Uses Module simple_stat
+# ../simple_imgspi.f90 Uses Module simple_params
+# ../simple_imgspi.f90 Uses Module simple_dens_map
+# Full list of modules in ../simple_imgspi.f90: simple_math gnufor2 simple_jiffys simple_stat simple_params simple_dens_map 
+# Uses simple_math which is in ../simple_math.f90
+# ../simple_math.f90 already in list
+# Uses gnufor2 which is in ../gnufor2.f90
+# process_fsource called with arg ../gnufor2.f90 
+# Full list of modules in ../gnufor2.f90:  
+# Uses simple_jiffys which is in ../simple_jiffys.f90
+# ../simple_jiffys.f90 already in list
+# Uses simple_stat which is in ../simple_stat.f90
+# ../simple_stat.f90 already in list
+# Uses simple_params which is in ../simple_params.f90
+# ../simple_params.f90 already in list
+# Uses simple_dens_map which is in ../simple_dens_map.f90
+# ../simple_dens_map.f90 already in list
+# Uses simple_stkspi which is in ../simple_stkspi.f90
+# process_fsource called with arg ../simple_stkspi.f90 
+# ../simple_stkspi.f90 Uses Module simple_jiffys
+# ../simple_stkspi.f90 Uses Module simple_params
+# ../simple_stkspi.f90 Uses Module simple_imgspi
+# Full list of modules in ../simple_stkspi.f90: simple_jiffys simple_params simple_imgspi 
+# Uses simple_jiffys which is in ../simple_jiffys.f90
+# ../simple_jiffys.f90 already in list
+# Uses simple_params which is in ../simple_params.f90
+# ../simple_params.f90 already in list
+# Uses simple_imgspi which is in ../simple_imgspi.f90
+# ../simple_imgspi.f90 already in list
+# Uses simple_ffts which is in ../simple_ffts.f90
+# process_fsource called with arg ../simple_ffts.f90 
+# ../simple_ffts.f90 Uses Module simple_fftw3
+# ../simple_ffts.f90 Uses Module simple_jiffys
+# Full list of modules in ../simple_ffts.f90: simple_fftw3 simple_jiffys 
+# Uses simple_fftw3 which is in ../simple_fftw3.f90
+# process_fsource called with arg ../simple_fftw3.f90 
+# Full list of modules in ../simple_fftw3.f90:  
+# Uses simple_jiffys which is in ../simple_jiffys.f90
+# ../simple_jiffys.f90 already in list
+# Uses simple_fplane which is in ../simple_fplane.f90
+# process_fsource called with arg ../simple_fplane.f90 
+# ../simple_fplane.f90 Uses Module simple_math
+# ../simple_fplane.f90 Uses Module simple_jiffys
+# ../simple_fplane.f90 Uses Module simple_params
+# ../simple_fplane.f90 Uses Module simple_stat
+# ../simple_fplane.f90 Uses Module simple_imgspi
+# ../simple_fplane.f90 Uses Module simple_ffts
+# Full list of modules in ../simple_fplane.f90: simple_math simple_jiffys simple_params simple_stat simple_imgspi simple_ffts 
+# Uses simple_math which is in ../simple_math.f90
+# ../simple_math.f90 already in list
+# Uses simple_jiffys which is in ../simple_jiffys.f90
+# ../simple_jiffys.f90 already in list
+# Uses simple_params which is in ../simple_params.f90
+# ../simple_params.f90 already in list
+# Uses simple_stat which is in ../simple_stat.f90
+# ../simple_stat.f90 already in list
+# Uses simple_imgspi which is in ../simple_imgspi.f90
+# ../simple_imgspi.f90 already in list
+# Uses simple_ffts which is in ../simple_ffts.f90
+# ../simple_ffts.f90 already in list
 
 # ------------------Macro-Defs---------------------
 F90=ifort 
@@ -163,8 +235,8 @@ F90=ifort
 # -------------------End-macro-Defs---------------------------
 
 # Here is the link step 
-align_densities:simple_cmdline.o simple_jiffys.o simple_params.o simple_def_precision.o simple_syscalls.o simple_rnd.o simple_math.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_stat.o simple_dens_map.o simple_ran_tabu.o simple_de_opt.o simple_dens_map_align.o align_densities.o 
-	 $(F90) -o align_densities simple_cmdline.o simple_jiffys.o simple_params.o simple_def_precision.o simple_syscalls.o simple_rnd.o simple_math.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_stat.o simple_dens_map.o simple_ran_tabu.o simple_de_opt.o simple_dens_map_align.o align_densities.o   -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
+align_densities:simple_cmdline.o simple_jiffys.o simple_def_precision.o simple_syscalls.o simple_rnd.o simple_math.o simple_params.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_stat.o simple_dens_map.o simple_ran_tabu.o simple_de_opt.o simple_dens_map_align.o gnufor2.o simple_imgspi.o simple_stkspi.o simple_fftw3.o simple_ffts.o simple_fplane.o align_densities.o 
+	 $(F90) -o align_densities simple_cmdline.o simple_jiffys.o simple_def_precision.o simple_syscalls.o simple_rnd.o simple_math.o simple_params.o simple_pair_wtab.o simple_i_scalar.o simple_r_scalar.o simple_d_scalar.o simple_i_array.o simple_r_array.o simple_d_array.o simple_list_object.o simple_sll_list.o simple_stat.o simple_dens_map.o simple_ran_tabu.o simple_de_opt.o simple_dens_map_align.o gnufor2.o simple_imgspi.o simple_stkspi.o simple_fftw3.o simple_ffts.o simple_fplane.o align_densities.o   -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 # Here are the compile steps
  
@@ -173,9 +245,6 @@ simple_cmdline.o:../simple_cmdline.f90
 
 simple_jiffys.o:../simple_jiffys.f90  
 	 $(F90) -c ../simple_jiffys.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
-
-simple_params.o:../simple_params.f90 simple_jiffys.o simple_cmdline.o 
-	 $(F90) -c ../simple_params.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_def_precision.o:../simple_def_precision.f90  
 	 $(F90) -c ../simple_def_precision.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
@@ -188,6 +257,9 @@ simple_rnd.o:../simple_rnd.f90
 
 simple_math.o:../simple_math.f90 simple_def_precision.o simple_syscalls.o simple_jiffys.o simple_rnd.o 
 	 $(F90) -c ../simple_math.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
+
+simple_params.o:../simple_params.f90 simple_jiffys.o simple_cmdline.o simple_math.o 
+	 $(F90) -c ../simple_params.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
 simple_pair_wtab.o:../simple_pair_wtab.f90 simple_jiffys.o 
 	 $(F90) -c ../simple_pair_wtab.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
@@ -231,7 +303,25 @@ simple_de_opt.o:../simple_de_opt.f90 simple_rnd.o simple_ran_tabu.o simple_math.
 simple_dens_map_align.o:../simple_dens_map_align.f90 simple_dens_map.o simple_de_opt.o 
 	 $(F90) -c ../simple_dens_map_align.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 
-align_densities.o:align_densities.f90 simple_cmdline.o simple_params.o simple_dens_map.o simple_dens_map_align.o simple_de_opt.o 
+gnufor2.o:../gnufor2.f90  
+	 $(F90) -c ../gnufor2.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
+
+simple_imgspi.o:../simple_imgspi.f90 simple_math.o gnufor2.o simple_jiffys.o simple_stat.o simple_params.o simple_dens_map.o 
+	 $(F90) -c ../simple_imgspi.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
+
+simple_stkspi.o:../simple_stkspi.f90 simple_jiffys.o simple_params.o simple_imgspi.o 
+	 $(F90) -c ../simple_stkspi.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
+
+simple_fftw3.o:../simple_fftw3.f90  
+	 $(F90) -c ../simple_fftw3.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
+
+simple_ffts.o:../simple_ffts.f90 simple_fftw3.o simple_jiffys.o 
+	 $(F90) -c ../simple_ffts.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
+
+simple_fplane.o:../simple_fplane.f90 simple_math.o simple_jiffys.o simple_params.o simple_stat.o simple_imgspi.o simple_ffts.o 
+	 $(F90) -c ../simple_fplane.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
+
+align_densities.o:align_densities.f90 simple_cmdline.o simple_params.o simple_dens_map.o simple_dens_map_align.o simple_de_opt.o simple_imgspi.o simple_stkspi.o simple_ffts.o simple_fplane.o 
 	 $(F90) -c align_densities.f90 -implicitnone -static -L../fftw/fftw3-3.3/ -lfftw3f -lfftw3f_threads -i-static
 # This entry allows you to type " make clean " to get rid of
 # all object and module files 

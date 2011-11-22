@@ -26,6 +26,9 @@
 !   - angles_init.txt
 !     A direct access text file containing rough, initial rotation angles for aligning
 !     the images in a cluster. (Format: "(F8.5)")
+!   - <stk>
+!     A spider stack file containing the spider images to be aligned (size = nptcls). 
+!     (The file name is speified by the command argument stk.)
 ! 
 ! For example:
 !   One can run extract_densities to get dens_maps.txt.
@@ -37,9 +40,12 @@
 ! the centroid. The rest of the inital solutions are very different from the first
 ! to encourage diversification in the search over converging on a local minimum. 
 ! 
-! Outputs a file:
+! Outputs 2 files:
 !    - angles<clsnr>.txt
 !      A direct access text file containing the rotation angles. (Format: "(F8.5)")
+!    - <outstk>
+!      A spider stack file containing rotated spider images. (The file name is
+!      specified by the command argument outstk.)
 ! -------------------------------------------------------------------------------------
 program align_densities
 use simple_cmdline
@@ -47,6 +53,10 @@ use simple_params
 use simple_dens_map
 use simple_dens_map_align
 use simple_de_opt
+use simple_imgspi
+use simple_stkspi
+use simple_ffts
+use simple_fplane
 implicit none
 save
 
@@ -54,16 +64,23 @@ type(de_opt)                            :: cls_de_opt
 integer                                 :: num_imgs, size_pop, alloc_stat
 integer                                 :: i, n, m
 integer                                 :: file_stat, centroid
+integer, allocatable			:: cls_imgs(:)
 type(dens_map)                          :: temp_dens_map, avg_dens_map
 type(dens_map), allocatable             :: dens_maps(:), dmap_cls(:), rotated_dens_maps(:)
-real                                    :: cost_error, cost_fittest, pie
-real                                    :: dangle, best_dist, dist, init_spread
+real                                    :: cost_error, cost_fittest, pie, theta, shift(2)
+real                                    :: dangle, best_dist, dist, init_spread, center, cmass(2)
 real, allocatable                       :: angles(:), limits(:,:), r(:), angles_init(:), init_sol(:,:)
 real, allocatable                       :: dist_table(:,:), dist_sum(:), all_angles_init(:)
 character(len=32)                       :: clsnr_char, angles_file_name
+type(imgspi)				:: img
+type(imgspi), allocatable		:: imgs(:)
+type(stkspi)				:: stack, stack_out
+real, pointer				:: img_pointer(:,:)=>null()
+complex, allocatable			:: ft(:,:)
+character(len=256)			:: stkconv
 
-if( command_argument_count() < 5 )then
-    write(*,*) './align_densities  box=200 nptcls=10329 neigh=0.05 GENMAX=200 clsnr=67  [debug=<yes|no>]'
+if( command_argument_count() < 7 )then
+    write(*,*) './align_densities  stk=inputstk.spi outstk=outstack.spi box=200 nptcls=10329 neigh=0.05 GENMAX=200 clsnr=67  [debug=<yes|no>]'
     stop
 endif
 
@@ -71,8 +88,9 @@ endif
 call parse_cmdline
 call make_params(2) ! Mode 2 = unsupervised agglomerative hierachical 2D classification with greedy adaptive refinement
 
+! -------------------------------------------------------------------------------------
 ! Other parameters
-! ------------------------------------------
+! -------------------------------------------------------------------------------------
 ! The larger this number is, the more varied the initial solutions for differential 
 ! evolution (not inluding the one supplied by angles_init.txt) are. The smaller this 
 ! number is, the more likely it is that the initial solutions will be more different 
@@ -86,8 +104,9 @@ write(clsnr_char,'(I10)') clsnr
  clsnr_char = adjustl(clsnr_char)
 angles_file_name = 'angles'//trim(clsnr_char)//'.txt'
 
+! -------------------------------------------------------------------------------------
 ! Read information from file and allocate arrays
-! ----------------------------------------------
+! -------------------------------------------------------------------------------------
 
 ! Allocate cls and dens_maps
 allocate(dens_maps(nptcls), stat=alloc_stat)
@@ -116,23 +135,26 @@ num_imgs = count(cls == clsnr)
 
 ! Allocate arrays
 ! Note: size(angles) = num_imgs-1 because the last image doesn't need to be rotated. 
-allocate(dmap_cls(num_imgs), angles(num_imgs-1), limits(num_imgs-1,2), stat=alloc_stat)
+allocate(dmap_cls(num_imgs), angles(num_imgs-1), limits(num_imgs-1,2), cls_imgs(num_imgs), stat=alloc_stat)
 call alloc_err('In Program: align_densities', alloc_stat)
 
-! Store all dens_maps from our cluster into the array dmap_cls
+! Store all dens_maps from our cluster into the array dmap_cls; record 
+! indices of the images in our cluster into the array cls_imgs. 
 n = 0
 do i=1,nptcls
     if (cls(i) == clsnr) then
         n = n + 1
         dmap_cls(n) = dens_maps(i)
+	cls_imgs(n) = i
     end if
 end do
 
 ! Initialize information for the cost function
 call init_dmap_align(dmap_cls, num_imgs, box)
 
+! -------------------------------------------------------------------------------------
 ! Other parameters for differential evolution
-! -------------------------------------------
+! -------------------------------------------------------------------------------------
 pie = acos(-1.)
 limits(:,1) = 0
 limits(:,2) = 2*pie
@@ -141,11 +163,11 @@ size_pop = 10*num_imgs
 ! The error in the cost function is unknown, but we will use the value below. 
  cost_error = 4.
 
-
+! -------------------------------------------------------------------------------------
 ! Generate initial solutions:
-! ---------------------------
+! -------------------------------------------------------------------------------------
 ! Allocate arrays
-allocate(r(num_imgs-1), angles_init(num_imgs-1), init_sol(size_pop,num_imgs-1), dist_table(num_imgs,num_imgs), dist_sum(num_imgs), all_angles_init(num_imgs), rotated_dens_maps(num_imgs), stat=alloc_stat)
+allocate(r(num_imgs-1), angles_init(num_imgs-1), init_sol(size_pop,num_imgs-1), dist_table(num_imgs,num_imgs), dist_sum(num_imgs), all_angles_init(num_imgs), rotated_dens_maps(num_imgs), imgs(num_imgs), stat=alloc_stat)
 call alloc_err('In Program: align_densities', alloc_stat)
 
 ! Read initial angles from file
@@ -183,24 +205,25 @@ do i=1,size_pop-1
 end do
 init_sol(size_pop,:) = angles_init
 
-
+! -------------------------------------------------------------------------------------
 ! Differential evolution:
-! -----------------------
+! -------------------------------------------------------------------------------------
 write(*,'(A)') '>>> Differential evolution'
 ! Initialize
  cls_de_opt = new_de_opt( size(angles), limits, size_pop, neigh, cyclic, init_sol)
 ! Run differential evolution
 call de_cont_min( cls_de_opt, cost_dmap, GENMAX, cost_error, angles, cost_fittest )
 
-
+! -------------------------------------------------------------------------------------
 ! Output Results
-! --------------
+! -------------------------------------------------------------------------------------
 
 write(*,*) 'Angles:'
 write(*,*) angles
 write(*,*) 'Final cost:', cost_fittest
 
 ! Output angles to the file <anglesfilename>
+! ------------------------------------------
 open(unit=17, file=angles_file_name, status='replace', iostat=file_stat,&
 access='direct', action='write', form='formatted', recl=8 )
 if( file_stat /= 0 )then ! cannot open file
@@ -216,5 +239,49 @@ end do
 write(17,'(F8.5)',rec=num_imgs) 0.
 close(17)
 write(*,*) 'Angles of rotation saved to file: ', angles_file_name
+
+! Center and rotate images and output to image stack file.
+! --------------------------------------------------------
+! make image
+img = new_imgspi()
+
+! make stacks
+stack = new_stkspi( name=stk )
+stack_out = new_stkspi(box, num_imgs)
+call write_stk_hed( stack_out, outstk )
+
+! determine how to convert the stack
+ call find_stkconv( stack, stk, stkconv )
+
+! allocate
+allocate( ft(-xdim:xdim,-xdim:xdim) )
+
+center = (box + 1.)/2.
+do i=1,num_imgs
+    if (i<num_imgs) then
+	! theta is in degrees, positive is clockwise. 
+	theta = 2. * pie - angles(i) * 180. / pie
+    else 
+	theta = 0.
+    end if
+    call read_imgspi( stack, stk, cls_imgs(i), img, stkconv )
+    ! Center images using dens_map info
+    cmass = cenmass_dens_map(dens_maps(cls_imgs(i)))
+    shift = center - cmass
+    call shift_imgspi_3(img, nint(shift))
+    ! For each image, convert to fplane
+    call shift_imgspi( img )
+    call get_imgspi_ptr( img, img_pointer ) !returns a pointer img_pointer to volume data (rmat)
+    call simple_2dfft( img_pointer, box, ft )
+    call shiftrot_fplane( ft, theta, 0., 0. ) 
+    call simple_2dfft_rev(ft, box, img_pointer)
+    call shift_imgspi( img )
+    imgs(i) = img
+    call write_imgspi(stack_out, outstk, i, img )
+end do
+
+! Plot class average. 
+call make_avg_imgspi(imgs, size(imgs), img)
+call plot_imgspi(img)
 
 end program align_densities
