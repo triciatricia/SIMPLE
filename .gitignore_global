@@ -1,0 +1,12 @@
+# Git will ignore these files when searching for files to commit. 
+
+*.o
+*.mod
+*.pl~
+*.f90~
+
+# OS generated files
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
