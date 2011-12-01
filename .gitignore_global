@@ -4,6 +4,7 @@
 *.mod
 *.pl~
 *.f90~
+makefile
 
 # OS generated files
 .DS_Store*
