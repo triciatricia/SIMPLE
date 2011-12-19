@@ -10,6 +10,7 @@ interface fuzzy_compare
     module procedure fuzzy_compare_r2arr
     module procedure fuzzy_compare_i
     module procedure fuzzy_compare_iarr
+    module procedure fuzzy_compare_i2arr
 end interface fuzzy_compare
 
 contains
@@ -56,6 +57,14 @@ function fuzzy_compare_iarr(a, b, arrsize, threshold)
     fuzzy_compare_iarr = all(abs(a - b) <= threshold)
     return
 end function fuzzy_compare_iarr
+
+function fuzzy_compare_i2arr(a, b, arrsize1, arrsize2, threshold)
+! are a and b within threshold?
+    integer, intent(in) :: arrsize1, arrsize2, a(arrsize1,arrsize2), b(arrsize1,arrsize2), threshold
+    logical             :: fuzzy_compare_i2arr
+    fuzzy_compare_i2arr = all(abs(a - b) <= threshold)
+    return
+end function fuzzy_compare_i2arr
 
 subroutine report(result, result_size)
 ! report the results of a test. Result is a logical array that is true if tests are passed. result_size is the size of the result array. 
