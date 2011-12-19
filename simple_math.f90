@@ -1759,20 +1759,20 @@ contains
         if( j > NP)  i = j-NP-1
     end function cyci2
     
-    recursive function lowfact(n)
-    ! returns the factorial of n. Refuses to calculate for n > 12 (number is too big). 
+    pure function lowfact(n)
+    ! returns the factorial of n. **Do not calclulate for big n.**
+    ! ie: this function is bad for n > 12 (number is too big)
 	integer, intent(in)		:: n
-	integer				:: lowfact
-	if (n>12) then
-	    write(*,*) 'Error: Lowfact does not calculate factorials for n > 12.'
-	    write(*,*) 'In module: simple_math. Function: lowfact.'
-	    stop
-	end if
-	if (n<2) then
-	    lowfact = 1
-	else
-	    lowfact = n * lowfact(n-1)
-	end if
+	integer				:: lowfact, i
+	! if (n>12) then
+	    ! write(*,*) 'Error: Lowfact does not calculate factorials for n > 12.'
+	    ! write(*,*) 'In module: simple_math. Function: lowfact.'
+	    ! stop
+	! end if
+	lowfact = 1
+	do i=1,n
+	    lowfact = lowfact * i
+	end do
 	return
     end function lowfact
 
