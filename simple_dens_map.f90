@@ -16,6 +16,7 @@
 module simple_dens_map
 use simple_math
 use simple_stat
+use simple_pts
 implicit none
 save
 
@@ -467,5 +468,25 @@ contains
         avg_dmap = new_dens_map(mass_avg, coord_avg(:,1), coord_avg(:,2), n_dens)
         return
     end function avg_dmap
+    
+    function dmap_to_pts(dmap, box)
+    ! Converts a dens_map object to a pts object (loses information about mass) and returns the 
+    ! pts object. 
+    ! 	    dmap	dens_map to convert
+    ! 	    box		box size in pixels (width of the square image), used for centering
+        type(dens_map), intent(in)	:: dmap
+	integer, intent(in)		:: box
+	type(pts)			:: dmap_to_pts
+	type(dens_map)			:: temp_dmap
+	real				:: coords(dmap%n_dens,2)
+	integer				:: i
+	temp_dmap = dmap
+	call center_dens_map(temp_dmap, box)
+	do i=1,temp_dmap%n_dens
+	    coords(i,:) = temp_dmap%coord(i,:)
+	end do
+	dmap_to_pts = new_pts(temp_dmap%n_dens,2,coords)
+        return
+    end function dmap_to_pts
     
 end module simple_dens_map
