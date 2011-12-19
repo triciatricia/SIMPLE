@@ -19,6 +19,11 @@ save
 private :: sll_node
 public
 
+interface copy_int_sll_list
+    module procedure copy_int_sll_list_scalar
+    module procedure copy_int_sll_list_arr
+end interface
+
 type sll_node
 ! contains the list_object _content_ and a pointer _next_ to the nextcoming node
     type(list_object)       :: content
@@ -118,6 +123,40 @@ contains
             write(*,*) 'In: set_sll_node, module: simple_sll_list.f90'
         endif 
     end subroutine set_sll_node
+    
+    subroutine insert_sll_node( num, pos, ival, rval, dval, iarr, rarr, darr )
+    ! does polymorphic insertion of a node into the singly linked list and updates the list size
+        type(sll_list), intent(inout)      :: num
+	integer, intent(in)		   :: pos
+        integer, intent(in), optional      :: ival, iarr(:)
+        real, intent(in), optional         :: rval, rarr(:)
+        real(double), intent(in), optional :: dval, darr(:)
+        type(sll_node), pointer            :: prev, curr, toadd
+	integer				   :: counter
+	! Check if pos is out of range
+        if ( pos < 1 .or. pos > num%list_size+1 ) then
+          write(*,*) 'Variable pos is out of range!'
+          write(*,*) 'In: insert_sll_node, module: simple_sll_list.f90'
+          stop
+        endif
+        ! initialization, begin at the 0:th position
+        prev => num%head 
+        curr => prev%next
+	counter = 0
+	do ! find location of node
+	    counter = counter + 1
+	    if (counter == pos) exit
+	    prev => curr
+	    curr => curr%next
+	end do
+        allocate( toadd ) ! insert it after prev and before curr
+        toadd%content = new_list_object( ival=ival, rval=rval,&
+        dval=dval, iarr=iarr, rarr=rarr, darr=darr )
+        num%list_size = num%list_size+1  
+        ! Redirect
+        prev%next => toadd
+	if (associated(curr)) toadd%next => curr
+    end subroutine insert_sll_node
     
     function sll_minloc( num, imin, rmin, dmin ) result( loc )
         type(sll_list)                      :: num
@@ -277,6 +316,33 @@ contains
         ! make resulting list a replica of num_in
         num%head%next => num_in%head%next
     end function clone_sll_list
+    
+    function copy_int_sll_list_scalar( num_in ) result( num )
+    ! Copy the ival sll list. Unlike clone_sll_list, the returned list will have different
+    ! pointers. Doesn't work for arrays. 
+        type(sll_list), intent(in)	:: num_in
+	type(sll_list)			:: num
+	integer				:: i
+	integer 			:: ival
+        ! Make resulting list
+	num = new_sll_list()
+	do i=1,num_in%list_size
+	    call get_sll_node( num_in, i, ival )
+	    call add_sll_node( num, ival )
+	end do
+    end function copy_int_sll_list_scalar
+
+    function copy_int_sll_list_arr( sll_arr, size_arr ) result( arr_out )
+    ! Copy the ival sll lists in an array. Unlike clone_sll_list, the returned list will have different
+    ! pointers. Doesn't work for arrays (iarr). 
+        integer, intent(in)		:: size_arr
+	type(sll_list), intent(in)	:: sll_arr(size_arr)
+	type(sll_list)			:: arr_out(size_arr)
+	integer				:: i
+	do i=1,size_arr
+	    arr_out(i) = copy_int_sll_list( sll_arr(i) )
+	end do
+    end function copy_int_sll_list_arr
     
     function add_sll_lists( num1, num2 ) result( num )
     ! is joining two singly linked lists together, leaving the two lists as they are and 
