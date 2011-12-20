@@ -28,6 +28,7 @@ pwfile='pwfile.bin'
 ! new_pts, kill_pts, get_coords_pts, get_npts_pts, get_dim_pts
 ! (1:9)
 ! -------------------------------------------------------------------------------------
+write(*,*) 'A'
 ! Make new empty pts
 pts_arr(1) = new_pts(4,3)
 coords43 = 0.
@@ -47,6 +48,7 @@ call kill_pts(pts_arr(1))
 ! combine_pts
 ! (10:19)
 ! -------------------------------------------------------------------------------------
+write(*,*) 'B'
 coords43(:,1) = (/1.,2.,3.,4./)
 coords43(:,2) = (/3.,3.,3.,3./)
 coords43(:,3) = (/-1.,-2.,2.,1./)
@@ -73,6 +75,7 @@ call kill_pts(pts_arr, 4)
 ! is_clashing
 ! (20:29)
 ! -------------------------------------------------------------------------------------
+write(*,*) 'C'
 coords43(:,1) = (/1.,3.,13.,23./)
 coords43(:,2) = (/2.,3.,13.,23./)
 coords43(:,3) = (/1.,3.,13.,23./)
@@ -90,6 +93,7 @@ call kill_pts(pts_arr(2))
 ! rnd_pts, plot_3d_pts
 ! (30:39)
 ! -------------------------------------------------------------------------------------
+write(*,*) 'D'
 ! Not a rigorous test - just judge by eye. 
 pts_arr(1) = rnd_pts(4,3,100.,10.)
 if (showplot) call plot_3d_pts(pts_arr(1))
@@ -111,6 +115,7 @@ call kill_pts(pts_arr(3))
 ! rotate_pts, proj2d_pts
 ! (40:49)
 ! -------------------------------------------------------------------------------------
+write(*,*) 'E'
 coords23(:,1) = (/1.,2./)
 coords23(:,2) = (/3.,3./)
 coords23(:,3) = (/-1.,-2./)
@@ -165,7 +170,10 @@ call kill_pts(pts_arr, 4)
 ! result(63) = fuzzy_compare(rmsd_pts(pts_arr(2), pts_arr(4)), 26.622, 0.001)
 ! call kill_pts(pts_arr,4)
 
+write(*,*) 'F'
+
  testlist = enum_match_pts(1,new_sll_list(),3)
+
  do i=1,6
     write(*,*) 'i=', i
     call print_sll_list(testlist(i))
@@ -233,6 +241,7 @@ call kill_pts(pts_arr,4)
 ! center_pts
 ! (70:79)
 ! -------------------------------------------------------------------------------------
+write(*,*) 'G'
 ! Already centered pts.
 coords42(:,1) = (/2.,2.,-2.,-2./)
 coords42(:,2) = (/2.,-2.,-2.,2./)
@@ -253,6 +262,7 @@ call kill_pts(pts_arr(1))
 ! mean_pts
 ! (80:89)
 ! -------------------------------------------------------------------------------------
+write(*,*) 'H'
 coords23(:,1) = (/5.,-5./)
 coords23(:,2) = (/5.,-5./)
 coords23(:,3) = (/5.,-5./)
@@ -272,6 +282,7 @@ call kill_pts(pts_arr,4)
 ! steal_xy_pts
 ! (90:99)
 ! -------------------------------------------------------------------------------------
+write(*,*) 'I'
 coords23(:,1) = (/5.,1./)
 coords23(:,2) = (/0.,-5./)
 coords23(:,3) = (/3.,2./)
@@ -289,15 +300,15 @@ call kill_pts(pts_arr,4)
 ! -------------------------------------------------------------------------------------
 ! Get some values to use (not testing anything)
 ! -------------------------------------------------------------------------------------
-coords43(:,1) = (/-20.,0.,35.,25./)
-coords43(:,2) = (/-30.,-10.,-10.,40./)
-coords43(:,3) = (/-4.,40.,20.,30./)
-pts_arr(1) = new_pts(4,3,coords43)
-do i=1,10
-    call RANDOM_NUMBER(three)
-    write(*,*) get_coords_pts(proj2d_pts(pts_arr(1), 360.*three(1), 180.*three(2), 360.*three(3)))
-end do
-call kill_pts(pts_arr,4)
+! coords43(:,1) = (/-20.,0.,35.,25./)
+! coords43(:,2) = (/-30.,-10.,-10.,40./)
+! coords43(:,3) = (/-4.,40.,20.,30./)
+! pts_arr(1) = new_pts(4,3,coords43)
+! do i=1,10
+    ! call RANDOM_NUMBER(three)
+    ! write(*,*) get_coords_pts(proj2d_pts(pts_arr(1), 360.*three(1), 180.*three(2), 360.*three(3)))
+! end do
+! call kill_pts(pts_arr,4)
 
 ! -------------------------------------------------------------------------------------
 ! Report results of tests

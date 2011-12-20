@@ -509,23 +509,26 @@ recursive function enum_match_pts(i, oldlist, imax) result(enmatch)
 	end if
     end do
     if (i == imax) then
-        enmatch = newlist
+        do n=1,size(newlist)
+            enmatch(n) = copy_int_sll_list(newlist(n))
+	end do
     else
 	nextsize = lowfact(imax) / lowfact(i) ! imax - i
         do n=1,i
             reslist(n,:) = enum_match_pts(i+1,newlist(n),imax)
 	    do m=1,nextsize
-		enmatch((n-1)*nextsize+m) = reslist(n,m)
+		enmatch((n-1)*nextsize+m) = copy_int_sll_list(reslist(n,m))
 	    end do
 	end do
+	! Kill sll lists. 
+	do n=1,size(reslist,1)
+            do m=1,size(reslist,2)
+                call kill_sll_list(reslist(n,m))
+	    end do
+        end do
     end if
     do n=1,size(newlist)
         call kill_sll_list(newlist(n))
-    end do
-    do n=1,size(reslist,1)
-        do m=1,size(reslist,2)
-            call kill_sll_list(reslist(n,m))
-	end do
     end do
 end function enum_match_pts
 
